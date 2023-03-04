@@ -1,0 +1,21 @@
+
+* admin keycloak üzerinden login olup token alacak
+* admin rolunda python rest api üzerinden kategoriler girilecek
+* kategori girince loglar logs servisine iletilip kayıt edilecek
+* admin rolu yemekleri kategori bazında girecek, eş zamanlı stok servisine ve account servisine de
+  kayıt düşecek.
+* yemekler girilirken loglar logs servisine iletilecek
+* user rolu yemekleri foods servisi ile listeleyecek, seçim yaparken adet bilgisi stock servisine  
+  iletilecek var/yok durumu notification ile bildirilecek
+* user rolu seçilen ürünlere göre ödeme safyasına gidecek. Ödeme sayfası account servisine göre   
+  stock kontrol edilip notification ile bildirilecek
+* ödeme yapılıp bilgilendirme yapılacak
+* servisler arası tüm iletişim kafka üzerinden yürütülecek
+* servis durumları zipkin üzerinden takip edilecek. 
+
+
+http://localhost:8761/
+
+
+python discovery: https://stackabuse.com/spring-boot-and-flask-microservices-eureka-client/
+notification:     https://devnot.com/2020/mikroservis-yaklasiminda-servisler-arasi-iletisim-mimarileri/ 
