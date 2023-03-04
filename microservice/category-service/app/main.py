@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from .database import get_db
 from app.controller import personel_api
 
 
@@ -16,5 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(personel_api.router, tags=['Personel'], prefix='/api')
+@app.get('/api/health')
+def root():
+    return {'response': 'Category Service FastApi'}
 
