@@ -4,6 +4,7 @@ pip install flask-cors
 pip install flask-sqlalchemy
 pip install pyscopg2
 pip install flask-migrate
+pip install kafka-python
 pip list
 
 

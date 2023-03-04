@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.controller import personel_api
+from kafka import KafkaProducer
 
 
 app = FastAPI()
@@ -17,6 +18,9 @@ app.add_middleware(
 )
 
 
-@app.get('/api/health')
+@app.get('/api/categoriys/send')
 def root():
+    producer = KafkaProducer(bootstrap_servers='localhost:9092')
+    producer.send('FOOD', b'Elma Kategorisi: 250')
+    producer.flush()
     return {'response': 'Category Service FastApi'}
