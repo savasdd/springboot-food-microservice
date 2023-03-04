@@ -1,5 +1,7 @@
 package com.food.controller;
 
+import com.food.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(allowedHeaders = "*",origins = "*")
 public class AccountController {
 
-    @GetMapping(value = "/accounts")
+    @Autowired
+    private AccountService service;
+
+    @GetMapping(value = "/accounts/send")
     public ResponseEntity<String> getTest(){
-        return new ResponseEntity<>("Account Service Test", HttpStatus.OK);
+        service.getAccountService().sendFood();
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 }
