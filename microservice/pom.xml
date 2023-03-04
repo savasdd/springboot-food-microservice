@@ -8,6 +8,7 @@
         <module>food-service</module>
         <module>stock-service</module>
         <module>account-service</module>
+        <module>logs-service</module>
     </modules>
 
     <parent>
