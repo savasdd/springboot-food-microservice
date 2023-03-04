@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>food-service</module>
+        <module>stock-service</module>
     </modules>
 
     <parent>
