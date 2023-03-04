@@ -10,6 +10,7 @@
         <module>account-service</module>
         <module>logs-service</module>
         <module>notification-service</module>
+        <module>discovery-server</module>
     </modules>
 
     <parent>
