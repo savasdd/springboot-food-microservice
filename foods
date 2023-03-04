@@ -18,4 +18,5 @@ http://localhost:8761/
 
 
 python discovery: https://stackabuse.com/spring-boot-and-flask-microservices-eureka-client/
-notification:     https://devnot.com/2020/mikroservis-yaklasiminda-servisler-arasi-iletisim-mimarileri/ 
+crud            : https://betterprogramming.pub/crud-api-with-flask-and-postgresql-15548d9ee48e
+notification    : https://devnot.com/2020/mikroservis-yaklasiminda-servisler-arasi-iletisim-mimarileri/ 
