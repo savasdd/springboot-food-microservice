@@ -1,7 +1,7 @@
 package com.food.service.impl;
 
-import com.food.event.AccountEvent;
-import com.food.event.FoodEvent;
+import com.food.event.AccountDto;
+import com.food.event.FoodDto;
 import com.food.utils.AccountUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,16 +14,19 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AccountServiceImpl {
 
-    private final KafkaTemplate<String,FoodEvent> kafkaTemplate;
+    private final KafkaTemplate<String, FoodDto> kafkaTemplate;
 
     @KafkaListener(topics = AccountUtils.FOOD, groupId = AccountUtils.GROUP_ID)
-    public void consumeFood(AccountEvent event) {
-        log.info(String.format("Message recieved food -> %s", event.getName()));
+    public void consumeFood(AccountDto dto) {
+        log.info("Kafka received account {} ",dto);
     }
 
     public void sendFood(){
-        FoodEvent foodEvent=new FoodEvent();
-        foodEvent.setName("Elma hesabı yapıldı:)");
-        kafkaTemplate.send(AccountUtils.ACCOUNT,foodEvent);
+        FoodDto dto=new FoodDto();
+        dto.setFoodName("Şeftali");
+        dto.setFoodType("Meyve");
+        dto.setDescription("Tüylü şeftali!");
+
+        kafkaTemplate.send(AccountUtils.ACCOUNT,dto);
     }
 }
