@@ -1,7 +1,7 @@
 package com.food.service.impl;
 
-import com.food.event.AccountDto;
-import com.food.event.FoodDto;
+import com.food.dto.AccountDto;
+import com.food.dto.FoodDto;
 import com.food.utils.FoodUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
