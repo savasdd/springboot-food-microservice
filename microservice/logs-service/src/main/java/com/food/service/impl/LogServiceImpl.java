@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.repository.AccountRepository;
 import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,5 +14,6 @@ public class LogServiceImpl {
 
     private final FoodRepository foodRepository;
     private final CategoryRepository categoryRepository;
+    private final AccountRepository accountRepository;
 
 }
