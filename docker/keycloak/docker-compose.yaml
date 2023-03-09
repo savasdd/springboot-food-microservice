@@ -9,7 +9,8 @@ services:
         - 8443:8443
       environment:
         DB_VENDOR: POSTGRES
-        DB_ADDR: 192.168.1.21:5432
+        #DB_ADDR: 192.168.1.21:5432
+        DB_ADDR: 10.10.28.13:5432
         DB_DATABASE: keycloak_db
         DB_USER: postgres
         DB_SCHEMA: public

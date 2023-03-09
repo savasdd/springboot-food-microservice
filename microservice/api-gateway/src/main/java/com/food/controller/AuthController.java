@@ -3,12 +3,14 @@ package com.food.controller;
 import com.food.dto.UserDto;
 import com.food.dto.UserRolDto;
 import com.food.service.AuthService;
+import com.food.utils.GatewayUtils;
 import com.food.utils.kyce.KeycloakTokenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,7 @@ public class AuthController {
         return new ResponseEntity<>(service.getAuthService().getToken(dto), HttpStatus.OK);
     }
 
+    @RolesAllowed({GatewayUtils.ADMIN_ROLU, GatewayUtils.USER_ROLU})
     @GetMapping("/auth/roles")
     public ResponseEntity<List<UserRolDto>> getUserRoles() throws Exception {
         return new ResponseEntity<>(service.getAuthService().getUserRoles(), HttpStatus.OK);
