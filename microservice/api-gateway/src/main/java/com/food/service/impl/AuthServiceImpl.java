@@ -23,13 +23,15 @@ public class AuthServiceImpl {
     private final KeycloakAuthClient client;
 
     public KeycloakTokenResponse getToken(UserDto dto) throws Exception {
-        AccessTokenResponse response = client.authenticate(dto);
+        AccessTokenResponse response = client.authenticateApi(dto);
+        log.info("Generate Token: " + dto.getUsername());
+        return new KeycloakTokenResponse(response.getToken(), response.getExpiresIn(), response.getTokenType(), utils.getUserRol(response.getToken()), response.getRefreshToken(), response.getRefreshExpiresIn());
 
-        if (client.isLoginUser(dto.getUsername())) {
-            log.info("Generate Token: " + dto.getUsername());
-            return new KeycloakTokenResponse(response.getToken(), response.getExpiresIn(), response.getTokenType(), utils.getUserRol(response.getToken()), response.getRefreshToken(), response.getRefreshExpiresIn());
-        } else
-            throw new Exception("Kullanıcı Giriş Yetkisi Yok!");
+//        if (client.isLoginUser(dto.getUsername())) {
+//            log.info("Generate Token: " + dto.getUsername());
+//            return new KeycloakTokenResponse(response.getToken(), response.getExpiresIn(), response.getTokenType(), utils.getUserRol(response.getToken()), response.getRefreshToken(), response.getRefreshExpiresIn());
+//        } else
+//            throw new Exception("Kullanıcı Giriş Yetkisi Yok!");
     }
 
     public KeycloakTokenResponse refreshToken(String token) {

@@ -56,6 +56,32 @@ public class KeycloakAuthClient {
         return resp;
     }
 
+    public AccessTokenResponse authenticateApi(UserDto dto) {
+        MultiValueMap<String, String> paramMap = new LinkedMultiValueMap<>();
+        paramMap.add("client_id", clientId);
+        paramMap.add("client_secret", clientSecret);
+        paramMap.add("username", dto.getUsername().split("@")[0].trim());
+        paramMap.add("password", dto.getPassword().trim());
+        paramMap.add("grant_type", OAuth2Constants.PASSWORD);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(paramMap, headers);
+
+        log.info("Try to authenticate");
+        final RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(authUrl, HttpMethod.POST, entity, AccessTokenResponse.class);
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            log.error("Failed to authenticate");
+            throw new RuntimeException("Failed to authenticate");
+        }
+
+        log.info("Authentication success");
+        return response.getBody();
+    }
+
+
     public AccessTokenResponse refreshToken(String token) {
         MultiValueMap<String, String> paramMap = new LinkedMultiValueMap<>();
         paramMap.add("client_id", clientId);

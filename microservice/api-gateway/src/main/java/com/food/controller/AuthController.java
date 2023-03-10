@@ -33,8 +33,13 @@ public class AuthController {
     }
 
     @PostMapping("/resfresh")
-    public ResponseEntity<KeycloakTokenResponse> refreshToken(@RequestBody   KeycloakTokenResponse token) {
+    public ResponseEntity<KeycloakTokenResponse> refreshToken(@RequestBody KeycloakTokenResponse token) {
         return new ResponseEntity<>(service.getAuthService().refreshToken(token.getRefreshToken()), HttpStatus.OK);
+    }
+
+    @GetMapping("/auth/test")
+    public ResponseEntity<String> Test() throws Exception {
+        return new ResponseEntity<>("merhaba", HttpStatus.OK);
     }
 
 }
