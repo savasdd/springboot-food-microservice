@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @Builder
@@ -13,13 +13,19 @@ import java.math.BigDecimal;
 public class Account {
 
     @Id
-    private String accountId;
+    private String id;
 
-    private String foodId;
+    private String username;
 
-    private Double totalCount;
+    private String service;
 
-    private BigDecimal totalPrice;
+    private String method;
 
-    private String description;
+    private String path;
+
+    private Long status;
+
+    private Object body;
+
+    private Date createDate;
 }

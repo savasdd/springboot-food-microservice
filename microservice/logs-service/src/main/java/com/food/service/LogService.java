@@ -1,5 +1,6 @@
 package com.food.service;
 
+import com.food.service.impl.LogServiceImpl;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,5 +10,5 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LogService {
 
-    private final LogService logService;
+    private final LogServiceImpl logService;
 }
