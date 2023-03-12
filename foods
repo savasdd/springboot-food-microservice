@@ -20,3 +20,11 @@ http://localhost:8761/
 python discovery: https://stackabuse.com/spring-boot-and-flask-microservices-eureka-client/
 crud            : https://betterprogramming.pub/crud-api-with-flask-and-postgresql-15548d9ee48e
 notification    : https://devnot.com/2020/mikroservis-yaklasiminda-servisler-arasi-iletisim-mimarileri/ 
+
+
+==>mysql config:
+docker exec -it mysql_db bash
+mysql -uroot -p
+show databases;
+select user,host from mysql.user;
+update mysql.user set host='%' where user='root';
