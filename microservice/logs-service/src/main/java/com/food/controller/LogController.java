@@ -1,5 +1,6 @@
 package com.food.controller;
 
+import com.food.model.Account;
 import com.food.model.Food;
 import com.food.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,15 @@ public class LogController {
     @PostMapping(value = "/logs/foods")
     public ResponseEntity<Boolean> createFood(@RequestBody Food dto){
         return new ResponseEntity<>(service.getLogService().createFood(dto),HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/logs/accounts")
+    public ResponseEntity<List<Account>> getAllAccount(){
+        return new ResponseEntity<>(service.getLogService().getAllAccount(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/logs/accounts")
+    public ResponseEntity<Boolean> createAccount(@RequestBody Account dto){
+        return new ResponseEntity<>(service.getLogService().createAccount(dto),HttpStatus.CREATED);
     }
 }

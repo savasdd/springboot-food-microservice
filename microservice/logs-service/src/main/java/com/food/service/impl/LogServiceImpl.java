@@ -17,8 +17,9 @@ import java.util.List;
 public class LogServiceImpl {
 
     private final FoodRepository foodRepository;
-    private final CategoryRepository categoryRepository;
     private final AccountRepository accountRepository;
+    private final CategoryRepository categoryRepository;
+
 
     public List<Food> getAllFood(){
         var list=foodRepository.findAll();
