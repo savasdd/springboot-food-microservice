@@ -37,9 +37,5 @@ public class AuthController {
         return new ResponseEntity<>(service.getAuthService().refreshToken(token.getRefreshToken()), HttpStatus.OK);
     }
 
-    @GetMapping("/auth/test")
-    public ResponseEntity<String> Test() throws Exception {
-        return new ResponseEntity<>("merhaba", HttpStatus.OK);
-    }
 
 }
