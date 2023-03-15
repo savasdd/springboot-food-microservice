@@ -25,7 +25,7 @@ public class LogController {
 
     @PostMapping(value = "/logs/foods")
     public ResponseEntity<Boolean> createFood(@RequestBody Food dto){
-        return new ResponseEntity<>(service.getLogService().createFood(dto),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.getLogService().createFood(dto),HttpStatus.OK);
     }
 
     @GetMapping(value = "/logs/accounts")
@@ -35,6 +35,6 @@ public class LogController {
 
     @PostMapping(value = "/logs/accounts")
     public ResponseEntity<Boolean> createAccount(@RequestBody Account dto){
-        return new ResponseEntity<>(service.getLogService().createAccount(dto),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.getLogService().createAccount(dto),HttpStatus.OK);
     }
 }
