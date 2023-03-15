@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class AccountUtils {
 
+    public static final String LOG_URL="http://logs-service/api/logs/accounts";
     public static final String ACCOUNT = "ACCOUNT";
     public static final String FOOD = "FOOD";
     public static final String STOCK = "STOCK";

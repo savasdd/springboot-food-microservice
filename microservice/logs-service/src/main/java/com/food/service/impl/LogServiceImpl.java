@@ -2,9 +2,11 @@ package com.food.service.impl;
 
 import com.food.model.Account;
 import com.food.model.Food;
+import com.food.model.Stock;
 import com.food.repository.AccountRepository;
 import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
+import com.food.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,7 @@ public class LogServiceImpl {
 
     private final FoodRepository foodRepository;
     private final AccountRepository accountRepository;
+    private final StockRepository stockRepository;
     private final CategoryRepository categoryRepository;
 
 
@@ -41,6 +44,19 @@ public class LogServiceImpl {
     public Boolean createAccount(Account dto){
         var model=accountRepository.save(dto);
         log.info("create account {} ",model.getId());
+        return true;
+    }
+
+
+    public List<Stock> getAllStock(){
+        var list=stockRepository.findAll();
+        log.info("list stock {} ",list.size());
+        return list;
+    }
+
+    public Boolean createStock(Stock dto){
+        var model=stockRepository.save(dto);
+        log.info("create stock {} ",model.getId());
         return true;
     }
 
