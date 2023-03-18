@@ -1,6 +1,7 @@
 package com.food.service.impl;
 
 import com.food.model.Account;
+import com.food.model.Category;
 import com.food.model.Food;
 import com.food.model.Stock;
 import com.food.repository.AccountRepository;
@@ -57,6 +58,18 @@ public class LogServiceImpl {
     public Boolean createStock(Stock dto){
         var model=stockRepository.save(dto);
         log.info("create stock {} ",model.getId());
+        return true;
+    }
+
+    public List<Category> getAllCategory(){
+        var list=categoryRepository.findAll();
+        log.info("list category {} ",list.size());
+        return list;
+    }
+
+    public Boolean createCategory(Category dto){
+        var model=categoryRepository.save(dto);
+        log.info("create category {} ",model.getId());
         return true;
     }
 

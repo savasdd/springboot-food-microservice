@@ -1,6 +1,7 @@
 package com.food.controller;
 
 import com.food.model.Account;
+import com.food.model.Category;
 import com.food.model.Food;
 import com.food.model.Stock;
 import com.food.service.LogService;
@@ -47,5 +48,16 @@ public class LogController {
     @PostMapping(value = "/logs/stocks")
     public ResponseEntity<Boolean> createStock(@RequestBody Stock dto){
         return new ResponseEntity<>(service.getLogService().createStock(dto),HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/logs/categorys")
+    public ResponseEntity<List<Category>> getAllCategory(){
+        return new ResponseEntity<>(service.getLogService().getAllCategory(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/logs/categorys")
+    public ResponseEntity<Boolean> createCategory(@RequestBody Category dto){
+        return new ResponseEntity<>(service.getLogService().createCategory(dto),HttpStatus.OK);
     }
 }
