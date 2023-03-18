@@ -2,7 +2,7 @@ package com.food.controller;
 
 import com.food.dto.StockDto;
 import com.food.service.StockService;
-import com.food.utils.aop.Log;
+import com.food.utils.aop.MongoLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +24,17 @@ public class StockController {
         return new ResponseEntity<>(service.getStockService().getAll(), HttpStatus.OK);
     }
 
-    @Log
+    @MongoLog
     @PostMapping(value = "/stocks")
     public ResponseEntity<StockDto> create(@RequestBody StockDto dto){
         return new ResponseEntity<>(service.getStockService().create(dto),HttpStatus.CREATED);
     }
-    @Log
+    @MongoLog
     @PutMapping(value = "/stocks/{id}")
     public ResponseEntity<StockDto> update(@PathVariable("id")UUID id,@RequestBody StockDto dto){
         return new ResponseEntity<>(service.getStockService().update(id,dto),HttpStatus.OK);
     }
-    @Log
+    @MongoLog
     @DeleteMapping(value = "/stocks/{id}")
     public ResponseEntity<StockDto> delete(@PathVariable("id") UUID id){
         return new ResponseEntity<>(service.getStockService().delete(id),HttpStatus.OK);
