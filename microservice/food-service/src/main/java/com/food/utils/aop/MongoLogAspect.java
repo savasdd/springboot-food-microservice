@@ -22,20 +22,20 @@ import java.util.Date;
 
 @Aspect
 @Component
-public class LogAspect {
+public class MongoLogAspect {
     @Autowired
     private ObjectMapper mapper;
 
     @Autowired
     private LogService service;
 
-    @Pointcut("@annotation(com.food.utils.aop.Log)")
+    @Pointcut("@annotation(com.food.utils.aop.MongoLog)")
     public void logAnnotation() {
 
     }
 
     @Around(value = "logAnnotation() && @annotation(log)")
-    public Object createIslemLog(ProceedingJoinPoint joinPoint, Log log) throws Throwable {
+    public Object createIslemLog(ProceedingJoinPoint joinPoint, MongoLog log) throws Throwable {
         Object result = null;
         LogDto dto=new LogDto();
 

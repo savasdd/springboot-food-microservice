@@ -2,7 +2,7 @@ package com.food.controller;
 
 import com.food.dto.CategoryDto;
 import com.food.service.CategoryService;
-import com.food.utils.aop.Log;
+import com.food.utils.aop.MongoLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,19 +25,19 @@ public class CategoryController {
         return new ResponseEntity<>(service.getCategoryService().getAll(), HttpStatus.OK);
     }
 
-    @Log
+    @MongoLog
     @PostMapping(value = "/categorys")
     public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto dto){
         return new ResponseEntity<>(service.getCategoryService().create(dto),HttpStatus.CREATED);
     }
 
-    @Log
+    @MongoLog
     @PutMapping(value = "/categorys/{id}")
     public ResponseEntity<CategoryDto> update(@PathVariable("id") UUID id, @RequestBody CategoryDto dto){
         return new ResponseEntity<>(service.getCategoryService().update(id, dto),HttpStatus.OK);
     }
 
-    @Log
+    @MongoLog
     @DeleteMapping(value = "/categorys/{id}")
     public ResponseEntity<CategoryDto> delete(@PathVariable("id") UUID id){
         return new ResponseEntity<>(service.getCategoryService().delete(id),HttpStatus.OK);
