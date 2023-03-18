@@ -11,6 +11,7 @@
         <module>logs-service</module>
         <module>discovery-server</module>
         <module>api-gateway</module>
+        <module>category-service</module>
     </modules>
 
     <parent>
