@@ -31,10 +31,12 @@ public class StockServiceImpl {
     @KafkaListener(topics = StockUtils.STOCK, groupId = StockUtils.GROUP_ID)
     public void consumeFood(StockEvent event) {
         if(event.getStock()!=null){
-            if(event.getStock().getStockId()!=null)
-                update(event.getStock().getStockId(),event.getStock());
-            else
+            if(event.getStatus()==200)
                 create(event.getStock());
+            else if(event.getStatus()==201)
+                update(event.getStock().getStockId(),event.getStock());
+            else if(event.getStatus()==202)
+                delete(event.getStock().getStockId());
         }
 
         log.info(event.getMessage()+" {}",event.getStatus());

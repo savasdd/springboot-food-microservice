@@ -78,7 +78,7 @@ public class FoodServiceImpl {
             dto.setFoodId(foodId);
             dto.setDescription(dto.getCount() + " -> " + dto.getPrice());
 
-            event.setMessage("food producer stock");
+            event.setMessage("food producer create stock");
             event.setStatus(200);
             event.setStock(dto);
             kafkaTemplateStock.send(FoodUtils.STOCK, event);
