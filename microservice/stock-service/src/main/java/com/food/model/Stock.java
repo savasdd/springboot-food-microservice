@@ -28,7 +28,8 @@ public class Stock {
     @Type(type = "uuid-char")
     private UUID stockId;
 
-    @Column(name = "FOOD_ID")
+    @Column(name = "FOOD_ID", columnDefinition = "char(36)")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID foodId;
 
     @Column(name = "COUNT")
@@ -41,7 +42,7 @@ public class Stock {
     private String description;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "VERSYION")
     private Long version;
 
     @CreatedBy

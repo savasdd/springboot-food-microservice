@@ -10,11 +10,16 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoodDto {
+public class StockDto {
+
+    private UUID stockId;
 
     private UUID foodId;
-    private String foodName;
-    private String foodCategoryId;
+
+    private Double count;
+
+    private BigDecimal price;
+
     private String description;
 
 }

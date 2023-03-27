@@ -1,10 +1,13 @@
 package com.food.service.impl;
 
 import com.food.dto.StockDto;
+import com.food.event.StockEvent;
 import com.food.model.Stock;
 import com.food.repository.StockRepository;
+import com.food.utils.StockUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,6 +26,18 @@ public class StockServiceImpl {
         var dtolList=list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());
         log.info("list stock {} ",list.size());
         return dtolList;
+    }
+
+    @KafkaListener(topics = StockUtils.STOCK, groupId = StockUtils.GROUP_ID)
+    public void consumeFood(StockEvent event) {
+        if(event.getStock()!=null){
+            if(event.getStock().getStockId()!=null)
+                update(event.getStock().getStockId(),event.getStock());
+            else
+                create(event.getStock());
+        }
+
+        log.info(event.getMessage()+" {}",event.getStatus());
     }
 
     public StockDto create(StockDto dto){

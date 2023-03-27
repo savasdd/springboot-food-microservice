@@ -25,7 +25,7 @@ public class Food {
     @Column(name = "FOOD_ID")
     private UUID foodId;
 
-    @Column(name = "FOOD_TYPE")
+    @Column(name = "FOOD_NAME")
     private String foodName;
 
     @Column(name = "CATEGORY_ID")
@@ -35,7 +35,7 @@ public class Food {
     private String description;
 
     @Version
-    @Column(name = "VERSION")
+    @Column(name = "VERSYION")
     private Long version;
 
     @CreatedBy

@@ -1,7 +1,9 @@
 package com.food.service.impl;
 
-import com.food.dto.AccountDto;
 import com.food.dto.FoodDto;
+import com.food.dto.StockDto;
+import com.food.event.AccountEvent;
+import com.food.event.StockEvent;
 import com.food.model.Food;
 import com.food.repository.FoodRepository;
 import com.food.utils.FoodUtils;
@@ -11,7 +13,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,20 +22,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FoodServiceImpl {
 
-    private final KafkaTemplate<String, AccountDto> kafkaTemplate;
+    private final KafkaTemplate<String, StockEvent> kafkaTemplateStock;
+    private final KafkaTemplate<String, AccountEvent> kafkaTemplateAccount;
     private final FoodRepository repository;
 
     @KafkaListener(topics = FoodUtils.ACCOUNT, groupId = FoodUtils.GROUP_ID)
     public void consumeAccount(FoodDto dto) {
         log.info("Kafka received food {} ",dto);
-    }
-
-    public void sendAccount(){
-        AccountDto dto=new AccountDto();
-        dto.setFoodName("Şeftali");
-        dto.setFoodCount(20);
-        dto.setFoodPrice(new BigDecimal(125.86));
-        kafkaTemplate.send(FoodUtils.FOOD,dto);
     }
 
     public List<FoodDto> getAll(){
@@ -74,6 +68,26 @@ public class FoodServiceImpl {
             return dto;
         }else
             return null;
+    }
+
+    public StockEvent producerStockCreate(UUID foodId,StockDto dto){
+        var food=repository.findById(foodId);
+        StockEvent event = new StockEvent();
+
+        if(food.isPresent()) {
+            dto.setFoodId(foodId);
+            dto.setDescription(dto.getCount() + " -> " + dto.getPrice());
+
+            event.setMessage("food producer stock");
+            event.setStatus(200);
+            event.setStock(dto);
+            kafkaTemplateStock.send(FoodUtils.STOCK, event);
+            log.info("food producer stock {} ",foodId);
+        }
+        else
+            event.setMessage("food not found: "+foodId);
+
+        return event;
     }
 
 

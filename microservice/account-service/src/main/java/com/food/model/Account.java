@@ -28,7 +28,8 @@ public class Account {
     @Type(type = "uuid-char")
     private UUID accountId;
 
-    @Column(name = "FOOD_ID")
+    @Column(name = "FOOD_ID", columnDefinition = "char(36)")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID foodId;
 
     @Column(name = "TOTAL_COUNT")
