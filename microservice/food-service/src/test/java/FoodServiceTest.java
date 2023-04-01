@@ -2,6 +2,7 @@ import com.food.dto.FoodDto;
 import com.food.model.Food;
 import com.food.repository.FoodRepository;
 import com.food.service.impl.FoodServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@Slf4j
 public class FoodServiceTest {
 
     @Mock
@@ -39,6 +41,7 @@ public class FoodServiceTest {
         Assertions.assertNotNull(foodDtoList);
         Assertions.assertEquals(foodDtoList.size(), 1);
         Assertions.assertEquals(foodDtoList.get(0).getFoodName(), "Pizza");
+        log.info("Test GetAll Food");
     }
 
     @Test
@@ -52,6 +55,7 @@ public class FoodServiceTest {
         FoodDto foodDtoResponse = service.create(foodDto);
         Assertions.assertNotNull(foodDtoResponse);
         Assertions.assertEquals(foodDtoResponse.getFoodName(), foodDto.getFoodName());
+        log.info("Test Create Food");
     }
 
     @Test
@@ -67,6 +71,7 @@ public class FoodServiceTest {
         FoodDto foodDtoResponse = service.update(id, foodDto);
         Assertions.assertNotNull(foodDtoResponse);
         Assertions.assertEquals(foodDtoResponse.getFoodName(), foodDto.getFoodName());
+        log.info("Test Update Food");
     }
 
     @Test
@@ -87,6 +92,7 @@ public class FoodServiceTest {
         assertEquals(food.getFoodName(), deletedFoodDto.getFoodName());
         assertEquals(food.getFoodCategoryId(), deletedFoodDto.getFoodCategoryId());
         assertEquals(food.getDescription(), deletedFoodDto.getDescription());
+        log.info("Test Delete Food");
     }
 
     @Test
