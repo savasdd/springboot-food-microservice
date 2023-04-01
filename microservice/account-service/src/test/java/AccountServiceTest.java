@@ -48,13 +48,9 @@ public class AccountServiceTest {
 
     @Test
     void createAccountTest(){
-        AccountDto dto=new AccountDto();
-        dto.setAccountId(UUID.randomUUID());
-        dto.setFoodId(UUID.randomUUID());
-        dto.setTotalCount(10.0);
-        dto.setTotalPrice(BigDecimal.ZERO);
-        dto.setDescription("pizza account");
+        AccountDto dto=AccountDto.builder().accountId(UUID.randomUUID()).foodId(UUID.randomUUID()).totalCount(10.0).totalPrice(BigDecimal.ZERO).description("pizza account").build();
         Account account=Account.builder().accountId(UUID.randomUUID()).foodId(UUID.randomUUID()).totalCount(10.0).totalPrice(BigDecimal.ZERO).description("pizza account").build();
+
         Mockito.when(repository.save(Mockito.any())).thenReturn(account);
         AccountDto response=service.create(dto);
         Assertions.assertNotNull(response);
