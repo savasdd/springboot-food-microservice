@@ -1,16 +1,20 @@
-package com.food.dto;
+package com.food.model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class LogDto {
+@Document
+public class LogAccount {
 
+    @Id
     private String id;
 
     private String username;

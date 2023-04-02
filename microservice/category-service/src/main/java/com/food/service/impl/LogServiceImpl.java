@@ -1,6 +1,6 @@
 package com.food.service.impl;
 
-import com.food.dto.LogDto;
+import com.food.dto.LogCategory;
 import com.food.utils.CategoryUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class LogServiceImpl {
 
     private final WebClient.Builder webClient;
 
-    public void sendLog(LogDto dto){
+    public void sendLog(LogCategory dto){
 
         var response = webClient.build().post()
                 .uri(CategoryUtils.LOG_URL)

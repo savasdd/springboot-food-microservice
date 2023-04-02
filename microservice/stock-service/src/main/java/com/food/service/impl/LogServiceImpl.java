@@ -1,6 +1,6 @@
 package com.food.service.impl;
 
-import com.food.dto.LogDto;
+import com.food.dto.LogStock;
 import com.food.utils.StockUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class LogServiceImpl {
 
     private final WebClient.Builder webClient;
 
-    public void sendLog(LogDto dto){
+    public void sendLog(LogStock dto){
 
         var response = webClient.build().post()
                 .uri(StockUtils.LOG_URL)

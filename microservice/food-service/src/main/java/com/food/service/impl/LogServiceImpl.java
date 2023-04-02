@@ -1,9 +1,7 @@
 package com.food.service.impl;
 
-import com.food.dto.LogDto;
-import com.food.dto.StockDto;
-import com.food.event.LogEvent;
-import com.food.event.StockEvent;
+import com.food.dto.LogFood;
+import com.food.event.LogFoodEvent;
 import com.food.utils.FoodUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,23 +11,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.UUID;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class LogServiceImpl {
 
     private final WebClient.Builder webClient;
-    private final KafkaTemplate<String, LogEvent> kafkaTemplate;
+    private final KafkaTemplate<String, LogFoodEvent> kafkaTemplate;
 
-    public void producerLog(LogDto dto){
-        LogEvent event =LogEvent.builder().log(dto).status(200).message("food kafka log").build();
+    public void producerLog(LogFood dto){
+        LogFoodEvent event = LogFoodEvent.builder().log(dto).status(200).message("food kafka log").build();
         kafkaTemplate.send(FoodUtils.FOOD_LOG, event);
         log.info("create food logs");
     }
 
-    public void sendLog(LogDto dto){
+    public void sendLog(LogFood dto){
 
         var response = webClient.build().post()
                 .uri(FoodUtils.LOG_URL)

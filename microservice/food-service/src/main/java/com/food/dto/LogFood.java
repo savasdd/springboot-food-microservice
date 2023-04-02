@@ -9,7 +9,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LogDto {
+public class LogFood {
 
     private String id;
 

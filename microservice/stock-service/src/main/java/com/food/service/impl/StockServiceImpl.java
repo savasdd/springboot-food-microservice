@@ -26,7 +26,6 @@ public class StockServiceImpl {
     private final KafkaTemplate<String, AccountEvent> kafkaTemplateAccount;
     private final StockRepository repository;
 
-
     public List<StockDto> getAll(UUID foodId){
         var list=repository.findByFoodId(foodId);
         var dtolList=list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());

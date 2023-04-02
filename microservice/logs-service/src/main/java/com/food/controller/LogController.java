@@ -1,9 +1,9 @@
 package com.food.controller;
 
-import com.food.model.Account;
-import com.food.model.Category;
-import com.food.model.Food;
-import com.food.model.Stock;
+import com.food.model.LogAccount;
+import com.food.model.LogCategory;
+import com.food.model.LogFood;
+import com.food.model.LogStock;
 import com.food.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,43 +21,43 @@ public class LogController {
     private LogService service;
 
     @GetMapping(value = "/logs/foods")
-    public ResponseEntity<List<Food>> getAllFood(){
+    public ResponseEntity<List<LogFood>> getAllFood(){
         return new ResponseEntity<>(service.getLogService().getAllFood(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/logs/foods")
-    public ResponseEntity<Boolean> createFood(@RequestBody Food dto){
+    public ResponseEntity<Boolean> createFood(@RequestBody LogFood dto){
         return new ResponseEntity<>(service.getLogService().createFood(dto),HttpStatus.OK);
     }
 
     @GetMapping(value = "/logs/accounts")
-    public ResponseEntity<List<Account>> getAllAccount(){
+    public ResponseEntity<List<LogAccount>> getAllAccount(){
         return new ResponseEntity<>(service.getLogService().getAllAccount(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/logs/accounts")
-    public ResponseEntity<Boolean> createAccount(@RequestBody Account dto){
+    public ResponseEntity<Boolean> createAccount(@RequestBody LogAccount dto){
         return new ResponseEntity<>(service.getLogService().createAccount(dto),HttpStatus.OK);
     }
 
     @GetMapping(value = "/logs/stocks")
-    public ResponseEntity<List<Stock>> getAllStock(){
+    public ResponseEntity<List<LogStock>> getAllStock(){
         return new ResponseEntity<>(service.getLogService().getAllStock(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/logs/stocks")
-    public ResponseEntity<Boolean> createStock(@RequestBody Stock dto){
+    public ResponseEntity<Boolean> createStock(@RequestBody LogStock dto){
         return new ResponseEntity<>(service.getLogService().createStock(dto),HttpStatus.OK);
     }
 
 
     @GetMapping(value = "/logs/categorys")
-    public ResponseEntity<List<Category>> getAllCategory(){
+    public ResponseEntity<List<LogCategory>> getAllCategory(){
         return new ResponseEntity<>(service.getLogService().getAllCategory(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/logs/categorys")
-    public ResponseEntity<Boolean> createCategory(@RequestBody Category dto){
+    public ResponseEntity<Boolean> createCategory(@RequestBody LogCategory dto){
         return new ResponseEntity<>(service.getLogService().createCategory(dto),HttpStatus.OK);
     }
 }

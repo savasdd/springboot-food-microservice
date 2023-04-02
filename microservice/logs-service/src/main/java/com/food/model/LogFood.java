@@ -1,8 +1,6 @@
 package com.food.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,8 +9,10 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Document
-public class Account {
+public class LogFood {
 
     @Id
     private String id;

@@ -1,21 +1,16 @@
-package com.food.model;
+package com.food.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.*;
 
 import java.util.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@Document
-public class Food {
+public class LogStock {
 
-    @Id
     private String id;
 
     private String username;

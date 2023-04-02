@@ -2,7 +2,7 @@ package com.food.utils.aop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.dto.LogDto;
+import com.food.dto.LogAccount;
 import com.food.service.LogService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -37,7 +37,7 @@ public class MongoLogAspect {
     @Around(value = "logAnnotation() && @annotation(log)")
     public Object createIslemLog(ProceedingJoinPoint joinPoint, MongoLog log) throws Throwable {
         Object result = null;
-        LogDto dto=new LogDto();
+        LogAccount dto=new LogAccount();
 
         Class<? extends Object> sinif = joinPoint.getTarget().getClass();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

@@ -25,11 +25,6 @@ public class FoodServiceImpl {
     private final KafkaTemplate<String, StockEvent> kafkaTemplateStock;
     private final FoodRepository repository;
 
-    @KafkaListener(topics = FoodUtils.ACCOUNT, groupId = FoodUtils.GROUP_ID)
-    public void consumeAccount(FoodDto dto) {
-        log.info("Kafka received food {} ",dto);
-    }
-
     public List<FoodDto> getAll(){
         var list=repository.findAll();
         var dtoList=list.stream().map(var->modelMapDto(var)).collect(Collectors.toList());
