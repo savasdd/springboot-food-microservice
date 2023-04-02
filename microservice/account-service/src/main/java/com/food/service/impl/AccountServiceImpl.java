@@ -1,14 +1,13 @@
 package com.food.service.impl;
 
 import com.food.dto.AccountDto;
-import com.food.dto.FoodDto;
+import com.food.event.AccountEvent;
 import com.food.model.Account;
 import com.food.repository.AccountRepository;
 import com.food.utils.AccountUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,21 +19,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AccountServiceImpl {
 
-    private final KafkaTemplate<String, FoodDto> kafkaTemplate;
     private final AccountRepository repository;
 
-    @KafkaListener(topics = AccountUtils.FOOD, groupId = AccountUtils.GROUP_ID)
-    public void consumeFood(AccountDto dto) {
-        log.info("Kafka received account {} ",dto);
-    }
+    @KafkaListener(topics = AccountUtils.ACCOUNT, groupId = AccountUtils.GROUP_ID)
+    public void consumeStock(AccountEvent event) {
+        if(event.getAccount()!=null){
+            var account=repository.findByFoodId(event.getAccount().getFoodId());
+            if(account.isPresent())
+                update(account.get().getAccountId(), event.getAccount());
+            else
+                create(event.getAccount());
+        }
 
-    public void sendFood(){
-        FoodDto dto=new FoodDto();
-        dto.setFoodName("Şeftali");
-        dto.setFoodType("Meyve");
-        dto.setDescription("Tüylü şeftali!");
-
-        kafkaTemplate.send(AccountUtils.ACCOUNT,dto);
+        log.info(event.getMessage()+" {}",event.getStatus());
     }
 
     public List<AccountDto> getAll(){
@@ -80,10 +77,10 @@ public class AccountServiceImpl {
 
 
     private AccountDto modelMapDto(Account dto){
-        return AccountDto.builder().accountId(dto.getAccountId()).foodId(dto.getFoodId()).totalCount(dto.getTotalCount()).totalPrice(dto.getTotalPrice()).description(dto.getDescription()).build();
+        return AccountDto.builder().accountId(dto.getAccountId()).foodId(dto.getFoodId()).stockId(dto.getStockId()).totalCount(dto.getTotalCount()).totalPrice(dto.getTotalPrice()).description(dto.getDescription()).build();
     }
 
     private Account dtoMapModel(AccountDto dto){
-        return Account.builder().accountId(dto.getAccountId()).foodId(dto.getFoodId()).totalCount(dto.getTotalCount()).totalPrice(dto.getTotalPrice()).description(dto.getDescription()).build();
+        return Account.builder().accountId(dto.getAccountId()).foodId(dto.getFoodId()).stockId(dto.getStockId()).totalCount(dto.getTotalCount()).totalPrice(dto.getTotalPrice()).description(dto.getDescription()).build();
     }
 }

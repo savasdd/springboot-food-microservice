@@ -17,11 +17,6 @@ import java.util.UUID;
 public class AccountController {
     @Autowired
     private AccountService service;
-    @GetMapping(value = "/accounts/send")
-    public ResponseEntity<String> getTest(){
-        service.getAccountService().sendFood();
-        return new ResponseEntity<>("Success", HttpStatus.OK);
-    }
 
     @GetMapping(value = "/accounts")
     public ResponseEntity<List<AccountDto>> getAll(){

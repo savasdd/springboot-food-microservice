@@ -16,6 +16,8 @@ public class AccountDto {
 
     private UUID foodId;
 
+    private UUID stockId;
+
     private Double totalCount;
 
     private BigDecimal totalPrice;

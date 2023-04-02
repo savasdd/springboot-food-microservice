@@ -36,10 +36,11 @@ public class StockServiceTest {
 
     @Test
     void getStockAllTest(){
+        UUID uuid=UUID.randomUUID();
         List<Stock> list=new ArrayList<>();
-        list.add(Stock.builder().stockId(UUID.randomUUID()).foodId(UUID.randomUUID()).count(10.0).price(BigDecimal.ZERO).description("stock test").build());
+        list.add(Stock.builder().stockId(UUID.randomUUID()).foodId(uuid).count(10.0).price(BigDecimal.ZERO).description("stock test").build());
         Mockito.when(repository.findAll()).thenReturn(list);
-        List<StockDto> dtoList=service.getAll();
+        List<StockDto> dtoList=service.getAll(uuid);
         Assertions.assertNotNull(dtoList);
         assertEquals(list.size(),1);
         assertEquals(list.get(0).getDescription(),"stock test");
@@ -52,7 +53,7 @@ public class StockServiceTest {
         StockDto dto=StockDto.builder().stockId(UUID.randomUUID()).foodId(uuid).count(10.0).price(BigDecimal.ZERO).description("stock test").build();
         Stock category=Stock.builder().stockId(UUID.randomUUID()).foodId(uuid).count(10.0).price(BigDecimal.ZERO).description("stock test").build();
         Mockito.when(repository.save(Mockito.any())).thenReturn(category);
-        StockDto response=service.create(dto);
+        StockDto response=service.create(uuid,dto);
         Assertions.assertNotNull(response);
         assertEquals(response.getDescription(),dto.getDescription());
         log.info("Test Create Stock");
@@ -67,7 +68,7 @@ public class StockServiceTest {
         Mockito.when(repository.findById(uuid)).thenReturn(account);
         Mockito.when(repository.save(Mockito.any())).thenReturn(Stock.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).count(dto.getCount()).price(dto.getPrice()).description(dto.getDescription()).build());
 
-        StockDto response=service.update(uuid,dto);
+        StockDto response=service.update(uuid,uuid,dto);
         Assertions.assertNotNull(response);
         assertEquals(response.getFoodId(),dto.getFoodId());
         assertEquals(response.getDescription(),dto.getDescription());
@@ -81,7 +82,7 @@ public class StockServiceTest {
         Stock category=Stock.builder().stockId(uuid).foodId(uuid).count(2.0).price(BigDecimal.ZERO).description("stock test").build();
 
         when(repository.findById(uuid)).thenReturn(Optional.of(category));
-        StockDto response=service.delete(uuid);
+        StockDto response=service.delete(uuid,uuid);
         verify(repository,times(1)).delete(category);
         assertNotNull(response);
         assertEquals(uuid,response.getStockId());
@@ -95,7 +96,7 @@ public class StockServiceTest {
         final UUID uuid = UUID.randomUUID();
         when(repository.findById(uuid)).thenReturn(Optional.empty());
 
-        StockDto response = service.delete(uuid);
+        StockDto response = service.delete(uuid,uuid);
         verify(repository, times(0)).delete(any(Stock.class));
         assertNull(response);
     }

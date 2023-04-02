@@ -42,7 +42,6 @@ public class Stock {
     private String description;
 
     @Version
-    @Column(name = "VERSYION")
     private Long version;
 
     @CreatedBy

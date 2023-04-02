@@ -2,7 +2,6 @@ package com.food.service.impl;
 
 import com.food.dto.FoodDto;
 import com.food.dto.StockDto;
-import com.food.event.AccountEvent;
 import com.food.event.StockEvent;
 import com.food.model.Food;
 import com.food.repository.FoodRepository;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 public class FoodServiceImpl {
 
     private final KafkaTemplate<String, StockEvent> kafkaTemplateStock;
-    private final KafkaTemplate<String, AccountEvent> kafkaTemplateAccount;
     private final FoodRepository repository;
 
     @KafkaListener(topics = FoodUtils.ACCOUNT, groupId = FoodUtils.GROUP_ID)
@@ -76,7 +74,7 @@ public class FoodServiceImpl {
 
         if(food.isPresent()) {
             dto.setFoodId(foodId);
-            dto.setDescription(dto.getCount() + " -> " + dto.getPrice());
+            dto.setDescription(food.get().getFoodName()+" adet: "+ dto.getCount() + ", tutar: " + dto.getPrice());
 
             event.setMessage("food producer create stock");
             event.setStatus(200);

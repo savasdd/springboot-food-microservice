@@ -32,6 +32,10 @@ public class Account {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID foodId;
 
+    @Column(name = "STOCK_ID", columnDefinition = "char(36)")
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID stockId;
+
     @Column(name = "TOTAL_COUNT")
     private Double totalCount;
 
@@ -42,7 +46,6 @@ public class Account {
     private String description;
 
     @Version
-    @Column(name = "VERSION")
     private Long version;
 
     @CreatedBy

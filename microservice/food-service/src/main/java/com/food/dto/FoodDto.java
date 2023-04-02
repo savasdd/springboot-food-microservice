@@ -16,5 +16,4 @@ public class FoodDto {
     private String foodName;
     private String foodCategoryId;
     private String description;
-
 }
