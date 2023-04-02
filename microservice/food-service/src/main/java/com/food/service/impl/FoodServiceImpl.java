@@ -6,6 +6,7 @@ import com.food.event.StockEvent;
 import com.food.model.Food;
 import com.food.repository.FoodRepository;
 import com.food.utils.FoodUtils;
+import com.food.utils.aop.MongoLog;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -36,6 +37,7 @@ public class FoodServiceImpl {
         return dtoList;
     }
 
+    @MongoLog(status = 201)
     public FoodDto create(FoodDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -44,6 +46,7 @@ public class FoodServiceImpl {
         return modelMapDto(newModel);
     }
 
+    @MongoLog(status = 200)
     public FoodDto update(UUID id,FoodDto dto){
         var foods=repository.findById(id);
         var newFood=foods.map(var->{
@@ -58,6 +61,7 @@ public class FoodServiceImpl {
         return modelMapDto(newModel);
     }
 
+    @MongoLog(status = 404)
     public FoodDto delete(UUID id){
         var food=repository.findById(id);
         if(food.isPresent()){

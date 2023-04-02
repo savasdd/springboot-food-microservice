@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -31,7 +32,6 @@ public class MongoLogAspect {
 
     @Pointcut("@annotation(com.food.utils.aop.MongoLog)")
     public void logAnnotation() {
-
     }
 
     @Around(value = "logAnnotation() && @annotation(log)")
@@ -42,31 +42,28 @@ public class MongoLogAspect {
         Class<? extends Object> sinif = joinPoint.getTarget().getClass();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method metot = signature.getMethod();
-
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-                .getRequest();
-
+        MongoLog annotation = metot.getAnnotation(MongoLog.class);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         dto.setService(sinif.getName() + ": " + metot.getName());
-        //dto.setMethod(HttpUtil.getMethod(request));
-        //dto.setPath(HttpUtil.getPath(request));
         dto.setCreateDate(new Date());
         dto.setUsername("log.user");
+        dto.setStatus(annotation!=null? Long.valueOf(annotation.status()) : null);
+        dto.setMethod(metot.getName());
+        //dto.setMethod(HttpUtil.getMethod(request));
+        //dto.setPath(HttpUtil.getPath(request));
+
 
         ///// Before Method Execution /////
         result = joinPoint.proceed();
         ///// After Method Execution /////
 
-        ResponseEntity<?> response = (ResponseEntity<?>) result;
+        Object response = (Object) result;
         if (ObjectUtils.isNotEmpty(response)) {
-            Object body = response.getBody();
-            var status=(long) response.getStatusCodeValue();
-            var json=convertObjectToJson(body);
-            dto.setStatus(status);
-            dto.setBody(json);
+            dto.setBody(convertObjectToJson(response));
         }
 
-        service.getLogService().sendLog(dto);
+        service.getLogService().producerLog(dto);
         return result;
     }
 
