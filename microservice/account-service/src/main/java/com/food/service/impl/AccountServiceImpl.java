@@ -4,24 +4,28 @@ import com.food.dto.AccountDto;
 import com.food.event.AccountEvent;
 import com.food.model.Account;
 import com.food.repository.AccountRepository;
+import com.food.service.AccountService;
 import com.food.utils.AccountUtils;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
-@RequiredArgsConstructor
-public class AccountServiceImpl {
+@Service
+public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository repository;
 
+    public AccountServiceImpl(AccountRepository repository) {
+        this.repository = repository;
+    }
+
     @KafkaListener(topics = AccountUtils.ACCOUNT, groupId = AccountUtils.GROUP_ID)
+    @Override
     public void consumeStock(AccountEvent event) {
         if(event.getAccount()!=null){
             var account=repository.findByFoodId(event.getAccount().getFoodId());
@@ -34,6 +38,7 @@ public class AccountServiceImpl {
         log.info(event.getMessage()+" {}",event.getStatus());
     }
 
+    @Override
     public List<AccountDto> getAll(){
         var list=repository.findAll();
         var dtoList=list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());
@@ -41,6 +46,7 @@ public class AccountServiceImpl {
         return dtoList;
     }
 
+    @Override
     public AccountDto create(AccountDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -49,6 +55,7 @@ public class AccountServiceImpl {
         return modelMapDto(newModel);
     }
 
+    @Override
     public AccountDto update(UUID id,AccountDto dto){
         var accounts=repository.findById(id);
         var newAccount=accounts.map(val->{
@@ -63,6 +70,7 @@ public class AccountServiceImpl {
         return modelMapDto(model);
     }
 
+    @Override
     public AccountDto delete(UUID id){
         var model=repository.findById(id);
         if(model.isPresent()){

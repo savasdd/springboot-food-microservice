@@ -6,7 +6,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoodDto {
+@EqualsAndHashCode
+public class FoodDto extends AbstractGenericDto {
     private String foodName;
     private String foodType;
     private String description;

@@ -9,7 +9,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LogAccount {
+@EqualsAndHashCode
+public class LogAccount extends AbstractGenericDto {
 
     private String id;
 
