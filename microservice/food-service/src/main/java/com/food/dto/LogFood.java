@@ -8,8 +8,9 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Builder
-public class LogFood {
+public class LogFood extends AbstractGenericDto{
 
     private String id;
 

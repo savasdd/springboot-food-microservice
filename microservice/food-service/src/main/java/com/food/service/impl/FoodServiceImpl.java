@@ -5,26 +5,31 @@ import com.food.dto.StockDto;
 import com.food.event.StockEvent;
 import com.food.model.Food;
 import com.food.repository.FoodRepository;
+import com.food.service.FoodService;
 import com.food.utils.FoodUtils;
 import com.food.utils.aop.MongoLog;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
-@RequiredArgsConstructor
-public class FoodServiceImpl {
-
+@Service
+public class FoodServiceImpl implements FoodService {
     private final KafkaTemplate<String, StockEvent> kafkaTemplateStock;
     private final FoodRepository repository;
 
+    public FoodServiceImpl(KafkaTemplate<String, StockEvent> kafkaTemplateStock, FoodRepository repository) {
+        this.kafkaTemplateStock = kafkaTemplateStock;
+        this.repository = repository;
+    }
+
+    @Override
+    @Transactional
     public List<FoodDto> getAll(){
         var list=repository.findAll();
         var dtoList=list.stream().map(var->modelMapDto(var)).collect(Collectors.toList());
@@ -33,6 +38,8 @@ public class FoodServiceImpl {
     }
 
     @MongoLog(status = 201)
+    @Override
+    @Transactional
     public FoodDto create(FoodDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -42,6 +49,8 @@ public class FoodServiceImpl {
     }
 
     @MongoLog(status = 200)
+    @Override
+    @Transactional
     public FoodDto update(UUID id,FoodDto dto){
         var foods=repository.findById(id);
         var newFood=foods.map(var->{
@@ -57,6 +66,8 @@ public class FoodServiceImpl {
     }
 
     @MongoLog(status = 404)
+    @Override
+    @Transactional
     public FoodDto delete(UUID id){
         var food=repository.findById(id);
         if(food.isPresent()){
@@ -67,6 +78,8 @@ public class FoodServiceImpl {
             return null;
     }
 
+    @Override
+    @Transactional
     public StockEvent producerStockCreate(UUID foodId,StockDto dto){
         var food=repository.findById(foodId);
         StockEvent event = new StockEvent();

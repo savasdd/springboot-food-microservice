@@ -6,6 +6,7 @@ import com.food.repository.CategoryRepository;
 import com.food.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public List<CategoryDto> getAll(){
         var list=repository.findAll();
         var dtoList= list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());
@@ -31,6 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto create(CategoryDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -41,6 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto update(UUID id,CategoryDto dto){
         var categoris=repository.findById(id);
         var updateDto=categoris.map(val->{
@@ -55,6 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto delete(UUID id){
         var model=repository.findById(id);
         if(model.isPresent()){

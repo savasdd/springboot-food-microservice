@@ -9,6 +9,7 @@ import com.food.utils.AccountUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,6 +40,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public List<AccountDto> getAll(){
         var list=repository.findAll();
         var dtoList=list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());
@@ -47,6 +49,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountDto create(AccountDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -56,6 +59,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountDto update(UUID id,AccountDto dto){
         var accounts=repository.findById(id);
         var newAccount=accounts.map(val->{
@@ -71,6 +75,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountDto delete(UUID id){
         var model=repository.findById(id);
         if(model.isPresent()){

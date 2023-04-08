@@ -1,14 +1,19 @@
 package com.food.service;
 
-import com.food.service.impl.FoodServiceImpl;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.food.dto.FoodDto;
+import com.food.dto.StockDto;
+import com.food.event.StockEvent;
 
-@Data
-@Service
-@RequiredArgsConstructor
-public class FoodService {
+import java.util.List;
+import java.util.UUID;
 
-    private final FoodServiceImpl foodService;
+public interface FoodService {
+
+    public List<FoodDto> getAll();
+    public FoodDto create(FoodDto dto);
+
+    public FoodDto update(UUID id, FoodDto dto);
+    public FoodDto delete(UUID id);
+
+    public StockEvent producerStockCreate(UUID foodId, StockDto dto);
 }

@@ -8,7 +8,8 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
+@EqualsAndHashCode
+public class CategoryDto extends AbstractGenericDto {
 
     private UUID categoryId;
     private String categoryName;

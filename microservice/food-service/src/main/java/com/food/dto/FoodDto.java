@@ -10,7 +10,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoodDto {
+@EqualsAndHashCode
+public class FoodDto extends AbstractGenericDto{
 
     private UUID foodId;
     private String foodName;
