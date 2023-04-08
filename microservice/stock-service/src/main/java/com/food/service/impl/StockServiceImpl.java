@@ -10,6 +10,7 @@ import com.food.utils.StockUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,6 +30,7 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    @Transactional
     public List<StockDto> getAll(UUID foodId){
         var list=repository.findByFoodId(foodId);
         var dtolList=list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());
@@ -37,6 +39,7 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    @Transactional
     public StockDto create(UUID foodId,StockDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -47,6 +50,7 @@ public class StockServiceImpl implements StockService {
         return modelMapDto(newModel);
     }
     @Override
+    @Transactional
     public StockDto update(UUID foodId,UUID id,StockDto dto){
         var stocks=repository.findByFoodIdAndStockId(foodId,id);
         var newStock=stocks.map(val->{
@@ -63,6 +67,7 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    @Transactional
     public StockDto delete(UUID foodId,UUID id){
         var model=repository.findByFoodIdAndStockId(foodId,id);
         if(model.isPresent()){
@@ -74,6 +79,7 @@ public class StockServiceImpl implements StockService {
         }else
             return null;
     }
+
 
     private void producerAccount(Stock dto){
         AccountEvent event = new AccountEvent();

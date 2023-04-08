@@ -25,8 +25,9 @@ public class AccountServiceImpl implements AccountService {
         this.repository = repository;
     }
 
-    @KafkaListener(topics = AccountUtils.ACCOUNT, groupId = AccountUtils.GROUP_ID)
     @Override
+    @KafkaListener(topics = AccountUtils.ACCOUNT, groupId = AccountUtils.GROUP_ID)
+    @Transactional
     public void consumeStock(AccountEvent event) {
         if(event.getAccount()!=null){
             var account=repository.findByFoodId(event.getAccount().getFoodId());

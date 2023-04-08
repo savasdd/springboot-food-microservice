@@ -17,6 +17,7 @@ import com.food.utils.LogUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @KafkaListener(topics = LogUtils.FOOD_LOG, groupId = LogUtils.GROUP_ID)
+    @Transactional
     public void consumeFoodLog(LogFoodEvent event) {
         if(event.getLog()!=null){
             createFood(event.getLog());
@@ -47,6 +49,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @KafkaListener(topics = LogUtils.STOCK_LOG, groupId = LogUtils.GROUP_ID)
+    @Transactional
     public void consumeStockLog(LogStockEvent event) {
         if(event.getLog()!=null){
             createStock(event.getLog());
@@ -56,6 +59,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @KafkaListener(topics = LogUtils.ACCOUNT_LOG, groupId = LogUtils.GROUP_ID)
+    @Transactional
     public void consumeAccountLog(LogAccountEvent event) {
         if(event.getLog()!=null){
             createAccount(event.getLog());
@@ -65,6 +69,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @KafkaListener(topics = LogUtils.CATEGORY_LOG, groupId = LogUtils.GROUP_ID)
+    @Transactional
     public void consumeCategoryLog(LogCategoryEvent event) {
         if(event.getLog()!=null){
             createCategory(event.getLog());
@@ -73,6 +78,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @Transactional
     public List<LogFood> getAllFood(){
         var list=foodRepository.findAll();
         log.info("list foods {} ",list.size());
@@ -86,6 +92,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @Transactional
     public List<LogAccount> getAllAccount(){
         var list=accountRepository.findAll();
         log.info("list accounts {} ",list.size());
@@ -99,6 +106,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @Transactional
     public List<LogStock> getAllStock(){
         var list=stockRepository.findAll();
         log.info("list stock {} ",list.size());
@@ -111,6 +119,7 @@ public class LogServiceImpl implements LogService {
         return true;
     }
     @Override
+    @Transactional
     public List<LogCategory> getAllCategory(){
         var list=categoryRepository.findAll();
         log.info("list category {} ",list.size());
