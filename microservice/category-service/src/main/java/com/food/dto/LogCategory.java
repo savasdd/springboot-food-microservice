@@ -8,8 +8,9 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Builder
-public class LogCategory {
+public class LogCategory extends AbstractGenericDto {
 
     private String id;
 

@@ -1,4 +1,4 @@
-package com.food.dto;
+package com.food.exception;
 
 import lombok.*;
 

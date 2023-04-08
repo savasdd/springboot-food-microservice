@@ -9,7 +9,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
+@EqualsAndHashCode
+public class CategoryDto extends AbstractGenericDto {
 
     private UUID categoryId;
 

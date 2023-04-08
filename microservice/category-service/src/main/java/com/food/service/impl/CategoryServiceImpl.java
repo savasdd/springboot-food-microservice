@@ -3,21 +3,25 @@ package com.food.service.impl;
 import com.food.dto.CategoryDto;
 import com.food.model.Category;
 import com.food.repository.CategoryRepository;
-import lombok.RequiredArgsConstructor;
+import com.food.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
-@RequiredArgsConstructor
-public class CategoryServiceImpl {
+@Service
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository repository;
 
+    public CategoryServiceImpl(CategoryRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
     public List<CategoryDto> getAll(){
         var list=repository.findAll();
         var dtoList= list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());
@@ -26,6 +30,7 @@ public class CategoryServiceImpl {
         return dtoList;
     }
 
+    @Override
     public CategoryDto create(CategoryDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -35,6 +40,7 @@ public class CategoryServiceImpl {
         return modelMapDto(newModel);
     }
 
+    @Override
     public CategoryDto update(UUID id,CategoryDto dto){
         var categoris=repository.findById(id);
         var updateDto=categoris.map(val->{
@@ -48,6 +54,7 @@ public class CategoryServiceImpl {
         return modelMapDto(newModel);
     }
 
+    @Override
     public CategoryDto delete(UUID id){
         var model=repository.findById(id);
         if(model.isPresent()){
