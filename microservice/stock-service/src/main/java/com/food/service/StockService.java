@@ -1,14 +1,18 @@
 package com.food.service;
 
+import com.food.dto.StockDto;
 import com.food.service.impl.StockServiceImpl;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Data
-@Service
-@RequiredArgsConstructor
-public class StockService {
+import java.util.List;
+import java.util.UUID;
 
-    private final StockServiceImpl stockService;
+public interface StockService {
+
+    public List<StockDto> getAll(UUID foodId);
+    public StockDto create(UUID foodId,StockDto dto);
+    public StockDto update(UUID foodId,UUID id,StockDto dto);
+    public StockDto delete(UUID foodId,UUID id);
 }

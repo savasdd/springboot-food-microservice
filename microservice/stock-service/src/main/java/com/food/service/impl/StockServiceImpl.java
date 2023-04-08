@@ -3,15 +3,13 @@ package com.food.service.impl;
 import com.food.dto.AccountDto;
 import com.food.dto.StockDto;
 import com.food.event.AccountEvent;
-import com.food.event.StockEvent;
 import com.food.model.Stock;
 import com.food.repository.StockRepository;
+import com.food.service.StockService;
 import com.food.utils.StockUtils;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,13 +17,18 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
-@RequiredArgsConstructor
-public class StockServiceImpl {
+@Service
+public class StockServiceImpl implements StockService {
 
     private final KafkaTemplate<String, AccountEvent> kafkaTemplateAccount;
     private final StockRepository repository;
 
+    public StockServiceImpl(KafkaTemplate<String, AccountEvent> kafkaTemplateAccount, StockRepository repository) {
+        this.kafkaTemplateAccount = kafkaTemplateAccount;
+        this.repository = repository;
+    }
+
+    @Override
     public List<StockDto> getAll(UUID foodId){
         var list=repository.findByFoodId(foodId);
         var dtolList=list.stream().map(val->modelMapDto(val)).collect(Collectors.toList());
@@ -33,6 +36,7 @@ public class StockServiceImpl {
         return dtolList;
     }
 
+    @Override
     public StockDto create(UUID foodId,StockDto dto){
         var model=dtoMapModel(dto);
         model.setVersion(0L);
@@ -42,7 +46,7 @@ public class StockServiceImpl {
         producerAccount(newModel);
         return modelMapDto(newModel);
     }
-
+    @Override
     public StockDto update(UUID foodId,UUID id,StockDto dto){
         var stocks=repository.findByFoodIdAndStockId(foodId,id);
         var newStock=stocks.map(val->{
@@ -58,6 +62,7 @@ public class StockServiceImpl {
         return modelMapDto(model);
     }
 
+    @Override
     public StockDto delete(UUID foodId,UUID id){
         var model=repository.findByFoodIdAndStockId(foodId,id);
         if(model.isPresent()){

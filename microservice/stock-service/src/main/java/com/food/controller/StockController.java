@@ -2,7 +2,6 @@ package com.food.controller;
 
 import com.food.dto.StockDto;
 import com.food.service.StockService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,30 +14,33 @@ import java.util.UUID;
 @CrossOrigin(allowedHeaders = "*",origins = "*")
 public class StockController {
 
-    @Autowired
-    private StockService service;
+    private final StockService stockService;
+
+    public StockController(StockService stockService) {
+        this.stockService = stockService;
+    }
 
     @GetMapping(value = "/stocks/{foodId}")
     public ResponseEntity<List<StockDto>> getAll(@PathVariable("foodId") UUID foodId){
-        return new ResponseEntity<>(service.getStockService().getAll(foodId), HttpStatus.OK);
+        return new ResponseEntity<>(stockService.getAll(foodId), HttpStatus.OK);
     }
 
 //    @MongoLog
     @PostMapping(value = "/stocks/{foodId}")
     public ResponseEntity<StockDto> create(@PathVariable("foodId") UUID foodId,@RequestBody StockDto dto){
-        return new ResponseEntity<>(service.getStockService().create(foodId,dto),HttpStatus.CREATED);
+        return new ResponseEntity<>(stockService.create(foodId,dto),HttpStatus.CREATED);
     }
 
 //    @MongoLog
     @PutMapping(value = "/stocks/{foodId}/{id}")
     public ResponseEntity<StockDto> update(@PathVariable("foodId") UUID foodId,@PathVariable("id")UUID id,@RequestBody StockDto dto){
-        return new ResponseEntity<>(service.getStockService().update(foodId,id,dto),HttpStatus.OK);
+        return new ResponseEntity<>(stockService.update(foodId,id,dto),HttpStatus.OK);
     }
 
 //    @MongoLog
     @DeleteMapping(value = "/stocks/{foodId}/{id}")
     public ResponseEntity<StockDto> delete(@PathVariable("foodId") UUID foodId,@PathVariable("id") UUID id){
-        return new ResponseEntity<>(service.getStockService().delete(foodId,id),HttpStatus.OK);
+        return new ResponseEntity<>(stockService.delete(foodId,id),HttpStatus.OK);
     }
 
 }

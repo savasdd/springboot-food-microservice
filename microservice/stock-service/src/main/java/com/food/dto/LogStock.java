@@ -8,8 +8,9 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Builder
-public class LogStock {
+public class LogStock extends AbstractGenericDto{
 
     private String id;
 

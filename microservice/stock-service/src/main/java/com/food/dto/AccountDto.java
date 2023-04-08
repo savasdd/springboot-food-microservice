@@ -10,7 +10,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountDto {
+@EqualsAndHashCode
+public class AccountDto extends AbstractGenericDto{
 
     private UUID accountId;
 
