@@ -6,6 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRolDto {
+@EqualsAndHashCode
+public class UserRolDto extends AbstractGenericDto {
     private String rol;
 }

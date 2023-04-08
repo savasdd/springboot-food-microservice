@@ -2,26 +2,31 @@ package com.food.service.impl;
 
 import com.food.dto.UserDto;
 import com.food.dto.UserRolDto;
+import com.food.service.AuthService;
 import com.food.utils.kyce.AuthUtils;
 import com.food.utils.kyce.KeycloakAuthClient;
 import com.food.utils.kyce.KeycloakTokenResponse;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.RoleRepresentation;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
-@RequiredArgsConstructor
-public class AuthServiceImpl {
+@Service
+public class AuthServiceImpl implements AuthService {
 
     private final AuthUtils utils;
     private final KeycloakAuthClient client;
 
+    public AuthServiceImpl(AuthUtils utils, KeycloakAuthClient client) {
+        this.utils = utils;
+        this.client = client;
+    }
+
+    @Override
     public KeycloakTokenResponse getToken(UserDto dto) throws Exception {
         AccessTokenResponse response = client.authenticateApi(dto);
         log.info("Generate Token: " + dto.getUsername());
@@ -34,6 +39,7 @@ public class AuthServiceImpl {
 //            throw new Exception("Kullanıcı Giriş Yetkisi Yok!");
     }
 
+    @Override
     public KeycloakTokenResponse refreshToken(String token) {
         try {
             AccessTokenResponse response = client.refreshToken(token);
@@ -47,7 +53,8 @@ public class AuthServiceImpl {
         }
     }
 
-    public List<UserRolDto> getUserRoles() throws Exception {
+    @Override
+    public List<UserRolDto> getUserRoles() {
         List<RoleRepresentation> list = client.getUserRoles(utils.getCurrentAuditor().get());
         var rolList = list.stream().map(m -> new UserRolDto(m.getName())).collect(Collectors.toList());
         log.info("Get User Roles");

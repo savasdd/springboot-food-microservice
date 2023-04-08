@@ -6,7 +6,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@EqualsAndHashCode
+public class UserDto extends AbstractGenericDto {
     private String username;
     private String password;
 }
