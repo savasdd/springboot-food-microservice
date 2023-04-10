@@ -34,7 +34,6 @@ public class Category implements Serializable {
     private String description;
 
     @Version
-    @Column(name = "VERSIYON")
     private Long version;
 
     @CreatedBy

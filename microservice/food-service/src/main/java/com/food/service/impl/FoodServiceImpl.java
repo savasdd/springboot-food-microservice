@@ -65,7 +65,7 @@ public class FoodServiceImpl implements FoodService {
         return modelMapDto(newModel);
     }
 
-    @MongoLog(status = 404)
+    @MongoLog(status = 202)
     @Override
     @Transactional
     public FoodDto delete(UUID id){

@@ -27,19 +27,16 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getAll(), HttpStatus.OK);
     }
 
-    @MongoLog
     @PostMapping(value = "/categorys")
     public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto dto){
         return new ResponseEntity<>(categoryService.create(dto),HttpStatus.CREATED);
     }
 
-    @MongoLog
     @PutMapping(value = "/categorys/{id}")
     public ResponseEntity<CategoryDto> update(@PathVariable("id") UUID id, @RequestBody CategoryDto dto){
         return new ResponseEntity<>(categoryService.update(id, dto),HttpStatus.OK);
     }
 
-    @MongoLog
     @DeleteMapping(value = "/categorys/{id}")
     public ResponseEntity<CategoryDto> delete(@PathVariable("id") UUID id){
         return new ResponseEntity<>(categoryService.delete(id),HttpStatus.OK);

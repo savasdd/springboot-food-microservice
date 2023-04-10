@@ -78,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
         return modelMapDto(model);
     }
 
-    @MongoLog(status = 404)
+    @MongoLog(status = 202)
     @Override
     @Transactional
     public AccountDto delete(UUID id){

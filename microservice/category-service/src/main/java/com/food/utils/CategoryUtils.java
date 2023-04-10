@@ -10,5 +10,6 @@ public class CategoryUtils {
     public static final String FOOD = "food_server";
     public static final String STOCK = "stock_server";
     public static final String CATEGORY = "category_server";
+    public static final String CATEGORY_LOG = "category_server_log";
     public static final String GROUP_ID = "group_id";
 }

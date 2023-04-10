@@ -4,6 +4,7 @@ import com.food.dto.CategoryDto;
 import com.food.model.Category;
 import com.food.repository.CategoryRepository;
 import com.food.service.CategoryService;
+import com.food.utils.aop.MongoLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
         return dtoList;
     }
 
+    @MongoLog(status = 201)
     @Override
     @Transactional
     public CategoryDto create(CategoryDto dto){
@@ -43,6 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
         return modelMapDto(newModel);
     }
 
+    @MongoLog(status = 200)
     @Override
     @Transactional
     public CategoryDto update(UUID id,CategoryDto dto){
@@ -58,6 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
         return modelMapDto(newModel);
     }
 
+    @MongoLog(status = 202)
     @Override
     @Transactional
     public CategoryDto delete(UUID id){
