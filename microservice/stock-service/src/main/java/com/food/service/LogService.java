@@ -8,6 +8,6 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 public interface LogService {
-
+    public void producerLog(LogStock dto);
     public void sendLog(LogStock dto);
 }

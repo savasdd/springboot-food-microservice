@@ -1,10 +1,12 @@
 package com.food.service.impl;
 
 import com.food.dto.LogStock;
+import com.food.event.LogStockEvent;
 import com.food.service.LogService;
 import com.food.utils.StockUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,10 +16,20 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class LogServiceImpl implements LogService {
 
     private final WebClient.Builder webClient;
+    private final KafkaTemplate<String, LogStockEvent> kafkaTemplate;
 
-    public LogServiceImpl(WebClient.Builder webClient) {
+    public LogServiceImpl(WebClient.Builder webClient, KafkaTemplate<String, LogStockEvent> kafkaTemplate) {
         this.webClient = webClient;
+        this.kafkaTemplate = kafkaTemplate;
     }
+
+    @Override
+    public void producerLog(LogStock dto){
+        LogStockEvent event = LogStockEvent.builder().log(dto).status(200).message("stock kafka log").build();
+        kafkaTemplate.send(StockUtils.STOCK_LOG, event);
+        log.info("create stock logs");
+    }
+
 
     public void sendLog(LogStock dto){
 

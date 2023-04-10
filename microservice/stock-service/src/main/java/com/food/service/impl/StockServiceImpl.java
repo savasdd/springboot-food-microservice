@@ -7,6 +7,7 @@ import com.food.model.Stock;
 import com.food.repository.StockRepository;
 import com.food.service.StockService;
 import com.food.utils.StockUtils;
+import com.food.utils.aop.MongoLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class StockServiceImpl implements StockService {
-
     private final KafkaTemplate<String, AccountEvent> kafkaTemplateAccount;
     private final StockRepository repository;
 
@@ -38,6 +38,7 @@ public class StockServiceImpl implements StockService {
         return dtolList;
     }
 
+    @MongoLog(status = 201)
     @Override
     @Transactional
     public StockDto create(UUID foodId,StockDto dto){
@@ -49,6 +50,8 @@ public class StockServiceImpl implements StockService {
         producerAccount(newModel);
         return modelMapDto(newModel);
     }
+
+    @MongoLog(status = 200)
     @Override
     @Transactional
     public StockDto update(UUID foodId,UUID id,StockDto dto){
@@ -66,6 +69,7 @@ public class StockServiceImpl implements StockService {
         return modelMapDto(model);
     }
 
+    @MongoLog(status = 202)
     @Override
     @Transactional
     public StockDto delete(UUID foodId,UUID id){

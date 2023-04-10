@@ -25,19 +25,16 @@ public class StockController {
         return new ResponseEntity<>(stockService.getAll(foodId), HttpStatus.OK);
     }
 
-//    @MongoLog
     @PostMapping(value = "/stocks/{foodId}")
     public ResponseEntity<StockDto> create(@PathVariable("foodId") UUID foodId,@RequestBody StockDto dto){
         return new ResponseEntity<>(stockService.create(foodId,dto),HttpStatus.CREATED);
     }
 
-//    @MongoLog
     @PutMapping(value = "/stocks/{foodId}/{id}")
     public ResponseEntity<StockDto> update(@PathVariable("foodId") UUID foodId,@PathVariable("id")UUID id,@RequestBody StockDto dto){
         return new ResponseEntity<>(stockService.update(foodId,id,dto),HttpStatus.OK);
     }
 
-//    @MongoLog
     @DeleteMapping(value = "/stocks/{foodId}/{id}")
     public ResponseEntity<StockDto> delete(@PathVariable("foodId") UUID foodId,@PathVariable("id") UUID id){
         return new ResponseEntity<>(stockService.delete(foodId,id),HttpStatus.OK);
