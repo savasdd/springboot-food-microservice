@@ -6,6 +6,7 @@ import com.food.model.Account;
 import com.food.repository.AccountRepository;
 import com.food.service.AccountService;
 import com.food.utils.AccountUtils;
+import com.food.utils.aop.MongoLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,7 @@ public class AccountServiceImpl implements AccountService {
         return dtoList;
     }
 
+    @MongoLog(status = 201)
     @Override
     @Transactional
     public AccountDto create(AccountDto dto){
@@ -59,6 +61,7 @@ public class AccountServiceImpl implements AccountService {
         return modelMapDto(newModel);
     }
 
+    @MongoLog(status = 200)
     @Override
     @Transactional
     public AccountDto update(UUID id,AccountDto dto){
@@ -75,6 +78,7 @@ public class AccountServiceImpl implements AccountService {
         return modelMapDto(model);
     }
 
+    @MongoLog(status = 404)
     @Override
     @Transactional
     public AccountDto delete(UUID id){

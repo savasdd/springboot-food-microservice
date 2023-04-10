@@ -26,19 +26,16 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getAll());
     }
 
-    @MongoLog
     @PostMapping(value = "/accounts")
     public ResponseEntity<AccountDto> create(@RequestBody AccountDto dto){
         return new ResponseEntity<>(accountService.create(dto),HttpStatus.CREATED);
     }
 
-    @MongoLog
     @PutMapping(value = "/accounts/{id}")
     public ResponseEntity<AccountDto> update(@PathVariable("id") UUID id,@RequestBody AccountDto dto){
         return ResponseEntity.ok(accountService.update(id,dto));
     }
 
-    @MongoLog
     @DeleteMapping(value = "/accounts/{id}")
     public ResponseEntity<AccountDto> delete(@PathVariable("id") UUID id){
         return ResponseEntity.ok(accountService.delete(id));

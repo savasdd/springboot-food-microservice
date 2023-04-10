@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,11 +21,13 @@ import java.util.Date;
 @Aspect
 @Component
 public class MongoLogAspect {
-    @Autowired
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
+    private final LogService service;
 
-    @Autowired
-    private LogService service;
+    public MongoLogAspect(ObjectMapper mapper, LogService service) {
+        this.mapper = mapper;
+        this.service = service;
+    }
 
     @Pointcut("@annotation(com.food.utils.aop.MongoLog)")
     public void logAnnotation() {
@@ -61,7 +62,7 @@ public class MongoLogAspect {
             dto.setBody(convertObjectToJson(response));
         }
 
-        service.getLogService().producerLog(dto);
+        service.producerLog(dto);
         return result;
     }
 

@@ -9,5 +9,6 @@ import org.springframework.stereotype.Service;
 
 public interface LogService {
 
+    public void producerLog(LogAccount dto);
     public void sendLog(LogAccount dto);
 }
