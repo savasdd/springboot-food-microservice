@@ -28,3 +28,9 @@ mysql -uroot -p
 show databases;
 select user,host from mysql.user;
 update mysql.user set host='%' where user='root';
+
+
+==>saga pattern
+https://www.youtube.com/watch?v=pUFGOngzJig&ab_channel=DailyCodeBuffer
+
+https://medium.com/@bilgehan.yildiz/axon-framework-kullanarak-spring-boot-i%CC%87le-cqrs-pattern-i%CC%87mplementasyonu-part-1-85fc5e15acd8
