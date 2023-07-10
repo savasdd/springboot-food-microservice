@@ -7,11 +7,9 @@
     <modules>
         <module>food-service</module>
         <module>stock-service</module>
-        <module>account-service</module>
         <module>logs-service</module>
         <module>discovery-server</module>
         <module>api-gateway</module>
-        <module>category-service</module>
     </modules>
 
     <parent>
@@ -53,18 +51,18 @@
 
     <build>
         <plugins>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <configuration>
-                <excludes>
-                    <exclude>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclude>
-                </excludes>
-            </configuration>
-        </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
