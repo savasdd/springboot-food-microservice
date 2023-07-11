@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class LogFood extends AbstractGenericDto{
+public class LogFood extends GenericDto {
 
     private String id;
 

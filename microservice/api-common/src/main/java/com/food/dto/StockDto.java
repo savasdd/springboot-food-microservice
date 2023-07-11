@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class StockDto extends AbstractGenericDto {
+public class StockDto extends GenericDto {
 
     private UUID stockId;
 

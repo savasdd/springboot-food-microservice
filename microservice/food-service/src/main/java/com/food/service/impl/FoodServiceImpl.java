@@ -30,37 +30,37 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Transactional
-    public List<FoodDto> getAll(){
-        var list=repository.findAll();
-        var dtoList=list.stream().map(var->modelMapDto(var)).collect(Collectors.toList());
-        log.info("list food {} ",list.size());
+    public List<FoodDto> getAll() {
+        var list = repository.findAll();
+        var dtoList = list.stream().map(var -> modelMapDto(var)).collect(Collectors.toList());
+        log.info("list food {} ", list.size());
         return dtoList;
     }
 
     @MongoLog(status = 201)
     @Override
     @Transactional
-    public FoodDto create(FoodDto dto){
-        var model=dtoMapModel(dto);
+    public FoodDto create(FoodDto dto) {
+        var model = dtoMapModel(dto);
         model.setVersion(0L);
-        var newModel=repository.save(model);
-        log.info("create food {} ",newModel.getFoodId());
+        var newModel = repository.save(model);
+        log.info("create food {} ", newModel.getFoodId());
         return modelMapDto(newModel);
     }
 
     @MongoLog(status = 200)
     @Override
     @Transactional
-    public FoodDto update(UUID id,FoodDto dto){
-        var foods=repository.findById(id);
-        var newFood=foods.map(var->{
+    public FoodDto update(UUID id, FoodDto dto) {
+        var foods = repository.findById(id);
+        var newFood = foods.map(var -> {
             var.setFoodName(dto.getFoodName());
             var.setFoodCategoryId(dto.getFoodCategoryId());
             var.setDescription(dto.getDescription());
             return var;
         });
-        var newModel=repository.save(newFood.get());
-        log.info("update food {} ",id);
+        var newModel = repository.save(newFood.get());
+        log.info("update food {} ", id);
 
         return modelMapDto(newModel);
     }
@@ -68,44 +68,43 @@ public class FoodServiceImpl implements FoodService {
     @MongoLog(status = 202)
     @Override
     @Transactional
-    public FoodDto delete(UUID id){
-        var food=repository.findById(id);
-        if(food.isPresent()){
-            var dto=modelMapDto(food.get());
+    public FoodDto delete(UUID id) {
+        var food = repository.findById(id);
+        if (food.isPresent()) {
+            var dto = modelMapDto(food.get());
             repository.delete(food.get());
             return dto;
-        }else
+        } else
             return null;
     }
 
     @Override
     @Transactional
-    public StockEvent producerStockCreate(UUID foodId,StockDto dto){
-        var food=repository.findById(foodId);
+    public StockEvent producerStockCreate(UUID foodId, StockDto dto) {
+        var food = repository.findById(foodId);
         StockEvent event = new StockEvent();
 
-        if(food.isPresent()) {
+        if (food.isPresent()) {
             dto.setFoodId(foodId);
-            dto.setDescription(food.get().getFoodName()+" adet: "+ dto.getCount() + ", tutar: " + dto.getPrice());
+            dto.setDescription(food.get().getFoodName() + " adet: " + dto.getCount() + ", tutar: " + dto.getPrice());
 
             event.setMessage("food producer create stock");
             event.setStatus(200);
             event.setStock(dto);
             kafkaTemplateStock.send(FoodUtils.STOCK, event);
-            log.info("food producer stock {} ",foodId);
-        }
-        else
-            event.setMessage("food not found: "+foodId);
+            log.info("food producer stock {} ", foodId);
+        } else
+            event.setMessage("food not found: " + foodId);
 
         return event;
     }
 
 
-    private Food dtoMapModel(FoodDto dto){
-       return Food.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).foodCategoryId(dto.getFoodCategoryId()).description(dto.getDescription()).build();
+    private Food dtoMapModel(FoodDto dto) {
+        return Food.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).foodCategoryId(dto.getFoodCategoryId()).description(dto.getDescription()).build();
     }
 
-    private FoodDto modelMapDto(Food dto){
+    private FoodDto modelMapDto(Food dto) {
         return FoodDto.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).foodCategoryId(dto.getFoodCategoryId()).description(dto.getDescription()).build();
     }
 

@@ -2,7 +2,6 @@ package com.food.dto;
 
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
@@ -11,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class FoodDto extends AbstractGenericDto{
+public class FoodDto extends GenericDto {
 
     private UUID foodId;
     private String foodName;
