@@ -13,6 +13,7 @@ import com.food.repository.StockRepository;
 import com.food.service.LogService;
 import com.food.utils.LogUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +28,14 @@ public class LogServiceImpl implements LogService {
     private final AccountRepository accountRepository;
     private final StockRepository stockRepository;
     private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
-    public LogServiceImpl(FoodRepository foodRepository, AccountRepository accountRepository, StockRepository stockRepository, CategoryRepository categoryRepository) {
+    public LogServiceImpl(FoodRepository foodRepository, AccountRepository accountRepository, StockRepository stockRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.foodRepository = foodRepository;
         this.accountRepository = accountRepository;
         this.stockRepository = stockRepository;
         this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class LogServiceImpl implements LogService {
     @Transactional
     public void consumeFoodLog(LogFoodEvent event) {
         if (event.getLog() != null) {
-            createFood(event.getLog());
+            createFood(modelMapper.map(event.getLog(), LogFood.class));
         }
         log.info(event.getMessage() + " {}", event.getStatus());
     }
@@ -50,7 +53,7 @@ public class LogServiceImpl implements LogService {
     @Transactional
     public void consumeStockLog(LogStockEvent event) {
         if (event.getLog() != null) {
-            createStock(event.getLog());
+            createStock(modelMapper.map(event.getLog(), LogStock.class));
         }
         log.info(event.getMessage() + " {}", event.getStatus());
     }
