@@ -2,8 +2,6 @@ package com.food.dto;
 
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -11,7 +9,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class CategoryDto extends GenericDto {
 
-    private UUID categoryId;
-    private String categoryName;
+    private Long id;
+    private String name;
     private String description;
 }

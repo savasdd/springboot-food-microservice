@@ -14,6 +14,6 @@ public class FoodDto extends GenericDto {
 
     private UUID foodId;
     private String foodName;
-    private String foodCategoryId;
     private String description;
+    private CategoryDto category;
 }

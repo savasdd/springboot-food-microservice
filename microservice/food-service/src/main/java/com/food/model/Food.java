@@ -15,10 +15,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@EqualsAndHashCode
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "FOOD")
 @Table
 @Check(constraints = "LENGTH(DESCRIPTION) > 2")
@@ -33,8 +32,9 @@ public class Food extends BaseEntity {
     @Column(name = "FOOD_NAME")
     private String foodName;
 
-    @Column(name = "CATEGORY_ID")
-    private String foodCategoryId;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
+    private Category category;
 
     @Length(min = 2)
     @Column(name = "DESCRIPTION")
