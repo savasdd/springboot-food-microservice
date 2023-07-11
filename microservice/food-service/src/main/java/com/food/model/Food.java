@@ -1,5 +1,6 @@
 package com.food.model;
 
+import com.food.model.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,20 +10,19 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@Entity(name = "TBL_FOOD")
-//@Table(name = "TBL_FOOD")
+@Entity(name = "FOOD")
+@Table
 @Check(constraints = "LENGTH(DESCRIPTION) > 2")
-public class Food implements Serializable {
+public class Food extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -36,8 +36,8 @@ public class Food implements Serializable {
     @Column(name = "CATEGORY_ID")
     private String foodCategoryId;
 
-    @Length(min = 11, max = 11)
-    @Column(name = "DESCRIPTION", length = 11)
+    @Length(min = 2)
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @Version

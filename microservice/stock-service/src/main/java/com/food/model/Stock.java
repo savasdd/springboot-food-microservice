@@ -1,5 +1,6 @@
 package com.food.model;
 
+import com.food.model.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -8,7 +9,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
@@ -20,8 +20,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "TBL_STOCK")
-public class Stock implements Serializable {
+@Table(name = "STOCK")
+public class Stock extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
