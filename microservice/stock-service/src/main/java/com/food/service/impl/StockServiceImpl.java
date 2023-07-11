@@ -7,7 +7,7 @@ import com.food.model.Stock;
 import com.food.repository.StockRepository;
 import com.food.service.StockService;
 import com.food.utils.StockUtils;
-import com.food.utils.aop.MongoLog;
+import com.food.aop.MongoLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;

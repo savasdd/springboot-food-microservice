@@ -3,7 +3,7 @@ package com.food.service.impl;
 import com.food.dto.LogStock;
 import com.food.event.LogStockEvent;
 import com.food.service.LogService;
-import com.food.utils.StockUtils;
+import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -24,17 +24,17 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public void producerLog(LogStock dto){
+    public void producerLog(LogStock dto) {
         LogStockEvent event = LogStockEvent.builder().log(dto).status(200).message("stock kafka log").build();
-        kafkaTemplate.send(StockUtils.STOCK_LOG, event);
+        kafkaTemplate.send(EventUtil.STOCK_LOG, event);
         log.info("create stock logs");
     }
 
 
-    public void sendLog(LogStock dto){
+    public void sendLog(LogStock dto) {
 
         var response = webClient.build().post()
-                .uri(StockUtils.LOG_URL)
+                .uri(EventUtil.LOG_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(dto))
@@ -42,7 +42,7 @@ public class LogServiceImpl implements LogService {
                 .bodyToMono(Boolean.class)
                 .block();
 
-        if(response)
+        if (response)
             log.info("create stock logs");
     }
 }

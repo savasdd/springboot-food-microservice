@@ -1,4 +1,4 @@
-package com.food.utils.aop;
+package com.food.aop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +29,7 @@ public class MongoLogAspect {
         this.service = service;
     }
 
-    @Pointcut("@annotation(com.food.utils.aop.MongoLog)")
+    @Pointcut("@annotation(com.food.aop.MongoLog)")
     public void logAnnotation() {
     }
 

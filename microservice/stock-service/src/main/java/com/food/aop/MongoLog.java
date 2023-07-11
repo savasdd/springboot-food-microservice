@@ -1,4 +1,4 @@
-package com.food.utils.aop;
+package com.food.aop;
 
 
 import java.lang.annotation.ElementType;

@@ -3,7 +3,7 @@ package com.food.service.impl;
 import com.food.dto.LogFood;
 import com.food.event.LogFoodEvent;
 import com.food.service.LogService;
-import com.food.utils.FoodUtils;
+import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -26,7 +26,7 @@ public class LogServiceImpl implements LogService {
     @Override
     public void producerLog(LogFood dto){
         LogFoodEvent event = LogFoodEvent.builder().log(dto).status(200).message("food kafka log").build();
-        kafkaTemplate.send(FoodUtils.FOOD_LOG, event);
+        kafkaTemplate.send(EventUtil.FOOD_LOG, event);
         log.info("create food logs");
     }
 
@@ -34,7 +34,7 @@ public class LogServiceImpl implements LogService {
     public void sendLog(LogFood dto){
 
         var response = webClient.build().post()
-                .uri(FoodUtils.LOG_URL)
+                .uri(EventUtil.LOG_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(dto))

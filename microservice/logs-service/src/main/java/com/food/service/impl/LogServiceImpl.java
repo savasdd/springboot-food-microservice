@@ -11,7 +11,7 @@ import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
 import com.food.repository.StockRepository;
 import com.food.service.LogService;
-import com.food.utils.LogUtils;
+import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -39,7 +39,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    @KafkaListener(topics = LogUtils.FOOD_LOG, groupId = LogUtils.GROUP_ID)
+    @KafkaListener(topics = EventUtil.FOOD_LOG, groupId = EventUtil.GROUP_ID)
     @Transactional
     public void consumeFoodLog(LogFoodEvent event) {
         if (event.getLog() != null) {
@@ -49,7 +49,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    @KafkaListener(topics = LogUtils.STOCK_LOG, groupId = LogUtils.GROUP_ID)
+    @KafkaListener(topics = EventUtil.STOCK_LOG, groupId = EventUtil.GROUP_ID)
     @Transactional
     public void consumeStockLog(LogStockEvent event) {
         if (event.getLog() != null) {

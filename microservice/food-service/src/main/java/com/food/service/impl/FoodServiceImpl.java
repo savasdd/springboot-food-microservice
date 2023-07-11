@@ -1,13 +1,13 @@
 package com.food.service.impl;
 
+import com.food.aop.MongoLog;
 import com.food.dto.FoodDto;
 import com.food.dto.StockDto;
 import com.food.event.StockEvent;
 import com.food.model.Food;
 import com.food.repository.FoodRepository;
 import com.food.service.FoodService;
-import com.food.utils.FoodUtils;
-import com.food.utils.aop.MongoLog;
+import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -91,7 +91,7 @@ public class FoodServiceImpl implements FoodService {
             event.setMessage("food producer create stock");
             event.setStatus(200);
             event.setStock(dto);
-            kafkaTemplateStock.send(FoodUtils.STOCK, event);
+            kafkaTemplateStock.send(EventUtil.STOCK, event);
             log.info("food producer stock {} ", foodId);
         } else
             event.setMessage("food not found: " + foodId);
