@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class LogStock extends AbstractGenericDto{
+public class LogStock extends GenericDto{
 
     private String id;
 

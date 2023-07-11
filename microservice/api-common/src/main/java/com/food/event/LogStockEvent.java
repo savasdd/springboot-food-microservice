@@ -1,6 +1,6 @@
 package com.food.event;
 
-import com.food.model.LogFood;
+import com.food.dto.LogStock;
 import lombok.*;
 
 @Getter
@@ -8,9 +8,9 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LogFoodEvent {
+public class LogStockEvent {
 
     private String message;
     private Integer status;
-    private LogFood log;
+    private LogStock log;
 }
