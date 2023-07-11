@@ -1,5 +1,6 @@
 package com.food.exception;
 
+import com.food.utils.CommonUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
