@@ -51,14 +51,11 @@ public class OrderServiceImpl {
                 orderPayment.getFoodId(),
                 orderPayment.getFoodCount(),
                 orderPayment.getPrice());
-        if (orderPayment.getStatus().equals("ACCEPT") &&
-                orderStock.getStatus().equals("ACCEPT")) {
+        if (orderPayment.getStatus().equals("ACCEPT") && orderStock.getStatus().equals("ACCEPT")) {
             o.setStatus("CONFIRMED");
-        } else if (orderPayment.getStatus().equals("REJECT") &&
-                orderStock.getStatus().equals("REJECT")) {
+        } else if (orderPayment.getStatus().equals("REJECT") && orderStock.getStatus().equals("REJECT")) {
             o.setStatus("REJECTED");
-        } else if (orderPayment.getStatus().equals("REJECT") ||
-                orderStock.getStatus().equals("REJECT")) {
+        } else if (orderPayment.getStatus().equals("REJECT") || orderStock.getStatus().equals("REJECT")) {
             String source = orderPayment.getStatus().equals("REJECT") ? "PAYMENT" : "STOCK";
             o.setStatus("ROLLBACK");
             o.setSource(source);
