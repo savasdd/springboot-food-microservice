@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class FoodServiceTest {
     @Test
     void getAllTest() {
         List<Food> foodList = new ArrayList<>();
-        foodList.add(Food.builder().foodId(UUID.randomUUID()).foodName("Pizza").description("İtalyan Pizza").foodCategoryId(null).build());
+        foodList.add(Food.builder().foodId(UUID.randomUUID()).foodName("Pizza").description("İtalyan Pizza").category(null).build());
         Mockito.when(repository.findAll()).thenReturn(foodList);
         List<FoodDto> foodDtoList = service.getAll();
         Assertions.assertNotNull(foodDtoList);
@@ -48,9 +49,9 @@ public class FoodServiceTest {
     void createTest() {
         FoodDto foodDto = new FoodDto();
         foodDto.setFoodName("Pizza");
-        foodDto.setFoodCategoryId(UUID.randomUUID().toString());
+        foodDto.setCategory(null);
         foodDto.setDescription("Italian pizza");
-        Food food=Food.builder().foodId(UUID.randomUUID()).foodName(foodDto.getFoodName()).foodCategoryId(foodDto.getFoodCategoryId()).description(foodDto.getDescription()).build();
+        Food food = Food.builder().foodId(UUID.randomUUID()).foodName(foodDto.getFoodName()).category(null).description(foodDto.getDescription()).build();
         Mockito.when(repository.save(Mockito.any())).thenReturn(food);
         FoodDto foodDtoResponse = service.create(foodDto);
         Assertions.assertNotNull(foodDtoResponse);
@@ -63,11 +64,11 @@ public class FoodServiceTest {
         UUID id = UUID.randomUUID();
         FoodDto foodDto = new FoodDto();
         foodDto.setFoodName("Pizza");
-        foodDto.setFoodCategoryId(UUID.randomUUID().toString());
+        foodDto.setCategory(null);
         foodDto.setDescription("Italian pizza");
-        Optional<Food> optionalFood = Optional.of(Food.builder().foodId(id).foodName("Burger").foodCategoryId(UUID.randomUUID().toString()).description("American burger").build());
+        Optional<Food> optionalFood = Optional.of(Food.builder().foodId(id).foodName("Burger").category(null).description("American burger").build());
         Mockito.when(repository.findById(id)).thenReturn(optionalFood);
-        Mockito.when(repository.save(Mockito.any())).thenReturn(Food.builder().foodId(id).foodName(foodDto.getFoodName()).foodCategoryId(foodDto.getFoodCategoryId()).description(foodDto.getDescription()).build());
+        Mockito.when(repository.save(Mockito.any())).thenReturn(Food.builder().foodId(id).foodName(foodDto.getFoodName()).category(null).description(foodDto.getDescription()).build());
         FoodDto foodDtoResponse = service.update(id, foodDto);
         Assertions.assertNotNull(foodDtoResponse);
         Assertions.assertEquals(foodDtoResponse.getFoodName(), foodDto.getFoodName());
@@ -80,7 +81,7 @@ public class FoodServiceTest {
         Food food = Food.builder()
                 .foodId(FOOD_ID)
                 .foodName("Pizza")
-                .foodCategoryId(UUID.randomUUID().toString())
+                .category(null)
                 .description("A delicious pizza")
                 .build();
         when(repository.findById(FOOD_ID)).thenReturn(Optional.of(food));
@@ -90,7 +91,6 @@ public class FoodServiceTest {
         assertNotNull(deletedFoodDto);
         assertEquals(FOOD_ID, deletedFoodDto.getFoodId());
         assertEquals(food.getFoodName(), deletedFoodDto.getFoodName());
-        assertEquals(food.getFoodCategoryId(), deletedFoodDto.getFoodCategoryId());
         assertEquals(food.getDescription(), deletedFoodDto.getDescription());
         log.info("Test Delete Food");
     }
