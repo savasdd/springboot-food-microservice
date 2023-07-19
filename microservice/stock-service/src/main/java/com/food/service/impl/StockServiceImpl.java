@@ -47,7 +47,7 @@ public class StockServiceImpl implements StockService {
         model.setFoodId(foodId);
         var newModel = repository.save(model);
         log.info("create stock {} ", newModel.getStockId());
-        producerAccount(newModel);
+//        producerAccount(newModel);
         return modelMapDto(newModel);
     }
 
@@ -64,7 +64,7 @@ public class StockServiceImpl implements StockService {
             return val;
         });
         var model = repository.save(newStock.get());
-        producerAccount(model);
+//        producerAccount(model);
         log.info("update stock {} ", id);
         return modelMapDto(model);
     }
@@ -76,7 +76,7 @@ public class StockServiceImpl implements StockService {
         var model = repository.findByFoodIdAndStockId(foodId, id);
         if (model.isPresent()) {
             var dto = modelMapDto(model.get());
-            producerAccount(model.get());
+            //producerAccount(model.get());
             repository.delete(model.get());
             log.info("delete stock {} ", id);
             return dto;

@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(allowedHeaders = "*",origins = "*")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class StockController {
 
     private final StockService stockService;
@@ -21,23 +21,23 @@ public class StockController {
     }
 
     @GetMapping(value = "/stocks/{foodId}")
-    public ResponseEntity<List<StockDto>> getAll(@PathVariable("foodId") UUID foodId){
+    public ResponseEntity<List<StockDto>> getAll(@PathVariable("foodId") UUID foodId) {
         return new ResponseEntity<>(stockService.getAll(foodId), HttpStatus.OK);
     }
 
     @PostMapping(value = "/stocks/{foodId}")
-    public ResponseEntity<StockDto> create(@PathVariable("foodId") UUID foodId,@RequestBody StockDto dto){
-        return new ResponseEntity<>(stockService.create(foodId,dto),HttpStatus.CREATED);
+    public ResponseEntity<StockDto> create(@PathVariable("foodId") UUID foodId, @RequestBody StockDto dto) {
+        return new ResponseEntity<>(stockService.create(foodId, dto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/stocks/{foodId}/{id}")
-    public ResponseEntity<StockDto> update(@PathVariable("foodId") UUID foodId,@PathVariable("id")UUID id,@RequestBody StockDto dto){
-        return new ResponseEntity<>(stockService.update(foodId,id,dto),HttpStatus.OK);
+    public ResponseEntity<StockDto> update(@PathVariable("foodId") UUID foodId, @PathVariable("id") UUID id, @RequestBody StockDto dto) {
+        return new ResponseEntity<>(stockService.update(foodId, id, dto), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/stocks/{foodId}/{id}")
-    public ResponseEntity<StockDto> delete(@PathVariable("foodId") UUID foodId,@PathVariable("id") UUID id){
-        return new ResponseEntity<>(stockService.delete(foodId,id),HttpStatus.OK);
+    public ResponseEntity<StockDto> delete(@PathVariable("foodId") UUID foodId, @PathVariable("id") UUID id) {
+        return new ResponseEntity<>(stockService.delete(foodId, id), HttpStatus.OK);
     }
 
 }
