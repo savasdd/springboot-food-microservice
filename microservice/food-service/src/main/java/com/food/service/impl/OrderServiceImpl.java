@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
@@ -19,16 +20,16 @@ import java.util.concurrent.atomic.AtomicLong;
 public class OrderServiceImpl {
 
     private AtomicLong id = new AtomicLong();
-    private final KafkaTemplate<Long, Order> template;
+    private final KafkaTemplate<String, Order> template;
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
 
-    public OrderServiceImpl(KafkaTemplate<Long, Order> template, StreamsBuilderFactoryBean kafkaStreamsFactory) {
+    public OrderServiceImpl(KafkaTemplate<String, Order> template, StreamsBuilderFactoryBean kafkaStreamsFactory) {
         this.template = template;
         this.kafkaStreamsFactory = kafkaStreamsFactory;
     }
 
     public Order create(Order order) {
-        order.setId(id.incrementAndGet());
+        order.setId(UUID.randomUUID().toString());
         template.send("orders", order.getId(), order);
         log.info("Sent: {}", order);
         return order;

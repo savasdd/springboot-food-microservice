@@ -14,9 +14,9 @@ public class OrderServiceImpl {
 
     private static final String SOURCE = "stock";
     private final StockRepository repository;
-    private final KafkaTemplate<Long, Order> template;
+    private final KafkaTemplate<String, Order> template;
 
-    public OrderServiceImpl(StockRepository repository, KafkaTemplate<Long, Order> template) {
+    public OrderServiceImpl(StockRepository repository, KafkaTemplate<String, Order> template) {
         this.repository = repository;
         this.template = template;
     }
@@ -29,6 +29,7 @@ public class OrderServiceImpl {
             if (order.getStockCount() < product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
+                //product.setPrice(order.getPrice());
                 order.setStatus("ACCEPT");
                 repository.save(product);
             } else {
