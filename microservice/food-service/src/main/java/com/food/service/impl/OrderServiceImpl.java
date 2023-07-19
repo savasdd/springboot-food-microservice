@@ -1,6 +1,7 @@
 package com.food.service.impl;
 
 import com.food.event.OrderEvent;
+import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.state.KeyValueIterator;
@@ -30,7 +31,7 @@ public class OrderServiceImpl {
 
     public OrderEvent create(OrderEvent order) {
         order.setId(UUID.randomUUID().toString());
-        template.send("orders", order.getId(), order);
+        template.send(EventUtil.ORDERS, order.getId(), order);
         log.info("Sent: {}", order);
         return order;
     }
@@ -39,7 +40,7 @@ public class OrderServiceImpl {
         List<OrderEvent> orders = new ArrayList<>();
         ReadOnlyKeyValueStore<Long, OrderEvent> store = kafkaStreamsFactory
                 .getKafkaStreams()
-                .store(StoreQueryParameters.fromNameAndType("orders",
+                .store(StoreQueryParameters.fromNameAndType(EventUtil.ORDERS,
                         QueryableStoreTypes.keyValueStore()));
         KeyValueIterator<Long, OrderEvent> it = store.all();
         it.forEachRemaining(kv -> orders.add(kv.value));

@@ -2,6 +2,7 @@ package com.food.service.impl;
 
 import com.food.event.OrderEvent;
 import com.food.repository.StockRepository;
+import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class OrderServiceImpl {
                 order.setStatus("REJECT");
             }
 
-            template.send("stock-orders", order.getId(), order);
+            template.send(EventUtil.STOCK_ORDERS, order.getId(), order);
             log.info("Sent: {}", order);
         }
     }
