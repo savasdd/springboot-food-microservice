@@ -2,6 +2,7 @@ package com.food.service.impl;
 
 import com.food.event.OrderEvent;
 import com.food.repository.StockRepository;
+import com.food.service.OrderService;
 import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
 
     private static final String SOURCE = "stock";
     private final StockRepository repository;
@@ -22,6 +23,7 @@ public class OrderServiceImpl {
         this.template = template;
     }
 
+    @Override
     public void reserve(OrderEvent order) {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
         log.info("Found: {}", product);
@@ -42,6 +44,7 @@ public class OrderServiceImpl {
         }
     }
 
+    @Override
     public void confirm(OrderEvent order) {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
         log.info("Found: {}", product);

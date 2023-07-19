@@ -1,7 +1,7 @@
 package com.food;
 
 import com.food.event.OrderEvent;
-import com.food.service.impl.OrderServiceImpl;
+import com.food.service.OrderService;
 import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -55,7 +55,7 @@ public class FoodServiceApplication {
     }
 
     @Autowired
-    private OrderServiceImpl orderService;
+    private OrderService orderService;
 
     @Bean
     public KStream<Long, OrderEvent> stream(StreamsBuilder builder) {

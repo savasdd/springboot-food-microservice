@@ -1,6 +1,7 @@
 package com.food.service.impl;
 
 import com.food.event.OrderEvent;
+import com.food.service.OrderService;
 import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.StoreQueryParameters;
@@ -18,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Service
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
 
     private AtomicLong id = new AtomicLong();
     private final KafkaTemplate<String, OrderEvent> template;
@@ -29,6 +30,7 @@ public class OrderServiceImpl {
         this.kafkaStreamsFactory = kafkaStreamsFactory;
     }
 
+    @Override
     public OrderEvent create(OrderEvent order) {
         order.setId(UUID.randomUUID().toString());
         template.send(EventUtil.ORDERS, order.getId(), order);
@@ -36,7 +38,8 @@ public class OrderServiceImpl {
         return order;
     }
 
-    public List<OrderEvent> all() {
+    @Override
+    public List<OrderEvent> getAll() {
         List<OrderEvent> orders = new ArrayList<>();
         ReadOnlyKeyValueStore<Long, OrderEvent> store = kafkaStreamsFactory
                 .getKafkaStreams()
@@ -47,6 +50,7 @@ public class OrderServiceImpl {
         return orders;
     }
 
+    @Override
     public OrderEvent confirm(OrderEvent orderPayment, OrderEvent orderStock) {
         OrderEvent o = new OrderEvent(orderPayment.getId(),
                 orderPayment.getCustomerId(),
