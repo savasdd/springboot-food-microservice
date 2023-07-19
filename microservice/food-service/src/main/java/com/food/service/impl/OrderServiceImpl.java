@@ -53,13 +53,13 @@ public class OrderServiceImpl {
                 orderPayment.getStockId(),
                 orderPayment.getStockCount(),
                 orderPayment.getPrice());
-        if (orderPayment.getStatus().equals("ACCEPT") && orderStock.getStatus().equals("ACCEPT")) {
-            o.setStatus("CONFIRMED");
-        } else if (orderPayment.getStatus().equals("REJECT") && orderStock.getStatus().equals("REJECT")) {
-            o.setStatus("REJECTED");
-        } else if (orderPayment.getStatus().equals("REJECT") || orderStock.getStatus().equals("REJECT")) {
-            String source = orderPayment.getStatus().equals("REJECT") ? "PAYMENT" : "STOCK";
-            o.setStatus("ROLLBACK");
+        if (orderPayment.getStatus().equals(EventUtil.STATUS_ACCEPT) && orderStock.getStatus().equals(EventUtil.STATUS_ACCEPT)) {
+            o.setStatus(EventUtil.STATUS_CONFIRMED);
+        } else if (orderPayment.getStatus().equals(EventUtil.STATUS_REJECT) && orderStock.getStatus().equals(EventUtil.STATUS_REJECT)) {
+            o.setStatus(EventUtil.STATUS_REJECT);
+        } else if (orderPayment.getStatus().equals(EventUtil.STATUS_REJECT) || orderStock.getStatus().equals(EventUtil.STATUS_REJECT)) {
+            String source = orderPayment.getStatus().equals(EventUtil.STATUS_REJECT) ? "PAYMENT" : "STOCK";
+            o.setStatus(EventUtil.STATUS_ROLLBACK);
             o.setSource(source);
         }
         return o;

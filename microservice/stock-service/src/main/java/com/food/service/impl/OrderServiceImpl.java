@@ -26,15 +26,15 @@ public class OrderServiceImpl {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
         log.info("Found: {}", product);
 
-        if (order.getStatus().equals("NEW")) {
+        if (order.getStatus().equals(EventUtil.STATUS_NEW)) {
             if (order.getStockCount() < product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
                 product.setPrice(order.getPrice());
-                order.setStatus("ACCEPT");
+                order.setStatus(EventUtil.STATUS_ACCEPT);
                 repository.save(product);
             } else {
-                order.setStatus("REJECT");
+                order.setStatus(EventUtil.STATUS_REJECT);
             }
 
             template.send(EventUtil.STOCK_ORDERS, order.getId(), order);
@@ -46,10 +46,10 @@ public class OrderServiceImpl {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
         log.info("Found: {}", product);
 
-        if (order.getStatus().equals("CONFIRMED")) {
+        if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
             repository.save(product);
-        } else if (order.getStatus().equals("ROLLBACK") && !order.getSource().equals(SOURCE)) {
+        } else if (order.getStatus().equals(EventUtil.STATUS_ROLLBACK) && !order.getSource().equals(SOURCE)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
             product.setAvailableItems(product.getAvailableItems() + order.getStockCount());
             repository.save(product);

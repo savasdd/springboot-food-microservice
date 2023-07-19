@@ -27,7 +27,7 @@ public class StockServiceApplication {
     public void onEvent(OrderEvent order) {
         log.info("Received: {}", order);
 
-        if (order.getStatus().equals("NEW"))
+        if (order.getStatus().equals(EventUtil.STATUS_NEW))
             orderService.reserve(order);
         else
             orderService.confirm(order);
