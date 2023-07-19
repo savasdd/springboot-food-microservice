@@ -48,8 +48,8 @@ public class OrderServiceImpl {
     public Order confirm(Order orderPayment, Order orderStock) {
         Order o = new Order(orderPayment.getId(),
                 orderPayment.getCustomerId(),
-                orderPayment.getFoodId(),
-                orderPayment.getFoodCount(),
+                orderPayment.getStockId(),
+                orderPayment.getStockCount(),
                 orderPayment.getPrice());
         if (orderPayment.getStatus().equals("ACCEPT") && orderStock.getStatus().equals("ACCEPT")) {
             o.setStatus("CONFIRMED");

@@ -40,6 +40,12 @@ public class Stock extends BaseEntity {
     @Column(name = "PRICE")
     private BigDecimal price;
 
+    @Column(name = "AVAILABLE_ITEMS")
+    private Integer availableItems;
+
+    @Column(name = "RESERVED_ITEMS")
+    private Integer reservedItems;
+
     @Column(name = "DESCRIPTION")
     private String description;
 
@@ -51,10 +57,4 @@ public class Stock extends BaseEntity {
 
     @LastModifiedDate
     private String updatedBy;
-
-    @CreatedDate
-    private Date createdDate;
-
-    @LastModifiedDate
-    private Date updatedDate;
 }

@@ -11,27 +11,27 @@ public class Order implements Serializable {
 
     private Long id;
     private Long customerId;
-    private String foodId;
-    private int foodCount;
-    private int price;
+    private String stockId;
+    private Integer stockCount;
+    private Integer price;
     private String status;
     private String source;
 
     public Order() {
     }
 
-    public Order(Long id, Long customerId, String foodId, String status) {
+    public Order(Long id, Long customerId, String stockId, String status) {
         this.id = id;
         this.customerId = customerId;
-        this.foodId = foodId;
+        this.stockId = stockId;
         this.status = status;
     }
 
-    public Order(Long id, Long customerId, String foodId, int foodCount, int price) {
+    public Order(Long id, Long customerId, String stockId, Integer stockCount, Integer price) {
         this.id = id;
         this.customerId = customerId;
-        this.foodId = foodId;
-        this.foodCount = foodCount;
+        this.stockId = stockId;
+        this.stockCount = stockCount;
         this.price = price;
         this.status = "NEW";
     }
