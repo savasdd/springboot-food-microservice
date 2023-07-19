@@ -5,12 +5,10 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -33,9 +31,6 @@ public class Stock extends BaseEntity {
     @Column(name = "FOOD_ID", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID foodId;
-
-    @Column(name = "COUNT")
-    private Double count;
 
     @Column(name = "PRICE")
     private BigDecimal price;

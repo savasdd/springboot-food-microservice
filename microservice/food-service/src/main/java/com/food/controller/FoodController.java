@@ -1,10 +1,9 @@
 package com.food.controller;
 
 import com.food.dto.FoodDto;
-import com.food.dto.Order;
+import com.food.event.OrderEvent;
 import com.food.service.FoodService;
 import com.food.service.impl.OrderServiceImpl;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +48,7 @@ public class FoodController {
     }
 
     @PostMapping(value = "/orders")
-    public ResponseEntity<Order> createOrder(@RequestBody Order dto) {
+    public ResponseEntity<OrderEvent> createOrder(@RequestBody OrderEvent dto) {
         return ResponseEntity.ok(orderService.create(dto));
     }
 

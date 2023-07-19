@@ -1,6 +1,6 @@
 package com.food.service.impl;
 
-import com.food.dto.Order;
+import com.food.event.OrderEvent;
 import com.food.repository.StockRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,14 +14,14 @@ public class OrderServiceImpl {
 
     private static final String SOURCE = "stock";
     private final StockRepository repository;
-    private final KafkaTemplate<String, Order> template;
+    private final KafkaTemplate<String, OrderEvent> template;
 
-    public OrderServiceImpl(StockRepository repository, KafkaTemplate<String, Order> template) {
+    public OrderServiceImpl(StockRepository repository, KafkaTemplate<String, OrderEvent> template) {
         this.repository = repository;
         this.template = template;
     }
 
-    public void reserve(Order order) {
+    public void reserve(OrderEvent order) {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
         log.info("Found: {}", product);
 
@@ -29,7 +29,7 @@ public class OrderServiceImpl {
             if (order.getStockCount() < product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
-                //product.setPrice(order.getPrice());
+                product.setPrice(order.getPrice());
                 order.setStatus("ACCEPT");
                 repository.save(product);
             } else {
@@ -41,7 +41,7 @@ public class OrderServiceImpl {
         }
     }
 
-    public void confirm(Order order) {
+    public void confirm(OrderEvent order) {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
         log.info("Found: {}", product);
 

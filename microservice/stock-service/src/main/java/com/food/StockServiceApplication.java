@@ -1,6 +1,6 @@
 package com.food;
 
-import com.food.dto.Order;
+import com.food.event.OrderEvent;
 import com.food.service.impl.OrderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class StockServiceApplication {
     private OrderServiceImpl orderService;
 
     @KafkaListener(id = "orders", topics = "orders", groupId = "stock")
-    public void onEvent(Order order) {
+    public void onEvent(OrderEvent order) {
         log.info("Received: {}", order);
 
         if (order.getStatus().equals("NEW"))

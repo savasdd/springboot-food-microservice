@@ -1,6 +1,6 @@
 package com.food;
 
-import com.food.dto.Order;
+import com.food.event.OrderEvent;
 import com.food.service.impl.OrderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -57,9 +57,9 @@ public class FoodServiceApplication {
     private OrderServiceImpl orderService;
 
     @Bean
-    public KStream<Long, Order> stream(StreamsBuilder builder) {
-        JsonSerde<Order> orderSerde = new JsonSerde<>(Order.class);
-        KStream<Long, Order> stream = builder
+    public KStream<Long, OrderEvent> stream(StreamsBuilder builder) {
+        JsonSerde<OrderEvent> orderSerde = new JsonSerde<>(OrderEvent.class);
+        KStream<Long, OrderEvent> stream = builder
                 .stream("payment-orders", Consumed.with(Serdes.Long(), orderSerde));
 
         stream.join(
@@ -74,12 +74,12 @@ public class FoodServiceApplication {
     }
 
     @Bean
-    public KTable<Long, Order> table(StreamsBuilder builder) {
+    public KTable<Long, OrderEvent> table(StreamsBuilder builder) {
         KeyValueBytesStoreSupplier store = Stores.persistentKeyValueStore("orders");
-        JsonSerde<Order> orderSerde = new JsonSerde<>(Order.class);
-        KStream<Long, Order> stream = builder
+        JsonSerde<OrderEvent> orderSerde = new JsonSerde<>(OrderEvent.class);
+        KStream<Long, OrderEvent> stream = builder
                 .stream("orders", Consumed.with(Serdes.Long(), orderSerde));
-        return stream.toTable(Materialized.<Long, Order>as(store)
+        return stream.toTable(Materialized.<Long, OrderEvent>as(store)
                 .withKeySerde(Serdes.Long())
                 .withValueSerde(orderSerde));
     }

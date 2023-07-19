@@ -1,6 +1,6 @@
 package com.food.service.impl;
 
-import com.food.dto.Order;
+import com.food.event.OrderEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.state.KeyValueIterator;
@@ -20,34 +20,34 @@ import java.util.concurrent.atomic.AtomicLong;
 public class OrderServiceImpl {
 
     private AtomicLong id = new AtomicLong();
-    private final KafkaTemplate<String, Order> template;
+    private final KafkaTemplate<String, OrderEvent> template;
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
 
-    public OrderServiceImpl(KafkaTemplate<String, Order> template, StreamsBuilderFactoryBean kafkaStreamsFactory) {
+    public OrderServiceImpl(KafkaTemplate<String, OrderEvent> template, StreamsBuilderFactoryBean kafkaStreamsFactory) {
         this.template = template;
         this.kafkaStreamsFactory = kafkaStreamsFactory;
     }
 
-    public Order create(Order order) {
+    public OrderEvent create(OrderEvent order) {
         order.setId(UUID.randomUUID().toString());
         template.send("orders", order.getId(), order);
         log.info("Sent: {}", order);
         return order;
     }
 
-    public List<Order> all() {
-        List<Order> orders = new ArrayList<>();
-        ReadOnlyKeyValueStore<Long, Order> store = kafkaStreamsFactory
+    public List<OrderEvent> all() {
+        List<OrderEvent> orders = new ArrayList<>();
+        ReadOnlyKeyValueStore<Long, OrderEvent> store = kafkaStreamsFactory
                 .getKafkaStreams()
                 .store(StoreQueryParameters.fromNameAndType("orders",
                         QueryableStoreTypes.keyValueStore()));
-        KeyValueIterator<Long, Order> it = store.all();
+        KeyValueIterator<Long, OrderEvent> it = store.all();
         it.forEachRemaining(kv -> orders.add(kv.value));
         return orders;
     }
 
-    public Order confirm(Order orderPayment, Order orderStock) {
-        Order o = new Order(orderPayment.getId(),
+    public OrderEvent confirm(OrderEvent orderPayment, OrderEvent orderStock) {
+        OrderEvent o = new OrderEvent(orderPayment.getId(),
                 orderPayment.getCustomerId(),
                 orderPayment.getStockId(),
                 orderPayment.getStockCount(),
