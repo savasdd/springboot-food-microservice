@@ -34,4 +34,6 @@ update mysql.user set host='%' where user='root';
 https://www.youtube.com/watch?v=pUFGOngzJig&ab_channel=DailyCodeBuffer
 https://medium.com/@bilgehan.yildiz/axon-framework-kullanarak-spring-boot-i%CC%87le-cqrs-pattern-i%CC%87mplementasyonu-part-1-85fc5e15acd8
 https://www.youtube.com/watch?v=aOen1-pQLZg&ab_channel=JavaTechie
+
+Transactions in Microservices with Kafka Streams:
 https://piotrminkowski.com/2022/01/24/distributed-transactions-in-microservices-with-kafka-streams-and-spring-boot/ *
