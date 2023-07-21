@@ -27,13 +27,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void reserve(OrderEvent order) {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
-        log.info("Found: {}", product.getReservedItems());
+        log.info("Found: {}", product.getStockId());
 
         if (order.getStatus().equals(EventUtil.STATUS_NEW)) {
             if (order.getStockCount() < product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
-                product.setPrice(order.getPrice());
+                product.setPrice(order.getAmount());
                 product.setTransactionDate(new Date());
                 product.setStatus(EventUtil.STATUS_ACCEPT);
                 order.setStatus(EventUtil.STATUS_ACCEPT);
@@ -51,16 +51,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void confirm(OrderEvent order) {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
-        log.info("Found: {}", product);
+        log.info("Found: {}", product.getStockId());
 
         if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
-            repository.save(product);
+            product.setStatus(EventUtil.STATUS_CONFIRMED);
         } else if (order.getStatus().equals(EventUtil.STATUS_ROLLBACK) && !order.getSource().equals(SOURCE)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
             product.setAvailableItems(product.getAvailableItems() + order.getStockCount());
-            repository.save(product);
+            product.setStatus(EventUtil.STATUS_ROLLBACK);
         }
+
+        repository.save(product);
     }
 
 }

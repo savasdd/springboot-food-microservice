@@ -13,18 +13,18 @@ import java.math.BigDecimal;
 public class OrderEvent implements Serializable {
 
     private String id;
-    private String customerId;
+    private String paymentId;
     private String stockId;
     private Integer stockCount;
-    private BigDecimal price;
+    private BigDecimal amount;
     private String status;
     private String source;
 
-    public OrderEvent(String id, String customerId, String stockId, Integer stockCount, BigDecimal price) {
+    public OrderEvent(String id, String paymentId, String stockId, Integer stockCount, BigDecimal amount) {
         this.id = id;
-        this.customerId = customerId;
+        this.paymentId = paymentId;
         this.stockId = stockId;
         this.stockCount = stockCount;
-        this.price = price;
+        this.amount = amount;
     }
 }
