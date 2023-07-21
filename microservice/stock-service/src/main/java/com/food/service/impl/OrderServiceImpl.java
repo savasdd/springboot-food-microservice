@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
@@ -33,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
                 product.setPrice(order.getPrice());
+                product.setTransactionDate(new Date());
                 product.setStatus(EventUtil.STATUS_ACCEPT);
                 order.setStatus(EventUtil.STATUS_ACCEPT);
             } else {

@@ -4,8 +4,6 @@ import com.food.model.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,36 +17,32 @@ import java.util.UUID;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "STOCK")
-public class Stock extends BaseEntity {
+@Table(name = "PAYMENT")
+public class Payment extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "STOCK_ID", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @Column(name = "PAYMENT_ID", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
+    private UUID paymentId;
+
+    @Column(name = "STOCK_ID", columnDefinition = "char(36)")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID stockId;
 
-    @Column(name = "FOOD_ID", columnDefinition = "char(36)")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID foodId;
+    @Column(name = "AMOUNT_AVAILABLE")
+    private BigDecimal amountAvailable;
 
-    @Column(name = "PRICE")
-    private BigDecimal price;
+    @Column(name = "AMOUNT_RESERVED")
+    private BigDecimal amountReserved;
 
-    @Column(name = "AVAILABLE_ITEMS")
-    private Integer availableItems;
-
-    @Column(name = "RESERVED_ITEMS")
-    private Integer reservedItems;
-
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "AMOUNT")
+    private BigDecimal amount;
 
     @Column(name = "STATUS")
     private String status;
 
     @Column(name = "TRANSACTION_DATE")
     private Date transactionDate;
-
 }
