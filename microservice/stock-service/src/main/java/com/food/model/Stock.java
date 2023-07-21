@@ -44,12 +44,7 @@ public class Stock extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Version
-    private Long version;
+    @Column(name = "STATUS")
+    private String status;
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedDate
-    private String updatedBy;
 }

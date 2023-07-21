@@ -23,4 +23,6 @@ public class StockDto extends GenericDto{
 
     private String description;
 
+    private String status;
+
 }

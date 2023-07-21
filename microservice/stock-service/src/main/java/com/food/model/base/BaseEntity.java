@@ -3,11 +3,10 @@ package com.food.model.base;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -32,6 +31,15 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     @Column(name = "isDeleted", nullable = false)
     private Long isDeleted;
+
+    @Version
+    private Long version;
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedDate
+    private String updatedBy;
 
     @PreUpdate
     public void setPreUpdate() {

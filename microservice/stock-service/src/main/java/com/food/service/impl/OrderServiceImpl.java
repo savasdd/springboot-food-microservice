@@ -26,19 +26,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void reserve(OrderEvent order) {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
-        log.info("Found: {}", product);
+        log.info("Found: {}", product.getReservedItems());
 
         if (order.getStatus().equals(EventUtil.STATUS_NEW)) {
             if (order.getStockCount() < product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
                 product.setPrice(order.getPrice());
+                product.setStatus(EventUtil.STATUS_ACCEPT);
                 order.setStatus(EventUtil.STATUS_ACCEPT);
-                repository.save(product);
             } else {
+                product.setStatus(EventUtil.STATUS_REJECT);
                 order.setStatus(EventUtil.STATUS_REJECT);
             }
 
+            repository.save(product);
             template.send(EventUtil.STOCK_ORDERS, order.getId(), order);
             log.info("Sent: {}", order);
         }
