@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void reserve(OrderEvent order) {
-        var payment = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
+        var payment = repository.findById(UUID.fromString(order.getPaymentId())).orElseThrow(() -> new RuntimeException("Not Found Payment"));
         log.info("Found: {}", payment.getPaymentId());
 
         if (order.getStatus().equals(EventUtil.STATUS_NEW)) {
@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void confirm(OrderEvent order) {
-        var payment = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
+        var payment = repository.findById(UUID.fromString(order.getPaymentId())).orElseThrow(() -> new RuntimeException("Not Found Payment"));
         log.info("Found: {}", payment.getPaymentId());
 
         if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {

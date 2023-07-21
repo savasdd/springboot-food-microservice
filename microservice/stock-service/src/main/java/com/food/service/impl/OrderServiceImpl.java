@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void reserve(OrderEvent order) {
-        var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
+        var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow(() -> new RuntimeException("Not Found Stock"));
         log.info("Found: {}", product.getStockId());
 
         if (order.getStatus().equals(EventUtil.STATUS_NEW)) {
@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void confirm(OrderEvent order) {
-        var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow();
+        var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow(() -> new RuntimeException("Not Found Stock"));
         log.info("Found: {}", product.getStockId());
 
         if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {
