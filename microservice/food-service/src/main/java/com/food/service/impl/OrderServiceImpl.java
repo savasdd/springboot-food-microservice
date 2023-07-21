@@ -53,10 +53,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderEvent confirm(OrderEvent orderPayment, OrderEvent orderStock) {
         OrderEvent o = new OrderEvent(orderPayment.getId(),
-                orderPayment.getCustomerId(),
+                orderPayment.getPaymentId(),
                 orderPayment.getStockId(),
                 orderPayment.getStockCount(),
-                orderPayment.getPrice());
+                orderPayment.getAmount());
         if (orderPayment.getStatus().equals(EventUtil.STATUS_ACCEPT) && orderStock.getStatus().equals(EventUtil.STATUS_ACCEPT)) {
             o.setStatus(EventUtil.STATUS_CONFIRMED);
         } else if (orderPayment.getStatus().equals(EventUtil.STATUS_REJECT) && orderStock.getStatus().equals(EventUtil.STATUS_REJECT)) {

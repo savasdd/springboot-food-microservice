@@ -18,6 +18,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.support.serializer.JsonSerde;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import java.util.concurrent.Executor;
 
 import java.time.Duration;
 
@@ -25,6 +28,7 @@ import java.time.Duration;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableKafkaStreams
+@EnableAsync
 public class FoodServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(FoodServiceApplication.class, args);
@@ -78,6 +82,16 @@ public class FoodServiceApplication {
         KStream<Long, OrderEvent> stream = builder.stream(EventUtil.ORDERS, Consumed.with(Serdes.Long(), orderSerde));
 
         return stream.toTable(Materialized.<Long, OrderEvent>as(store).withKeySerde(Serdes.Long()).withValueSerde(orderSerde));
+    }
+
+    @Bean
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(5);
+        executor.setThreadNamePrefix("kafkaSender-");
+        executor.initialize();
+        return executor;
     }
 
 }
