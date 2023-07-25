@@ -39,6 +39,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @RabbitListener(queues = {"${rabbit.queue.name}"})
     @Transactional
     public void consumeFoodLog(LogFoodEvent event) {
         if (event.getLog() != null) {
@@ -78,12 +79,6 @@ public class LogServiceImpl implements LogService {
         var list = accountRepository.findAll();
         log.info("list accounts {} ", list.size());
         return list;
-    }
-
-    private Boolean createAccount(LogAccount dto) {
-        var model = accountRepository.save(dto);
-        log.info("create account {} ", model.getId());
-        return true;
     }
 
     @Override

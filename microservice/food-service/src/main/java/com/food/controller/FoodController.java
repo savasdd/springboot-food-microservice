@@ -29,19 +29,16 @@ public class FoodController {
         return new ResponseEntity<>(foodService.getAll(), HttpStatus.OK);
     }
 
-    //@MongoLog
     @PostMapping(value = "/foods")
     public ResponseEntity<FoodDto> create(@RequestBody FoodDto dto) {
         return new ResponseEntity<>(foodService.create(dto), HttpStatus.CREATED);
     }
 
-    //@MongoLog
     @PutMapping(value = "/foods/{id}")
     public ResponseEntity<FoodDto> update(@PathVariable("id") UUID id, @RequestBody FoodDto dto) {
         return new ResponseEntity<>(foodService.update(id, dto), HttpStatus.OK);
     }
 
-    //@MongoLog
     @DeleteMapping(value = "/foods/{id}")
     public ResponseEntity<FoodDto> delete(@PathVariable("id") UUID id) {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
