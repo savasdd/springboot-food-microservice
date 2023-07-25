@@ -39,7 +39,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    @RabbitListener(queues = {"${rabbit.queue.name}"})
+    @RabbitListener(queues = {"${rabbit.queue.food.name}"})
     @Transactional
     public void consumeFoodLog(LogFoodEvent event) {
         if (event.getLog() != null) {
