@@ -11,10 +11,10 @@ import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
 import com.food.repository.StockRepository;
 import com.food.service.LogService;
-import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +39,6 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    @KafkaListener(topics = EventUtil.FOOD_LOG, groupId = EventUtil.GROUP_ID)
     @Transactional
     public void consumeFoodLog(LogFoodEvent event) {
         if (event.getLog() != null) {
@@ -49,9 +48,9 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    @KafkaListener(topics = EventUtil.STOCK_LOG, groupId = EventUtil.GROUP_ID)
+    @RabbitListener(queues = {"${rabbit.queue.name}"})
     @Transactional
-    public void consumeStockLog(LogStockEvent event) {
+    public void consumeStockLog(@Payload LogStockEvent event) {
         if (event.getLog() != null) {
             createStock(modelMapper.map(event.getLog(), LogStock.class));
         }

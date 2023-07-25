@@ -4,6 +4,7 @@ import com.food.event.OrderEvent;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +16,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableKafka
+@EnableRabbit
 public class StockServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(StockServiceApplication.class, args);

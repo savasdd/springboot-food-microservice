@@ -7,11 +7,11 @@ import java.util.UUID;
 
 public interface StockService {
 
-    List<StockDto> getAll(UUID foodId);
+    List<StockDto> getAll();
 
-    StockDto create(UUID foodId, StockDto dto);
+    StockDto create(StockDto dto);
 
-    StockDto update(UUID foodId, UUID id, StockDto dto);
+    StockDto update(UUID id, StockDto dto);
 
-    StockDto delete(UUID foodId, UUID id);
+    StockDto delete(UUID id);
 }

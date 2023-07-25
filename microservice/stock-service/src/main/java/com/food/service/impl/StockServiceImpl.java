@@ -2,12 +2,10 @@ package com.food.service.impl;
 
 import com.food.aop.MongoLog;
 import com.food.dto.StockDto;
-import com.food.event.AccountEvent;
 import com.food.model.Stock;
 import com.food.repository.StockRepository;
 import com.food.service.StockService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,19 +16,18 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class StockServiceImpl implements StockService {
-    private final KafkaTemplate<String, AccountEvent> kafkaTemplateAccount;
     private final StockRepository repository;
 
-    public StockServiceImpl(KafkaTemplate<String, AccountEvent> kafkaTemplateAccount, StockRepository repository) {
-        this.kafkaTemplateAccount = kafkaTemplateAccount;
+    public StockServiceImpl(StockRepository repository) {
         this.repository = repository;
     }
 
     @Override
     @Transactional
-    public List<StockDto> getAll(UUID foodId) {
-        var list = repository.findByFoodId(foodId);
+    public List<StockDto> getAll() {
+        var list = repository.findAll();
         var dtolList = list.stream().map(val -> modelMapDto(val)).collect(Collectors.toList());
+
         log.info("list stock {} ", list.size());
         return dtolList;
     }
@@ -38,11 +35,12 @@ public class StockServiceImpl implements StockService {
     @MongoLog(status = 201)
     @Override
     @Transactional
-    public StockDto create(UUID foodId, StockDto dto) {
+    public StockDto create(StockDto dto) {
         var model = dtoMapModel(dto);
         model.setVersion(0L);
-        model.setFoodId(foodId);
+        model.setFoodId(dto.getFoodId());
         var newModel = repository.save(model);
+
         log.info("create stock {} ", newModel.getStockId());
         return modelMapDto(newModel);
     }
@@ -50,8 +48,8 @@ public class StockServiceImpl implements StockService {
     @MongoLog(status = 200)
     @Override
     @Transactional
-    public StockDto update(UUID foodId, UUID id, StockDto dto) {
-        var stocks = repository.findByFoodIdAndStockId(foodId, id);
+    public StockDto update(UUID id, StockDto dto) {
+        var stocks = repository.findById(id);
         var newStock = stocks.map(val -> {
             val.setFoodId(dto.getFoodId());
             val.setPrice(dto.getPrice());
@@ -59,6 +57,7 @@ public class StockServiceImpl implements StockService {
             return val;
         });
         var model = repository.save(newStock.get());
+
         log.info("update stock {} ", id);
         return modelMapDto(model);
     }
@@ -66,8 +65,8 @@ public class StockServiceImpl implements StockService {
     @MongoLog(status = 202)
     @Override
     @Transactional
-    public StockDto delete(UUID foodId, UUID id) {
-        var model = repository.findByFoodIdAndStockId(foodId, id);
+    public StockDto delete(UUID id) {
+        var model = repository.findById(id);
         if (model.isPresent()) {
             var dto = modelMapDto(model.get());
             repository.delete(model.get());

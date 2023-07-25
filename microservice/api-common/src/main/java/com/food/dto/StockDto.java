@@ -11,18 +11,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class StockDto extends GenericDto{
+public class StockDto extends GenericDto {
 
     private UUID stockId;
 
     private UUID foodId;
-
-    private Double count;
 
     private BigDecimal price;
 
     private String description;
 
     private String status;
+
+    private Integer availableItems;
+
+    private Integer reservedItems;
 
 }
