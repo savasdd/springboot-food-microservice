@@ -1,7 +1,10 @@
 package com.food.controller;
 
 import com.food.dto.StockDto;
+import com.food.model.Stock;
 import com.food.service.StockService;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,11 @@ public class StockController {
 
     public StockController(StockService stockService) {
         this.stockService = stockService;
+    }
+
+    @PostMapping(value = "/stocks/all")
+    public ResponseEntity<LoadResult<Stock>> getAllParameter(@RequestBody DataSourceLoadOptions<Stock> loadOptions) {
+        return new ResponseEntity<>(stockService.getAll(loadOptions), HttpStatus.OK);
     }
 
     @GetMapping(value = "/stocks")

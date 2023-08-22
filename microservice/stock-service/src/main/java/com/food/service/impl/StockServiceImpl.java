@@ -5,6 +5,8 @@ import com.food.dto.StockDto;
 import com.food.model.Stock;
 import com.food.repository.StockRepository;
 import com.food.service.StockService;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,17 @@ public class StockServiceImpl implements StockService {
 
     public StockServiceImpl(StockRepository repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public LoadResult<Stock> getAll(DataSourceLoadOptions<Stock> loadOptions) {
+        LoadResult<Stock> response = new LoadResult<>();
+        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+        response.setData(list.getContent());
+        response.setTotalCount(list.stream().count());
+
+        log.info("list stock {} ", response.totalCount);
+        return response;
     }
 
     @Override
