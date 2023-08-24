@@ -11,10 +11,11 @@ import java.util.Date;
 
 @Slf4j
 @Component
-public class StockActionJob implements Job {
+public class StockSumJob implements Job {
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        log.info("Stock Action Job execute: " + df.format(new Date()));
+        log.info("Stock Sum Job execute: " + df.format(new Date()));
     }
 }
