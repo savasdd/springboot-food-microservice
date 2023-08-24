@@ -2,6 +2,8 @@ package com.food.controller;
 
 import com.food.model.Payment;
 import com.food.service.PaymentService;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,11 @@ public class PaymentController {
 
     public PaymentController(PaymentService service) {
         this.service = service;
+    }
+
+    @PostMapping(value = "/payments/all")
+    public ResponseEntity<LoadResult<Payment>> getAllParameter(@RequestBody DataSourceLoadOptions<Payment> loadOptions) {
+        return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
     @GetMapping(value = "/payments")

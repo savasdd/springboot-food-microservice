@@ -3,11 +3,14 @@ package com.food.service.impl;
 import com.food.model.Payment;
 import com.food.repository.PaymentRepository;
 import com.food.service.PaymentService;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,6 +26,16 @@ public class PaymentServiceImpl implements PaymentService {
     public List<Payment> getAll() {
         log.info("GetAll payments");
         return repository.findAll();
+    }
+
+    @Override
+    public LoadResult<Payment> getAll(DataSourceLoadOptions<Payment> loadOptions) {
+        LoadResult<Payment> loadResult = new LoadResult<>();
+        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+        loadResult.setData(list.getContent());
+        loadResult.setTotalCount(list.stream().count());
+
+        return loadResult;
     }
 
     @Override

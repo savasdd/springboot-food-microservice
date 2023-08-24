@@ -2,8 +2,11 @@ package com.food.controller;
 
 import com.food.dto.FoodDto;
 import com.food.event.OrderEvent;
+import com.food.model.Food;
 import com.food.service.FoodService;
 import com.food.service.impl.OrderServiceImpl;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,11 @@ public class FoodController {
     public FoodController(FoodService foodService, OrderServiceImpl orderService) {
         this.foodService = foodService;
         this.orderService = orderService;
+    }
+
+    @PostMapping(value = "/foods/all")
+    public ResponseEntity<LoadResult<Food>> getAllParameter(@RequestBody DataSourceLoadOptions<Food> loadOptions) {
+        return new ResponseEntity<>(foodService.getAll(loadOptions), HttpStatus.OK);
     }
 
     @GetMapping(value = "/foods")

@@ -9,6 +9,8 @@ import com.food.model.Food;
 import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
 import com.food.service.FoodService;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -41,6 +43,16 @@ public class FoodServiceImpl implements FoodService {
         var dtoList = list.stream().map(var -> modelMapDto(var)).collect(Collectors.toList());
         log.info("list food {} ", list.size());
         return dtoList;
+    }
+
+    @Override
+    public LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) {
+        LoadResult<Food> loadResult = new LoadResult<>();
+        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+        loadResult.setData(list.getContent());
+        loadResult.setTotalCount(list.stream().count());
+
+        return loadResult;
     }
 
     @MongoLog(status = 201)

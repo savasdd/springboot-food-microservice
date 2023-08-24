@@ -1,6 +1,9 @@
 package com.food.service;
 
 import com.food.dto.FoodDto;
+import com.food.model.Food;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 
 import java.util.List;
 import java.util.UUID;
@@ -8,6 +11,8 @@ import java.util.UUID;
 public interface FoodService {
 
     List<FoodDto> getAll();
+
+    LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions);
 
     FoodDto create(FoodDto dto);
 
