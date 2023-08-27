@@ -9,54 +9,46 @@ import {RegisterComponent} from './views/pages/register/register.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
+    path: '', redirectTo: 'dashboard', pathMatch: 'full'
   },
   {
-    path: '',
-    component: DefaultLayoutComponent,
+    path: '', component: DefaultLayoutComponent,
     data: {
       title: 'Home'
     },
     children: [
       {
         path: 'dashboard',
-        loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+        loadChildren: () => import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
-
       {
-        path: 'pages',
-        loadChildren: () =>
-          import('./views/pages/pages.module').then((m) => m.PagesModule)
+        path: 'pages', loadChildren: () => import('./views/pages/pages.module').then((m) => m.PagesModule)
+      },
+      {
+        path: 'foods', loadChildren: () => import('./views/foods/foods.module').then((m) => m.FoodsModule)
       },
     ]
   },
   {
-    path: '404',
-    component: Page404Component,
+    path: '404', component: Page404Component,
     data: {
       title: 'Page 404'
     }
   },
   {
-    path: '500',
-    component: Page500Component,
+    path: '500', component: Page500Component,
     data: {
       title: 'Page 500'
     }
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'login', component: LoginComponent,
     data: {
       title: 'Login Page'
     }
   },
   {
-    path: 'register',
-    component: RegisterComponent,
+    path: 'register', component: RegisterComponent,
     data: {
       title: 'Register Page'
     }
