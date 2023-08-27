@@ -18,16 +18,29 @@ import {IconModule} from "@coreui/icons-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {DocsComponentsModule} from "@docs-components/docs-components.module";
 import {RouterModule, Routes} from "@angular/router";
+import {FoodComponent} from './food/food.component';
+import {PaymentComponent} from './payment/payment.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'stocks',
-        component: StockComponent,
+        path: 'stocks', component: StockComponent,
         data: {
           title: 'Stock'
+        }
+      },
+      {
+        path: 'foods', component: FoodComponent,
+        data: {
+          title: 'Food'
+        }
+      },
+      {
+        path: 'payments', component: PaymentComponent,
+        data: {
+          title: 'Payment'
         }
       },
     ]
@@ -36,7 +49,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    StockComponent
+    StockComponent,
+    FoodComponent,
+    PaymentComponent
   ],
   imports: [
     CommonModule,
