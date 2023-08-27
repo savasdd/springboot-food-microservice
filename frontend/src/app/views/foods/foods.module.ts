@@ -20,6 +20,7 @@ import {DocsComponentsModule} from "@docs-components/docs-components.module";
 import {RouterModule, Routes} from "@angular/router";
 import {FoodComponent} from './food/food.component';
 import {PaymentComponent} from './payment/payment.component';
+import {DevExtremeModule} from "devextreme-angular";
 
 const routes: Routes = [
   {
@@ -70,6 +71,7 @@ const routes: Routes = [
     NavbarModule,
     CollapseModule,
     NavModule,
+    DevExtremeModule,
   ]
 })
 export class FoodsModule {
