@@ -7,6 +7,7 @@ import com.food.service.FoodService;
 import com.food.service.impl.OrderServiceImpl;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,31 +28,37 @@ public class FoodController {
         this.orderService = orderService;
     }
 
+    @Operation(description = "Food getAll by loadResult")
     @PostMapping(value = "/foods/all")
     public ResponseEntity<LoadResult<Food>> getAllParameter(@RequestBody DataSourceLoadOptions<Food> loadOptions) {
         return new ResponseEntity<>(foodService.getAll(loadOptions), HttpStatus.OK);
     }
 
+    @Operation(description = "Food getAll")
     @GetMapping(value = "/foods")
     public ResponseEntity<List<FoodDto>> getAll() {
         return new ResponseEntity<>(foodService.getAll(), HttpStatus.OK);
     }
 
+    @Operation(description = "Food save")
     @PostMapping(value = "/foods")
     public ResponseEntity<FoodDto> create(@RequestBody FoodDto dto) {
         return new ResponseEntity<>(foodService.create(dto), HttpStatus.CREATED);
     }
 
+    @Operation(description = "Food update by id")
     @PutMapping(value = "/foods/{id}")
     public ResponseEntity<FoodDto> update(@PathVariable("id") UUID id, @RequestBody FoodDto dto) {
         return new ResponseEntity<>(foodService.update(id, dto), HttpStatus.OK);
     }
 
+    @Operation(description = "Food delete by id")
     @DeleteMapping(value = "/foods/{id}")
     public ResponseEntity<FoodDto> delete(@PathVariable("id") UUID id) {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
     }
 
+    @Operation(description = "Orders")
     @PostMapping(value = "/orders")
     public ResponseEntity<OrderEvent> createOrder(@RequestBody OrderEvent dto) {
         return ResponseEntity.ok(orderService.create(dto));
