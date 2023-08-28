@@ -14,8 +14,8 @@ export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttribu
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner';
-export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner';
-export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType';
+export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInner';
+export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInnerType';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentModel';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentParentPath';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentParentPathCompoundSelectionItemsInner';

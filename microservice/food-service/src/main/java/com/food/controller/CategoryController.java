@@ -1,6 +1,5 @@
 package com.food.controller;
 
-import com.food.dto.FoodDto;
 import com.food.model.Category;
 import com.food.service.CategoryService;
 import com.food.spesification.response.LoadResult;
@@ -37,7 +36,7 @@ public class CategoryController {
 
     @Operation(description = "Category getOne")
     @GetMapping(value = "/categorys/{id}")
-    public ResponseEntity<Category> getFoodByOne(@PathVariable Long id) {
+    public ResponseEntity<Category> getCategoryByOne(@PathVariable Long id) {
         return new ResponseEntity<>(service.getByOne(id), HttpStatus.OK);
     }
 
