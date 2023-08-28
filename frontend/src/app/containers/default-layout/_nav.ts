@@ -38,6 +38,10 @@ export const navItems: INavData[] = [
         name: 'Payment',
         url: '/foods/payments'
       },
+      {
+        name: 'Category',
+        url: '/foods/categorys'
+      },
     ]
   },
   {
