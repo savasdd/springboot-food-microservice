@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {CategoryControllerService, FoodControllerService} from "./food-service-api";
+import {CategoryControllerService} from "./food-service-api";
 import {Observable} from "rxjs";
 
 
