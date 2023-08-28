@@ -25,6 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category getByOne(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
+    }
+
+    @Override
     public LoadResult<Category> getAll(DataSourceLoadOptions<Category> loadOptions) {
         LoadResult<Category> response = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());

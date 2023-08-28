@@ -10,6 +10,8 @@ public interface CategoryService {
 
     List<Category> getAll();
 
+    Category getByOne(Long id);
+
     LoadResult<Category> getAll(DataSourceLoadOptions<Category> loadOptions);
 
     Category create(Category dto);

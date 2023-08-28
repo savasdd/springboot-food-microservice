@@ -40,6 +40,12 @@ public class FoodController {
         return new ResponseEntity<>(foodService.getAll(), HttpStatus.OK);
     }
 
+    @Operation(description = "Food getOne")
+    @GetMapping(value = "/foods/{id}")
+    public ResponseEntity<FoodDto> getFoodByOne(@PathVariable String id) {
+        return new ResponseEntity<>(foodService.getByOne(id), HttpStatus.OK);
+    }
+
     @Operation(description = "Food save")
     @PostMapping(value = "/foods")
     public ResponseEntity<FoodDto> createFood(@RequestBody FoodDto dto) {

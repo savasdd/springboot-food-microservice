@@ -46,6 +46,12 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public FoodDto getByOne(String id) {
+        var model = repository.findById(UUID.fromString(id));
+        return modelMapDto(model.get());
+    }
+
+    @Override
     public LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) {
         LoadResult<Food> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
