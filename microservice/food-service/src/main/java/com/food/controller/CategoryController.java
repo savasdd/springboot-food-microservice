@@ -23,31 +23,31 @@ public class CategoryController {
     }
 
     @Operation(description = "Category getAll by loadResult")
-    @PostMapping(value = "/foods/all")
+    @PostMapping(value = "/categorys/all")
     public ResponseEntity<LoadResult<Category>> getAllParameter(@RequestBody DataSourceLoadOptions<Category> loadOptions) {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
     @Operation(description = "Category getAll")
-    @GetMapping(value = "/foods")
+    @GetMapping(value = "/categorys")
     public ResponseEntity<List<Category>> getAll() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
     @Operation(description = "Category save")
-    @PostMapping(value = "/foods")
+    @PostMapping(value = "/categorys")
     public ResponseEntity<Category> create(@RequestBody Category dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Category update by id")
-    @PutMapping(value = "/foods/{id}")
+    @PutMapping(value = "/categorys/{id}")
     public ResponseEntity<Category> update(@PathVariable("id") Long id, @RequestBody Category dto) {
         return new ResponseEntity<>(service.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Category delete by id")
-    @DeleteMapping(value = "/foods/{id}")
+    @DeleteMapping(value = "/categorys/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
