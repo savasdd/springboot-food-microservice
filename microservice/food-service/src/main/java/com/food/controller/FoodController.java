@@ -30,37 +30,37 @@ public class FoodController {
 
     @Operation(description = "Food getAll by loadResult")
     @PostMapping(value = "/foods/all")
-    public ResponseEntity<LoadResult<Food>> getAllParameter(@RequestBody DataSourceLoadOptions<Food> loadOptions) {
+    public ResponseEntity<LoadResult<Food>> getAllFoodLoad(@RequestBody DataSourceLoadOptions<Food> loadOptions) {
         return new ResponseEntity<>(foodService.getAll(loadOptions), HttpStatus.OK);
     }
 
     @Operation(description = "Food getAll")
     @GetMapping(value = "/foods")
-    public ResponseEntity<List<FoodDto>> getAll() {
+    public ResponseEntity<List<FoodDto>> getAllFood() {
         return new ResponseEntity<>(foodService.getAll(), HttpStatus.OK);
     }
 
     @Operation(description = "Food save")
     @PostMapping(value = "/foods")
-    public ResponseEntity<FoodDto> create(@RequestBody FoodDto dto) {
+    public ResponseEntity<FoodDto> createFood(@RequestBody FoodDto dto) {
         return new ResponseEntity<>(foodService.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Food update by id")
     @PutMapping(value = "/foods/{id}")
-    public ResponseEntity<FoodDto> update(@PathVariable("id") UUID id, @RequestBody FoodDto dto) {
+    public ResponseEntity<FoodDto> updateFood(@PathVariable("id") UUID id, @RequestBody FoodDto dto) {
         return new ResponseEntity<>(foodService.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Food delete by id")
     @DeleteMapping(value = "/foods/{id}")
-    public ResponseEntity<FoodDto> delete(@PathVariable("id") UUID id) {
+    public ResponseEntity<FoodDto> deleteFood(@PathVariable("id") UUID id) {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
     }
 
     @Operation(description = "Orders")
     @PostMapping(value = "/orders")
-    public ResponseEntity<OrderEvent> createOrder(@RequestBody OrderEvent dto) {
+    public ResponseEntity<OrderEvent> createOrderFood(@RequestBody OrderEvent dto) {
         return ResponseEntity.ok(orderService.create(dto));
     }
 
