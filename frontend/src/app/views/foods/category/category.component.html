@@ -35,6 +35,10 @@
                   [useIcons]="true">
                 </dxo-editing>
 
+                <dxi-column dataField="categoryType" caption="Type" [width]="125">
+                  <dxo-lookup [dataSource]="dataTypeSource" displayExpr="name" valueExpr="name">
+                  </dxo-lookup>
+                </dxi-column>
                 <dxi-column dataField="name">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>

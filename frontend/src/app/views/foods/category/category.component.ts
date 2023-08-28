@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CategoryService} from "../../../services/category.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import CustomStore from 'devextreme/data/custom_store';
+import {Category} from "../../../services/food-service-api";
+import CategoryTypeEnum = Category.CategoryTypeEnum;
 
 @Component({
   selector: 'app-category',
@@ -12,6 +14,12 @@ export class CategoryComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('categoryDataGrid', {static: true}) categoryDataGrid: DxDataGridComponent | undefined;
   events: Array<string> = [];
+  dataTypeSource: any = [
+    {name: CategoryTypeEnum.Sebze},
+    {name: CategoryTypeEnum.Meyve},
+    {name: CategoryTypeEnum.Kahvalti},
+    {name: CategoryTypeEnum.Firin},
+  ];
 
   constructor(public service: CategoryService) {
     this.loadGrid();
@@ -29,7 +37,6 @@ export class CategoryComponent implements OnInit {
       key: 'id',
       load: (loadOptions) => {
         return this.service.findAll(loadOptions).toPromise().then((response: any) => {
-          console.log(response)
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -72,4 +79,5 @@ export class CategoryComponent implements OnInit {
     });
   }
 
+  protected readonly Category = Category;
 }

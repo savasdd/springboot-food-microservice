@@ -16,8 +16,8 @@ import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclar
 export interface DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner { 
     type?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType;
     optional?: boolean;
-    version?: boolean;
     id?: boolean;
+    version?: boolean;
     name?: string;
     collection?: boolean;
     association?: boolean;

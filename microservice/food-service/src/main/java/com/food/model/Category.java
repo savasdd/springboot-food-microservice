@@ -1,6 +1,7 @@
 package com.food.model;
 
 import com.food.model.base.BaseEntity;
+import com.food.model.enums.ECategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,8 @@ public class Category extends BaseEntity {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoryType")
+    private ECategoryType categoryType;
 }

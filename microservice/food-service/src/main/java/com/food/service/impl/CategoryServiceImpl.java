@@ -54,6 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
         var update = categors.map(val -> {
             val.setName(dto.getName() != null ? dto.getName() : val.getName());
             val.setDescription(dto.getDescription() != null ? dto.getDescription() : val.getDescription());
+            val.setCategoryType(dto.getCategoryType() != null ? dto.getCategoryType() : val.getCategoryType());
             return val;
         }).get();
 

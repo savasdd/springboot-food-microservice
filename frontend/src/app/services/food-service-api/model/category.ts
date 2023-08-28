@@ -18,5 +18,16 @@ export interface Category {
     id?: number;
     name?: string;
     description?: string;
+    categoryType?: Category.CategoryTypeEnum;
 }
+export namespace Category {
+    export type CategoryTypeEnum = 'SEBZE' | 'MEYVE' | 'KAHVALTI' | 'FIRIN';
+    export const CategoryTypeEnum = {
+        Sebze: 'SEBZE' as CategoryTypeEnum,
+        Meyve: 'MEYVE' as CategoryTypeEnum,
+        Kahvalti: 'KAHVALTI' as CategoryTypeEnum,
+        Firin: 'FIRIN' as CategoryTypeEnum
+    };
+}
+
 
