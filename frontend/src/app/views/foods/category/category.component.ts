@@ -65,6 +65,8 @@ export class CategoryComponent implements OnInit {
             return;
           },
           err => {
+            const message = 'Kayıt Güncelleme Hatası: ' + err.error.errorMessage;
+            console.log(message);
           }
         );
       },
@@ -73,6 +75,8 @@ export class CategoryComponent implements OnInit {
             return;
           },
           err => {
+            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
+            console.log(message);
           }
         );
       }

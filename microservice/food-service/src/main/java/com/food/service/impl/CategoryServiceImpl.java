@@ -64,9 +64,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Long id) {
+    public String delete(Long id) {
         repository.deleteById(id);
 
         log.info("Category delete");
+        return "Delete Success";
     }
 }
