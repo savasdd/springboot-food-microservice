@@ -13,7 +13,7 @@ export class CategoryComponent implements OnInit {
   @ViewChild('categoryDataGrid', {static: true}) categoryDataGrid: DxDataGridComponent | undefined;
   events: Array<string> = [];
 
-  constructor(private service: CategoryService) {
+  constructor(public service: CategoryService) {
     this.loadGrid();
   }
 
@@ -29,9 +29,9 @@ export class CategoryComponent implements OnInit {
       key: 'id',
       load: (loadOptions) => {
         return this.service.findAll(loadOptions).toPromise().then((response: any) => {
-          //this.logData('LIST', response);
+          console.log(response)
           return {
-            data: response.items,
+            data: response.data,
             totalCount: response.totalCount
           };
         });

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {HashLocationStrategy, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -12,6 +12,7 @@ import {AppComponent} from './app.component';
 
 // Import containers
 import {DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent} from './containers';
+import {HttpClientModule} from '@angular/common/http';
 
 import {
   AvatarModule,
@@ -31,7 +32,7 @@ import {
   SharedModule,
   SidebarModule,
   TabsModule,
-  UtilitiesModule
+  UtilitiesModule,
 } from '@coreui/angular';
 
 import {IconModule, IconSetService} from '@coreui/icons-angular';
@@ -70,7 +71,8 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    HttpClientModule,
   ],
   providers: [
     {

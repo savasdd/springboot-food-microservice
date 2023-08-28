@@ -15,8 +15,8 @@ import { DataSourceLoadOptionsFoodJoinListValueParentModel } from './dataSourceL
 
 export interface DataSourceLoadOptionsFoodJoinListValueParentParentPath { 
     model?: DataSourceLoadOptionsFoodJoinListValueParentModel;
-    compoundSelectionItems?: Array<DataSourceLoadOptionsFoodJoinListValueParentParentPathCompoundSelectionItemsInner>;
     compoundSelection?: boolean;
+    compoundSelectionItems?: Array<DataSourceLoadOptionsFoodJoinListValueParentParentPathCompoundSelectionItemsInner>;
     alias?: string;
 }
 

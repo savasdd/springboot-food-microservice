@@ -6,13 +6,14 @@ import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class CategoryController {
 
@@ -24,7 +25,7 @@ public class CategoryController {
 
     @Operation(description = "Category getAll by loadResult")
     @PostMapping(value = "/categorys/all")
-    public ResponseEntity<LoadResult<Category>> getAllCategoryFood(@RequestBody DataSourceLoadOptions<Category> loadOptions) {
+    public ResponseEntity<LoadResult<Category>> getAllCategoryLoad(@RequestBody DataSourceLoadOptions<Category> loadOptions) {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 

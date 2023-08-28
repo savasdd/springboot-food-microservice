@@ -8,27 +8,27 @@ import {Observable} from "rxjs";
 })
 export class CategoryService {
 
-  constructor(private service: CategoryControllerService) {
+  constructor(private categoryService: CategoryControllerService) {
   }
 
   findAll(loadOptions: any) {
-    return this.service.getAllCategoryFood(loadOptions);
+    return this.categoryService.getAllCategoryLoad(loadOptions);
   }
 
   findOne(id: number): Observable<any> {
-    return this.service.getCategoryByOne(id);
+    return this.categoryService.getCategoryByOne(id);
   }
 
   save(data: any) {
-    return this.service.createCategory(data);
+    return this.categoryService.createCategory(data);
   }
 
   update(id: number, data: any) {
-    return this.service.updateCategory(id, data);
+    return this.categoryService.updateCategory(id, data);
   }
 
   delete(id: number) {
-    return this.service.deleteCategory(id);
+    return this.categoryService.deleteCategory(id);
   }
 
 }
