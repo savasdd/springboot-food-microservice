@@ -45,6 +45,11 @@ public class StockServiceImpl implements StockService {
         return dtolList;
     }
 
+    @Override
+    public StockDto getById(String id) {
+        return modelMapDto(repository.findById(UUID.fromString(id)).get());
+    }
+
     @MongoLog(status = 201)
     @Override
     @Transactional

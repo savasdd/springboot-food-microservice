@@ -16,7 +16,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "api-generate": "openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript-angular -o ./src/app/service/person-service-api",
-    "api-generate-food": "openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript-angular -o ./src/app/services/food-service-api"
+    "api-generate-food": "openapi-generator-cli generate -i http://localhost:8081/v3/api-docs -g typescript-angular -o ./src/app/services/food-service-api",
+    "api-generate-stock": "openapi-generator-cli generate -i http://localhost:8087/v3/api-docs -g typescript-angular -o ./src/app/services/stock-service-api"
   },
   "private": true,
   "dependencies": {

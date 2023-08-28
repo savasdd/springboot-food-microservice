@@ -14,6 +14,8 @@ public interface StockService {
 
     List<StockDto> getAll();
 
+    StockDto getById(String id);
+
     StockDto create(StockDto dto);
 
     StockDto update(UUID id, StockDto dto);
