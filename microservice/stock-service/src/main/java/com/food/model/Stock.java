@@ -24,8 +24,7 @@ public class Stock extends BaseEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "STOCK_ID", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    @Type(type = "uuid-char")
+    @Column(name = "STOCK_ID", updatable = false, nullable = false)
     private UUID stockId;
 
     @Column(name = "FOOD_ID", columnDefinition = "char(36)")
