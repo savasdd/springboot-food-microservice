@@ -5,12 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.Check;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -20,7 +16,7 @@ import java.util.UUID;
 @Builder
 @Entity(name = "FOOD")
 @Table
-@Check(constraints = "LENGTH(DESCRIPTION) > 2")
+@Check(constraints = "LENGTH(FOOD_NAME) > 2")
 public class Food extends BaseEntity {
 
     @Id
@@ -39,22 +35,6 @@ public class Food extends BaseEntity {
     @Length(min = 2)
     @Column(name = "DESCRIPTION")
     private String description;
-
-    @Version
-    @Column(name = "VERSYION")
-    private Long version;
-
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedDate
-    private String updatedBy;
-
-    @CreatedDate
-    private Date createdDate;
-
-    @LastModifiedDate
-    private Date updatedDate;
 
 
 }
