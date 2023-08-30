@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.repository.StockRepository;
 import com.food.service.OrderService;
@@ -35,11 +36,11 @@ public class OrderServiceImpl implements OrderService {
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
                 product.setPrice(order.getAmount());
                 product.setTransactionDate(new Date());
-                product.setStatus(EventUtil.STATUS_ACCEPT);
-                order.setStatus(EventUtil.STATUS_ACCEPT);
+                product.setStatus(EPaymentType.ACCEPT);
+                order.setStatus(EPaymentType.ACCEPT.name());
             } else {
-                product.setStatus(EventUtil.STATUS_REJECT);
-                order.setStatus(EventUtil.STATUS_REJECT);
+                product.setStatus(EPaymentType.REJECT);
+                order.setStatus(EPaymentType.REJECT.name());
             }
 
             repository.save(product);
@@ -55,11 +56,11 @@ public class OrderServiceImpl implements OrderService {
 
         if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
-            product.setStatus(EventUtil.STATUS_CONFIRMED);
+            product.setStatus(EPaymentType.CONFIRMED);
         } else if (order.getStatus().equals(EventUtil.STATUS_ROLLBACK) && !order.getSource().equals(SOURCE)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
             product.setAvailableItems(product.getAvailableItems() + order.getStockCount());
-            product.setStatus(EventUtil.STATUS_ROLLBACK);
+            product.setStatus(EPaymentType.ROLLBACK);
         }
 
         repository.save(product);

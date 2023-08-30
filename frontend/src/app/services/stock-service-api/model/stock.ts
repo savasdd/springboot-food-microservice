@@ -24,7 +24,18 @@ export interface Stock {
     availableItems?: number;
     reservedItems?: number;
     description?: string;
-    status?: string;
+    status?: Stock.StatusEnum;
     transactionDate?: string;
 }
+export namespace Stock {
+    export type StatusEnum = 'NEW' | 'ACCEPT' | 'REJECT' | 'CONFIRMED' | 'ROLLBACK';
+    export const StatusEnum = {
+        New: 'NEW' as StatusEnum,
+        Accept: 'ACCEPT' as StatusEnum,
+        Reject: 'REJECT' as StatusEnum,
+        Confirmed: 'CONFIRMED' as StatusEnum,
+        Rollback: 'ROLLBACK' as StatusEnum
+    };
+}
+
 

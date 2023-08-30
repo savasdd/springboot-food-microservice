@@ -69,9 +69,13 @@ public class StockServiceImpl implements StockService {
     public StockDto update(UUID id, StockDto dto) {
         var stocks = repository.findById(id);
         var newStock = stocks.map(val -> {
-            val.setFoodId(dto.getFoodId());
-            val.setPrice(dto.getPrice());
-            val.setDescription(dto.getDescription());
+            val.setFoodId(dto.getFoodId() != null ? dto.getFoodId() : val.getFoodId());
+            val.setPrice(dto.getPrice() != null ? dto.getPrice() : val.getPrice());
+            val.setAvailableItems(dto.getAvailableItems() != null ? dto.getAvailableItems() : val.getAvailableItems());
+            val.setReservedItems(dto.getReservedItems() != null ? dto.getReservedItems() : val.getReservedItems());
+            val.setStatus(dto.getStatus() != null ? dto.getStatus() : val.getStatus());
+            val.setDescription(dto.getDescription() != null ? dto.getDescription() : val.getDescription());
+            val.setTransactionDate(dto.getTransactionDate() != null ? dto.getTransactionDate() : val.getTransactionDate());
             return val;
         });
         var model = repository.save(newStock.get());

@@ -19,8 +19,20 @@ export interface StockDto {
     foodId?: string;
     price?: number;
     description?: string;
-    status?: string;
+    status?: StockDto.StatusEnum;
     availableItems?: number;
     reservedItems?: number;
+    transactionDate?: string;
 }
+export namespace StockDto {
+    export type StatusEnum = 'NEW' | 'ACCEPT' | 'REJECT' | 'CONFIRMED' | 'ROLLBACK';
+    export const StatusEnum = {
+        New: 'NEW' as StatusEnum,
+        Accept: 'ACCEPT' as StatusEnum,
+        Reject: 'REJECT' as StatusEnum,
+        Confirmed: 'CONFIRMED' as StatusEnum,
+        Rollback: 'ROLLBACK' as StatusEnum
+    };
+}
+
 

@@ -1,11 +1,10 @@
 package com.food.model;
 
+import com.food.enums.EPaymentType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -45,8 +44,9 @@ public class Stock extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    private String status;
+    private EPaymentType status;
 
     @Column(name = "TRANSACTION_DATE")
     private Date transactionDate;

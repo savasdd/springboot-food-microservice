@@ -1,7 +1,7 @@
 package com.food.model;
 
 import com.food.model.base.BaseEntity;
-import com.food.model.enums.ECategoryType;
+import com.food.enums.ECategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

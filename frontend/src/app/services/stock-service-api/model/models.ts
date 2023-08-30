@@ -10,9 +10,9 @@ export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttrib
 export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringType';
 export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner';
 export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
-export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInner';
+export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner';
+export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType';
 export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner';
-export * from './dataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType';
 export * from './dataSourceLoadOptionsStockJoinListValueParentModel';
 export * from './dataSourceLoadOptionsStockJoinListValueParentParentPath';
 export * from './dataSourceLoadOptionsStockJoinListValueParentParentPathCompoundSelectionItemsInner';

@@ -1,8 +1,10 @@
 package com.food.dto;
 
+import com.food.enums.EPaymentType;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -21,10 +23,12 @@ public class StockDto extends GenericDto {
 
     private String description;
 
-    private String status;
+    private EPaymentType status;
 
     private Integer availableItems;
 
     private Integer reservedItems;
+
+    private Date transactionDate;
 
 }

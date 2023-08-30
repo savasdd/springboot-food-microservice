@@ -21,10 +21,10 @@ import { DataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttribute } fr
 export interface DataSourceLoadOptionsStockJoinListValue { 
     parent?: DataSourceLoadOptionsStockJoinListValueParent;
     attribute?: DataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttribute;
-    joinType?: DataSourceLoadOptionsStockJoinListValue.JoinTypeEnum;
     on?: DataSourceLoadOptionsStockJoinListValueOn;
-    correlated?: boolean;
+    joinType?: DataSourceLoadOptionsStockJoinListValue.JoinTypeEnum;
     correlationParent?: DataSourceLoadOptionsStockJoinListValueParent;
+    correlated?: boolean;
     model?: DataSourceLoadOptionsStockJoinListValueParentModel;
     parentPath?: DataSourceLoadOptionsStockJoinListValueParentParentPath;
     compoundSelection?: boolean;
