@@ -6,20 +6,19 @@ import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface FoodService {
 
     List<FoodDto> getAll();
 
-    FoodDto getByOne(String id);
+    Food getByOne(String id);
 
     LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions);
 
-    FoodDto create(FoodDto dto);
+    Food create(Food dto);
 
-    FoodDto update(UUID id, FoodDto dto);
+    FoodDto update(String id, Food dto);
 
-    FoodDto delete(UUID id);
+    Food delete(String id);
 
 }

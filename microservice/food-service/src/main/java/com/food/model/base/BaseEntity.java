@@ -32,12 +32,15 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "isDeleted", nullable = false)
     private Long isDeleted;
 
+    @JsonIgnore
     @Version
     private Long version;
 
+    @JsonIgnore
     @CreatedBy
     private String createdBy;
 
+    @JsonIgnore
     @LastModifiedDate
     private String updatedBy;
 

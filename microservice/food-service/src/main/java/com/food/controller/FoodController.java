@@ -9,6 +9,7 @@ import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class FoodController {
 
@@ -42,25 +43,25 @@ public class FoodController {
 
     @Operation(description = "Food getOne")
     @GetMapping(value = "/foods/{id}")
-    public ResponseEntity<FoodDto> getFoodByOne(@PathVariable String id) {
+    public ResponseEntity<Food> getFoodByOne(@PathVariable String id) {
         return new ResponseEntity<>(foodService.getByOne(id), HttpStatus.OK);
     }
 
     @Operation(description = "Food save")
     @PostMapping(value = "/foods")
-    public ResponseEntity<FoodDto> createFood(@RequestBody FoodDto dto) {
+    public ResponseEntity<Food> createFood(@RequestBody Food dto) {
         return new ResponseEntity<>(foodService.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Food update by id")
     @PutMapping(value = "/foods/{id}")
-    public ResponseEntity<FoodDto> updateFood(@PathVariable("id") UUID id, @RequestBody FoodDto dto) {
+    public ResponseEntity<FoodDto> updateFood(@PathVariable("id") String id, @RequestBody Food dto) {
         return new ResponseEntity<>(foodService.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Food delete by id")
     @DeleteMapping(value = "/foods/{id}")
-    public ResponseEntity<FoodDto> deleteFood(@PathVariable("id") UUID id) {
+    public ResponseEntity<Food> deleteFood(@PathVariable("id") String id) {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
     }
 

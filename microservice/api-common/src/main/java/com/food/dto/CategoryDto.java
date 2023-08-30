@@ -1,5 +1,6 @@
 package com.food.dto;
 
+import com.food.enums.ECategoryType;
 import lombok.*;
 
 @Getter
@@ -12,4 +13,5 @@ public class CategoryDto extends GenericDto {
     private Long id;
     private String name;
     private String description;
+    private ECategoryType categoryType;
 }

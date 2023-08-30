@@ -18,5 +18,16 @@ export interface CategoryDto {
     id?: number;
     name?: string;
     description?: string;
+    categoryType?: CategoryDto.CategoryTypeEnum;
 }
+export namespace CategoryDto {
+    export type CategoryTypeEnum = 'SEBZE' | 'MEYVE' | 'KAHVALTI' | 'FIRIN';
+    export const CategoryTypeEnum = {
+        Sebze: 'SEBZE' as CategoryTypeEnum,
+        Meyve: 'MEYVE' as CategoryTypeEnum,
+        Kahvalti: 'KAHVALTI' as CategoryTypeEnum,
+        Firin: 'FIRIN' as CategoryTypeEnum
+    };
+}
+
 

@@ -15,9 +15,6 @@
  * 
  */
 export interface Category { 
-    version?: number;
-    createdBy?: string;
-    updatedBy?: string;
     id?: number;
     name?: string;
     description?: string;

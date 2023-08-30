@@ -13,6 +13,8 @@ import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +48,9 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public FoodDto getByOne(String id) {
+    public Food getByOne(String id) {
         var model = repository.findById(UUID.fromString(id));
-        return modelMapDto(model.get());
+        return model.get();
     }
 
     @Override
@@ -58,35 +60,36 @@ public class FoodServiceImpl implements FoodService {
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
 
+        log.info("list food {} ", loadResult.totalCount);
         return loadResult;
     }
 
     @MongoLog(status = 201)
     @Override
     @Transactional
-    public FoodDto create(FoodDto dto) {
-        var category = categoryRepository.findById(dto.getCategory().getId() != null ? dto.getCategory().getId() : -1);
-        var model = dtoMapModel(dto);
-        model.setCategory(category.isPresent() ? category.get() : null);
-        model.setVersion(0L);
-        var newModel = repository.save(model);
+    public Food create(Food dto) {
+        var category = categoryRepository.findById((dto.getCategory() != null && dto.getCategory().getId() != null) ? dto.getCategory().getId() : -1);
+        dto.setCategory(category.isPresent() ? category.get() : null);
+        dto.setVersion(0L);
+        var newModel = repository.save(dto);
+
         log.info("create food {} ", newModel.getFoodId());
-        return modelMapDto(newModel);
+        return newModel;
     }
 
     @MongoLog(status = 200)
     @Override
     @Transactional
-    public FoodDto update(UUID id, FoodDto dto) {
-        var category = categoryRepository.findById(dto.getCategory().getId() != null ? dto.getCategory().getId() : -1);
-        var foods = repository.findById(id);
+    public FoodDto update(String id, Food dto) {
+        var category = categoryRepository.findById((dto.getCategory() != null && dto.getCategory().getId() != null) ? dto.getCategory().getId() : -1);
+        var foods = repository.findById(UUID.fromString(id));
         var newFood = foods.map(var -> {
-            var.setFoodName(dto.getFoodName());
+            var.setFoodName(dto.getFoodName() != null ? dto.getFoodName() : var.getFoodName());
             var.setCategory(category.isPresent() ? category.get() : var.getCategory());
-            var.setDescription(dto.getDescription());
+            var.setDescription(dto.getDescription() != null ? dto.getDescription() : var.getDescription());
             return var;
-        });
-        var newModel = repository.save(newFood.get());
+        }).get();
+        var newModel = repository.save(newFood);
         log.info("update food {} ", id);
 
         return modelMapDto(newModel);
@@ -95,10 +98,10 @@ public class FoodServiceImpl implements FoodService {
     @MongoLog(status = 202)
     @Override
     @Transactional
-    public FoodDto delete(UUID id) {
-        var food = repository.findById(id);
+    public Food delete(String id) {
+        var food = repository.findById(UUID.fromString(id));
         if (food.isPresent()) {
-            var dto = modelMapDto(food.get());
+            var dto = food.get();
             repository.delete(food.get());
             return dto;
         } else
@@ -107,11 +110,18 @@ public class FoodServiceImpl implements FoodService {
 
 
     private Food dtoMapModel(FoodDto dto) {
-        return Food.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).category(modelMapper.map(dto.getCategory(), Category.class)).description(dto.getDescription()).build();
+        return Food.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).category(dto.getCategory() != null
+                ? modelMapper.map(dto.getCategory(), Category.class) : null).description(dto.getDescription()).build();
     }
 
     private FoodDto modelMapDto(Food dto) {
-        return FoodDto.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).category(modelMapper.map(dto.getCategory(), CategoryDto.class)).description(dto.getDescription()).build();
+        modelMapper.getConfiguration().setSkipNullEnabled(true)
+                .setFieldMatchingEnabled(true)
+                .setMatchingStrategy(MatchingStrategies.LOOSE)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
+                .setSkipNullEnabled(true);
+        return FoodDto.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).category(dto.getCategory() != null ?
+                modelMapper.map(dto.getCategory(), CategoryDto.class) : null).description(dto.getDescription()).build();
     }
 
 }
