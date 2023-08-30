@@ -16,8 +16,8 @@ export interface DataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttrib
     name?: string;
     collection?: boolean;
     association?: boolean;
-    persistentAttributeType?: DataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner.PersistentAttributeTypeEnum;
     javaMember?: DataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember;
+    persistentAttributeType?: DataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner.PersistentAttributeTypeEnum;
 }
 export namespace DataSourceLoadOptionsStockJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner {
     export type PersistentAttributeTypeEnum = 'MANY_TO_ONE' | 'ONE_TO_ONE' | 'BASIC' | 'EMBEDDED' | 'MANY_TO_MANY' | 'ONE_TO_MANY' | 'ELEMENT_COLLECTION';

@@ -1,1 +1,43 @@
-<p>stock works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border" style="margin-bottom: 0px;">
+          <div class="card-header card-header-info card-header-icon">
+            <h4 class="card-title">Stock List</h4>
+          </div>
+          <div class="card-body" style="min-height: calc(90vh - 193px);">
+            <div class="row">
+              <dx-data-grid #stockDataGrid
+                            [dataSource]="dataSource"
+                            [showBorders]="true">
+                <dxo-paging [enabled]="false"></dxo-paging>
+                <dxo-editing
+                  mode="form"
+                  [allowUpdating]="true"
+                  [allowAdding]="true"
+                  [allowDeleting]="true"
+                  [useIcons]="true">
+                </dxo-editing>
+
+                <dxi-column dataField="foodId" caption="Food ID">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="availableItems"></dxi-column>
+                <dxi-column dataField="reservedItems" [width]="170"></dxi-column>
+                <dxi-column dataField="price"></dxi-column>
+                <dxi-column dataField="status" caption="State" [width]="125">
+                  <dxo-lookup [dataSource]="dataTypeSource" displayExpr="name" valueExpr="name">
+                    <dxi-validation-rule type="required"></dxi-validation-rule>
+                  </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="transactionDate" dataType="date"></dxi-column>
+              </dx-data-grid>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

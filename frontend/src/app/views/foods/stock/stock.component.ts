@@ -23,6 +23,7 @@ export class StockComponent implements OnInit {
   ];
 
   constructor(private service: StockService) {
+    this.loadGrid();
   }
 
   ngOnInit(): void {
@@ -43,6 +44,8 @@ export class StockComponent implements OnInit {
       byKey: (key) => {
         return this.service.findOne(key).toPromise().then((response) => {
           return response;
+        }, err => {
+          throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
         });
       },
 

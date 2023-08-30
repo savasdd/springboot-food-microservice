@@ -10,7 +10,7 @@ import {Title} from '@angular/platform-browser';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'FOOD UI';
+  title = 'FOOD';
 
   constructor(
     private router: Router,

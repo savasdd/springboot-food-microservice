@@ -18,7 +18,7 @@ public interface StockService {
 
     StockDto create(StockDto dto);
 
-    StockDto update(UUID id, StockDto dto);
+    StockDto update(String id, StockDto dto);
 
-    StockDto delete(UUID id);
+    StockDto delete(String id);
 }

@@ -51,13 +51,13 @@ public class StockController {
 
     @Operation(description = "Stock update by id")
     @PutMapping(value = "/stocks/{id}")
-    public ResponseEntity<StockDto> updateStock(@PathVariable("id") UUID id, @RequestBody StockDto dto) {
+    public ResponseEntity<StockDto> updateStock(@PathVariable("id") String id, @RequestBody StockDto dto) {
         return new ResponseEntity<>(stockService.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Stock delete by id")
     @DeleteMapping(value = "/stocks/{id}")
-    public ResponseEntity<StockDto> deleteStock(@PathVariable("id") UUID id) {
+    public ResponseEntity<StockDto> deleteStock(@PathVariable("id") String id) {
         return new ResponseEntity<>(stockService.delete(id), HttpStatus.OK);
     }
 

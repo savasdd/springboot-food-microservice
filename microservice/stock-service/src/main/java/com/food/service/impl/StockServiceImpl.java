@@ -66,8 +66,8 @@ public class StockServiceImpl implements StockService {
     @MongoLog(status = 200)
     @Override
     @Transactional
-    public StockDto update(UUID id, StockDto dto) {
-        var stocks = repository.findById(id);
+    public StockDto update(String id, StockDto dto) {
+        var stocks = repository.findById(UUID.fromString(id));
         var newStock = stocks.map(val -> {
             val.setFoodId(dto.getFoodId() != null ? dto.getFoodId() : val.getFoodId());
             val.setPrice(dto.getPrice() != null ? dto.getPrice() : val.getPrice());
@@ -87,8 +87,8 @@ public class StockServiceImpl implements StockService {
     @MongoLog(status = 202)
     @Override
     @Transactional
-    public StockDto delete(UUID id) {
-        var model = repository.findById(id);
+    public StockDto delete(String id) {
+        var model = repository.findById(UUID.fromString(id));
         if (model.isPresent()) {
             var dto = modelMapDto(model.get());
             repository.delete(model.get());
@@ -100,10 +100,10 @@ public class StockServiceImpl implements StockService {
 
 
     private StockDto modelMapDto(Stock dto) {
-        return StockDto.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).price(dto.getPrice()).description(dto.getDescription()).build();
+        return StockDto.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
     }
 
     private Stock dtoMapModel(StockDto dto) {
-        return Stock.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).price(dto.getPrice()).description(dto.getDescription()).build();
+        return Stock.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
     }
 }
