@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
 import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
+import {CategoryService} from "../../../services/category.service";
+import {Category} from "../../../services/food-service-api";
 
 @Component({
   selector: 'app-food',
@@ -10,10 +12,15 @@ import CustomStore from "devextreme/data/custom_store";
 })
 export class FoodComponent implements OnInit {
   dataSource: any = {};
+  categoryDataSource: any = {};
   @ViewChild('foodDataGrid', {static: true}) foodDataGrid: DxDataGridComponent | undefined;
 
-  constructor(private service: FoodService) {
+  constructor(private service: FoodService, private categoryService: CategoryService) {
     this.loadGrid();
+
+    this.categoryService.findAlls().subscribe((response: Category[]) => {
+      this.categoryDataSource = response;
+    });
   }
 
   ngOnInit(): void {

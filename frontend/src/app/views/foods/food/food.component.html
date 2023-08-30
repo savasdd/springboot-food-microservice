@@ -19,21 +19,28 @@
                   [allowDeleting]="true"
                   [useIcons]="true">
                   <dxo-popup
-                    title="Employee Info"
+                    title="Food Info"
                     [showTitle]="true"
                     [width]="700"
-                    [height]="525">
+                    [height]="400">
                   </dxo-popup>
                   <dxo-form>
-                    <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                    <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
                       <dxi-item dataField="foodName"></dxi-item>
+                      <dxi-item dataField="category.id"></dxi-item>
                       <dxi-item dataField="description"></dxi-item>
                     </dxi-item>
                   </dxo-form>
                 </dxo-editing>
 
-                <dxi-column dataField="foodName"></dxi-column>
-                <dxi-column dataField="category.name"></dxi-column>
+                <dxi-column dataField="foodName">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="category.id" caption="Category">
+                  <dxo-lookup [dataSource]="categoryDataSource" displayExpr="name" valueExpr="id">
+                    <dxi-validation-rule type="required"></dxi-validation-rule>
+                  </dxo-lookup>
+                </dxi-column>
                 <dxi-column dataField="description" dataType="string"></dxi-column>
               </dx-data-grid>
 

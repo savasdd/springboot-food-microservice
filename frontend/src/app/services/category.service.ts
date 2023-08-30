@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {CategoryControllerService} from "./food-service-api";
+import {Category, CategoryControllerService} from "./food-service-api";
 import {Observable} from "rxjs";
 
 
@@ -13,6 +13,10 @@ export class CategoryService {
 
   findAll(loadOptions: any) {
     return this.categoryService.getAllCategoryLoad(loadOptions);
+  }
+
+  findAlls(): Observable<Category[]> {
+    return this.categoryService.getAllCategory();
   }
 
   findOne(id: number): Observable<any> {

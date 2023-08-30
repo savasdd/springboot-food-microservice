@@ -47,13 +47,13 @@ public class FoodServiceTest {
 
     @Test
     void createTest() {
-        FoodDto foodDto = new FoodDto();
+        Food foodDto = new Food();
         foodDto.setFoodName("Pizza");
         foodDto.setCategory(null);
         foodDto.setDescription("Italian pizza");
         Food food = Food.builder().foodId(UUID.randomUUID()).foodName(foodDto.getFoodName()).category(null).description(foodDto.getDescription()).build();
         Mockito.when(repository.save(Mockito.any())).thenReturn(food);
-        FoodDto foodDtoResponse = service.create(foodDto);
+        Food foodDtoResponse = service.create(foodDto);
         Assertions.assertNotNull(foodDtoResponse);
         Assertions.assertEquals(foodDtoResponse.getFoodName(), foodDto.getFoodName());
         log.info("Test Create Food");
@@ -62,14 +62,14 @@ public class FoodServiceTest {
     @Test
     void updateTest() {
         UUID id = UUID.randomUUID();
-        FoodDto foodDto = new FoodDto();
+        Food foodDto = new Food();
         foodDto.setFoodName("Pizza");
         foodDto.setCategory(null);
         foodDto.setDescription("Italian pizza");
         Optional<Food> optionalFood = Optional.of(Food.builder().foodId(id).foodName("Burger").category(null).description("American burger").build());
         Mockito.when(repository.findById(id)).thenReturn(optionalFood);
         Mockito.when(repository.save(Mockito.any())).thenReturn(Food.builder().foodId(id).foodName(foodDto.getFoodName()).category(null).description(foodDto.getDescription()).build());
-        FoodDto foodDtoResponse = service.update(id, foodDto);
+        FoodDto foodDtoResponse = service.update(id.toString(), foodDto);
         Assertions.assertNotNull(foodDtoResponse);
         Assertions.assertEquals(foodDtoResponse.getFoodName(), foodDto.getFoodName());
         log.info("Test Update Food");
@@ -86,7 +86,7 @@ public class FoodServiceTest {
                 .build();
         when(repository.findById(FOOD_ID)).thenReturn(Optional.of(food));
 
-        FoodDto deletedFoodDto = service.delete(FOOD_ID);
+        Food deletedFoodDto = service.delete(FOOD_ID.toString());
         verify(repository, times(1)).delete(food);
         assertNotNull(deletedFoodDto);
         assertEquals(FOOD_ID, deletedFoodDto.getFoodId());
@@ -100,7 +100,7 @@ public class FoodServiceTest {
         final UUID FOOD_ID = UUID.randomUUID();
         when(repository.findById(FOOD_ID)).thenReturn(Optional.empty());
 
-        FoodDto deletedFoodDto = service.delete(FOOD_ID);
+        Food deletedFoodDto = service.delete(FOOD_ID.toString());
         verify(repository, times(0)).delete(any(Food.class));
         assertNull(deletedFoodDto);
     }
