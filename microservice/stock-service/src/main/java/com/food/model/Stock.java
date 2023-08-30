@@ -27,7 +27,7 @@ public class Stock extends BaseEntity {
     @Column(name = "STOCK_ID", updatable = false, nullable = false)
     private UUID stockId;
 
-    @Column(name = "FOOD_ID", columnDefinition = "char(36)")
+    @Column(name = "FOOD_ID")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID foodId;
 

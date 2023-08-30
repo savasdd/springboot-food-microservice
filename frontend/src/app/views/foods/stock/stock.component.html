@@ -32,7 +32,19 @@
                     <dxi-validation-rule type="required"></dxi-validation-rule>
                   </dxo-lookup>
                 </dxi-column>
-                <dxi-column dataField="transactionDate" dataType="date"></dxi-column>
+                <dxi-column dataField="transactionDate" dataType="datetime"></dxi-column>
+
+
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager
+                  [showPageSizeSelector]="true"
+                  [allowedPageSizes]="[5,10, 20, 50, 100]"
+                  [showInfo]="true">
+                </dxo-pager>
+
+                <dxo-filter-row
+                  [visible]="true">
+                </dxo-filter-row>
               </dx-data-grid>
 
             </div>

@@ -31,7 +31,7 @@ export class StockComponent implements OnInit {
 
   loadGrid() {
     this.dataSource = new CustomStore({
-      key: 'id',
+      key: 'stockId',
       load: (loadOptions) => {
         return this.service.findAll(loadOptions).toPromise().then((response: any) => {
           return {
