@@ -21,8 +21,8 @@ export interface DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttribu
     name?: string;
     collection?: boolean;
     association?: boolean;
-    persistentAttributeType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.PersistentAttributeTypeEnum;
     javaMember?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember;
+    persistentAttributeType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.PersistentAttributeTypeEnum;
     bindableType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.BindableTypeEnum;
 }
 export namespace DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner {

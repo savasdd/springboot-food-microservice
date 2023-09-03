@@ -27,8 +27,8 @@ export interface DataSourceLoadOptionsStockJoinListValue {
     correlated?: boolean;
     model?: DataSourceLoadOptionsStockJoinListValueParentModel;
     parentPath?: DataSourceLoadOptionsStockJoinListValueParentParentPath;
-    compoundSelection?: boolean;
     compoundSelectionItems?: Array<DataSourceLoadOptionsStockJoinListValueParentParentPathCompoundSelectionItemsInner>;
+    compoundSelection?: boolean;
     alias?: string;
     fetches?: Set<DataSourceLoadOptionsStockJoinListValueParentFetchesInner>;
 }

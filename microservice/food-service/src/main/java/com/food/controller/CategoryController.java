@@ -24,7 +24,7 @@ public class CategoryController {
     }
 
     @Operation(description = "Category getAll by loadResult")
-    @PostMapping(value = "/categorys/all", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/categorys/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoadResult<Category>> getAllCategoryLoad(@RequestBody DataSourceLoadOptions<Category> loadOptions) {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
@@ -36,7 +36,7 @@ public class CategoryController {
     }
 
     @Operation(description = "Category getOne")
-    @GetMapping(value = "/categorys/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/categorys/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> getCategoryByOne(@PathVariable Long id) {
         return new ResponseEntity<>(service.getByOne(id), HttpStatus.OK);
     }
@@ -54,7 +54,7 @@ public class CategoryController {
     }
 
     @Operation(description = "Category delete by id")
-    @DeleteMapping(value = "/categorys/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/categorys/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteCategory(@PathVariable("id") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

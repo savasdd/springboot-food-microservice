@@ -40,11 +40,6 @@ export class StockComponent implements OnInit {
   }
 
   loadFood() {
-    // this.foodService.findAlls().subscribe((response: Category[]) => {
-    //   this.foodDataSource = response;
-    //   console.log(response)
-    // });
-
     this.foodDataSource = new CustomStore({
       key: 'foodId',
       load: (loadOptions) => {

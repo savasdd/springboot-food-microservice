@@ -40,7 +40,7 @@ export interface DataSourceLoadOptionsStock {
     joinList?: { [key: string]: DataSourceLoadOptionsStockJoinListValue; };
     pageable?: PageableObject;
     camelToSnake?: boolean;
-    sortable?: PageableObject;
     mockPageable?: PageableObject;
+    sortable?: PageableObject;
 }
 

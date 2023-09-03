@@ -17,8 +17,8 @@ export interface DataSourceLoadOptionsStockJoinListValueOn {
     expressions?: Array<DataSourceLoadOptionsStockJoinListValueOnExpressionsInner>;
     operator?: DataSourceLoadOptionsStockJoinListValueOn.OperatorEnum;
     negated?: boolean;
-    compoundSelection?: boolean;
     compoundSelectionItems?: Array<DataSourceLoadOptionsStockJoinListValueParentParentPathCompoundSelectionItemsInner>;
+    compoundSelection?: boolean;
     alias?: string;
 }
 export namespace DataSourceLoadOptionsStockJoinListValueOn {
