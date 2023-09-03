@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
         var payment = repository.findById(UUID.fromString(order.getPaymentId())).orElseThrow(() -> new RuntimeException("Not Found Payment"));
         log.info("Found: {}", payment.getPaymentId());
 
-        if (order.getStatus().equals(EventUtil.STATUS_NEW)) {
+        if (order.getStatus().equals(EPaymentType.NEW)) {
             if (order.getAmount().intValue() < payment.getAmountAvailable().intValue()) {
 
                 payment.setAmountReserved(payment.getAmountReserved().add(order.getAmount()));
@@ -38,10 +38,10 @@ public class OrderServiceImpl implements OrderService {
                 payment.setAmount(order.getAmount());
                 payment.setTransactionDate(new Date());
                 payment.setStatus(EPaymentType.ACCEPT);
-                order.setStatus(EventUtil.STATUS_ACCEPT);
+                order.setStatus(EPaymentType.ACCEPT);
             } else {
                 payment.setStatus(EPaymentType.REJECT);
-                order.setStatus(EventUtil.STATUS_REJECT);
+                order.setStatus(EPaymentType.REJECT);
             }
 
             repository.save(payment);
@@ -55,10 +55,10 @@ public class OrderServiceImpl implements OrderService {
         var payment = repository.findById(UUID.fromString(order.getPaymentId())).orElseThrow(() -> new RuntimeException("Not Found Payment"));
         log.info("Found: {}", payment.getPaymentId());
 
-        if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {
+        if (order.getStatus().equals(EPaymentType.CONFIRMED)) {
             payment.setAmountReserved(payment.getAmountReserved().subtract(order.getAmount()));
             payment.setStatus(EPaymentType.CONFIRMED);
-        } else if (order.getStatus().equals(EventUtil.STATUS_ROLLBACK) && !order.getSource().equals(SOURCE)) {
+        } else if (order.getStatus().equals(EPaymentType.ROLLBACK) && !order.getSource().equals(SOURCE)) {
             payment.setAmountReserved(payment.getAmountReserved().subtract(order.getAmount()));
             payment.setAmountAvailable(payment.getAmountAvailable().add(order.getAmount()));
             payment.setStatus(EPaymentType.ROLLBACK);

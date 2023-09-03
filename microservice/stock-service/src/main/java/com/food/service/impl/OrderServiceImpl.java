@@ -30,17 +30,17 @@ public class OrderServiceImpl implements OrderService {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow(() -> new RuntimeException("Not Found Stock"));
         log.info("Found: {}", product.getStockId());
 
-        if (order.getStatus().equals(EventUtil.STATUS_NEW)) {
+        if (order.getStatus().equals(EPaymentType.NEW)) {
             if (order.getStockCount() < product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
                 product.setPrice(order.getAmount());
                 product.setTransactionDate(new Date());
                 product.setStatus(EPaymentType.ACCEPT);
-                order.setStatus(EPaymentType.ACCEPT.name());
+                order.setStatus(EPaymentType.ACCEPT);
             } else {
                 product.setStatus(EPaymentType.REJECT);
-                order.setStatus(EPaymentType.REJECT.name());
+                order.setStatus(EPaymentType.REJECT);
             }
 
             repository.save(product);
@@ -54,10 +54,10 @@ public class OrderServiceImpl implements OrderService {
         var product = repository.findById(UUID.fromString(order.getStockId())).orElseThrow(() -> new RuntimeException("Not Found Stock"));
         log.info("Found: {}", product.getStockId());
 
-        if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {
+        if (order.getStatus().equals(EPaymentType.CONFIRMED)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
             product.setStatus(EPaymentType.CONFIRMED);
-        } else if (order.getStatus().equals(EventUtil.STATUS_ROLLBACK) && !order.getSource().equals(SOURCE)) {
+        } else if (order.getStatus().equals(EPaymentType.ROLLBACK) && !order.getSource().equals(SOURCE)) {
             product.setReservedItems(product.getReservedItems() - order.getStockCount());
             product.setAvailableItems(product.getAvailableItems() + order.getStockCount());
             product.setStatus(EPaymentType.ROLLBACK);

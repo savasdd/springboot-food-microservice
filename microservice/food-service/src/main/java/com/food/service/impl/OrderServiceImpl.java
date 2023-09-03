@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
@@ -55,13 +56,13 @@ public class OrderServiceImpl implements OrderService {
                 orderPayment.getStockId(),
                 orderPayment.getStockCount(),
                 orderPayment.getAmount());
-        if (orderPayment.getStatus().equals(EventUtil.STATUS_ACCEPT) && orderStock.getStatus().equals(EventUtil.STATUS_ACCEPT)) {
-            o.setStatus(EventUtil.STATUS_CONFIRMED);
-        } else if (orderPayment.getStatus().equals(EventUtil.STATUS_REJECT) && orderStock.getStatus().equals(EventUtil.STATUS_REJECT)) {
-            o.setStatus(EventUtil.STATUS_REJECT);
-        } else if (orderPayment.getStatus().equals(EventUtil.STATUS_REJECT) || orderStock.getStatus().equals(EventUtil.STATUS_REJECT)) {
-            String source = orderPayment.getStatus().equals(EventUtil.STATUS_REJECT) ? "PAYMENT" : "STOCK";
-            o.setStatus(EventUtil.STATUS_ROLLBACK);
+        if (orderPayment.getStatus().equals(EPaymentType.ACCEPT) && orderStock.getStatus().equals(EPaymentType.ACCEPT)) {
+            o.setStatus(EPaymentType.CONFIRMED);
+        } else if (orderPayment.getStatus().equals(EPaymentType.REJECT) && orderStock.getStatus().equals(EPaymentType.REJECT)) {
+            o.setStatus(EPaymentType.REJECT);
+        } else if (orderPayment.getStatus().equals(EPaymentType.REJECT) || orderStock.getStatus().equals(EPaymentType.REJECT)) {
+            String source = orderPayment.getStatus().equals(EPaymentType.REJECT) ? "PAYMENT" : "STOCK";
+            o.setStatus(EPaymentType.ROLLBACK);
             o.setSource(source);
         }
         return o;

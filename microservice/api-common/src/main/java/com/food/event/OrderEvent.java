@@ -1,5 +1,6 @@
 package com.food.event;
 
+import com.food.enums.EPaymentType;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public class OrderEvent implements Serializable {
     private String stockId;
     private Integer stockCount;
     private BigDecimal amount;
-    private String status;
+    private EPaymentType status;
     private String source;
 
     public OrderEvent(String id, String paymentId, String stockId, Integer stockCount, BigDecimal amount) {

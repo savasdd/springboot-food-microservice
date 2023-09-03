@@ -1,5 +1,6 @@
 package com.food;
 
+import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
@@ -31,7 +32,7 @@ public class StockServiceApplication {
     public void onEvent(OrderEvent order) {
         log.info("Received: {}", order);
 
-        if (order.getStatus().equals(EventUtil.STATUS_NEW))
+        if (order.getStatus().equals(EPaymentType.NEW))
             orderService.reserve(order);
         else
             orderService.confirm(order);
