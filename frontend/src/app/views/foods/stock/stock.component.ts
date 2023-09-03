@@ -4,6 +4,7 @@ import {DxDataGridComponent} from "devextreme-angular";
 import {Stock} from "../../../services/stock-service-api";
 import CustomStore from "devextreme/data/custom_store";
 import {FoodService} from "../../../services/food.service";
+import {Food} from "../../../services/food-service-api";
 import StatusEnum = Stock.StatusEnum;
 
 @Component({
@@ -40,6 +41,10 @@ export class StockComponent implements OnInit {
   }
 
   loadFood() {
+    this.foodService.findAlls().subscribe((response: Food[]) => {
+      this.foodDataSource = response;
+    });
+
     this.foodDataSource = new CustomStore({
       key: 'foodId',
       load: (loadOptions) => {
