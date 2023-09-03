@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {FoodControllerService} from "./food-service-api";
+import {Food, FoodControllerService} from "./food-service-api";
 import {Observable} from "rxjs";
 
 
@@ -14,6 +14,11 @@ export class FoodService {
   findAll(loadOptions: any) {
     return this.service.getAllFoodLoad(loadOptions);
   }
+
+  findAlls(): Observable<Food[]> {
+    return this.service.getAllFood();
+  }
+
 
   findOne(id: string): Observable<any> {
     return this.service.getFoodByOne(id);

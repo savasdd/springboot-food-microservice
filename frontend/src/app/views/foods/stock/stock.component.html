@@ -21,10 +21,12 @@
                   [useIcons]="true">
                 </dxo-editing>
 
-                <dxi-column dataField="foodId" caption="Food ID">
+                <dxi-column dataField="foodId" [allowSorting]="false" editCellTemplate="singleDropDownBoxEditor"
+                            caption="Food ID">
+                </dxi-column>
+                <dxi-column dataField="availableItems" [width]="120">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
-                <dxi-column dataField="availableItems" [width]="120"></dxi-column>
                 <dxi-column dataField="reservedItems" [width]="120"></dxi-column>
                 <dxi-column dataField="price" [width]="120"></dxi-column>
                 <dxi-column dataField="status" caption="State" [width]="125">
@@ -33,6 +35,45 @@
                   </dxo-lookup>
                 </dxi-column>
                 <dxi-column dataField="transactionDate" dataType="datetime"></dxi-column>
+
+                <div *dxTemplate="let cellInfo of 'singleDropDownBoxEditor'">
+                  <dx-drop-down-box
+                    [dropDownOptions]="dropDownOptions"
+                    [dataSource]="foodDataSource"
+                    [(value)]="cellInfo.value"
+                    displayExpr="foodName"
+                    valueExpr="foodId"
+                    contentTemplate="contentTemplate">
+                    <div *dxTemplate="let e of 'contentTemplate'">
+                      <dx-data-grid
+                        [dataSource]="foodDataSource"
+                        [remoteOperations]="true"
+                        [height]="250"
+                        [selectedRowKeys]="[cellInfo.value]"
+                        [focusedRowEnabled]="true"
+                        [focusedRowKey]="cellInfo.value"
+                        [hoverStateEnabled]="true"
+                        [showRowLines]="true"
+                        [rowAlternationEnabled]="true"
+                        (onSelectionChanged)="onSelectionPersonChanged($event.selectedRowKeys, cellInfo, e.component)">
+                        <dxi-column dataField="foodName"></dxi-column>
+                        <dxo-scrolling mode="virtual"></dxo-scrolling>
+                        <dxo-selection mode="single"></dxo-selection>
+
+                        <dxo-paging [pageSize]="5"></dxo-paging>
+                        <dxo-pager
+                          [showPageSizeSelector]="true"
+                          [allowedPageSizes]="[5,10, 20, 50, 100]"
+                          [showInfo]="true">
+                        </dxo-pager>
+                        <dxo-search-panel
+                          [visible]="true"
+                          [width]="150">
+                        </dxo-search-panel>
+                      </dx-data-grid>
+                    </div>
+                  </dx-drop-down-box>
+                </div>
 
 
                 <dxo-paging [pageSize]="10"></dxo-paging>

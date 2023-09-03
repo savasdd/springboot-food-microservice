@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/api", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class FoodController {
 
@@ -30,37 +30,37 @@ public class FoodController {
     }
 
     @Operation(description = "Food getAll by loadResult")
-    @PostMapping(value = "/foods/all")
+    @PostMapping(value = "/foods/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoadResult<Food>> getAllFoodLoad(@RequestBody DataSourceLoadOptions<Food> loadOptions) {
         return new ResponseEntity<>(foodService.getAll(loadOptions), HttpStatus.OK);
     }
 
     @Operation(description = "Food getAll")
-    @GetMapping(value = "/foods")
+    @GetMapping(value = "/foods", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FoodDto>> getAllFood() {
         return new ResponseEntity<>(foodService.getAll(), HttpStatus.OK);
     }
 
     @Operation(description = "Food getOne")
-    @GetMapping(value = "/foods/{id}")
+    @GetMapping(value = "/foods/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Food> getFoodByOne(@PathVariable String id) {
         return new ResponseEntity<>(foodService.getByOne(id), HttpStatus.OK);
     }
 
     @Operation(description = "Food save")
-    @PostMapping(value = "/foods")
+    @PostMapping(value = "/foods", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Food> createFood(@RequestBody Food dto) {
         return new ResponseEntity<>(foodService.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Food update by id")
-    @PutMapping(value = "/foods/{id}")
+    @PutMapping(value = "/foods/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FoodDto> updateFood(@PathVariable("id") String id, @RequestBody Food dto) {
         return new ResponseEntity<>(foodService.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Food delete by id")
-    @DeleteMapping(value = "/foods/{id}")
+    @DeleteMapping(value = "/foods/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Food> deleteFood(@PathVariable("id") String id) {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
     }

@@ -9,20 +9,20 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeJavaMember } from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeJavaMember';
-import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInnerType } from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInnerType';
+import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInnerElementType } from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInnerElementType';
+import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember } from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
 
 
 export interface DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInner { 
-    type?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInnerType;
+    type?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInnerElementType;
+    optional?: boolean;
     version?: boolean;
     id?: boolean;
-    optional?: boolean;
     name?: string;
-    javaMember?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeJavaMember;
-    persistentAttributeType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInner.PersistentAttributeTypeEnum;
     collection?: boolean;
     association?: boolean;
+    persistentAttributeType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInner.PersistentAttributeTypeEnum;
+    javaMember?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember;
     bindableType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInner.BindableTypeEnum;
 }
 export namespace DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInner {

@@ -3,6 +3,7 @@ import {StockService} from "../../../services/stock.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import {Stock} from "../../../services/stock-service-api";
 import CustomStore from "devextreme/data/custom_store";
+import {FoodService} from "../../../services/food.service";
 import StatusEnum = Stock.StatusEnum;
 
 @Component({
@@ -12,7 +13,9 @@ import StatusEnum = Stock.StatusEnum;
 })
 export class StockComponent implements OnInit {
   dataSource: any = {};
+  foodDataSource: any = {};
   @ViewChild('stockDataGrid', {static: true}) stockDataGrid: DxDataGridComponent | undefined;
+  dropDownOptions: any;
   dataTypeSource: any = [
     {name: StatusEnum.New},
     {name: StatusEnum.Accept},
@@ -21,11 +24,46 @@ export class StockComponent implements OnInit {
     {name: StatusEnum.Rollback},
   ];
 
-  constructor(private service: StockService) {
+  constructor(private service: StockService, private foodService: FoodService) {
     this.loadGrid();
+    this.loadFood();
   }
 
   ngOnInit(): void {
+  }
+
+  onSelectionPersonChanged(selectedRowKeys: any, cellInfo: any, dropDownBoxComponent: any) {
+    cellInfo.setValue(selectedRowKeys[0]);
+    if (selectedRowKeys.length > 0) {
+      dropDownBoxComponent.close();
+    }
+  }
+
+  loadFood() {
+    // this.foodService.findAlls().subscribe((response: Category[]) => {
+    //   this.foodDataSource = response;
+    //   console.log(response)
+    // });
+
+    this.foodDataSource = new CustomStore({
+      key: 'foodId',
+      load: (loadOptions) => {
+        return this.foodService.findAll(loadOptions).toPromise().then((response: any) => {
+          return {
+            data: response.data,
+            totalCount: response.totalCount
+          };
+        });
+      },
+
+      byKey: (key) => {
+        return this.foodService.findOne(key).toPromise().then((response) => {
+          return response;
+        }, err => {
+          throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+        });
+      },
+    });
   }
 
   loadGrid() {

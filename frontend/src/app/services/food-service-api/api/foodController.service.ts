@@ -173,10 +173,10 @@ export class FoodControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createOrderFood(orderEvent: OrderEvent, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<OrderEvent>;
-    public createOrderFood(orderEvent: OrderEvent, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<OrderEvent>>;
-    public createOrderFood(orderEvent: OrderEvent, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<OrderEvent>>;
-    public createOrderFood(orderEvent: OrderEvent, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public createOrderFood(orderEvent: OrderEvent, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<OrderEvent>;
+    public createOrderFood(orderEvent: OrderEvent, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<OrderEvent>>;
+    public createOrderFood(orderEvent: OrderEvent, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<OrderEvent>>;
+    public createOrderFood(orderEvent: OrderEvent, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
         if (orderEvent === null || orderEvent === undefined) {
             throw new Error('Required parameter orderEvent was null or undefined when calling createOrderFood.');
         }
@@ -187,7 +187,7 @@ export class FoodControllerService {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
-                'application/json'
+                '*/*'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
