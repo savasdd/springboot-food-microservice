@@ -21,10 +21,14 @@
                   [useIcons]="true">
                 </dxo-editing>
 
-                <dxi-column dataField="stockId" caption="Stock ID">
+                <dxi-column dataField="stockId" [allowSorting]="false" caption="Stock">
+                  <dxo-lookup [dataSource]="stockDataSource" displayExpr="name" valueExpr="stockId">
+                    <dxi-validation-rule type="required"></dxi-validation-rule>
+                  </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="amountAvailable" [width]="130">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
-                <dxi-column dataField="amountAvailable" [width]="130"></dxi-column>
                 <dxi-column dataField="amountReserved" [width]="130"></dxi-column>
                 <dxi-column dataField="amount" [width]="120"></dxi-column>
                 <dxi-column dataField="status" caption="State" [width]="125">

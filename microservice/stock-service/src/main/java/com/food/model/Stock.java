@@ -31,6 +31,9 @@ public class Stock extends BaseEntity {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID foodId;
 
+    @Column(name = "NAME")
+    private String name;
+
     @Column(name = "PRICE")
     private BigDecimal price;
 

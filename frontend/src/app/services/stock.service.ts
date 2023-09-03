@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {CategoryControllerService} from "./food-service-api";
 import {Observable} from "rxjs";
-import {StockControllerService} from "./stock-service-api";
+import {Stock, StockControllerService} from "./stock-service-api";
 
 
 @Injectable({
@@ -14,6 +14,10 @@ export class StockService {
 
   findAll(loadOptions: any) {
     return this.categoryService.getAllStockLoad(loadOptions);
+  }
+
+  findAlls(): Observable<Stock[]> {
+    return this.categoryService.getAllStock();
   }
 
   findOne(id: string): Observable<any> {

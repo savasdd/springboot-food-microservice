@@ -19,6 +19,8 @@ public class StockDto extends GenericDto {
 
     private UUID foodId;
 
+    private String name;
+
     private BigDecimal price;
 
     private String description;

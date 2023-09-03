@@ -3,6 +3,8 @@ import {PaymentService} from "../../../services/payment.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
 import {Payment} from "../../../services/payment-service-api";
+import {StockService} from "../../../services/stock.service";
+import {Stock} from "../../../services/stock-service-api";
 import StatusEnum = Payment.StatusEnum;
 
 @Component({
@@ -12,6 +14,7 @@ import StatusEnum = Payment.StatusEnum;
 })
 export class PaymentComponent implements OnInit {
   dataSource: any = {};
+  stockDataSource: any = {};
   @ViewChild('paymentDataGrid', {static: true}) paymentDataGrid: DxDataGridComponent | undefined;
   dataTypeSource: any = [
     {name: StatusEnum.New},
@@ -21,11 +24,18 @@ export class PaymentComponent implements OnInit {
     {name: StatusEnum.Rollback},
   ];
 
-  constructor(private service: PaymentService) {
+  constructor(private service: PaymentService, private stockService: StockService) {
     this.loadGrid();
+    this.loadStock();
   }
 
   ngOnInit(): void {
+  }
+
+  loadStock() {
+    this.stockService.findAlls().subscribe((response: Stock[]) => {
+      this.stockDataSource = response;
+    });
   }
 
   loadGrid() {

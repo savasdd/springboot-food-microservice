@@ -74,6 +74,7 @@ public class StockServiceImpl implements StockService {
             val.setAvailableItems(dto.getAvailableItems() != null ? dto.getAvailableItems() : val.getAvailableItems());
             val.setReservedItems(dto.getReservedItems() != null ? dto.getReservedItems() : val.getReservedItems());
             val.setStatus(dto.getStatus() != null ? dto.getStatus() : val.getStatus());
+            val.setName(dto.getName() != null ? dto.getName() : val.getName());
             val.setDescription(dto.getDescription() != null ? dto.getDescription() : val.getDescription());
             val.setTransactionDate(dto.getTransactionDate() != null ? dto.getTransactionDate() : val.getTransactionDate());
             return val;
@@ -100,10 +101,10 @@ public class StockServiceImpl implements StockService {
 
 
     private StockDto modelMapDto(Stock dto) {
-        return StockDto.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
+        return StockDto.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).name(dto.getName()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
     }
 
     private Stock dtoMapModel(StockDto dto) {
-        return Stock.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
+        return Stock.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).name(dto.getName()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
     }
 }
