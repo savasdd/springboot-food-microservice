@@ -56,12 +56,12 @@ public class PaymentServiceImpl implements PaymentService {
     public Payment update(String id, Payment dto) {
         var payments = repository.findById(UUID.fromString(id));
         var update = payments.map(val -> {
-            val.setStockId(dto.getStockId());
-            val.setAmountAvailable(dto.getAmountAvailable());
-            val.setAmountReserved(dto.getAmountReserved());
-            val.setAmount(dto.getAmount());
-            val.setTransactionDate(dto.getTransactionDate());
-            val.setStatus(dto.getStatus());
+            val.setStockId(dto.getStockId() != null ? dto.getStockId() : val.getStockId());
+            val.setAmountAvailable(dto.getAmountAvailable() != null ? dto.getAmountAvailable() : val.getAmountAvailable());
+            val.setAmountReserved(dto.getAmountReserved() != null ? dto.getAmountReserved() : val.getAmountReserved());
+            val.setAmount(dto.getAmount() != null ? dto.getAmount() : val.getAmount());
+            val.setTransactionDate(dto.getTransactionDate() != null ? dto.getTransactionDate() : val.getTransactionDate());
+            val.setStatus(dto.getStatus() != null ? dto.getStatus() : val.getStatus());
             return val;
         }).get();
 
