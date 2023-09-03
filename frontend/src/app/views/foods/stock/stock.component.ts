@@ -13,7 +13,6 @@ import StatusEnum = Stock.StatusEnum;
 export class StockComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('stockDataGrid', {static: true}) stockDataGrid: DxDataGridComponent | undefined;
-  events: Array<string> = [];
   dataTypeSource: any = [
     {name: StatusEnum.New},
     {name: StatusEnum.Accept},
