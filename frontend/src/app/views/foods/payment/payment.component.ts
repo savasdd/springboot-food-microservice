@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PaymentService} from "../../../services/payment.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
+import {Payment} from "../../../services/payment-service-api";
+import StatusEnum = Payment.StatusEnum;
 
 @Component({
   selector: 'app-payment',
@@ -11,8 +13,16 @@ import CustomStore from "devextreme/data/custom_store";
 export class PaymentComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('paymentDataGrid', {static: true}) paymentDataGrid: DxDataGridComponent | undefined;
+  dataTypeSource: any = [
+    {name: StatusEnum.New},
+    {name: StatusEnum.Accept},
+    {name: StatusEnum.Reject},
+    {name: StatusEnum.Confirmed},
+    {name: StatusEnum.Rollback},
+  ];
 
   constructor(private service: PaymentService) {
+    this.loadGrid();
   }
 
   ngOnInit(): void {
