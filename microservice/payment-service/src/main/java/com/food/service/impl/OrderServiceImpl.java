@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.repository.PaymentRepository;
 import com.food.service.OrderService;
@@ -36,10 +37,10 @@ public class OrderServiceImpl implements OrderService {
                 payment.setAmountAvailable(payment.getAmountAvailable().subtract(order.getAmount()));
                 payment.setAmount(order.getAmount());
                 payment.setTransactionDate(new Date());
-                payment.setStatus(EventUtil.STATUS_ACCEPT);
+                payment.setStatus(EPaymentType.ACCEPT);
                 order.setStatus(EventUtil.STATUS_ACCEPT);
             } else {
-                payment.setStatus(EventUtil.STATUS_REJECT);
+                payment.setStatus(EPaymentType.REJECT);
                 order.setStatus(EventUtil.STATUS_REJECT);
             }
 
@@ -56,11 +57,11 @@ public class OrderServiceImpl implements OrderService {
 
         if (order.getStatus().equals(EventUtil.STATUS_CONFIRMED)) {
             payment.setAmountReserved(payment.getAmountReserved().subtract(order.getAmount()));
-            payment.setStatus(EventUtil.STATUS_CONFIRMED);
+            payment.setStatus(EPaymentType.CONFIRMED);
         } else if (order.getStatus().equals(EventUtil.STATUS_ROLLBACK) && !order.getSource().equals(SOURCE)) {
             payment.setAmountReserved(payment.getAmountReserved().subtract(order.getAmount()));
             payment.setAmountAvailable(payment.getAmountAvailable().add(order.getAmount()));
-            payment.setStatus(EventUtil.STATUS_ROLLBACK);
+            payment.setStatus(EPaymentType.ROLLBACK);
         }
 
         repository.save(payment);
