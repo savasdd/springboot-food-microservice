@@ -1,5 +1,6 @@
 package com.food.model;
 
+import com.food.enums.EPaymentType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -40,8 +41,9 @@ public class Payment extends BaseEntity {
     @Column(name = "AMOUNT")
     private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    private String status;
+    private EPaymentType status;
 
     @Column(name = "TRANSACTION_DATE")
     private Date transactionDate;

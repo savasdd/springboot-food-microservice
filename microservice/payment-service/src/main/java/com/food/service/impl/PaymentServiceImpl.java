@@ -29,6 +29,11 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    public Payment getByOne(String id) {
+        return repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
+    }
+
+    @Override
     public LoadResult<Payment> getAll(DataSourceLoadOptions<Payment> loadOptions) {
         LoadResult<Payment> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
@@ -48,8 +53,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment update(UUID id, Payment dto) {
-        var payments = repository.findById(id);
+    public Payment update(String id, Payment dto) {
+        var payments = repository.findById(UUID.fromString(id));
         var update = payments.map(val -> {
             val.setStockId(dto.getStockId());
             val.setAmountAvailable(dto.getAmountAvailable());
@@ -66,8 +71,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void delete(UUID id) {
-        repository.deleteById(id);
+    public void delete(String id) {
+        repository.deleteById(UUID.fromString(id));
         log.info("delete payments {}", id);
     }
 }

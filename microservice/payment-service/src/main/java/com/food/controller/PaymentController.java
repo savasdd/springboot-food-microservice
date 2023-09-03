@@ -6,6 +6,7 @@ import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,32 +25,38 @@ public class PaymentController {
     }
 
     @Operation(description = "Payment getAll by loadResult")
-    @PostMapping(value = "/payments/all")
-    public ResponseEntity<LoadResult<Payment>> getAllParameter(@RequestBody DataSourceLoadOptions<Payment> loadOptions) {
+    @PostMapping(value = "/payments/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LoadResult<Payment>> getAllPaymentLoad(@RequestBody DataSourceLoadOptions<Payment> loadOptions) {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
     @Operation(description = "Payment getAll")
-    @GetMapping(value = "/payments")
-    public ResponseEntity<List<Payment>> getAll() {
+    @GetMapping(value = "/payments", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Payment>> getAllPayment() {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @Operation(description = "Payment getById")
+    @GetMapping(value = "/payments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Payment> getByIdPayment(@PathVariable String id) {
+        return ResponseEntity.ok(service.getByOne(id));
+    }
+
     @Operation(description = "Payment save")
-    @PostMapping(value = "/payments")
-    public ResponseEntity<Payment> create(@RequestBody Payment dto) {
+    @PostMapping(value = "/payments", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Payment> createPayment(@RequestBody Payment dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Payment update by id")
-    @PutMapping(value = "/payments/{id}")
-    public ResponseEntity<Payment> update(@PathVariable UUID id, @RequestBody Payment dto) {
+    @PutMapping(value = "/payments/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Payment> updatePayment(@PathVariable String id, @RequestBody Payment dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
     @Operation(description = "Payment delete by id")
-    @DeleteMapping(value = "/payments/{id}")
-    public ResponseEntity<?> delete(@PathVariable UUID id) {
+    @DeleteMapping(value = "/payments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deletePayment(@PathVariable String id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

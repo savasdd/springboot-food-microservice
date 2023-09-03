@@ -5,17 +5,18 @@ import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface PaymentService {
 
     List<Payment> getAll();
 
+    Payment getByOne(String id);
+
     LoadResult<Payment> getAll(DataSourceLoadOptions<Payment> loadOptions);
 
     Payment create(Payment dto);
 
-    Payment update(UUID id, Payment dto);
+    Payment update(String id, Payment dto);
 
-    void delete(UUID id);
+    void delete(String id);
 }
