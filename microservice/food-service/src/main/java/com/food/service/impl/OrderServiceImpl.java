@@ -15,13 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private AtomicLong id = new AtomicLong();
     private final KafkaTemplate<String, OrderEvent> template;
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
 
