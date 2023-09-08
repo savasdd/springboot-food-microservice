@@ -19,7 +19,9 @@ export class UserProfileComponent implements OnInit {
 
   updateClick() {
     console.log("images")
+    console.log(this.form.name)
   }
 
 
 }
+
