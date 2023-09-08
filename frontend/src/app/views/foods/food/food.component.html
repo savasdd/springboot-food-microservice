@@ -12,6 +12,7 @@
                             [dataSource]="dataSource"
                             [showBorders]="true">
                 <dxo-paging [enabled]="false"></dxo-paging>
+                <dxo-load-panel [enabled]="true"></dxo-load-panel>
                 <dxo-editing
                   mode="popup"
                   [allowUpdating]="true"
@@ -32,6 +33,14 @@
                     </dxi-item>
                   </dxo-form>
                 </dxo-editing>
+
+                <dxo-toolbar>
+                  <dxi-item name="addRowButton"></dxi-item>
+                  <dxi-item location="after">
+                    <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
+                    </dx-button>
+                  </dxi-item>
+                </dxo-toolbar>
 
                 <dxi-column dataField="foodName">
                   <dxi-validation-rule type="required"></dxi-validation-rule>

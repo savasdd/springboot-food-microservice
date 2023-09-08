@@ -21,6 +21,14 @@
                   [useIcons]="true">
                 </dxo-editing>
 
+                <dxo-toolbar>
+                  <dxi-item name="addRowButton"></dxi-item>
+                  <dxi-item location="after">
+                    <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
+                    </dx-button>
+                  </dxi-item>
+                </dxo-toolbar>
+
                 <dxi-column dataField="name">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>

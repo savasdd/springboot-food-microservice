@@ -15,7 +15,7 @@ import StatusEnum = Stock.StatusEnum;
 export class StockComponent implements OnInit {
   dataSource: any = {};
   foodDataSource: any = {};
-  @ViewChild('stockDataGrid', {static: true}) stockDataGrid: DxDataGridComponent | undefined;
+  @ViewChild('stockDataGrid', {static: true}) stockDataGrid: any = DxDataGridComponent;
   dropDownOptions: any;
   dataTypeSource: any = [
     {name: StatusEnum.New},
@@ -38,6 +38,10 @@ export class StockComponent implements OnInit {
     if (selectedRowKeys.length > 0) {
       dropDownBoxComponent.close();
     }
+  }
+
+  refreshDataGrid(e: any) {
+    this.stockDataGrid.instance.refresh();
   }
 
   loadFood() {

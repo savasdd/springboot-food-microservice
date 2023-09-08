@@ -35,6 +35,14 @@
                   [useIcons]="true">
                 </dxo-editing>
 
+                <dxo-toolbar>
+                  <dxi-item name="addRowButton"></dxi-item>
+                  <dxi-item location="after">
+                    <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
+                    </dx-button>
+                  </dxi-item>
+                </dxo-toolbar>
+
                 <dxi-column dataField="categoryType" caption="Type" [width]="125">
                   <dxo-lookup [dataSource]="dataTypeSource" displayExpr="name" valueExpr="name">
                   </dxo-lookup>

@@ -13,7 +13,7 @@ import {Category} from "../../../services/food-service-api";
 export class FoodComponent implements OnInit {
   dataSource: any = {};
   categoryDataSource: any = {};
-  @ViewChild('foodDataGrid', {static: true}) foodDataGrid: DxDataGridComponent | undefined;
+  @ViewChild('foodDataGrid', {static: true}) foodDataGrid: any = DxDataGridComponent;
 
   constructor(private service: FoodService, private categoryService: CategoryService) {
     this.loadGrid();
@@ -24,6 +24,10 @@ export class FoodComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  refreshDataGrid(e: any) {
+    this.foodDataGrid.instance.refresh();
   }
 
   loadGrid() {

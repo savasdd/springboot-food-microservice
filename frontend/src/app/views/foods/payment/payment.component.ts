@@ -15,7 +15,7 @@ import StatusEnum = Payment.StatusEnum;
 export class PaymentComponent implements OnInit {
   dataSource: any = {};
   stockDataSource: any = {};
-  @ViewChild('paymentDataGrid', {static: true}) paymentDataGrid: DxDataGridComponent | undefined;
+  @ViewChild('paymentDataGrid', {static: true}) paymentDataGrid: any = DxDataGridComponent;
   dataTypeSource: any = [
     {name: StatusEnum.New},
     {name: StatusEnum.Accept},
@@ -36,6 +36,10 @@ export class PaymentComponent implements OnInit {
     this.stockService.findAlls().subscribe((response: Stock[]) => {
       this.stockDataSource = response;
     });
+  }
+
+  refreshDataGrid(e: any) {
+    this.paymentDataGrid.instance.refresh();
   }
 
   loadGrid() {

@@ -12,7 +12,7 @@ import CategoryTypeEnum = Category.CategoryTypeEnum;
 })
 export class CategoryComponent implements OnInit {
   dataSource: any = {};
-  @ViewChild('categoryDataGrid', {static: true}) categoryDataGrid: DxDataGridComponent | undefined;
+  @ViewChild('categoryDataGrid', {static: true}) categoryDataGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   dataTypeSource: any = [
     {name: CategoryTypeEnum.Sebze},
@@ -30,6 +30,10 @@ export class CategoryComponent implements OnInit {
 
   logEvent(eventName: any) {
     this.events.unshift(eventName);
+  }
+
+  refreshDataGrid(e: any) {
+    this.categoryDataGrid.instance.refresh();
   }
 
   loadGrid() {
