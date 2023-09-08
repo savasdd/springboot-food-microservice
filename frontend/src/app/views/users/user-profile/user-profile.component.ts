@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {DxFormComponent} from "devextreme-angular";
 
 @Component({
   selector: 'app-user-profile',
@@ -7,8 +7,9 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  @ViewChild('form') form: any = NgForm;
-
+  // @ViewChild('form') form: any = NgForm;
+  userData: UserModel = new UserModel();
+  @ViewChild(DxFormComponent, {static: false}) form: any = DxFormComponent;
 
   constructor() {
   }
@@ -19,9 +20,19 @@ export class UserProfileComponent implements OnInit {
 
   updateClick() {
     console.log("images")
-    console.log(this.form.name)
+    const formValid = this.form.instance.validate();
+    console.log(this.userData)
   }
 
 
 }
 
+export class UserModel {
+  userId?: string;
+  firstName?: string;
+  lastName?: string;
+  images: any;
+
+  constructor() {
+  }
+}

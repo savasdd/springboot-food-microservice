@@ -9,47 +9,74 @@
           <div class="card-body" style="min-height: calc(50vh - 193px);">
             <div class="row">
 
-              <form id="form" #form enctype="multipart/form-data">
-                <div class="dx-fieldset">
-                  <div class="dx-field">
-                    <div class="dx-field-label">User ID:</div>
-                    <dx-text-box
-                      class="dx-field-value"
-                      name="userId"
-                      [inputAttr]="{ 'aria-label': 'User ID' }"
-                      value="c318bb34-ea76-41f2-92b3-f074ae060b45"
-                    ></dx-text-box>
-                  </div>
-                  <div class="dx-field">
-                    <div class="dx-field-label">First Name:</div>
-                    <dx-text-box
-                      class="dx-field-value"
-                      name="FirstName"
-                      [inputAttr]="{ 'aria-label': 'First Name' }"
-                      value="Savaş"
-                    ></dx-text-box>
-                  </div>
-                  <div class="dx-field">
-                    <div class="dx-field-label">Last Name:</div>
-                    <dx-text-box
-                      class="dx-field-value"
-                      name="LastName"
-                      [inputAttr]="{ 'aria-label': 'Last Name' }"
-                      value="Dede"
-                    ></dx-text-box>
-                  </div>
-                </div>
-                <div id="fileuploader-container">
-                  <dx-file-uploader
-                    selectButtonText="Select photo"
-                    labelText=""
-                    accept="image/*"
-                    uploadMode="useForm">
-                  </dx-file-uploader>
-                </div>
-                <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save
-                </button>
-              </form>
+              <!--              <form id="form" #form enctype="multipart/form-data">-->
+              <!--                <div class="dx-fieldset">-->
+              <!--                  <div class="dx-field">-->
+              <!--                    <div class="dx-field-label">User ID:</div>-->
+              <!--                    <dx-text-box-->
+              <!--                      class="dx-field-value"-->
+              <!--                      name="userId"-->
+              <!--                      [inputAttr]="{ 'aria-label': 'User ID' }"-->
+              <!--                      value="c318bb34-ea76-41f2-92b3-f074ae060b45"-->
+              <!--                    ></dx-text-box>-->
+              <!--                  </div>-->
+              <!--                  <div class="dx-field">-->
+              <!--                    <div class="dx-field-label">First Name:</div>-->
+              <!--                    <dx-text-box-->
+              <!--                      class="dx-field-value"-->
+              <!--                      name="FirstName"-->
+              <!--                      [inputAttr]="{ 'aria-label': 'First Name' }"-->
+              <!--                      value="Savaş"-->
+              <!--                    ></dx-text-box>-->
+              <!--                  </div>-->
+              <!--                  <div class="dx-field">-->
+              <!--                    <div class="dx-field-label">Last Name:</div>-->
+              <!--                    <dx-text-box-->
+              <!--                      class="dx-field-value"-->
+              <!--                      name="LastName"-->
+              <!--                      [inputAttr]="{ 'aria-label': 'Last Name' }"-->
+              <!--                      value="Dede"-->
+              <!--                    ></dx-text-box>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+              <!--                <div id="fileuploader-container">-->
+              <!--                  <dx-file-uploader-->
+              <!--                    selectButtonText="Select photo"-->
+              <!--                    labelText=""-->
+              <!--                    accept="image/*"-->
+              <!--                    uploadMode="useForm">-->
+              <!--                  </dx-file-uploader>-->
+              <!--                </div>-->
+              <!--                <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save-->
+              <!--                </button>-->
+              <!--              </form>-->
+
+              <dx-form [formData]="userData"
+                       labelMode="floating" [colCount]="2">
+                <dxi-item dataField="userId" [colSpan]="1">
+                  <dxo-label text="User Id"></dxo-label>
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="firstName" [colSpan]="1">
+                  <dxo-label text="First Name"></dxo-label>
+                </dxi-item>
+                <dxi-item dataField="images" [colSpan]="2" text="Select" editorType="dxFileUploader">
+                  <dxo-label text="First Name"></dxo-label>
+                  <!--                  <dx-file-uploader-->
+                  <!--                    selectButtonText="Select photo"-->
+                  <!--                    labelText=""-->
+                  <!--                    accept="image/*"-->
+                  <!--                    uploadMode="useForm">-->
+                  <!--                  </dx-file-uploader>-->
+                </dxi-item>
+
+
+                <dxi-item>
+                  <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save
+                  </button>
+                </dxi-item>
+              </dx-form>
+
 
             </div>
           </div>
