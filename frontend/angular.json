@@ -42,6 +42,10 @@
               "node_modules/devexpress-diagram/dist/dx-diagram.min.css",
               "node_modules/devextreme/dist/css/dx.common.css",
               "node_modules/devextreme/dist/css/dx.light.css",
+              "node_modules/devextreme/dist/css/dx.material.blue.light.css",
+              "node_modules/@devexpress/analytics-core/dist/css/dx-analytics.common.css",
+              "node_modules/@devexpress/analytics-core/dist/css/dx-querybuilder.css",
+              "node_modules/devexpress-dashboard/dist/css/dx-dashboard.material.blue.light.compact.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
