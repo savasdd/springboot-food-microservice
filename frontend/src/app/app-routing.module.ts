@@ -27,6 +27,9 @@ const routes: Routes = [
       {
         path: 'foods', loadChildren: () => import('./views/foods/foods.module').then((m) => m.FoodsModule)
       },
+      {
+        path: 'users', loadChildren: () => import('./views/users/users.module').then((m) => m.UsersModule)
+      },
     ]
   },
   {
