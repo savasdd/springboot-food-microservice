@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxFormComponent} from "devextreme-angular";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -7,21 +8,31 @@ import {DxFormComponent} from "devextreme-angular";
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  // @ViewChild('form') form: any = NgForm;
   userData: UserModel = new UserModel();
   @ViewChild(DxFormComponent, {static: false}) form: any = DxFormComponent;
 
-  constructor() {
+
+  constructor(private service: UserService) {
   }
 
   ngOnInit(): void {
   }
 
+  onValueChanged(e: any) {
+    const file = e.value[0];
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.userData.fileData = fileReader.result as ArrayBuffer;
+    }
+    fileReader.readAsDataURL(file);
+  }
 
   updateClick() {
     const formValid = this.form.instance.validate();
     if (formValid) {
-      console.log(this.userData)
+      this.service.loadImage(this.userData).subscribe((response: any) => {
+        console.log(response)
+      });
     }
   }
 
@@ -29,10 +40,10 @@ export class UserProfileComponent implements OnInit {
 }
 
 export class UserModel {
-  userId?: string;
-  firstName?: string;
-  lastName?: string;
-  image: any;
+  userId?: string = "a877121255f8f32a";
+  firstName?: string = "Savaş";
+  lastName?: string = "Dede";
+  fileData: any;
 
   constructor() {
   }

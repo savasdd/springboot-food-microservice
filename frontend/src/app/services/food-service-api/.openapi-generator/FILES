@@ -4,6 +4,7 @@ api.module.ts
 api/api.ts
 api/categoryController.service.ts
 api/foodController.service.ts
+api/userController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -23,7 +24,7 @@ model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttribute.ts
 model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringType.ts
 model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner.ts
 model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember.ts
-model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInner.ts
+model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner.ts
 model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.ts
 model/dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType.ts
 model/dataSourceLoadOptionsFoodJoinListValueParentModel.ts
@@ -39,5 +40,6 @@ model/orderEvent.ts
 model/pageableObject.ts
 model/sort.ts
 model/storeSortView.ts
+model/userDto.ts
 param.ts
 variables.ts

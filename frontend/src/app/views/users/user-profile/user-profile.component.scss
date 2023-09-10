@@ -4,7 +4,7 @@
 }
 
 ::ng-deep #button {
-  margin-top: 20px;
+  //margin-top: 20px;
   margin-right: 20px;
   float: right;
 }
@@ -18,4 +18,24 @@
   margin-left: 20px;
   font-weight: normal;
   font-size: 22px;
+}
+
+
+::ng-deep #gridContainer {
+  min-height: 530px;
+  width: 1000px;
+}
+
+::ng-deep .dx-row img {
+  height: 50px;
+}
+
+::ng-deep .retryButton {
+  margin-left: 7px;
+}
+
+::ng-deep .uploadedImage {
+  height: 50px;
+  margin-left: 7px;
+  margin-bottom: 7px;
 }

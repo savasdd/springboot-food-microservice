@@ -20,7 +20,18 @@ export interface OrderEvent {
     stockId?: string;
     stockCount?: number;
     amount?: number;
-    status?: string;
+    status?: OrderEvent.StatusEnum;
     source?: string;
 }
+export namespace OrderEvent {
+    export type StatusEnum = 'NEW' | 'ACCEPT' | 'REJECT' | 'CONFIRMED' | 'ROLLBACK';
+    export const StatusEnum = {
+        New: 'NEW' as StatusEnum,
+        Accept: 'ACCEPT' as StatusEnum,
+        Reject: 'REJECT' as StatusEnum,
+        Confirmed: 'CONFIRMED' as StatusEnum,
+        Rollback: 'ROLLBACK' as StatusEnum
+    };
+}
+
 

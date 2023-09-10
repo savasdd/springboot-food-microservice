@@ -13,7 +13,7 @@ export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttribu
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringType';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
-export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInner';
+export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentModel';
@@ -28,3 +28,4 @@ export * from './orderEvent';
 export * from './pageableObject';
 export * from './sort';
 export * from './storeSortView';
+export * from './userDto';

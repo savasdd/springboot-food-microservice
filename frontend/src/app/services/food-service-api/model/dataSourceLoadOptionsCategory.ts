@@ -38,9 +38,9 @@ export interface DataSourceLoadOptionsCategory {
     group?: Array<DataSourceGroup>;
     groupSummary?: Array<DataSourceGroupView>;
     joinList?: { [key: string]: DataSourceLoadOptionsFoodJoinListValue; };
-    pageable?: PageableObject;
-    sortable?: PageableObject;
-    mockPageable?: PageableObject;
     camelToSnake?: boolean;
+    mockPageable?: PageableObject;
+    sortable?: PageableObject;
+    pageable?: PageableObject;
 }
 
