@@ -6,7 +6,7 @@
           <div class="card-header card-header-info card-header-icon">
             <h4 class="card-title">Profile Settings</h4>
           </div>
-          <div class="card-body" style="min-height: calc(50vh - 193px);">
+          <div class="card-body" style="min-height: calc(60vh - 193px);">
             <div class="row">
 
               <!--              <form id="form" #form enctype="multipart/form-data">-->
@@ -51,16 +51,19 @@
               <!--                </button>-->
               <!--              </form>-->
 
-              <dx-form [formData]="userData"
+              <dx-form id="form" [formData]="userData"
                        labelMode="floating" [colCount]="2">
-                <dxi-item dataField="userId" [colSpan]="1">
+                <dxi-item dataField="userId" [colSpan]="2">
                   <dxo-label text="User Id"></dxo-label>
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-item>
-                <dxi-item dataField="firstName" [colSpan]="1">
+                <dxi-item dataField="firstName" [colSpan]="2">
                   <dxo-label text="First Name"></dxo-label>
                 </dxi-item>
-                <dxi-item dataField="images" [colSpan]="2" text="Select" editorType="dxFileUploader">
+                <dxi-item dataField="lastName" [colSpan]="2">
+                  <dxo-label text="Last Name"></dxo-label>
+                </dxi-item>
+                <dxi-item dataField="image" [colSpan]="2" text="Select" editorType="dxFileUploader" caption="Select">
                   <dxo-label text="First Name"></dxo-label>
                   <!--                  <dx-file-uploader-->
                   <!--                    selectButtonText="Select photo"-->
@@ -71,7 +74,7 @@
                 </dxi-item>
 
 
-                <dxi-item>
+                <dxi-item [colSpan]="2">
                   <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save
                   </button>
                 </dxi-item>

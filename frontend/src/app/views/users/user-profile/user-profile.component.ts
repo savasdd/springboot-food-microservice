@@ -19,9 +19,10 @@ export class UserProfileComponent implements OnInit {
 
 
   updateClick() {
-    console.log("images")
     const formValid = this.form.instance.validate();
-    console.log(this.userData)
+    if (formValid) {
+      console.log(this.userData)
+    }
   }
 
 
@@ -31,7 +32,7 @@ export class UserModel {
   userId?: string;
   firstName?: string;
   lastName?: string;
-  images: any;
+  image: any;
 
   constructor() {
   }
