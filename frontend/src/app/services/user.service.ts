@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {UserControllerService} from "./food-service-api";
+import {UserFileControllerService} from "./food-service-api";
 
 
 @Injectable({
@@ -7,11 +7,11 @@ import {UserControllerService} from "./food-service-api";
 })
 export class UserService {
 
-  constructor(private service: UserControllerService) {
+  constructor(private service: UserFileControllerService) {
   }
 
   loadImage(data: any) {
-    return this.service.userLoadImage(data);
+    return this.service.userFileUpload(data);
   }
 
 

@@ -9,15 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageNumber?: number;
-    pageSize?: number;
-    paged?: boolean;
-    unpaged?: boolean;
+/**
+ * 
+ */
+export interface UserFileDto { 
+    userId?: string;
+    firstName?: string;
+    lastName?: string;
+    fileData?: string;
 }
 

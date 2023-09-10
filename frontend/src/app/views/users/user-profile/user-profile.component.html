@@ -28,8 +28,8 @@
                   <dx-file-uploader [multiple]="false"
                                     name="photo"
                                     accept="image/*"
+                                    uploadMode="instantly"
                                     [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
-                                    uploadMode="useForm"
                                     (onValueChanged)="onValueChanged($event)">
                   </dx-file-uploader>
                 </dxi-item>

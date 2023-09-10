@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxFormComponent} from "devextreme-angular";
 import {UserService} from "../../../services/user.service";
+import notify from "devextreme/ui/notify";
 
 @Component({
   selector: 'app-user-profile',
@@ -29,9 +30,9 @@ export class UserProfileComponent implements OnInit {
 
   updateClick() {
     const formValid = this.form.instance.validate();
-    if (formValid) {
+    if (formValid && this.userData.fileData != null) {
       this.service.loadImage(this.userData).subscribe((response: any) => {
-        console.log(response)
+        notify({message: "Upload Success"});
       });
     }
   }

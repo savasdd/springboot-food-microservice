@@ -4,7 +4,7 @@ api.module.ts
 api/api.ts
 api/categoryController.service.ts
 api/foodController.service.ts
-api/userController.service.ts
+api/userFileController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -40,6 +40,6 @@ model/orderEvent.ts
 model/pageableObject.ts
 model/sort.ts
 model/storeSortView.ts
-model/userDto.ts
+model/userFileDto.ts
 param.ts
 variables.ts

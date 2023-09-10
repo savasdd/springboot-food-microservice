@@ -28,4 +28,4 @@ export * from './orderEvent';
 export * from './pageableObject';
 export * from './sort';
 export * from './storeSortView';
-export * from './userDto';
+export * from './userFileDto';
