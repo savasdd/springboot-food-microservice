@@ -11,15 +11,8 @@
  */
 
 
-/**
- * 
- */
-export interface UserFileDto { 
-    userId?: string;
-    firstName?: string;
-    lastName?: string;
-    fileData?: Blob;
-    filename?: string;
-    size?: number;
+export interface UserFileUploadRequest { 
+    userId: string;
+    file: Blob;
 }
 

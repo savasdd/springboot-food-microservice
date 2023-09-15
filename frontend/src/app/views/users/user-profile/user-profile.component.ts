@@ -24,6 +24,7 @@ export class UserProfileComponent implements OnInit {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       this.userData.fileData = fileReader.result as ArrayBuffer;
+      this.userData.fileBlob = new Blob([fileReader.result as ArrayBuffer], {type: file.type});
     }
     fileReader.readAsDataURL(file);
   }
@@ -31,7 +32,7 @@ export class UserProfileComponent implements OnInit {
   updateClick() {
     const formValid = this.form.instance.validate();
     if (formValid && this.userData.fileData != null) {
-      this.service.loadImage(this.userData).subscribe((response: any) => {
+      this.service.loadImage(this.userData.userId, this.userData.fileBlob).subscribe((response: any) => {
         notify({message: "Upload Success"});
       });
     }
@@ -45,6 +46,7 @@ export class UserModel {
   firstName?: string = "Savaş";
   lastName?: string = "Dede";
   fileData: any;
+  fileBlob: any;
 
   constructor() {
   }

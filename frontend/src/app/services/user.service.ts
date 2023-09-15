@@ -10,8 +10,8 @@ export class UserService {
   constructor(private service: UserFileControllerService) {
   }
 
-  loadImage(data: any) {
-    return this.service.userFileUpload(data);
+  loadImage(data: any, file: any) {
+    return this.service.userFileUpload(data, file);
   }
 
 
