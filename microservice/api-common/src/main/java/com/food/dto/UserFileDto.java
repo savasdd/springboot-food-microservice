@@ -13,4 +13,6 @@ public class UserFileDto extends GenericDto {
     private String firstName;
     private String lastName;
     private String fileData;
+    private String filename;
+    private Long size;
 }
