@@ -22,6 +22,7 @@ import {FoodComponent} from './food/food.component';
 import {PaymentComponent} from './payment/payment.component';
 import {DevExtremeModule} from "devextreme-angular";
 import {CategoryComponent} from './category/category.component';
+import {OrderComponent} from './order/order.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,12 @@ const routes: Routes = [
           title: 'Category'
         }
       },
+      {
+        path: 'orders', component: OrderComponent,
+        data: {
+          title: 'Order'
+        }
+      },
     ]
   }
 ];
@@ -60,7 +67,8 @@ const routes: Routes = [
     StockComponent,
     FoodComponent,
     PaymentComponent,
-    CategoryComponent
+    CategoryComponent,
+    OrderComponent
   ],
   imports: [
     CommonModule,

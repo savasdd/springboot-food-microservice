@@ -6,21 +6,6 @@ export const navItems: INavData[] = [
     url: '/dashboard',
     iconComponent: {name: 'cil-speedometer'}
   },
-  // {
-  //   title: true,
-  //   name: 'Theme'
-  // },
-  // {
-  //   name: 'Colors',
-  //   url: '/theme/colors',
-  //   iconComponent: { name: 'cil-drop' }
-  // },
-  // {
-  //   name: 'Typography',
-  //   url: '/theme/typography',
-  //   linkProps: { fragment: 'someAnchor' },
-  //   iconComponent: { name: 'cil-pencil' }
-  // },
   {
     name: 'Foods',
     url: '/foods',
@@ -37,6 +22,10 @@ export const navItems: INavData[] = [
       {
         name: 'Payment',
         url: '/foods/payments'
+      },
+      {
+        name: 'Orders',
+        url: '/foods/orders'
       },
       {
         name: 'Category',
