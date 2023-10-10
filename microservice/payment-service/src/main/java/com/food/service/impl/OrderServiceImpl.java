@@ -5,6 +5,7 @@ import com.food.event.OrderEvent;
 import com.food.repository.PaymentRepository;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
+import com.food.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,9 @@ public class OrderServiceImpl implements OrderService {
 
     private static final String SOURCE = "payment";
     private final PaymentRepository repository;
-    private final KafkaTemplate<String, OrderEvent> template;
+    private final KafkaTemplate<String, String> template;
 
-    public OrderServiceImpl(PaymentRepository repository, KafkaTemplate<String, OrderEvent> template) {
+    public OrderServiceImpl(PaymentRepository repository, KafkaTemplate<String, String> template) {
         this.repository = repository;
         this.template = template;
     }
@@ -44,8 +45,9 @@ public class OrderServiceImpl implements OrderService {
                 order.setStatus(EPaymentType.REJECT);
             }
 
+            String json = JsonUtil.toJson(order);
             repository.save(payment);
-            template.send(EventUtil.PAYMENT_ORDERS, order.getId(), order);
+            template.send(EventUtil.PAYMENT_ORDERS, order.getId(), json);
             log.info("Sent: {}", order);
         }
     }

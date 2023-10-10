@@ -4,6 +4,7 @@ import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
+import com.food.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -25,12 +26,13 @@ public class PaymentServiceApplication {
     private OrderService orderService;
 
     @KafkaListener(id = "orders", topics = EventUtil.ORDERS, groupId = "payment")
-    public void onEvent(OrderEvent order) {
+    public void onEvent(String order) {
         log.info("Received: {}", order);
+        var event = JsonUtil.fromJson(order, OrderEvent.class);
 
-        if (order.getStatus().equals(EPaymentType.NEW))
-            orderService.reserve(order);
+        if (event.getStatus().equals(EPaymentType.NEW))
+            orderService.reserve(event);
         else
-            orderService.confirm(order);
+            orderService.confirm(event);
     }
 }

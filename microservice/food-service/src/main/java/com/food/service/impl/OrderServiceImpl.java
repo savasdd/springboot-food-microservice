@@ -1,9 +1,11 @@
 package com.food.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
+import com.food.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.StoreQueryParameters;
 import org.apache.kafka.streams.state.KeyValueIterator;
@@ -21,18 +23,20 @@ import java.util.UUID;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private final KafkaTemplate<String, OrderEvent> template;
+    private final KafkaTemplate<String, String> template;
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
 
-    public OrderServiceImpl(KafkaTemplate<String, OrderEvent> template, StreamsBuilderFactoryBean kafkaStreamsFactory) {
+    public OrderServiceImpl(KafkaTemplate<String, String> template, StreamsBuilderFactoryBean kafkaStreamsFactory) {
         this.template = template;
         this.kafkaStreamsFactory = kafkaStreamsFactory;
     }
 
     @Override
-    public OrderEvent create(OrderEvent order) {
+    public OrderEvent create(OrderEvent order) throws JsonProcessingException {
         order.setId(UUID.randomUUID().toString());
-        template.send(EventUtil.ORDERS, order.getId(), order);
+        String json = JsonUtil.toJson(order);
+
+        template.send(EventUtil.ORDERS, order.getId(), json);
         log.info("Sent: {}", order);
         return order;
     }
@@ -40,10 +44,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderEvent> getAll() {
         List<OrderEvent> orders = new ArrayList<>();
-        ReadOnlyKeyValueStore<Long, OrderEvent> store = kafkaStreamsFactory
-                .getKafkaStreams()
-                .store(StoreQueryParameters.fromNameAndType(EventUtil.ORDERS,
-                        QueryableStoreTypes.keyValueStore()));
+        ReadOnlyKeyValueStore<Long, OrderEvent> store = kafkaStreamsFactory.getKafkaStreams().store(StoreQueryParameters.fromNameAndType(EventUtil.ORDERS, QueryableStoreTypes.keyValueStore()));
         KeyValueIterator<Long, OrderEvent> it = store.all();
         it.forEachRemaining(kv -> orders.add(kv.value));
         return orders;

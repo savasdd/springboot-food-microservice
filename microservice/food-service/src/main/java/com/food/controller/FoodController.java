@@ -1,5 +1,6 @@
 package com.food.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.food.dto.FoodDto;
 import com.food.event.OrderEvent;
 import com.food.model.Food;
@@ -67,7 +68,7 @@ public class FoodController {
 
     @Operation(description = "Orders")
     @PostMapping(value = "/orders")
-    public ResponseEntity<OrderEvent> createOrderFood(@RequestBody OrderEvent dto) {
+    public ResponseEntity<OrderEvent> createOrderFood(@RequestBody OrderEvent dto) throws JsonProcessingException {
         return ResponseEntity.ok(orderService.create(dto));
     }
 

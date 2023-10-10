@@ -3,7 +3,6 @@ package com.food.service.impl;
 import com.food.aop.MongoLog;
 import com.food.dto.CategoryDto;
 import com.food.dto.FoodDto;
-import com.food.event.StockEvent;
 import com.food.model.Category;
 import com.food.model.Food;
 import com.food.repository.CategoryRepository;
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,13 +24,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class FoodServiceImpl implements FoodService {
-    private final KafkaTemplate<String, StockEvent> kafkaTemplateStock;
     private final FoodRepository repository;
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
-    public FoodServiceImpl(KafkaTemplate<String, StockEvent> kafkaTemplateStock, FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
-        this.kafkaTemplateStock = kafkaTemplateStock;
+    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;

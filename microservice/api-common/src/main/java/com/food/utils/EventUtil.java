@@ -17,11 +17,5 @@ public class EventUtil {
     public static final String PAYMENT_ORDERS = "payment-orders";
     public static final String STOCK_ORDERS = "stock-orders";
 
-    //status
-    public static final String STATUS_NEW1 = "NEW";
-    public static final String STATUS_ACCEPT = "ACCEPT";
-    public static final String STATUS_REJECT = "REJECT";
-    public static final String STATUS_CONFIRMED = "CONFIRMED";
-    public static final String STATUS_ROLLBACK = "ROLLBACK";
 
 }
