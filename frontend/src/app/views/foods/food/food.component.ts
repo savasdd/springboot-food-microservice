@@ -15,6 +15,12 @@ export class FoodComponent implements OnInit {
   categoryDataSource: any = {};
   @ViewChild('foodDataGrid', {static: true}) foodDataGrid: any = DxDataGridComponent;
 
+  readonly allowedPageSizes = [5, 10, 'all'];
+  displayMode = 'full';
+  showPageSizeSelector = true;
+  showInfo = true;
+  showNavButtons = true;
+
   constructor(private service: FoodService, private categoryService: CategoryService) {
     this.loadGrid();
 

@@ -11,7 +11,6 @@
               <dx-data-grid #foodDataGrid
                             [dataSource]="dataSource"
                             [showBorders]="true">
-                <dxo-paging [enabled]="false"></dxo-paging>
                 <dxo-load-panel [enabled]="true"></dxo-load-panel>
                 <dxo-editing
                   mode="popup"
@@ -51,6 +50,16 @@
                   </dxo-lookup>
                 </dxi-column>
                 <dxi-column dataField="description" dataType="string"></dxi-column>
+
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="allowedPageSizes"
+                  [displayMode]="displayMode"
+                  [showPageSizeSelector]="showPageSizeSelector"
+                  [showInfo]="showInfo"
+                  [showNavigationButtons]="showNavButtons">
+                </dxo-pager>
               </dx-data-grid>
 
             </div>
