@@ -6,7 +6,7 @@
     [searchEnabled]="true"
     selectionMode="single"
     [selectedItemKeys]="[currentFood.ID]"
-    (onSelectionChanged)="listSelectionChanged($event)">
+    (onSelectionChanged)="selectionChanged($event)">
     <div *dxTemplate="let item of 'item'">
       <div>
         <div class="hotel">

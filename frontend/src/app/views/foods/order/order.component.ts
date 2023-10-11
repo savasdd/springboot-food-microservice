@@ -93,7 +93,7 @@ export class OrderComponent implements OnInit {
     this.currentFood = this.getFirstFood(this.foodData);
   }
 
-  listSelectionChanged = (e: any) => {
+  selectionChanged = (e: any) => {
     this.currentFood = e.addedItems[0];
   };
 
