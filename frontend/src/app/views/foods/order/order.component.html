@@ -1,48 +1,55 @@
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card border" style="margin-bottom: 0px;">
-          <div class="card-header card-header-info card-header-icon">
-            <h4 class="card-title">Orders</h4>
-          </div>
-
-          <div class="card-body" style="min-height: calc(90vh - 193px);">
-            <div class="row">
-              <dx-data-grid
-                id="gridContainer"
-                [dataSource]="employees"
-                keyExpr="ID"
-                [columnAutoWidth]="true"
-                [showBorders]="true"
-                dataRowTemplate="dataRowTemplateName">
-                <dxi-column
-                  caption="Photo"
-                  width="10%"
-                  height="10%"
-                  [allowFiltering]="false"
-                  [allowSorting]="false"
-                ></dxi-column>
-                <dxi-column dataField="FirstName" caption="Name"></dxi-column>
-
-                <ng-container *dxTemplate="let employee of 'dataRowTemplateName'">
-                  <tr class="main-row">
-                    <td rowspan="2"><img [src]="employee.data.Picture" alt="image"/></td>
-                    <td>{{ employee.data.FirstName }}</td>
-                  </tr>
-                  <tr class="notes-row">
-                    <td colspan="6">
-                      <div>{{ employee.data.Notes }}</div>
-                    </td>
-                  </tr>
-                </ng-container>
-              </dx-data-grid>
-
-
-            </div>
-          </div>
+<div class="left">
+  <dx-list
+    class="list"
+    [dataSource]="dataSource"
+    [grouped]="false"
+    [searchEnabled]="true"
+    selectionMode="single"
+    [selectedItemKeys]="[currentFood.ID]"
+    (onSelectionChanged)="listSelectionChanged($event)">
+    <div *dxTemplate="let item of 'item'">
+      <div>
+        <div class="hotel">
+          <div class="name">{{ item.Name }}</div>
+          <div class="type" [ngClass]="item.Class.toLowerCase()"></div>
+        </div>
+        <div class="price-container">
+          <div class="price">{{item.Price | currency : "USD" : "symbol" : "1.0-0"}}</div>
+          <div class="caption">TL</div>
         </div>
       </div>
     </div>
+    <div *dxTemplate="let item of 'group'">
+      <div class="city">{{ item.key }}</div>
+    </div>
+  </dx-list>
+</div>
+<div class="right">
+  <div class="header">
+    <div class="name-container">
+      <div class="name">{{ currentFood.Name }}</div>
+      <div class="type" [ngClass]="currentFood.Class.toLowerCase()"></div>
+    </div>
+    <div class="price-container">
+      <div class="price">{{currentFood.Price | currency : "USD" : "symbol" : "1.0-0"}}</div>
+      <div class="caption">TL</div>
+    </div>
   </div>
+  <dx-tile-view
+    class="tile"
+    [dataSource]="currentFood.Images"
+    noDataText=""
+    [height]="224"
+    [baseItemHeight]="100"
+    [baseItemWidth]="137"
+    [itemMargin]="12">
+    <div *dxTemplate="let item of 'item'">
+      <img
+        class="tile-image"
+        alt="Test"
+        src="{{ item.Picture }}"
+      />
+    </div>
+  </dx-tile-view>
+  <div class="description">{{ currentFood.Notes }}</div>
 </div>
