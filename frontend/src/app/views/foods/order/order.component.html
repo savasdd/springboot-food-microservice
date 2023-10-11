@@ -14,7 +14,7 @@
           <div class="type" [ngClass]="item.Class.toLowerCase()"></div>
         </div>
         <div class="price-container">
-          <div class="price">{{item.Price | currency : "USD" : "symbol" : "1.0-0"}}</div>
+          <div class="price">{{item.Price}}</div>
           <div class="caption">TL</div>
         </div>
       </div>
@@ -39,9 +39,10 @@
     class="tile"
     [dataSource]="currentFood.Images"
     noDataText=""
-    [height]="224"
-    [baseItemHeight]="100"
-    [baseItemWidth]="137"
+    [height]="300"
+    [width]="800"
+    [baseItemHeight]="250"
+    [baseItemWidth]="260"
     [itemMargin]="12">
     <div *dxTemplate="let item of 'item'">
       <img

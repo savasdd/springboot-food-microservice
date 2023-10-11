@@ -18,6 +18,8 @@ export class OrderComponent implements OnInit {
     Class: 'Diamond',
     Images: [{
       Picture: 'assets/images/food/pizza.png',
+    },{
+      Picture: 'assets/images/food/pizza2.png',
     }],
     Price: 299,
     Notes: 'John has been in the Audio/Video industry since 1990. He has led DevAv as its CEO since 2003. When not working hard as the CEO, John loves to golf and bowl. He once bowled a perfect game of 300.',
