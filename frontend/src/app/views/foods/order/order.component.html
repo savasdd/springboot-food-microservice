@@ -1,0 +1,45 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border" style="margin-bottom: 0px;">
+          <div class="card-header card-header-info card-header-icon">
+            <h4 class="card-title">Orders</h4>
+          </div>
+
+          <div class="card-body" style="min-height: calc(90vh - 193px);">
+            <div class="row">
+              <dx-data-grid
+                id="gridContainer"
+                [dataSource]="employees"
+                keyExpr="ID"
+                [columnAutoWidth]="true"
+                [showBorders]="true"
+                dataRowTemplate="dataRowTemplateName">
+                <dxi-column
+                  caption="Photo"
+                  [width]="100"
+                  [allowFiltering]="false"
+                  [allowSorting]="false"
+                ></dxi-column>
+                <dxi-column dataField="FirstName" caption="Name"></dxi-column>
+
+                <ng-container *dxTemplate="let employee of 'dataRowTemplateName'">
+                  <tr class="main-row">
+                    <td rowspan="2"><img [src]="employee.data.Picture" alt="image"/></td>
+                    <td>{{ employee.data.FirstName }}</td>
+                  </tr>
+                  <tr class="notes-row">
+                    <td colspan="6">
+                      <div>{{ employee.data.Notes }}</div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
