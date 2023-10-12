@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class UserFileServiceImpl implements UserFileService {
-    @Value("${minio.bucket.name}")
+    @Value("${minio.bucket-name}")
     private String bucketName;
     private final MinioClient client;
 

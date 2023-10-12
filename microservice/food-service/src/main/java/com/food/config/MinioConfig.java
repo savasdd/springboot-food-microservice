@@ -1,31 +1,30 @@
 package com.food.config;
 
 import io.minio.MinioClient;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
+@Getter
+@Setter
 @Configuration
+@ConfigurationProperties(prefix = "minio")
 public class MinioConfig {
 
-    @Value("${minio.access.key}")
+    private String endpoint;
     private String accessKey;
-
-    @Value("${minio.access.secret}")
     private String secretKey;
-
-    @Value("${minio.url}")
-    private String minioUrl;
+    private Integer port;
+    private Boolean secure;
+    private String bucketName;
+    private Long imageSize;
+    private Long fileSize;
 
     @Bean
-    @Primary
     public MinioClient minioClient() {
-        System.out.println(minioUrl);
-
-        return new MinioClient.Builder()
-                .credentials(accessKey, secretKey)
-                .endpoint(minioUrl)
-                .build();
+        MinioClient minioClient = MinioClient.builder().credentials(accessKey, secretKey).endpoint(endpoint, port, secure).build();
+        return minioClient;
     }
 }

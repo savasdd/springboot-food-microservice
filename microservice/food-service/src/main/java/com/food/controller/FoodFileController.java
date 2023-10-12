@@ -22,12 +22,12 @@ public class FoodFileController {
         this.service = service;
     }
 
-    @GetMapping(value = "/all/{id}")
+    @GetMapping(value = "/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FoodFileDto>> getAllFoodFile(@PathVariable String id) {
         return ResponseEntity.ok(service.getListObjects(id));
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<InputStream> getFoodFile(@RequestPart("fileName") String fileName) {
         return ResponseEntity.ok(service.getObjects(fileName));
     }

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Food, FoodControllerService} from "./food-service-api";
+import {Food, FoodControllerService, FoodFileControllerService} from "./food-service-api";
 import {Observable} from "rxjs";
 
 
@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class FoodService {
 
-  constructor(private service: FoodControllerService) {
+  constructor(private service: FoodControllerService, private fileService: FoodFileControllerService) {
   }
 
   findAll(loadOptions: any) {
@@ -34,6 +34,18 @@ export class FoodService {
 
   delete(id: string) {
     return this.service.deleteFood(id);
+  }
+
+  getAllImage(id: any) {
+    return this.fileService.getAllFoodFile(id);
+  }
+
+  getImage(name: any) {
+    return this.fileService.getFoodFile(name);
+  }
+
+  uploadImage(id: any, file: any) {
+    return this.fileService.foodFileUpload(id, file);
   }
 
 }

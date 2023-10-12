@@ -2,19 +2,14 @@ version: '3.3'
 
 services:
   minio:
-    image: quay.io/minio/minio
-    command: server /data --console-address ":9094"
-    container_name: minio_api
-    restart: always
+    image: minio/minio:latest
+    container_name: minio
     environment:
-      - MINIO_ROOT_USER=minioadmin
-      - MINIO_ROOT_PASSWORD=minioadmin
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin"
+    volumes:
+      - ./data:/data
     ports:
-      - '9001:9001'
-      - '9094:9094'
-    volumes: 
-      - ~/minio/data:/data
-
-volumes:
-  minio:
-    driver: local
+      - 9004:9000
+      - 9001:9001
+    command: server /data --console-address :9001
