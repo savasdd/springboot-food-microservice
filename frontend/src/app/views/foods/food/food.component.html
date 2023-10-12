@@ -22,14 +22,24 @@
                     title="Food Info"
                     [showTitle]="true"
                     width="30%"
-                    height="40%">
+                    height="50%">
                   </dxo-popup>
                   <dxo-form>
                     <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+                      <dxi-item dataField="category.id"></dxi-item>
                       <dxi-item dataField="foodName"></dxi-item>
                       <dxi-item dataField="price"></dxi-item>
-                      <dxi-item dataField="category.id"></dxi-item>
                       <dxi-item dataField="description"></dxi-item>
+                    </dxi-item>
+
+                    <dxi-item itemType="tabbed" [colSpan]="2" [colCount]="2">
+                      <dxi-tab id="id1" title="Images">
+                        <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+                          <div *dxTemplate="let item of 'detail'" class="content" style="background-color: white">
+                            Test
+                          </div>
+                        </dxi-item>
+                      </dxi-tab>
                     </dxi-item>
                   </dxo-form>
                 </dxo-editing>

@@ -23,6 +23,7 @@ import {PaymentComponent} from './payment/payment.component';
 import {DevExtremeModule} from "devextreme-angular";
 import {CategoryComponent} from './category/category.component';
 import {OrderComponent} from './order/order.component';
+import { ImagesComponent } from './food/images/images.component';
 
 const routes: Routes = [
   {
@@ -68,7 +69,8 @@ const routes: Routes = [
     FoodComponent,
     PaymentComponent,
     CategoryComponent,
-    OrderComponent
+    OrderComponent,
+    ImagesComponent
   ],
   imports: [
     CommonModule,
