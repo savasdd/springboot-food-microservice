@@ -21,12 +21,13 @@
                   <dxo-popup
                     title="Food Info"
                     [showTitle]="true"
-                    [width]="700"
-                    [height]="400">
+                    width="30%"
+                    height="40%">
                   </dxo-popup>
                   <dxo-form>
                     <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
                       <dxi-item dataField="foodName"></dxi-item>
+                      <dxi-item dataField="price"></dxi-item>
                       <dxi-item dataField="category.id"></dxi-item>
                       <dxi-item dataField="description"></dxi-item>
                     </dxi-item>
@@ -42,6 +43,9 @@
                 </dxo-toolbar>
 
                 <dxi-column dataField="foodName">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="price" dataType="number">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
                 <dxi-column dataField="category.id" caption="Category">

@@ -1,0 +1,10 @@
+version: '3'
+services:
+   nginx_b:
+     image: nginx:latest
+     container_name: nginx_b
+     ports:
+       - "82:80"
+       - "2443:443"
+     env_file:
+       - .env

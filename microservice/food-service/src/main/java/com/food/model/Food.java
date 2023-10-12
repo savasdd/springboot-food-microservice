@@ -28,6 +28,9 @@ public class Food extends BaseEntity {
     @Column(name = "FOOD_NAME")
     private String foodName;
 
+    @Column(name = "PRICE")
+    private Double price;
+
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
     private Category category;

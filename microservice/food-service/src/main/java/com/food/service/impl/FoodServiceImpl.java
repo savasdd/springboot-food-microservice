@@ -81,6 +81,7 @@ public class FoodServiceImpl implements FoodService {
         var foods = repository.findById(UUID.fromString(id));
         var newFood = foods.map(var -> {
             var.setFoodName(dto.getFoodName() != null ? dto.getFoodName() : var.getFoodName());
+            var.setPrice(dto.getPrice() != null ? dto.getPrice() : var.getPrice());
             var.setCategory(category.isPresent() ? category.get() : var.getCategory());
             var.setDescription(dto.getDescription() != null ? dto.getDescription() : var.getDescription());
             return var;
