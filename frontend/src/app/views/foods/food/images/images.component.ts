@@ -10,21 +10,33 @@ import {FoodFileDto} from "../../../../services/food-service-api";
 })
 export class ImagesComponent implements OnChanges {
   @Input() foodData: any;
-  @ViewChild('dataGrid', {static: true}) dataGrid: DxDataGridComponent | undefined;
+  @ViewChild('dataGrid', {static: true}) dataGrid: any = DxDataGridComponent;
   @Output() onHidingPopup: EventEmitter<any> = new EventEmitter<any>();
   dataSource: any = {};
+  events: Array<string> = [];
 
   constructor(private service: FoodService) {
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const id = this.foodData ? this.foodData.foodId : null;
-    this.service.getAllImage(id).subscribe((response: FoodFileDto[]) => {
-      if (response) {
-        this.dataSource = response;
-      }
-    });
+
+    if (this.foodData.foodId) {
+      const id = this.foodData ? this.foodData.foodId : null;
+      this.service.getAllImage(id).subscribe((response: FoodFileDto[]) => {
+        if (response) {
+          this.dataSource = response;
+        }
+      });
+    }
+  }
+
+  logEvent(eventName: any) {
+    this.events.unshift(eventName);
+  }
+
+  refreshDataGrid(e: any) {
+    this.dataGrid.instance.refresh();
   }
 
 }
