@@ -28,6 +28,7 @@ public class FoodFileServiceImpl implements FoodFileService {
         var list = StreamSupport.stream(result.spliterator(), true).map(val -> {
             try {
                 return FoodFileDto.builder().filename(val.get().objectName()).size(val.get().size()).foodId(val.get().objectName()).build();
+
             } catch (Exception e) {
                 log.error("Happened error when get list objects from minio: ", e);
                 return FoodFileDto.builder().build();

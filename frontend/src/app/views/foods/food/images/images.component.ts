@@ -15,7 +15,7 @@ export class ImagesComponent implements OnChanges {
   dataSource: any = {};
 
   constructor(private service: FoodService) {
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
