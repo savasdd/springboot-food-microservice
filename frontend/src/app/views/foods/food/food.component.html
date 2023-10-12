@@ -10,6 +10,7 @@
             <div class="row">
               <dx-data-grid #foodDataGrid
                             [dataSource]="dataSource"
+                            (onEditorPreparing)="onEditorPreparing($event)"
                             [showBorders]="true">
                 <dxo-load-panel [enabled]="true"></dxo-load-panel>
                 <dxo-editing
@@ -36,7 +37,7 @@
                       <dxi-tab id="id1" title="Images">
                         <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
                           <div *dxTemplate="let item of 'detail'" class="content" style="background-color: white">
-                            Test
+                            <app-images *ngIf="foodData" [foodData]="foodData"></app-images>
                           </div>
                         </dxi-item>
                       </dxi-tab>

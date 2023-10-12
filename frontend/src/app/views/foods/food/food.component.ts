@@ -20,6 +20,7 @@ export class FoodComponent implements OnInit {
   showPageSizeSelector = true;
   showInfo = true;
   showNavButtons = true;
+  foodData: any;
 
   constructor(private service: FoodService, private categoryService: CategoryService) {
     this.loadGrid();
@@ -35,6 +36,13 @@ export class FoodComponent implements OnInit {
   refreshDataGrid(e: any) {
     this.foodDataGrid.instance.refresh();
   }
+
+  onEditorPreparing(e: any) {
+    if (e.parentType === 'dataRow') {
+      this.foodData = e.row.data;
+    }
+  }
+
 
   loadGrid() {
     this.dataSource = new CustomStore({
