@@ -1,5 +1,6 @@
 package com.food;
 
+import com.food.db.CreatingDatabase;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
@@ -31,6 +32,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 public class FoodServiceApplication {
     public static void main(String[] args) {
+        CreatingDatabase.builder().build();
         SpringApplication.run(FoodServiceApplication.class, args);
     }
 

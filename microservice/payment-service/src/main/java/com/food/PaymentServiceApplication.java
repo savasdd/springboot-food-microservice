@@ -1,5 +1,6 @@
 package com.food;
 
+import com.food.db.CreatingDatabase;
 import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
@@ -19,6 +20,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 @EnableKafka
 public class PaymentServiceApplication {
     public static void main(String[] args) {
+        CreatingDatabase.builder().build();
         var context = SpringApplication.run(PaymentServiceApplication.class, args);
     }
 

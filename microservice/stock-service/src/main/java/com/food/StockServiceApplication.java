@@ -1,5 +1,6 @@
 package com.food;
 
+import com.food.db.CreatingDatabase;
 import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
@@ -23,6 +24,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableRabbit
 public class StockServiceApplication {
     public static void main(String[] args) {
+        CreatingDatabase.builder().build();
         SpringApplication.run(StockServiceApplication.class, args);
     }
 
