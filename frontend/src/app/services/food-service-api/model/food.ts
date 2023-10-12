@@ -18,6 +18,7 @@ import { Category } from './category';
 export interface Food { 
     foodId?: string;
     foodName?: string;
+    price?: number;
     category?: Category;
     description?: string;
 }

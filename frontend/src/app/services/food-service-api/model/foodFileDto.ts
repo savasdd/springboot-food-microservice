@@ -9,15 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageSize?: number;
-    pageNumber?: number;
-    paged?: boolean;
-    unpaged?: boolean;
+/**
+ * 
+ */
+export interface FoodFileDto { 
+    foodId?: string;
+    filename?: string;
+    size?: number;
+    fileData?: Blob;
 }
 
