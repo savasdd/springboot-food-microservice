@@ -1,0 +1,41 @@
+::ng-deep #form {
+  max-width: 600px;
+  //margin: auto;
+}
+
+::ng-deep #button {
+  //margin-top: 20px;
+  margin-right: 20px;
+  float: right;
+}
+
+::ng-deep #fileuploader-container {
+  border: 1px solid #d3d3d3;
+  margin: 20px 20px 0 20px;
+}
+
+::ng-deep #form h3 {
+  margin-left: 20px;
+  font-weight: normal;
+  font-size: 22px;
+}
+
+
+::ng-deep #gridContainer {
+  min-height: 530px;
+  width: 1000px;
+}
+
+::ng-deep .dx-row img {
+  height: 50px;
+}
+
+::ng-deep .retryButton {
+  margin-left: 7px;
+}
+
+::ng-deep .uploadedImage {
+  height: 50px;
+  margin-left: 7px;
+  margin-bottom: 7px;
+}

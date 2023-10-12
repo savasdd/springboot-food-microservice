@@ -1,42 +1,85 @@
-<dx-data-grid #dataGrid
-              [dataSource]="dataSource"
-              [allowColumnReordering]="true"
-              [showBorders]="true"
-              (onRowInserting)="logEvent('RowInserting')"
-              (onRowInserted)="logEvent('RowInserted')"
-              (onRowRemoving)="logEvent('RowRemoving')"
-              (onRowRemoved)="logEvent('RowRemoved')"
-              (onSaving)="logEvent('Saving')"
-              (onSaved)="logEvent('Saved')"
-              (onEditCanceling)="logEvent('EditCanceling')"
-              (onEditCanceled)="logEvent('EditCanceled')">
+<div id="container">
+  <dx-data-grid #dataGrid
+                [dataSource]="dataSource"
+                [allowColumnReordering]="true"
+                [showBorders]="true"
+                (onRowInserting)="logEvent('RowInserting')"
+                (onRowInserted)="logEvent('RowInserted')"
+                (onRowRemoving)="logEvent('RowRemoving')"
+                (onRowRemoved)="logEvent('RowRemoved')"
+                (onSaving)="logEvent('Saving')"
+                (onSaved)="logEvent('Saved')"
+                (onEditCanceling)="logEvent('EditCanceling')"
+                (onEditCanceled)="logEvent('EditCanceled')">
 
-  <dxo-paging [enabled]="true"></dxo-paging>
-  <dxo-editing
-    mode="row"
-    [allowUpdating]="false"
-    [allowDeleting]="true"
-    [allowAdding]="true"
-    [useIcons]="true">
-  </dxo-editing>
+    <dxo-paging [enabled]="true"></dxo-paging>
+    <dxo-editing
+      mode="form"
+      [allowUpdating]="false"
+      [allowDeleting]="true"
+      [allowAdding]="true"
+      [useIcons]="true">
+    </dxo-editing>
 
-  <dxo-toolbar>
-    <dxi-item name="addRowButton"></dxi-item>
-    <dxi-item location="after">
-      <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
-      </dx-button>
-    </dxi-item>
-  </dxo-toolbar>
+    <dxo-toolbar>
+      <dxi-item name="addRowButton">
+        <dx-button icon="plus" (onClick)="newImages()">
+        </dx-button>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
+        </dx-button>
+      </dxi-item>
+    </dxo-toolbar>
 
-  <dxi-column dataField="filename"></dxi-column>
-  <dxi-column dataField="size"></dxi-column>
+    <dxi-column dataField="filename"></dxi-column>
+    <dxi-column dataField="size"></dxi-column>
 
-  <dxo-paging [pageSize]="10"></dxo-paging>
-  <dxo-pager
-    [showPageSizeSelector]="true"
-    [allowedPageSizes]="[5,10, 20, 50, 100]"
-    [showInfo]="true">
-  </dxo-pager>
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5,10, 20, 50, 100]"
+      [showInfo]="true">
+    </dxo-pager>
 
 
-</dx-data-grid>
+  </dx-data-grid>
+
+
+  <div>
+    <dx-popup
+      [width]="500"
+      [height]="400"
+      [showTitle]="true"
+      title="Upload Image"
+      [dragEnabled]="false"
+      [hideOnOutsideClick]="false"
+      [showCloseButton]="true"
+      [(visible)]="popupVisible">
+
+      <div *dxTemplate="let data of 'content'">
+
+        <dx-form id="form" [formData]="userData"
+                 labelMode="floating" [colCount]="2">
+          <dxi-item dataField="fileData" caption="Image">
+            <dx-file-uploader [multiple]="false"
+                              name="photo"
+                              accept="image/*"
+                              uploadMode="instantly"
+                              [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+                              (onValueChanged)="onValueChanged($event)">
+            </dx-file-uploader>
+          </dxi-item>
+
+          <dxi-item [colSpan]="1">
+            <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save
+            </button>
+          </dxi-item>
+        </dx-form>
+
+      </div>
+
+    </dx-popup>
+  </div>
+
+</div>

@@ -47,6 +47,8 @@ public class FoodFileServiceImpl implements FoodFileService {
     @Override
     public FoodFileDto uploadFile(FoodFileDto dto) {
         System.out.println(dto);
+        System.out.println(dto.getFileData().getOriginalFilename());
+        System.out.println(dto.getFileData().getSize());
 
         return null;
     }
