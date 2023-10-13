@@ -54,7 +54,7 @@ public class FoodServiceImpl implements FoodService {
         LoadResult<Food> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
         list.stream().map(val -> {
-            val.setImage("assets/images/food/pizza.png");
+            val.setImage("assets/images/food/su.png");
             return val;
         }).toList();
 

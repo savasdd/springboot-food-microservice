@@ -73,18 +73,28 @@
                 [showBorders]="true">
                 <dxi-column
                   dataField="image"
-                  [width]="130"
+                  [width]="300"
                   [allowFiltering]="false"
                   [allowSorting]="false"
                   cellTemplate="cellTemplate"
                 ></dxi-column>
+                <dxo-search-panel
+                  [visible]="true"
+                  [width]="400"
+                  placeholder="Search..."
+                ></dxo-search-panel>
+
                 <dxi-column dataField="foodName"></dxi-column>
-                <dxi-column dataField="classType" caption="Class"></dxi-column>
+                <dxi-column dataField="classType" caption="Class" cellTemplate="classTemplate"></dxi-column>
                 <dxi-column dataField="description" caption="Notes"></dxi-column>
-                <dxi-column dataField="price" width="100"></dxi-column>
+                <dxi-column dataField="price" width="100"  format="# TL"></dxi-column>
 
                 <div *dxTemplate="let data of 'cellTemplate'">
                   <img [src]="data.value" alt=""/>
+                </div>
+
+                <div *dxTemplate="let data of 'classTemplate'">
+                  <div class="type" [ngClass]="data.value.toLowerCase()"></div>
                 </div>
 
                 <dxo-paging [pageSize]="10"></dxo-paging>
