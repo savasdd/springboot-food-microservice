@@ -176,11 +176,8 @@ public class MinioUtil {
     // Delete object from the specified bucket
     @SneakyThrows
     public boolean removeObject(String bucketName, String objectName) {
-
         LOGGER.info("MinioUtil | removeObject is called");
-
         boolean flag = bucketExists(bucketName);
-
         LOGGER.info("MinioUtil | removeObject | flag : " + flag);
 
         if (flag) {

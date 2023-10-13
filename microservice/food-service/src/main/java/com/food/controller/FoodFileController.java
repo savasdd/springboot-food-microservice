@@ -27,7 +27,7 @@ public class FoodFileController {
         return ResponseEntity.ok(service.getListObjects(id));
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getOne", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<InputStream> getFoodFile(@RequestPart("fileName") String fileName) {
         return ResponseEntity.ok(service.getObjects(fileName));
     }
@@ -36,6 +36,12 @@ public class FoodFileController {
     @PostMapping(value = "/upload", consumes = {"multipart/form-data", MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<FoodFileDto> foodFileUpload(@RequestPart("foodId") String userId, @RequestPart("fileName") String fileName, @RequestPart("fileType") String fileType, @RequestPart("file") MultipartFile file) {
         return ResponseEntity.ok(service.uploadFile(FoodFileDto.builder().foodId(userId).filename(fileName).fileType(fileType).fileData(file).build()));
+    }
+
+    @Operation(description = "delete image")
+    @DeleteMapping(value = "/delete/{fileName}")
+    public ResponseEntity<String> deleteFoodFile(@PathVariable("fileName") String fileName) {
+        return ResponseEntity.ok(service.deleteObjects(fileName));
     }
 
 

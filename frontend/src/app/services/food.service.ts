@@ -40,8 +40,8 @@ export class FoodService {
     return this.fileService.getAllFoodFile(id);
   }
 
-  getImage(name: any) {
-    return this.fileService.getFoodFile(name);
+  deleteImage(name: any) {
+    return this.fileService.deleteFoodFile(name);
   }
 
   uploadImage(id: any, fileName: any, fileType: any, file: any) {

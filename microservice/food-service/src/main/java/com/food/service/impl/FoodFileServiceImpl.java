@@ -52,6 +52,12 @@ public class FoodFileServiceImpl implements FoodFileService {
     public FoodFileDto uploadFile(FoodFileDto dto) {
         var result = minioUtil.putObject(minioProperties.getBucketName(), dto.getFileData(), dto.getFilename(), dto.getFileType(), dto.getFoodId());
 
-        return null;
+        return dto;
+    }
+
+    @Override
+    public String deleteObjects(String fileName) {
+        var result = minioUtil.removeObject(minioProperties.getBucketName(), fileName);
+        return "Success";
     }
 }

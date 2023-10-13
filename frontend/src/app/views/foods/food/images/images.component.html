@@ -16,7 +16,7 @@
     <dxo-editing
       mode="form"
       [allowUpdating]="false"
-      [allowDeleting]="true"
+      [allowDeleting]="false"
       [allowAdding]="true"
       [useIcons]="true">
     </dxo-editing>
@@ -26,14 +26,16 @@
         <dx-button icon="plus" (onClick)="newImages()">
         </dx-button>
       </dxi-item>
-      <dxi-item location="after">
-        <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
-        </dx-button>
-      </dxi-item>
     </dxo-toolbar>
 
-    <dxi-column dataField="filename"></dxi-column>
+    <dxi-column dataField="filename" caption="File"></dxi-column>
     <dxi-column dataField="size"></dxi-column>
+    <dxi-column dataField="operationId" caption="Delete" dataType="text"
+                width="15%" cellTemplate="operationTemplate"></dxi-column>
+    <div style="text-align: center;" *dxTemplate="let data of 'operationTemplate'">
+      <dx-button icon="trash" [visible]="true" (click)="deleteFoodImage(data.data)"></dx-button>
+    </div>
+
 
     <dxo-paging [pageSize]="10"></dxo-paging>
     <dxo-pager
@@ -41,7 +43,6 @@
       [allowedPageSizes]="[5,10, 20, 50, 100]"
       [showInfo]="true">
     </dxo-pager>
-
 
   </dx-data-grid>
 

@@ -26,15 +26,7 @@ export class ImagesComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    if (this.foodData.foodId) {
-      this.foodId = this.foodData ? this.foodData.foodId : null;
-      this.service.getAllImage(this.foodId).subscribe((response: FoodFileDto[]) => {
-        if (response) {
-          this.dataSource = response;
-        }
-      });
-    }
+    this.loadData();
   }
 
   logEvent(eventName: any) {
@@ -46,7 +38,27 @@ export class ImagesComponent implements OnChanges {
   }
 
   refreshDataGrid(e: any) {
+    this.loadData();
     this.dataGrid.instance.refresh();
+  }
+
+  loadData() {
+    if (this.foodData.foodId) {
+      this.foodId = this.foodData ? this.foodData.foodId : null;
+      this.service.getAllImage(this.foodId).subscribe((response: FoodFileDto[]) => {
+        if (response) {
+          this.dataSource = response;
+        }
+      });
+    }
+  }
+
+  deleteFoodImage(data: any) {
+    if (data.foodId) {
+      this.service.deleteImage(data.foodId).subscribe((response: any) => {
+        this.loadData();
+      });
+    }
   }
 
   onValueChanged(e: any) {

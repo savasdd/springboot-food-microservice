@@ -12,4 +12,6 @@ public interface FoodFileService {
     InputStream getObjects(String fileName);
 
     FoodFileDto uploadFile(FoodFileDto dto);
+
+    String deleteObjects(String fileName);
 }
