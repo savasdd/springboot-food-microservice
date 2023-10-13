@@ -7,9 +7,11 @@ import com.food.model.Category;
 import com.food.model.Food;
 import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
+import com.food.service.FoodFileService;
 import com.food.service.FoodService;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
+import io.micrometer.core.instrument.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
@@ -17,6 +19,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,11 +31,13 @@ public class FoodServiceImpl implements FoodService {
     private final FoodRepository repository;
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+    private final FoodFileService fileService;
 
-    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper, FoodFileService fileService) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
+        this.fileService = fileService;
     }
 
     @Override
@@ -54,7 +60,8 @@ public class FoodServiceImpl implements FoodService {
         LoadResult<Food> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
         list.stream().map(val -> {
-            val.setImage("assets/images/food/su.png");
+            InputStream stream = fileService.getObjects(val.getFoodId().toString());
+            val.setImage(stream != null ? IOUtils.toString(stream, StandardCharsets.UTF_8) : null);
             return val;
         }).toList();
 

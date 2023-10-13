@@ -21,5 +21,16 @@ export interface Food {
     price?: number;
     category?: Category;
     description?: string;
+    classType?: Food.ClassTypeEnum;
+    image?: string;
 }
+export namespace Food {
+    export type ClassTypeEnum = 'Diamond' | 'Platinum' | 'Gold';
+    export const ClassTypeEnum = {
+        Diamond: 'Diamond' as ClassTypeEnum,
+        Platinum: 'Platinum' as ClassTypeEnum,
+        Gold: 'Gold' as ClassTypeEnum
+    };
+}
+
 

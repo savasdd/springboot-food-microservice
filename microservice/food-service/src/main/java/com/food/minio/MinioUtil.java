@@ -233,6 +233,18 @@ public class MinioUtil {
         return null;
     }
 
+    public InputStream getObjects(String bucketName, String objectName) {
+        InputStream stream;
+        try {
+            stream = minioClient.getObject(GetObjectArgs.builder().bucket(bucketName).object(objectName).build());
+            LOGGER.info("MinioUtil | getObject | stream : " + stream.toString());
+        } catch (Exception e) {
+            return null;
+        }
+
+        return stream;
+    }
+
     // Get a file object as a stream from the specified bucket
     @SneakyThrows
     public InputStream getObject(String bucketName, String objectName) {

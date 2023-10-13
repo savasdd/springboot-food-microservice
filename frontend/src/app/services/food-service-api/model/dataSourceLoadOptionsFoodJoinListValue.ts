@@ -21,8 +21,8 @@ import { DataSourceLoadOptionsFoodJoinListValueParentModel } from './dataSourceL
 export interface DataSourceLoadOptionsFoodJoinListValue { 
     parent?: DataSourceLoadOptionsFoodJoinListValueParent;
     attribute?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttribute;
-    on?: DataSourceLoadOptionsFoodJoinListValueOn;
     joinType?: DataSourceLoadOptionsFoodJoinListValue.JoinTypeEnum;
+    on?: DataSourceLoadOptionsFoodJoinListValueOn;
     correlationParent?: DataSourceLoadOptionsFoodJoinListValueParent;
     correlated?: boolean;
     model?: DataSourceLoadOptionsFoodJoinListValueParentModel;

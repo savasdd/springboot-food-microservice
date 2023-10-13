@@ -44,7 +44,7 @@ public class FoodFileServiceImpl implements FoodFileService {
 
     @Override
     public InputStream getObjects(String fileName) {
-        var result = minioUtil.getObject(minioProperties.getBucketName(), fileName);
+        var result = minioUtil.getObjects(minioProperties.getBucketName(), fileName);
         return result;
     }
 
