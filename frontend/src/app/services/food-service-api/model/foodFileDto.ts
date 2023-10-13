@@ -17,6 +17,7 @@
 export interface FoodFileDto { 
     foodId?: string;
     filename?: string;
+    fileType?: string;
     size?: number;
     fileData?: Blob;
 }

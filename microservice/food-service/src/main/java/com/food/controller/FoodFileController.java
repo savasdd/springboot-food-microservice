@@ -34,8 +34,8 @@ public class FoodFileController {
 
     @Operation(description = "Users load image save")
     @PostMapping(value = "/upload", consumes = {"multipart/form-data", MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<FoodFileDto> foodFileUpload(@RequestPart("foodId") String userId, @RequestPart("file") MultipartFile file) {
-        return ResponseEntity.ok(service.uploadFile(FoodFileDto.builder().foodId(userId).fileData(file).build()));
+    public ResponseEntity<FoodFileDto> foodFileUpload(@RequestPart("foodId") String userId, @RequestPart("fileName") String fileName, @RequestPart("fileType") String fileType, @RequestPart("file") MultipartFile file) {
+        return ResponseEntity.ok(service.uploadFile(FoodFileDto.builder().foodId(userId).filename(fileName).fileType(fileType).fileData(file).build()));
     }
 
 

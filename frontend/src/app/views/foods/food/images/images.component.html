@@ -59,8 +59,8 @@
 
       <div *dxTemplate="let data of 'content'">
 
-        <dx-form id="form" [formData]="userData"
-                 labelMode="floating" [colCount]="2">
+        <dx-form id="form" [formData]="fileData"
+                 labelMode="floating" [colCount]="1">
           <dxi-item dataField="fileData" caption="Image">
             <dx-file-uploader [multiple]="false"
                               name="photo"

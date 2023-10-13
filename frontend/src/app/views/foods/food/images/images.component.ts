@@ -18,7 +18,7 @@ export class ImagesComponent implements OnChanges {
   dataSource: any = {};
   events: Array<string> = [];
   popupVisible: boolean = false;
-  userData: FoodFileDto = {};
+  fileData: FoodFileDto = {};
   foodId: any;
 
   constructor(private service: FoodService) {
@@ -52,16 +52,19 @@ export class ImagesComponent implements OnChanges {
   onValueChanged(e: any) {
     const file = e.value[0];
     const fileReader = new FileReader();
+    this.fileData.filename = file.name;
+    this.fileData.fileType = file.type;
+
     fileReader.onload = () => {
-      this.userData.fileData = new Blob([fileReader.result as ArrayBuffer], {type: file.type});
+      this.fileData.fileData = new Blob([fileReader.result as ArrayBuffer], {type: file.type});
     }
     fileReader.readAsDataURL(file);
   }
 
   updateClick() {
     const formValid = this.form.instance.validate();
-    if (formValid && this.userData.fileData != null) {
-      this.service.uploadImage(this.foodId, this.userData.fileData).subscribe((response: any) => {
+    if (formValid && this.fileData.fileData != null) {
+      this.service.uploadImage(this.foodId, this.fileData.filename, this.fileData.fileType, this.fileData.fileData).subscribe((response: any) => {
         notify({message: "Upload Success"});
         this.popupVisible = false;
       });

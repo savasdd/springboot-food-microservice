@@ -2,13 +2,16 @@ package com.food.service.impl;
 
 import com.food.config.MinioConfig;
 import com.food.dto.FoodFileDto;
+import com.food.minio.FileTypeUtils;
 import com.food.minio.MinioUtil;
 import com.food.service.FoodFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.StreamSupport;
 
 @Slf4j
@@ -25,6 +28,7 @@ public class FoodFileServiceImpl implements FoodFileService {
     @Override
     public List<FoodFileDto> getListObjects(String foodId) {
         var result = minioUtil.listObjects(minioProperties.getBucketName());
+
         var list = StreamSupport.stream(result.spliterator(), true).map(val -> {
             try {
                 return FoodFileDto.builder().filename(val.get().objectName()).size(val.get().size()).foodId(val.get().objectName()).build();
@@ -34,7 +38,7 @@ public class FoodFileServiceImpl implements FoodFileService {
                 return FoodFileDto.builder().build();
             }
         }).toList();
-        return list;
+        return list.stream().filter(f -> f.getFilename().equals(foodId)).toList();
     }
 
 
@@ -46,9 +50,7 @@ public class FoodFileServiceImpl implements FoodFileService {
 
     @Override
     public FoodFileDto uploadFile(FoodFileDto dto) {
-        System.out.println(dto);
-        System.out.println(dto.getFileData().getOriginalFilename());
-        System.out.println(dto.getFileData().getSize());
+        var result = minioUtil.putObject(minioProperties.getBucketName(), dto.getFileData(), dto.getFilename(), dto.getFileType(), dto.getFoodId());
 
         return null;
     }

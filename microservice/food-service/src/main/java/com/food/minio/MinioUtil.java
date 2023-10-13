@@ -16,9 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -32,32 +30,21 @@ public class MinioUtil {
 
     // Upload Files
     @SneakyThrows
-    public void putObject(String bucketName, MultipartFile multipartFile, String filename, String fileType) {
-
+    public ObjectWriteResponse putObject(String bucketName, MultipartFile multipartFile, String filename, String fileType, String foodId) {
         LOGGER.info("MinioUtil | putObject is called");
         LOGGER.info("MinioUtil | putObject | filename : " + filename);
-        LOGGER.info("MinioUtil | putObject | fileType : " + fileType);
 
         InputStream inputStream = new ByteArrayInputStream(multipartFile.getBytes());
-
-        minioClient.putObject(
-                PutObjectArgs.builder().bucket(bucketName).object(filename).stream(
-                                inputStream, -1, minioConfig.getFileSize())
-                        .contentType(fileType)
-                        .build());
+        var result = minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).object(foodId).stream(inputStream, -1, minioConfig.getFileSize()).contentType(fileType).build());
+        return result;
     }
 
     // Check if bucket name exists
     @SneakyThrows
     public boolean bucketExists(String bucketName) {
-
         LOGGER.info("MinioUtil | bucketExists is called");
 
-        boolean found =
-                minioClient.bucketExists(
-                        BucketExistsArgs.builder().
-                                bucket(bucketName).
-                                build());
+        boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
 
         LOGGER.info("MinioUtil | bucketExists | found : " + found);
 
@@ -78,10 +65,7 @@ public class MinioUtil {
         LOGGER.info("MinioUtil | makeBucket | flag : " + flag);
 
         if (!flag) {
-            minioClient.makeBucket(
-                    MakeBucketArgs.builder()
-                            .bucket(bucketName)
-                            .build());
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
 
             return true;
         } else {
@@ -100,7 +84,6 @@ public class MinioUtil {
     // List all bucket names
     @SneakyThrows
     public List<String> listBucketNames() {
-
         LOGGER.info("MinioUtil | listBucketNames is called");
 
         List<Bucket> bucketList = listBuckets();
@@ -120,16 +103,13 @@ public class MinioUtil {
     // List all objects from the specified bucket
     @SneakyThrows
     public Iterable<Result<Item>> listObjects(String bucketName) {
-
         LOGGER.info("MinioUtil | listObjects is called");
-
         boolean flag = bucketExists(bucketName);
 
         LOGGER.info("MinioUtil | listObjects | flag : " + flag);
 
         if (flag) {
-            return minioClient.listObjects(
-                    ListObjectsArgs.builder().bucket(bucketName).build());
+            return minioClient.listObjects(ListObjectsArgs.builder().bucket(bucketName).recursive(true).build());
         }
         return null;
     }
@@ -137,7 +117,6 @@ public class MinioUtil {
     // Delete Bucket by its name from the specified bucket
     @SneakyThrows
     public boolean removeBucket(String bucketName) {
-
         LOGGER.info("MinioUtil | removeBucket is called");
 
         boolean flag = bucketExists(bucketName);
@@ -172,7 +151,6 @@ public class MinioUtil {
     // List all object names from the specified bucket
     @SneakyThrows
     public List<String> listObjectNames(String bucketName) {
-
         LOGGER.info("MinioUtil | listObjectNames is called");
 
         List<String> listObjectNames = new ArrayList<>();

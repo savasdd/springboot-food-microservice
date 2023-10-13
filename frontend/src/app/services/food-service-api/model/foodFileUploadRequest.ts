@@ -13,6 +13,8 @@
 
 export interface FoodFileUploadRequest { 
     foodId: string;
+    fileName: string;
+    fileType: string;
     file: Blob;
 }
 

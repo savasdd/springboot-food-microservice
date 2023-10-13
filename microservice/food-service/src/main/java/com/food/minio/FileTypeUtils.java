@@ -29,7 +29,7 @@ public class FileTypeUtils {
             type = FileTypeUtil.getType(inputStream);
             LOGGER.info("FileTypeUtils | getFileType | type : " + type);
 
-            if (type.equalsIgnoreCase("JPG") || type.equalsIgnoreCase("JPEG")
+            if (type != null && type.equalsIgnoreCase("JPG") || type.equalsIgnoreCase("JPEG")
                     || type.equalsIgnoreCase("GIF") || type.equalsIgnoreCase("PNG")
                     || type.equalsIgnoreCase("BMP") || type.equalsIgnoreCase("PCX")
                     || type.equalsIgnoreCase("TGA") || type.equalsIgnoreCase("PSD")
@@ -39,7 +39,7 @@ public class FileTypeUtils {
                 return IMAGE_TYPE + type;
             }
 
-            if (type.equalsIgnoreCase("mp3") || type.equalsIgnoreCase("OGG")
+            if (type != null && type.equalsIgnoreCase("mp3") || type.equalsIgnoreCase("OGG")
                     || type.equalsIgnoreCase("WAV") || type.equalsIgnoreCase("REAL")
                     || type.equalsIgnoreCase("APE") || type.equalsIgnoreCase("MODULE")
                     || type.equalsIgnoreCase("MIDI") || type.equalsIgnoreCase("VQF")
@@ -48,7 +48,7 @@ public class FileTypeUtils {
                 LOGGER.info("FileTypeUtils | getFileType | AUDIO_TYPE+type : " + AUDIO_TYPE + type);
                 return AUDIO_TYPE + type;
             }
-            if (type.equalsIgnoreCase("mp4") || type.equalsIgnoreCase("avi")
+            if (type != null && type.equalsIgnoreCase("mp4") || type.equalsIgnoreCase("avi")
                     || type.equalsIgnoreCase("MPEG-1") || type.equalsIgnoreCase("RM")
                     || type.equalsIgnoreCase("ASF") || type.equalsIgnoreCase("WMV")
                     || type.equalsIgnoreCase("qlv") || type.equalsIgnoreCase("MPEG-2")
@@ -58,7 +58,7 @@ public class FileTypeUtils {
                 LOGGER.info("FileTypeUtils | getFileType | VIDEO_TYPE+type : " + VIDEO_TYPE + type);
                 return VIDEO_TYPE + type;
             }
-            if (type.equalsIgnoreCase("doc") || type.equalsIgnoreCase("docx")
+            if (type != null && type.equalsIgnoreCase("doc") || type.equalsIgnoreCase("docx")
                     || type.equalsIgnoreCase("ppt") || type.equalsIgnoreCase("pptx")
                     || type.equalsIgnoreCase("xls") || type.equalsIgnoreCase("xlsx")
                     || type.equalsIgnoreCase("zip") || type.equalsIgnoreCase("jar")) {
@@ -66,7 +66,7 @@ public class FileTypeUtils {
                 LOGGER.info("FileTypeUtils | getFileType | APPLICATION_TYPE+type : " + APPLICATION_TYPE + type);
                 return APPLICATION_TYPE + type;
             }
-            if (type.equalsIgnoreCase("txt")) {
+            if (type != null && type.equalsIgnoreCase("txt")) {
 
                 LOGGER.info("FileTypeUtils | getFileType | TXT_TYPE+type : " + TXT_TYPE + type);
                 return TXT_TYPE + type;

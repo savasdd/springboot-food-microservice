@@ -44,8 +44,8 @@ export class FoodService {
     return this.fileService.getFoodFile(name);
   }
 
-  uploadImage(id: any, file: any) {
-    return this.fileService.foodFileUpload(id, file);
+  uploadImage(id: any, fileName: any, fileType: any, file: any) {
+    return this.fileService.foodFileUpload(id, fileName, fileType, file);
   }
 
 }

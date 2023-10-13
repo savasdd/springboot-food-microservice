@@ -107,16 +107,24 @@ export class FoodFileControllerService {
     /**
      * Users load image save
      * @param foodId 
+     * @param fileName 
+     * @param fileType 
      * @param file 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public foodFileUpload(foodId: string, file: Blob, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<FoodFileDto>;
-    public foodFileUpload(foodId: string, file: Blob, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<FoodFileDto>>;
-    public foodFileUpload(foodId: string, file: Blob, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<FoodFileDto>>;
-    public foodFileUpload(foodId: string, file: Blob, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+    public foodFileUpload(foodId: string, fileName: string, fileType: string, file: Blob, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<FoodFileDto>;
+    public foodFileUpload(foodId: string, fileName: string, fileType: string, file: Blob, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<FoodFileDto>>;
+    public foodFileUpload(foodId: string, fileName: string, fileType: string, file: Blob, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<FoodFileDto>>;
+    public foodFileUpload(foodId: string, fileName: string, fileType: string, file: Blob, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
         if (foodId === null || foodId === undefined) {
             throw new Error('Required parameter foodId was null or undefined when calling foodFileUpload.');
+        }
+        if (fileName === null || fileName === undefined) {
+            throw new Error('Required parameter fileName was null or undefined when calling foodFileUpload.');
+        }
+        if (fileType === null || fileType === undefined) {
+            throw new Error('Required parameter fileType was null or undefined when calling foodFileUpload.');
         }
         if (file === null || file === undefined) {
             throw new Error('Required parameter file was null or undefined when calling foodFileUpload.');
@@ -163,6 +171,12 @@ export class FoodFileControllerService {
 
         if (foodId !== undefined) {
             localVarFormParams = localVarFormParams.append('foodId', <any>foodId) as any || localVarFormParams;
+        }
+        if (fileName !== undefined) {
+            localVarFormParams = localVarFormParams.append('fileName', <any>fileName) as any || localVarFormParams;
+        }
+        if (fileType !== undefined) {
+            localVarFormParams = localVarFormParams.append('fileType', <any>fileType) as any || localVarFormParams;
         }
         if (file !== undefined) {
             localVarFormParams = localVarFormParams.append('file', <any>file) as any || localVarFormParams;

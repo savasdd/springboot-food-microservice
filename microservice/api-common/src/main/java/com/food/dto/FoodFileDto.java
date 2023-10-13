@@ -12,6 +12,7 @@ public class FoodFileDto extends GenericDto {
 
     private String foodId;
     private String filename;
+    private String fileType;
     private Long size;
     private MultipartFile fileData;
 }
