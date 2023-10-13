@@ -44,4 +44,7 @@ public class Food extends BaseEntity {
     @Column(name = "classType")
     private EClassType classType;
 
+    @Transient
+    private String image;
+
 }

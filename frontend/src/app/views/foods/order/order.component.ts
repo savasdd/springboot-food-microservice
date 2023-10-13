@@ -108,6 +108,7 @@ export class OrderComponent implements OnInit {
       key: 'foodId',
       load: (loadOptions) => {
         return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+          console.log(response.data)
           return {
             data: response.data,
             totalCount: response.totalCount

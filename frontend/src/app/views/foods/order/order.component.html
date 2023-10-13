@@ -72,20 +72,30 @@
                 keyExpr="ID"
                 [showBorders]="true">
                 <dxi-column
-                  dataField="Picture"
+                  dataField="image"
                   [width]="130"
                   [allowFiltering]="false"
                   [allowSorting]="false"
                   cellTemplate="cellTemplate"
                 ></dxi-column>
                 <dxi-column dataField="foodName"></dxi-column>
-                <dxi-column dataField="price"></dxi-column>
-                <dxi-column dataField="classType"></dxi-column>
-                <dxi-column dataField="description"></dxi-column>
+                <dxi-column dataField="classType" caption="Class"></dxi-column>
+                <dxi-column dataField="description" caption="Notes"></dxi-column>
+                <dxi-column dataField="price" width="100"></dxi-column>
 
                 <div *dxTemplate="let data of 'cellTemplate'">
                   <img [src]="data.value" alt=""/>
                 </div>
+
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10, 'all']"
+                  displayMode="full"
+                  [showPageSizeSelector]="true"
+                  [showInfo]="true"
+                  [showNavigationButtons]="true">
+                </dxo-pager>
               </dx-data-grid>
 
 

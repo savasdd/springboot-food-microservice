@@ -53,9 +53,13 @@ public class FoodServiceImpl implements FoodService {
     public LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) {
         LoadResult<Food> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+        list.stream().map(val -> {
+            val.setImage("assets/images/food/pizza.png");
+            return val;
+        }).toList();
+
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
-
         log.info("list food {} ", loadResult.totalCount);
         return loadResult;
     }
