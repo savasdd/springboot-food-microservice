@@ -19,8 +19,8 @@ export interface DataSourceLoadOptionsFoodJoinListValueParent {
     correlated?: boolean;
     model?: DataSourceLoadOptionsFoodJoinListValueParentModel;
     parentPath?: DataSourceLoadOptionsFoodJoinListValueParentParentPath;
-    compoundSelection?: boolean;
     compoundSelectionItems?: Array<DataSourceLoadOptionsFoodJoinListValueParentParentPathCompoundSelectionItemsInner>;
+    compoundSelection?: boolean;
     alias?: string;
     fetches?: Set<DataSourceLoadOptionsFoodJoinListValueParentFetchesInner>;
 }

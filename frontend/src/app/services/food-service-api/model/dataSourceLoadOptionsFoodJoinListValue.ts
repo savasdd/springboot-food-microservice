@@ -23,12 +23,12 @@ export interface DataSourceLoadOptionsFoodJoinListValue {
     attribute?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttribute;
     joinType?: DataSourceLoadOptionsFoodJoinListValue.JoinTypeEnum;
     on?: DataSourceLoadOptionsFoodJoinListValueOn;
-    correlated?: boolean;
     correlationParent?: DataSourceLoadOptionsFoodJoinListValueParent;
+    correlated?: boolean;
     model?: DataSourceLoadOptionsFoodJoinListValueParentModel;
     parentPath?: DataSourceLoadOptionsFoodJoinListValueParentParentPath;
-    compoundSelection?: boolean;
     compoundSelectionItems?: Array<DataSourceLoadOptionsFoodJoinListValueParentParentPathCompoundSelectionItemsInner>;
+    compoundSelection?: boolean;
     alias?: string;
     fetches?: Set<DataSourceLoadOptionsFoodJoinListValueParentFetchesInner>;
 }

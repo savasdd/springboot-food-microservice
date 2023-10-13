@@ -18,7 +18,7 @@ import java.util.UUID;
 @Builder
 @Entity(name = "FOOD")
 @Table
-@Check(constraints = "LENGTH(FOOD_NAME) > 2")
+@Check(constraints = "LENGTH(FOOD_NAME) > 1")
 public class Food extends BaseEntity {
 
     @Id

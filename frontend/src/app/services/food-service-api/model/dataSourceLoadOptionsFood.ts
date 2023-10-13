@@ -40,7 +40,7 @@ export interface DataSourceLoadOptionsFood {
     joinList?: { [key: string]: DataSourceLoadOptionsFoodJoinListValue; };
     pageable?: PageableObject;
     camelToSnake?: boolean;
-    sortable?: PageableObject;
     mockPageable?: PageableObject;
+    sortable?: PageableObject;
 }
 

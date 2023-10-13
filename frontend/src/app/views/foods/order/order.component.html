@@ -87,14 +87,14 @@
                 <dxi-column dataField="foodName"></dxi-column>
                 <dxi-column dataField="classType" caption="Class" cellTemplate="classTemplate"></dxi-column>
                 <dxi-column dataField="description" caption="Notes"></dxi-column>
-                <dxi-column dataField="price" width="100"  format="# TL"></dxi-column>
+                <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
 
                 <div *dxTemplate="let data of 'cellTemplate'">
                   <img [src]="data.value" alt=""/>
                 </div>
 
                 <div *dxTemplate="let data of 'classTemplate'">
-                  <div class="type" [ngClass]="data.value.toLowerCase()"></div>
+                  <div class="type" *ngIf="data.value!==null" [ngClass]="data.value.toLowerCase()"></div>
                 </div>
 
                 <dxo-paging [pageSize]="5"></dxo-paging>
