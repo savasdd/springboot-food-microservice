@@ -16,4 +16,5 @@ public class FoodDto extends GenericDto {
     private String foodName;
     private String description;
     private CategoryDto category;
+    private Double price;
 }

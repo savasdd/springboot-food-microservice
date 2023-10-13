@@ -1,5 +1,6 @@
 package com.food.model;
 
+import com.food.enums.EClassType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.Check;
@@ -39,5 +40,8 @@ public class Food extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "classType")
+    private EClassType classType;
 
 }

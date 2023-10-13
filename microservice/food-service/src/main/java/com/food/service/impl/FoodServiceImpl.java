@@ -117,7 +117,7 @@ public class FoodServiceImpl implements FoodService {
                 .setMatchingStrategy(MatchingStrategies.LOOSE)
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
                 .setSkipNullEnabled(true);
-        return FoodDto.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).category(dto.getCategory() != null ?
+        return FoodDto.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).price(dto.getPrice()).category(dto.getCategory() != null ?
                 modelMapper.map(dto.getCategory(), CategoryDto.class) : null).description(dto.getDescription()).build();
     }
 

@@ -20,5 +20,6 @@ export interface FoodDto {
     foodName?: string;
     description?: string;
     category?: CategoryDto;
+    price?: number;
 }
 

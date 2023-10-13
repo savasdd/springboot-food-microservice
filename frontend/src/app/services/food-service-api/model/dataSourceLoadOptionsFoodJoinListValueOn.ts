@@ -17,8 +17,8 @@ export interface DataSourceLoadOptionsFoodJoinListValueOn {
     expressions?: Array<DataSourceLoadOptionsFoodJoinListValueOnExpressionsInner>;
     operator?: DataSourceLoadOptionsFoodJoinListValueOn.OperatorEnum;
     negated?: boolean;
-    compoundSelectionItems?: Array<DataSourceLoadOptionsFoodJoinListValueParentParentPathCompoundSelectionItemsInner>;
     compoundSelection?: boolean;
+    compoundSelectionItems?: Array<DataSourceLoadOptionsFoodJoinListValueParentParentPathCompoundSelectionItemsInner>;
     alias?: string;
 }
 export namespace DataSourceLoadOptionsFoodJoinListValueOn {
