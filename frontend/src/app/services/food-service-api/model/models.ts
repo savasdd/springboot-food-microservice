@@ -13,7 +13,7 @@ export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttribu
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringType';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
-export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner';
+export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInner';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType';
 export * from './dataSourceLoadOptionsFoodJoinListValueParentModel';

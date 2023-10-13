@@ -52,7 +52,7 @@ public class FoodFileServiceImpl implements FoodFileService {
     public FoodFileDto uploadFile(FoodFileDto dto) {
         var result = minioUtil.putObject(minioProperties.getBucketName(), dto.getFileData(), dto.getFilename(), dto.getFileType(), dto.getFoodId());
 
-        return dto;
+        return FoodFileDto.builder().foodId(dto.getFoodId()).build();
     }
 
     @Override

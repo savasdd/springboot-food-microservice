@@ -79,6 +79,7 @@ export class ImagesComponent implements OnChanges {
       this.service.uploadImage(this.foodId, this.fileData.filename, this.fileData.fileType, this.fileData.fileData).subscribe((response: any) => {
         notify({message: "Upload Success"});
         this.popupVisible = false;
+        this.loadData();
       });
     }
   }
