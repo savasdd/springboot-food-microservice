@@ -62,11 +62,13 @@ public class OrderServiceImpl implements OrderService {
         if (order.getStatus().equals(EPaymentType.ACCEPT)) {
             payment.setAmountReserved(payment.getAmountReserved() != null ? payment.getAmountReserved().add(order.getAmount()) : BigDecimal.ZERO);
             payment.setAmountAvailable(payment.getAmountAvailable().subtract(order.getAmount()));
+            payment.setAmount(payment.getAmount() != null ? payment.getAmount().add(order.getAmount()) : BigDecimal.ZERO);
             payment.setStatus(EPaymentType.CONFIRMED);
             order.setStatus(EPaymentType.CONFIRMED);
         } else if (order.getStatus().equals(EPaymentType.ROLLBACK) && !order.getSource().equals(SOURCE)) {
             payment.setAmountReserved(payment.getAmountReserved().subtract(order.getAmount()));
             payment.setAmountAvailable(payment.getAmountAvailable().add(order.getAmount()));
+            payment.setAmount(payment.getAmount().subtract(order.getAmount()));
             payment.setStatus(EPaymentType.ROLLBACK);
             order.setStatus(EPaymentType.REJECT);
         }

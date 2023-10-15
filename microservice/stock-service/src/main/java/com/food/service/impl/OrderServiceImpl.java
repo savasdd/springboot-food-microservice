@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -35,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
             if (order.getStockCount() < product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getStockCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getStockCount());
-                product.setPrice(order.getAmount());
+                product.setPrice(product.getPrice() != null ? product.getPrice().add(order.getAmount()) : BigDecimal.ZERO);
                 product.setTransactionDate(new Date());
                 product.setStatus(EPaymentType.ACCEPT);
                 order.setStatus(EPaymentType.ACCEPT);

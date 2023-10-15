@@ -95,6 +95,7 @@ public class FoodServiceImpl implements FoodService {
             var.setPrice(dto.getPrice() != null ? dto.getPrice() : var.getPrice());
             var.setCategory(category.isPresent() ? category.get() : var.getCategory());
             var.setDescription(dto.getDescription() != null ? dto.getDescription() : var.getDescription());
+            var.setStatus(dto.getStatus() != null ? dto.getStatus() : var.getStatus());
             return var;
         }).get();
         var newModel = repository.save(newFood);
