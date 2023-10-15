@@ -51,8 +51,8 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public Food getByOne(String id) {
-        var model = repository.findById(UUID.fromString(id));
-        return model.get();
+        var model = repository.findById(UUID.fromString(id)).orElseThrow(()->new RuntimeException("Not Found!"));
+        return model;
     }
 
     @Override

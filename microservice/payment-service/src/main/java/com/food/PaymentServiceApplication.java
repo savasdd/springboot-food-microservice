@@ -27,7 +27,6 @@ public class PaymentServiceApplication {
     @Autowired
     private OrderService orderService;
 
-    //@KafkaListener(id = "orders", topics = EventUtil.ORDERS, groupId = "payment")
     @KafkaListener(id = "orders", topics = EventUtil.ORDERS_STOCK, groupId = "group-id")
     public void onEvent(String order) {
         log.info("Received: {}", order);

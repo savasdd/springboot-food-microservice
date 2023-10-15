@@ -12,4 +12,6 @@ public interface OrderService {
     List<OrderEvent> getAll();
 
     OrderEvent confirm(OrderEvent orderPayment, OrderEvent orderStock);
+
+    void confirmPayment(OrderEvent event);
 }

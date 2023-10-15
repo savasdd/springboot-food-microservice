@@ -3,7 +3,8 @@ import {DxDataGridComponent} from "devextreme-angular";
 import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
 import {CategoryService} from "../../../services/category.service";
-import {Category} from "../../../services/food-service-api";
+import {Category, OrderEvent} from "../../../services/food-service-api";
+import StatusEnum = OrderEvent.StatusEnum;
 
 @Component({
   selector: 'app-food',
@@ -21,6 +22,13 @@ export class FoodComponent implements OnInit {
   showInfo = true;
   showNavButtons = true;
   foodData: any;
+  dataTypeSource: any = [
+    {name: StatusEnum.New},
+    {name: StatusEnum.Accept},
+    {name: StatusEnum.Reject},
+    {name: StatusEnum.Confirmed},
+    {name: StatusEnum.Rollback},
+  ];
 
   constructor(private service: FoodService, private categoryService: CategoryService) {
     this.loadGrid();

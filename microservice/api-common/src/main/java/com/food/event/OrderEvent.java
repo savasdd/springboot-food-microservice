@@ -19,8 +19,9 @@ import java.math.BigDecimal;
 public class OrderEvent {
 
     private String id;
-    private String paymentId;
+    private String foodId;
     private String stockId;
+    private String paymentId;
     private Integer stockCount;
     private BigDecimal amount;
     private EPaymentType status;
@@ -28,10 +29,11 @@ public class OrderEvent {
     private String message;
 
 
-    public OrderEvent(String id, String paymentId, String stockId, Integer stockCount, BigDecimal amount) {
+    public OrderEvent(String id, String paymentId, String stockId,String foodId, Integer stockCount, BigDecimal amount) {
         this.id = id;
         this.paymentId = paymentId;
         this.stockId = stockId;
+        this.foodId = foodId;
         this.stockCount = stockCount;
         this.amount = amount;
     }

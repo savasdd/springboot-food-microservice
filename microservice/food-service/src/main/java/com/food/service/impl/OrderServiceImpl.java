@@ -3,6 +3,7 @@ package com.food.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
+import com.food.repository.FoodRepository;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
 import com.food.utils.JsonUtil;
@@ -25,10 +26,12 @@ public class OrderServiceImpl implements OrderService {
 
     private final KafkaTemplate<String, String> template;
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
+    private final FoodRepository repository;
 
-    public OrderServiceImpl(KafkaTemplate<String, String> template, StreamsBuilderFactoryBean kafkaStreamsFactory) {
+    public OrderServiceImpl(KafkaTemplate<String, String> template, StreamsBuilderFactoryBean kafkaStreamsFactory, FoodRepository repository) {
         this.template = template;
         this.kafkaStreamsFactory = kafkaStreamsFactory;
+        this.repository = repository;
     }
 
     @Override
@@ -56,6 +59,7 @@ public class OrderServiceImpl implements OrderService {
         OrderEvent o = new OrderEvent(orderPayment.getId(),
                 orderPayment.getPaymentId(),
                 orderPayment.getStockId(),
+                orderPayment.getFoodId(),
                 orderPayment.getStockCount(),
                 orderPayment.getAmount());
         if (orderPayment.getStatus().equals(EPaymentType.ACCEPT) && orderStock.getStatus().equals(EPaymentType.ACCEPT)) {
@@ -68,5 +72,19 @@ public class OrderServiceImpl implements OrderService {
             o.setSource(source);
         }
         return o;
+    }
+
+    @Override
+    public void confirmPayment(OrderEvent event) {
+        var food = repository.findById(UUID.fromString(event.getFoodId())).orElseThrow(() -> new RuntimeException("Not found!"));
+        log.info("Found: {}", food.getFoodId());
+
+        if (event.getStatus().equals(EPaymentType.CONFIRMED)) {
+            food.setStatus(EPaymentType.CONFIRMED);
+        } else if (event.getStatus().equals(EPaymentType.ROLLBACK) && !event.getSource().equals("payment")) {
+            food.setStatus(EPaymentType.ROLLBACK);
+        }
+
+        repository.save(food);
     }
 }

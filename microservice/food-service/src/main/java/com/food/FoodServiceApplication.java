@@ -1,9 +1,11 @@
 package com.food;
 
 import com.food.db.CreatingDatabase;
+import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
+import com.food.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -17,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.serializer.JsonSerde;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -67,6 +70,13 @@ public class FoodServiceApplication {
         executor.setThreadNamePrefix("kafkaSender-");
         executor.initialize();
         return executor;
+    }
+
+    @KafkaListener(id = "orders", topics = EventUtil.ORDERS_PAYMENT, groupId = "group-id")
+    public void onEvent(String order) {
+        log.info("Received: {}", order);
+        var event = JsonUtil.fromJson(order, OrderEvent.class);
+        orderService.confirmPayment(event);
     }
 
 }

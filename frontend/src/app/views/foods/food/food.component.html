@@ -62,6 +62,11 @@
                 <dxi-column dataField="price" dataType="number">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
+                <dxi-column dataField="status" caption="State" [width]="125">
+                  <dxo-lookup [dataSource]="dataTypeSource" displayExpr="name" valueExpr="name">
+                    <dxi-validation-rule type="required"></dxi-validation-rule>
+                  </dxo-lookup>
+                </dxi-column>
                 <dxi-column dataField="category.id" caption="Category">
                   <dxo-lookup [dataSource]="categoryDataSource" displayExpr="name" valueExpr="id">
                     <dxi-validation-rule type="required"></dxi-validation-rule>
