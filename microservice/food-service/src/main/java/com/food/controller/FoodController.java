@@ -23,11 +23,9 @@ import java.util.UUID;
 public class FoodController {
 
     private final FoodService foodService;
-    private final OrderServiceImpl orderService;
 
-    public FoodController(FoodService foodService, OrderServiceImpl orderService) {
+    public FoodController(FoodService foodService) {
         this.foodService = foodService;
-        this.orderService = orderService;
     }
 
     @Operation(description = "Food getAll by loadResult")
@@ -64,12 +62,6 @@ public class FoodController {
     @DeleteMapping(value = "/foods/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Food> deleteFood(@PathVariable("id") String id) {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
-    }
-
-    @Operation(description = "Orders")
-    @PostMapping(value = "/orders")
-    public ResponseEntity<OrderEvent> createOrderFood(@RequestBody OrderEvent dto) throws JsonProcessingException {
-        return ResponseEntity.ok(orderService.create(dto));
     }
 
 }

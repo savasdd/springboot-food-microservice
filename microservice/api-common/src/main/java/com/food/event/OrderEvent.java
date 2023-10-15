@@ -25,6 +25,7 @@ public class OrderEvent {
     private BigDecimal amount;
     private EPaymentType status;
     private String source;
+    private String message;
 
 
     public OrderEvent(String id, String paymentId, String stockId, Integer stockCount, BigDecimal amount) {

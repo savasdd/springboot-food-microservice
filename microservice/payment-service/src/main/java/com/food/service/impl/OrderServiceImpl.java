@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -45,9 +46,10 @@ public class OrderServiceImpl implements OrderService {
                 order.setStatus(EPaymentType.REJECT);
             }
 
+            order.setMessage("ürün ödeme kontrolu yapıldı");
             String json = JsonUtil.toJson(order);
             repository.save(payment);
-            template.send(EventUtil.PAYMENT_ORDERS, order.getId(), json);
+            template.send(EventUtil.ORDERS_PAYMENT, order.getId(), json);
             log.info("Sent: {}", order);
         }
     }
@@ -57,16 +59,23 @@ public class OrderServiceImpl implements OrderService {
         var payment = repository.findById(UUID.fromString(order.getPaymentId())).orElseThrow(() -> new RuntimeException("Not Found Payment"));
         log.info("Found: {}", payment.getPaymentId());
 
-        if (order.getStatus().equals(EPaymentType.CONFIRMED)) {
-            payment.setAmountReserved(payment.getAmountReserved().subtract(order.getAmount()));
+        if (order.getStatus().equals(EPaymentType.ACCEPT)) {
+            payment.setAmountReserved(payment.getAmountReserved() != null ? payment.getAmountReserved().add(order.getAmount()) : BigDecimal.ZERO);
+            payment.setAmountAvailable(payment.getAmountAvailable().subtract(order.getAmount()));
             payment.setStatus(EPaymentType.CONFIRMED);
+            order.setStatus(EPaymentType.CONFIRMED);
         } else if (order.getStatus().equals(EPaymentType.ROLLBACK) && !order.getSource().equals(SOURCE)) {
             payment.setAmountReserved(payment.getAmountReserved().subtract(order.getAmount()));
             payment.setAmountAvailable(payment.getAmountAvailable().add(order.getAmount()));
             payment.setStatus(EPaymentType.ROLLBACK);
+            order.setStatus(EPaymentType.REJECT);
         }
 
+        order.setMessage("ürün ödeme kontrolu yapıldı");
+        String json = JsonUtil.toJson(order);
         repository.save(payment);
+        template.send(EventUtil.ORDERS_PAYMENT, order.getId(), json);
+        log.info("Sent: {}", order);
     }
 
 }

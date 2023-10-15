@@ -31,7 +31,7 @@ public class StockServiceApplication {
     @Autowired
     private OrderService orderService;
 
-    @KafkaListener(id = "orders", topics = EventUtil.ORDERS, groupId = "stock")
+    @KafkaListener(id = "orders", topics = EventUtil.ORDERS, groupId = "group-id")
     public void onEvent(String order) {
         log.info("Received: {}", order);
         var event = JsonUtil.fromJson(order, OrderEvent.class);

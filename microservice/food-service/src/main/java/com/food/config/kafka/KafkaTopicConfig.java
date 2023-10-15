@@ -41,7 +41,7 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic paymentTopic() {
-        return TopicBuilder.name(EventUtil.PAYMENT_ORDERS)
+        return TopicBuilder.name(EventUtil.ORDERS_PAYMENT)
                 .partitions(3)
                 .compact()
                 .build();
@@ -49,7 +49,7 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic stockTopic() {
-        return TopicBuilder.name(EventUtil.STOCK_ORDERS)
+        return TopicBuilder.name(EventUtil.ORDERS_STOCK)
                 .partitions(3)
                 .compact()
                 .build();

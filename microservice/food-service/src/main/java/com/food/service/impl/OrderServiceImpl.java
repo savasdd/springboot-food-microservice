@@ -34,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderEvent create(OrderEvent order) throws JsonProcessingException {
         order.setId(UUID.randomUUID().toString());
+        order.setMessage("ürün alındı");
         String json = JsonUtil.toJson(order);
 
         template.send(EventUtil.ORDERS, order.getId(), json);

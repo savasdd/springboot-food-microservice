@@ -14,8 +14,8 @@ public class EventUtil {
 
     //topics
     public static final String ORDERS = "orders";
-    public static final String PAYMENT_ORDERS = "payment-orders";
-    public static final String STOCK_ORDERS = "stock-orders";
+    public static final String ORDERS_PAYMENT = "orders-payment";
+    public static final String ORDERS_STOCK = "orders-stock";
 
 
 }

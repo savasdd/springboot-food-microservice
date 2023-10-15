@@ -42,9 +42,9 @@ public class FoodServiceApplication {
     @Bean
     public KStream<Long, OrderEvent> stream(StreamsBuilder builder) {
         JsonSerde<OrderEvent> orderSerde = new JsonSerde<>(OrderEvent.class);
-        KStream<Long, OrderEvent> stream = builder.stream(EventUtil.PAYMENT_ORDERS, Consumed.with(Serdes.Long(), orderSerde));
+        KStream<Long, OrderEvent> stream = builder.stream(EventUtil.ORDERS_PAYMENT, Consumed.with(Serdes.Long(), orderSerde));
 
-        stream.join(builder.stream(EventUtil.STOCK_ORDERS), orderService::confirm, JoinWindows.of(Duration.ofSeconds(10)),
+        stream.join(builder.stream(EventUtil.ORDERS_STOCK), orderService::confirm, JoinWindows.of(Duration.ofSeconds(10)),
                 StreamJoined.with(Serdes.Long(), orderSerde, orderSerde)).peek((k, o) -> log.info("Output: {}", o)).to(EventUtil.ORDERS);
 
         return stream;

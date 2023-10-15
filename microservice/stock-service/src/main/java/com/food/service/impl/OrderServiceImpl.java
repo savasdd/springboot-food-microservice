@@ -44,9 +44,10 @@ public class OrderServiceImpl implements OrderService {
                 order.setStatus(EPaymentType.REJECT);
             }
 
+            order.setMessage("ürün stok kontrolu yapıldı");
             String json = JsonUtil.toJson(order);
             repository.save(product);
-            template.send(EventUtil.STOCK_ORDERS, order.getId(), json);
+            template.send(EventUtil.ORDERS_STOCK, order.getId(), json);
             log.info("Sent: {}", order);
         }
     }
