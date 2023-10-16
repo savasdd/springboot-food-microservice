@@ -72,7 +72,7 @@ public class FoodServiceApplication {
         return executor;
     }
 
-    @KafkaListener(id = "orders", topics = EventUtil.ORDERS_PAYMENT, groupId = "group-id")
+    @KafkaListener(id = "orders", topics = EventUtil.ORDERS_PAYMENT, groupId = EventUtil.GROUP_ID)
     public void onEvent(String order) {
         log.info("Received: {}", order);
         var event = JsonUtil.fromJson(order, OrderEvent.class);

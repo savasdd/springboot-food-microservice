@@ -1,5 +1,6 @@
 package com.food.config;
 
+import com.food.utils.EventUtil;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -59,7 +60,7 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> stringKafkaListenerContainerFactory() {
-        return stringKafkaListenerContainerFactory("group-id");
+        return stringKafkaListenerContainerFactory(EventUtil.GROUP_ID);
     }
 
     public ConsumerFactory<String, String> stringFirstConsumerFactory(String groupId) {
@@ -94,12 +95,12 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> stringFirstKafkaListenerContainerFactory() {
-        return stringFistKafkaListenerContainerFactory("group-id");
+        return stringFistKafkaListenerContainerFactory(EventUtil.GROUP_ID);
     }
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> filterStringKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory = stringKafkaListenerContainerFactory("group-id");
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = stringKafkaListenerContainerFactory(EventUtil.GROUP_ID);
         //factory.setRecordFilterStrategy(record -> record.value().contains("World"));
         return factory;
     }
