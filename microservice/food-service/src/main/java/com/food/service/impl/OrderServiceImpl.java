@@ -80,11 +80,19 @@ public class OrderServiceImpl implements OrderService {
         log.info("Found: {}", food.getFoodId());
 
         if (event.getStatus().equals(EPaymentType.CONFIRMED)) {
-            food.setStatus(EPaymentType.CONFIRMED);
+            food.setStatus(EPaymentType.ACCEPT);
+            event.setStatus(EPaymentType.ACCEPT);
         } else if (event.getStatus().equals(EPaymentType.ROLLBACK) && !event.getSource().equals("payment")) {
             food.setStatus(EPaymentType.ROLLBACK);
+            event.setStatus(EPaymentType.REJECT);
         }
 
+        event.setFoodName(food.getFoodName());
+        event.setMessage("ürün bildirimi oluşturuldu");
+        String json = JsonUtil.toJson(event);
+
         repository.save(food);
+        template.send(EventUtil.ORDERS_NOTIFICATION, event.getId(), json);
+        log.info("Sent: {}", event);
     }
 }

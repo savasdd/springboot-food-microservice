@@ -1,0 +1,84 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <!-- use the font -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 48px;
+        }
+
+        #head {
+            text-align: center;
+            color: #2c6ef1
+        }
+
+        #load {
+            text-align: center;
+            color: #2085ea;
+            width: 40%;
+        }
+
+        #odeme {
+            flex: content;
+            color: #2085ea
+        }
+
+        #footer {
+            text-align: center;
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+<p><b>Subject</b>: Food Sales Ödeme Bildirimi</p>
+<p><b>Date</b>: <span th:text="${#dates.format(#dates.createNow(), 'dd.MM.yyyy HH:mm')}"></span></p>
+<p><b>From</b>: <span th:text="${from}"/></p>
+<p><b>To</b>: <span th:text="${to}"/></p>
+
+<p>
+    <br/>
+    <br/>
+<p id="load">Ödeme Fişi</p>
+</p>
+
+
+<div class="container">
+    <div class="row">
+        <div class="d-flex flex-row">
+            <table id="odeme" class="table table-bordered" style="width: 40%;margin: 5rem">
+                <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Adet</th>
+                    <th>Fiyat</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th th:text="${urun}"></th>
+                    <th th:text="${adet}"></th>
+                    <th th:text="${#numbers.formatDecimal(fiyat, 0, 'COMMA', 2, 'POINT')} + ' TL'"></th>
+                    <th th:text="${#dates.format(#dates.createNow(), 'dd.MM.yyyy')}"></th>
+                    <th th:text="${durum}"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<p>
+    <br/>
+    <br/>
+<h3 id="footer">Food Sales</h3>
+</p>
+
+</body>
+</html>

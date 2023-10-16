@@ -25,11 +25,12 @@ public class OrderEvent {
     private Integer stockCount;
     private BigDecimal amount;
     private EPaymentType status;
+    private String foodName;
     private String source;
     private String message;
 
 
-    public OrderEvent(String id, String paymentId, String stockId,String foodId, Integer stockCount, BigDecimal amount) {
+    public OrderEvent(String id, String paymentId, String stockId, String foodId, Integer stockCount, BigDecimal amount) {
         this.id = id;
         this.paymentId = paymentId;
         this.stockId = stockId;

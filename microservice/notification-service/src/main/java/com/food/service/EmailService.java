@@ -1,6 +1,7 @@
 package com.food.service;
 
 import com.food.dto.MailDto;
+import com.food.event.OrderEvent;
 import org.springframework.mail.SimpleMailMessage;
 
 public interface EmailService {
@@ -10,4 +11,6 @@ public interface EmailService {
     Boolean sendMailTemplate(MailDto dto, SimpleMailMessage template, String... templateArgs);
 
     Boolean sendMailAttachment(MailDto dto);
+
+    void confirm(OrderEvent event);
 }
