@@ -7,10 +7,20 @@
           <div class="card-body" style="min-height: calc(10vh - 193px);">
             <div class="row">
               <div class="filter-container">
-                <img class="basket" ngSrc="assets/images/food/basket.png" height="100" width="120" alt=""/>
-                <div>
-                  <button>Test</button>
+                <img class="basket" ngSrc="assets/images/food/basket.png" height="80" width="100" alt=""/>
+
+                <div class="dx-fieldset">
+                  <div class="dx-field">
+                    <div class="dx-field-label">
+                      <button type="button" class="btn btn-outline-primary">Sepetim</button>
+                    </div>
+                  </div>
+                  <div class="dx-field">
+                    <div class="dx-field-label">Toplam Tutar</div>
+                    <div class="dx-field-value-static">{{totalPrice + ' TL'}}</div>
+                  </div>
                 </div>
+
               </div>
 
               <div class="list-container">

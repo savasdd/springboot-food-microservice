@@ -8,6 +8,7 @@ import DataSource from 'devextreme/data/data_source';
 })
 export class BasketComponent implements OnChanges {
   dataSource: any;
+  totalPrice: number = 0;
   products: any[] = [{
     ID: 1,
     Name: 'Muz',
