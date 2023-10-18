@@ -16,12 +16,15 @@
  */
 export interface OrderEvent { 
     id?: string;
-    paymentId?: string;
+    foodId?: string;
     stockId?: string;
+    paymentId?: string;
     stockCount?: number;
     amount?: number;
     status?: OrderEvent.StatusEnum;
+    foodName?: string;
     source?: string;
+    message?: string;
 }
 export namespace OrderEvent {
     export type StatusEnum = 'NEW' | 'ACCEPT' | 'REJECT' | 'CONFIRMED' | 'ROLLBACK';

@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType } from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType';
+import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType } from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType';
 import { DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember } from './dataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
 
 
 export interface DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner { 
-    elementType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInnerType;
+    elementType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType;
     collectionType?: DataSourceLoadOptionsFoodJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner.CollectionTypeEnum;
     name?: string;
     collection?: boolean;

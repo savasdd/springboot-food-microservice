@@ -14,6 +14,7 @@ public interface FoodService {
     Food getByOne(String id);
 
     LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions);
+    LoadResult<Food> getAllOrder(DataSourceLoadOptions<Food> loadOptions);
 
     Food create(Food dto);
 

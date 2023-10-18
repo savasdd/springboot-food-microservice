@@ -22,6 +22,7 @@ export interface Food {
     category?: Category;
     description?: string;
     classType?: Food.ClassTypeEnum;
+    status?: Food.StatusEnum;
     image?: string;
 }
 export namespace Food {
@@ -30,6 +31,14 @@ export namespace Food {
         Diamond: 'Diamond' as ClassTypeEnum,
         Platinum: 'Platinum' as ClassTypeEnum,
         Gold: 'Gold' as ClassTypeEnum
+    };
+    export type StatusEnum = 'NEW' | 'ACCEPT' | 'REJECT' | 'CONFIRMED' | 'ROLLBACK';
+    export const StatusEnum = {
+        New: 'NEW' as StatusEnum,
+        Accept: 'ACCEPT' as StatusEnum,
+        Reject: 'REJECT' as StatusEnum,
+        Confirmed: 'CONFIRMED' as StatusEnum,
+        Rollback: 'ROLLBACK' as StatusEnum
     };
 }
 

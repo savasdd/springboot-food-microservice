@@ -15,6 +15,10 @@ export class FoodService {
     return this.service.getAllFoodLoad(loadOptions);
   }
 
+  findAllOrder(loadOptions: any) {
+    return this.service.getAllFoodLoadOrder(loadOptions);
+  }
+
   findAlls(): Observable<Food[]> {
     return this.service.getAllFood();
   }

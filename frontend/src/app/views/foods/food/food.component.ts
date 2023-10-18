@@ -56,6 +56,8 @@ export class FoodComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'foodId',
       load: (loadOptions) => {
+        // loadOptions.filter = [];
+        // loadOptions.filter.push(['searchImage', '=', false]);
         return this.service.findAll(loadOptions).toPromise().then((response: any) => {
           return {
             data: response.data,

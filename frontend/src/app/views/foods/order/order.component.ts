@@ -107,7 +107,7 @@ export class OrderComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'foodId',
       load: (loadOptions) => {
-        return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAllOrder(loadOptions).toPromise().then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount

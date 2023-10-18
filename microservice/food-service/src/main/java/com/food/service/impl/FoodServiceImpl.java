@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -51,7 +52,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public Food getByOne(String id) {
-        var model = repository.findById(UUID.fromString(id)).orElseThrow(()->new RuntimeException("Not Found!"));
+        var model = repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
         return model;
     }
 
@@ -59,6 +60,18 @@ public class FoodServiceImpl implements FoodService {
     public LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) {
         LoadResult<Food> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+
+        loadResult.setData(list.getContent());
+        loadResult.setTotalCount(list.stream().count());
+        log.info("list food {} ", loadResult.totalCount);
+        return loadResult;
+    }
+
+    @Override
+    public LoadResult<Food> getAllOrder(DataSourceLoadOptions<Food> loadOptions) {
+        LoadResult<Food> loadResult = new LoadResult<>();
+        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+
         list.stream().map(val -> {
             InputStream stream = fileService.getObjects(val.getFoodId().toString());
             val.setImage(stream != null ? IOUtils.toString(stream, StandardCharsets.UTF_8) : null);
@@ -67,7 +80,6 @@ public class FoodServiceImpl implements FoodService {
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
-        log.info("list food {} ", loadResult.totalCount);
         return loadResult;
     }
 

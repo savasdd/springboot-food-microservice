@@ -34,6 +34,12 @@ public class FoodController {
         return new ResponseEntity<>(foodService.getAll(loadOptions), HttpStatus.OK);
     }
 
+    @Operation(description = "Food getAll by loadResult")
+    @PostMapping(value = "/foods/allOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LoadResult<Food>> getAllFoodLoadOrder(@RequestBody DataSourceLoadOptions<Food> loadOptions) {
+        return new ResponseEntity<>(foodService.getAllOrder(loadOptions), HttpStatus.OK);
+    }
+
     @Operation(description = "Food getAll")
     @GetMapping(value = "/foods", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FoodDto>> getAllFood() {
