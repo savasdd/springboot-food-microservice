@@ -3,6 +3,7 @@ import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
 import {faBasketShopping, faCoffee, faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
 import DataSource from "devextreme/data/data_source";
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-order',
@@ -58,15 +59,29 @@ export class OrderComponent implements OnInit {
     //this.cd.detectChanges();
     this.dataSourceBasket.load();
     this.calculateBasket();
+    this.showNotify(event.foodName);
   }
 
   calculateBasket() {
     if (this.basketList.length > 0) {
+      this.totalPrice = 0;
       this.basketList.map((m) => {
         this.totalPrice = this.totalPrice + m.Price;
       });
     }
+  }
 
+  showNotify(name: string) {
+    notify({
+      message: name + " Sepete Eklendi",
+      width: 300,
+      displayTime: 1000,
+      type: 'success',
+      shading: true
+    }, {
+      position: "top center",
+      direction: "up-push"
+    });
   }
 
 
