@@ -1,60 +1,3 @@
-<!--<div class="left">-->
-<!--  <dx-list-->
-<!--    class="list"-->
-<!--    [dataSource]="dataSource"-->
-<!--    [grouped]="false"-->
-<!--    [searchEnabled]="true"-->
-<!--    selectionMode="single"-->
-<!--    [selectedItemKeys]="[currentFood.ID]"-->
-<!--    (onSelectionChanged)="selectionChanged($event)">-->
-<!--    <div *dxTemplate="let item of 'item'">-->
-<!--      <div>-->
-<!--        <div class="hotel">-->
-<!--          <div class="name">{{ item.Name }}</div>-->
-<!--          <div class="type" [ngClass]="item.Class.toLowerCase()"></div>-->
-<!--        </div>-->
-<!--        <div class="price-container">-->
-<!--          <div class="price">{{item.Price}}</div>-->
-<!--          <div class="caption">TL</div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div *dxTemplate="let item of 'group'">-->
-<!--      <div class="city">{{ item.key }}</div>-->
-<!--    </div>-->
-<!--  </dx-list>-->
-<!--</div>-->
-<!--<div class="right">-->
-<!--  <div class="header">-->
-<!--    <div class="name-container">-->
-<!--      <div class="name">{{ currentFood.Name }}</div>-->
-<!--      <div class="type" [ngClass]="currentFood.Class.toLowerCase()"></div>-->
-<!--    </div>-->
-<!--    <div class="price-container">-->
-<!--      <div class="price">{{currentFood.Price | currency : "USD" : "symbol" : "1.0-0"}}</div>-->
-<!--      <div class="caption">TL</div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <dx-tile-view-->
-<!--    class="tile"-->
-<!--    [dataSource]="currentFood.Images"-->
-<!--    noDataText=""-->
-<!--    [height]="300"-->
-<!--    [width]="800"-->
-<!--    [baseItemHeight]="250"-->
-<!--    [baseItemWidth]="260"-->
-<!--    [itemMargin]="12">-->
-<!--    <div *dxTemplate="let item of 'item'">-->
-<!--      <img-->
-<!--        class="tile-image"-->
-<!--        alt="Test"-->
-<!--        src="{{ item.Picture }}"-->
-<!--      />-->
-<!--    </div>-->
-<!--  </dx-tile-view>-->
-<!--  <div class="description">{{ currentFood.Notes }}</div>-->
-<!--</div>-->
-
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -63,7 +6,10 @@
           <div class="card-header card-header-info card-header-icon">
             <h4 class="card-title">Orders</h4>
           </div>
-          <div class="card-body" style="min-height: calc(90vh - 193px);">
+          <div>
+            <app-basket></app-basket>
+          </div>
+          <div class="card-body" style="min-height: calc(70vh - 193px);">
             <div class="row">
 
               <dx-data-grid
@@ -76,13 +22,11 @@
                   [width]="300"
                   [allowFiltering]="false"
                   [allowSorting]="false"
-                  cellTemplate="cellTemplate"
-                ></dxi-column>
+                  cellTemplate="cellTemplate"></dxi-column>
                 <dxo-search-panel
                   [visible]="true"
                   [width]="400"
-                  placeholder="Search..."
-                ></dxo-search-panel>
+                  placeholder="Search..."></dxo-search-panel>
 
                 <dxi-column dataField="foodName"></dxi-column>
                 <dxi-column dataField="classType" caption="Class" cellTemplate="classTemplate"></dxi-column>

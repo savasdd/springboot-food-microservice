@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {StockComponent} from './stock/stock.component';
 import {
   ButtonGroupModule,
@@ -24,6 +24,7 @@ import {DevExtremeModule} from "devextreme-angular";
 import {CategoryComponent} from './category/category.component';
 import {OrderComponent} from './order/order.component';
 import { ImagesComponent } from './food/images/images.component';
+import { BasketComponent } from './order/basket/basket.component';
 
 const routes: Routes = [
   {
@@ -70,27 +71,29 @@ const routes: Routes = [
     PaymentComponent,
     CategoryComponent,
     OrderComponent,
-    ImagesComponent
+    ImagesComponent,
+    BasketComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ButtonModule,
-    ButtonGroupModule,
-    GridModule,
-    IconModule,
-    CardModule,
-    UtilitiesModule,
-    DropdownModule,
-    SharedModule,
-    FormModule,
-    ReactiveFormsModule,
-    DocsComponentsModule,
-    NavbarModule,
-    CollapseModule,
-    NavModule,
-    DevExtremeModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ButtonModule,
+        ButtonGroupModule,
+        GridModule,
+        IconModule,
+        CardModule,
+        UtilitiesModule,
+        DropdownModule,
+        SharedModule,
+        FormModule,
+        ReactiveFormsModule,
+        DocsComponentsModule,
+        NavbarModule,
+        CollapseModule,
+        NavModule,
+        DevExtremeModule,
+        NgOptimizedImage,
+    ]
 })
 export class FoodsModule {
 }
