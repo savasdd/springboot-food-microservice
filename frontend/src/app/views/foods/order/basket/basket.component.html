@@ -7,7 +7,8 @@
           <div class="card-body" style="min-height: calc(10vh - 193px);">
             <div class="row">
               <div class="filter-container">
-                <img class="basket" ngSrc="assets/images/food/basket.png" height="80" width="100" alt=""/>
+                <img class="basket"  ngSrc="assets/images/food/basket.png" height="80"
+                     width="100" alt=""/>
 
                 <div class="dx-fieldset">
                   <div class="dx-field">
@@ -27,16 +28,17 @@
                 <dx-list [dataSource]="dataSource">
                   <div *dxTemplate="let item of 'item'">
                     <div class="product">
-                      <img src="{{ item.ImageSrc }}" alt=""/>
+                      <img src="{{ item.Image }}" alt=""/>
                       <div>{{ item.Name }}</div>
                       <div class="price">{{ item.Price + ' TL'}}</div>
                     </div>
                   </div>
                 </dx-list>
               </div>
-
             </div>
           </div>
+
+
         </div>
       </div>
     </div>

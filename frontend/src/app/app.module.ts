@@ -13,6 +13,7 @@ import {AppComponent} from './app.component';
 // Import containers
 import {DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent} from './containers';
 import {HttpClientModule} from '@angular/common/http';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {
   AvatarModule,
@@ -73,6 +74,7 @@ const APP_CONTAINERS = [
     CardModule,
     NgScrollbarModule,
     HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     {

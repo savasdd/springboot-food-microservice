@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
+import {faBasketShopping, faCoffee, faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
+import DataSource from "devextreme/data/data_source";
 
 @Component({
   selector: 'app-order',
@@ -10,14 +12,21 @@ import CustomStore from "devextreme/data/custom_store";
 })
 export class OrderComponent implements OnInit {
   dataSource: any = {};
+  dataSourceBasket: any;
+  totalPrice: number = 0;
   foodData: any;
+  basketList: Array<{ ID: string, Name: string, Price: number, Image: string }> = [];
 
-  constructor(private service: FoodService) {
+  constructor(private service: FoodService, private cd: ChangeDetectorRef) {
     this.loadGrid();
+
+    this.basketList = [];
+    this.dataSourceBasket = new DataSource({
+      store: this.basketList,
+    });
   }
 
   ngOnInit(): void {
-
   }
 
   loadGrid() {
@@ -41,6 +50,13 @@ export class OrderComponent implements OnInit {
       },
 
     });
+  }
+
+  addBasket(event: any) {
+    this.basketList.push({ID: event.foodId, Name: event.foodName, Price: event.price, Image: event.image});
+    console.log(this.basketList)
+    //this.cd.detectChanges();
+    this.dataSourceBasket.load();
   }
 
 
@@ -69,6 +85,9 @@ export class OrderComponent implements OnInit {
     return dataList;
   }
 
+  protected readonly faCoffee = faCoffee;
+  protected readonly faBasketShopping = faBasketShopping;
+  protected readonly faShoppingBasket = faShoppingBasket;
 }
 
 

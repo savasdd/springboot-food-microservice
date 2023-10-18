@@ -7,56 +7,106 @@
             <h4 class="card-title">Orders</h4>
           </div>
           <div>
-            <app-basket></app-basket>
-          </div>
-          <div class="card-body" style="min-height: calc(50vh - 193px);">
-            <div class="row">
 
-              <dx-data-grid
-                id="gridContainer"
-                [dataSource]="dataSource"
-                keyExpr="ID"
-                [showBorders]="true">
-                <dxi-column
-                  dataField="image"
-                  [width]="300"
-                  [allowFiltering]="false"
-                  [allowSorting]="false"
-                  cellTemplate="cellTemplate"></dxi-column>
-                <dxo-search-panel
-                  [visible]="true"
-                  [width]="400"
-                  placeholder="Search..."></dxo-search-panel>
+            <!--BASKET-->
+            <div class="main-content">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card border" style="margin-bottom: 0px;">
 
-                <dxi-column dataField="foodName"></dxi-column>
-                <dxi-column dataField="classType" caption="Class" cellTemplate="classTemplate"></dxi-column>
-                <dxi-column dataField="description" caption="Notes"></dxi-column>
-                <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
+                      <div class="card-body" style="min-height: calc(10vh - 193px);">
+                        <div class="row">
+                          <div class="filter-container">
+                            <img class="basket" ngSrc="assets/images/food/basket.png" height="80" width="100" alt=""/>
 
-                <div *dxTemplate="let data of 'cellTemplate'">
-                  <img [src]="data.value" alt=""/>
+                            <div class="dx-fieldset">
+                              <div class="dx-field">
+                                <div class="dx-field-label">
+                                  <button type="button" class="btn btn-outline-primary">Sepetim</button>
+                                </div>
+                              </div>
+                              <div class="dx-field">
+                                <div class="dx-field-label">Toplam Tutar</div>
+                                <div class="dx-field-value-static">{{totalPrice + ' TL'}}</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="list-container">
+                            <dx-list [dataSource]="dataSourceBasket">
+                              <div *dxTemplate="let item of 'item'">
+                                <div class="product">
+                                  <img src="{{ item.Image }}" alt=""/>
+                                  <div>{{ item.Name }}</div>
+                                  <div class="price">{{ item.Price + ' TL'}}</div>
+                                </div>
+                              </div>
+                            </dx-list>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
 
-                <div *dxTemplate="let data of 'classTemplate'">
-                  <div class="type" *ngIf="data.value!==null" [ngClass]="data.value.toLowerCase()"></div>
-                </div>
+            <!--ORDER-->
+            <div class="card-body" style="min-height: calc(50vh - 193px);">
+              <div class="row">
 
-                <dxo-paging [pageSize]="5"></dxo-paging>
-                <dxo-pager
-                  [visible]="true"
-                  [allowedPageSizes]="[5, 10, 'all']"
-                  displayMode="full"
-                  [showPageSizeSelector]="true"
-                  [showInfo]="true"
-                  [showNavigationButtons]="true">
-                </dxo-pager>
-              </dx-data-grid>
+                <dx-data-grid
+                  id="gridContainer"
+                  [dataSource]="dataSource"
+                  keyExpr="ID"
+                  [showBorders]="true">
+                  <dxi-column
+                    dataField="image"
+                    [width]="300"
+                    [allowFiltering]="false"
+                    [allowSorting]="false"
+                    cellTemplate="cellTemplate"></dxi-column>
+                  <dxo-search-panel
+                    [visible]="true"
+                    [width]="400"
+                    placeholder="Search..."></dxo-search-panel>
 
+                  <dxi-column dataField="foodName"></dxi-column>
+                  <dxi-column dataField="classType" caption="Class" cellTemplate="classTemplate"></dxi-column>
+                  <dxi-column dataField="description" caption="Notes"></dxi-column>
+                  <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
 
+                  <dxi-column dataField="operationId" caption="Ekle" dataType="text" width="5%"
+                              cellTemplate="operationTemplate"
+                              [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+                  <div style="text-align: center;" *dxTemplate="let data of 'operationTemplate'">
+                    <fa-icon [icon]="faShoppingBasket" style="font-size: 1.3rem;cursor: pointer"
+                             (click)="addBasket(data.data)"></fa-icon>
+                  </div>
+
+                  <div *dxTemplate="let data of 'cellTemplate'">
+                    <img class="images" [src]="data.value" alt=""/>
+                  </div>
+
+                  <div *dxTemplate="let data of 'classTemplate'">
+                    <div class="type" *ngIf="data.value!==null" [ngClass]="data.value.toLowerCase()"></div>
+                  </div>
+
+                  <dxo-paging [pageSize]="5"></dxo-paging>
+                  <dxo-pager
+                    [visible]="true"
+                    [allowedPageSizes]="[5, 10, 'all']"
+                    displayMode="full"
+                    [showPageSizeSelector]="true"
+                    [showInfo]="true"
+                    [showNavigationButtons]="true">
+                  </dxo-pager>
+                </dx-data-grid>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
