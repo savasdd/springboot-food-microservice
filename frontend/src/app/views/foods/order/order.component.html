@@ -81,8 +81,7 @@
                               cellTemplate="operationTemplate"
                               [allowSorting]="false" [allowFiltering]="false"></dxi-column>
                   <div style="text-align: center;" *dxTemplate="let data of 'operationTemplate'">
-                    <fa-icon [icon]="faShoppingBasket" style="font-size: 1.3rem;cursor: pointer"
-                             (click)="addBasket(data.data)"></fa-icon>
+                    <fa-icon class="basket-icon" [icon]="faShoppingBasket" (click)="addBasket(data.data)"></fa-icon>
                   </div>
 
                   <div *dxTemplate="let data of 'cellTemplate'">

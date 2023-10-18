@@ -20,6 +20,7 @@ export class OrderComponent implements OnInit {
   constructor(private service: FoodService, private cd: ChangeDetectorRef) {
     this.loadGrid();
 
+    this.totalPrice = 0;
     this.basketList = [];
     this.dataSourceBasket = new DataSource({
       store: this.basketList,
@@ -54,9 +55,18 @@ export class OrderComponent implements OnInit {
 
   addBasket(event: any) {
     this.basketList.push({ID: event.foodId, Name: event.foodName, Price: event.price, Image: event.image});
-    console.log(this.basketList)
     //this.cd.detectChanges();
     this.dataSourceBasket.load();
+    this.calculateBasket();
+  }
+
+  calculateBasket() {
+    if (this.basketList.length > 0) {
+      this.basketList.map((m) => {
+        this.totalPrice = this.totalPrice + m.Price;
+      });
+    }
+
   }
 
 
