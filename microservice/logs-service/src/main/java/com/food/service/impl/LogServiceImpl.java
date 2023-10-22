@@ -1,7 +1,7 @@
 package com.food.service.impl;
 
+import com.food.config.RabbitConfig;
 import com.food.event.LogEvent;
-import com.food.event.LogFoodEvent;
 import com.food.event.LogStockEvent;
 import com.food.model.LogAccount;
 import com.food.model.LogCategory;
@@ -41,7 +41,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-//    @RabbitListener(queues = {EventUtil.QUEUE_FOOD, EventUtil.QUEUE_STOCK, EventUtil.QUEUE_PAYMENT})
+    @RabbitListener(queues = {"${rabbit.queue}"})
     @Transactional
     public void eventLog(LogEvent event) {
         System.out.println(event);

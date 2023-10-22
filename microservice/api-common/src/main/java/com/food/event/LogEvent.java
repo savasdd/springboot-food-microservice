@@ -1,5 +1,6 @@
 package com.food.event;
 
+import com.food.enums.ELogType;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,5 +17,6 @@ public class LogEvent implements Serializable {
     private String service;
     private String message;
     private Integer status;
+    private ELogType logType;
     private List<Object> body;
 }

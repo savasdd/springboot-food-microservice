@@ -8,10 +8,7 @@ public class EventUtil {
     public static final String LOG_URL = "http://logs-service/api/logs/foods";
 
     //TODO RABBİT QUEUE
-    public static final String QUEUE_FOOD = "queue_food";
-    public static final String QUEUE_STOCK = "queue_stock";
-    public static final String QUEUE_PAYMENT = "queue_payment";
-    public static final String QUEUE_USER = "queue_user";
+    public static final String QUEUE = "queue_food";
 
 
     //TODO KAFKA TOPICS
