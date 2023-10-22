@@ -3,6 +3,7 @@ package com.food.service.impl;
 import com.food.model.Category;
 import com.food.repository.CategoryRepository;
 import com.food.service.CategoryService;
+import com.food.service.LogService;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +15,11 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
+    private final LogService logService;
 
-    public CategoryServiceImpl(CategoryRepository repository) {
+    public CategoryServiceImpl(CategoryRepository repository, LogService logService) {
         this.repository = repository;
+        this.logService = logService;
     }
 
     @Override
@@ -59,6 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
         }).get();
 
         var model = repository.save(update);
+        logService.eventLog("api/category", List.of(model), 200);
         log.info("Category update");
         return model;
     }

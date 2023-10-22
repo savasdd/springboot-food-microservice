@@ -1,5 +1,6 @@
 package com.food.service;
 
+import com.food.event.LogEvent;
 import com.food.event.LogFoodEvent;
 import com.food.event.LogStockEvent;
 import com.food.model.LogAccount;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public interface LogService {
 
-    void consumeFoodLog(LogFoodEvent event);
+    void eventLog(LogEvent event);
 
     void consumeStockLog(LogStockEvent event);
 

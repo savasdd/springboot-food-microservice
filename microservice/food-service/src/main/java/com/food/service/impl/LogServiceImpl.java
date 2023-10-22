@@ -1,6 +1,7 @@
 package com.food.service.impl;
 
 import com.food.dto.LogFood;
+import com.food.event.LogEvent;
 import com.food.event.LogFoodEvent;
 import com.food.service.LogService;
 import com.food.utils.EventUtil;
@@ -11,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -26,6 +29,13 @@ public class LogServiceImpl implements LogService {
         this.queue = queue;
     }
 
+    @Override
+    public void eventLog(String service, List<Object> body, Integer status) {
+        var event = LogEvent.builder().username("savas.dede").message("log event").body(body).service(service).status(status).build();
+        template.convertAndSend(EventUtil.QUEUE_FOOD, event);
+
+        log.info("send rabbit log");
+    }
 
     @Override
     public void producerLog(LogFood dto) {
@@ -34,9 +44,8 @@ public class LogServiceImpl implements LogService {
         log.info("create food logs");
     }
 
-    @Override
-    public void sendLog(LogFood dto) {
 
+    public void sendLog(LogFood dto) {
         var response = webClient.build().post()
                 .uri(EventUtil.LOG_URL)
                 .contentType(MediaType.APPLICATION_JSON)

@@ -1,23 +1,23 @@
 package com.food.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Getter
+@Setter
 @Configuration
+@ConfigurationProperties(prefix = "rabbit")
 public class RabbitConfig {
 
-    @Value("${rabbit.queue.name}")
     public String queue;
-
-    @Value("${rabbit.exchange.name}")
     public String exchange;
-
-    @Value("${rabbit.routing.name}")
     public String routing;
 
     @Bean

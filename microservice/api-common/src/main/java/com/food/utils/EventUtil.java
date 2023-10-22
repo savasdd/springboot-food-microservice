@@ -6,10 +6,13 @@ import lombok.experimental.UtilityClass;
 public class EventUtil {
 
     public static final String LOG_URL = "http://logs-service/api/logs/foods";
-    public static final String FOOD = "food_server";
-    public static final String FOOD_LOG = "food_server_log";
-    public static final String STOCK = "stock_server";
-    public static final String STOCK_LOG = "stock_server_log";
+
+    //TODO RABBİT QUEUE
+    public static final String QUEUE_FOOD = "queue_food";
+    public static final String QUEUE_STOCK = "queue_stock";
+    public static final String QUEUE_PAYMENT = "queue_payment";
+    public static final String QUEUE_USER = "queue_user";
+
 
     //TODO KAFKA TOPICS
     public static final String GROUP_ID = "group_id";

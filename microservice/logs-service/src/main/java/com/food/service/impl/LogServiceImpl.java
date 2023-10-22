@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.event.LogEvent;
 import com.food.event.LogFoodEvent;
 import com.food.event.LogStockEvent;
 import com.food.model.LogAccount;
@@ -11,6 +12,7 @@ import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
 import com.food.repository.StockRepository;
 import com.food.service.LogService;
+import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -39,18 +41,17 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    @RabbitListener(queues = {"${rabbit.queue.food.name}"})
+//    @RabbitListener(queues = {EventUtil.QUEUE_FOOD, EventUtil.QUEUE_STOCK, EventUtil.QUEUE_PAYMENT})
     @Transactional
-    public void consumeFoodLog(LogFoodEvent event) {
-        if (event.getLog() != null) {
-            createFood(modelMapper.map(event.getLog(), LogFood.class));
-        }
+    public void eventLog(LogEvent event) {
+        System.out.println(event);
+
         log.info(event.getMessage() + " {}", event.getStatus());
     }
 
     @Override
-    @RabbitListener(queues = {"${rabbit.queue.name}"})
-    @Transactional
+    //@RabbitListener(queues = {"${rabbit.queue.name}"})
+    //@Transactional
     public void consumeStockLog(@Payload LogStockEvent event) {
         if (event.getLog() != null) {
             createStock(modelMapper.map(event.getLog(), LogStock.class));
