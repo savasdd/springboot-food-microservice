@@ -1,17 +1,14 @@
 package com.food.service.impl;
 
-import com.food.config.MinioConfig;
+import com.food.config.minio.MinioConfig;
 import com.food.dto.FoodFileDto;
-import com.food.minio.FileTypeUtils;
 import com.food.minio.MinioUtil;
 import com.food.service.FoodFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.StreamSupport;
 
 @Slf4j

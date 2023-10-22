@@ -1,6 +1,6 @@
 package com.food.minio;
 
-import com.food.config.MinioConfig;
+import com.food.config.minio.MinioConfig;
 import io.minio.*;
 import io.minio.http.Method;
 import io.minio.messages.Bucket;

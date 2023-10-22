@@ -1,4 +1,4 @@
-package com.food.config;
+package com.food.config.minio;
 
 import io.minio.MinioClient;
 import lombok.Getter;

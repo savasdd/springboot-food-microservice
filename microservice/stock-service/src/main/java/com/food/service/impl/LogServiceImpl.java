@@ -1,6 +1,6 @@
 package com.food.service.impl;
 
-import com.food.config.RabbitConfig;
+import com.food.config.rabbit.RabbitConfig;
 import com.food.enums.ELogType;
 import com.food.event.LogEvent;
 import com.food.service.LogService;

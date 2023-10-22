@@ -1,4 +1,4 @@
-package com.food.config;
+package com.food.config.rabbit;
 
 import lombok.Getter;
 import lombok.Setter;

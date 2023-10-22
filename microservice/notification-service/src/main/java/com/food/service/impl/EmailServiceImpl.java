@@ -1,6 +1,6 @@
 package com.food.service.impl;
 
-import com.food.config.MailConfig;
+import com.food.config.mail.MailConfig;
 import com.food.dto.MailDto;
 import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
