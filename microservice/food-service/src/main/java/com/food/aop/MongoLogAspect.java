@@ -2,7 +2,7 @@ package com.food.aop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.dto.LogFood;
+import com.food.event.LogEvent;
 import com.food.service.LogService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.List;
 
 @Aspect
 @Component
@@ -36,7 +37,7 @@ public class MongoLogAspect {
     @Around(value = "logAnnotation() && @annotation(log)")
     public Object createIslemLog(ProceedingJoinPoint joinPoint, MongoLog log) throws Throwable {
         Object result = null;
-        LogFood dto=new LogFood();
+        LogEvent dto = new LogEvent();
 
         Class<? extends Object> sinif = joinPoint.getTarget().getClass();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -45,10 +46,9 @@ public class MongoLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         dto.setService(sinif.getName() + ": " + metot.getName());
-        dto.setCreateDate(new Date());
         dto.setUsername("log.user");
-        dto.setStatus(annotation!=null? Long.valueOf(annotation.status()) : null);
-        dto.setMethod(metot.getName());
+        dto.setStatus(annotation != null ? Integer.valueOf(annotation.status()) : null);
+        //dto.setMethod(metot.getName());
         //dto.setMethod(HttpUtil.getMethod(request));
         //dto.setPath(HttpUtil.getPath(request));
 
@@ -59,10 +59,9 @@ public class MongoLogAspect {
 
         Object response = (Object) result;
         if (ObjectUtils.isNotEmpty(response)) {
-            dto.setBody(convertObjectToJson(response));
+            dto.setBody(List.of(convertObjectToJson(response)));
         }
 
-        service.producerLog(dto);
         return result;
     }
 

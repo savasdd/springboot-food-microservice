@@ -1,13 +1,11 @@
 package com.food.service.impl;
 
 import com.food.config.RabbitConfig;
-import com.food.dto.LogFood;
 import com.food.enums.ELogType;
 import com.food.event.LogEvent;
 import com.food.service.LogService;
 import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -46,12 +44,9 @@ public class LogServiceImpl implements LogService {
         log.info("send rabbit log");
     }
 
-    @Override
-    public void producerLog(LogFood dto) {
-    }
 
 
-    public void sendLog(LogFood dto) {
+    public void sendLog(Object dto) {
         var response = webClient.build().post()
                 .uri(EventUtil.LOG_URL)
                 .contentType(MediaType.APPLICATION_JSON)
