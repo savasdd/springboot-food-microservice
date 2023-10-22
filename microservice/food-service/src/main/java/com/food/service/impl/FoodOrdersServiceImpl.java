@@ -3,12 +3,16 @@ package com.food.service.impl;
 import com.food.model.Orders;
 import com.food.repository.FoodRepository;
 import com.food.repository.OrdersRepository;
+import com.food.service.FoodFileService;
 import com.food.service.FoodOrdersService;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
+import io.micrometer.core.instrument.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,10 +21,12 @@ import java.util.UUID;
 public class FoodOrdersServiceImpl implements FoodOrdersService {
     private final OrdersRepository repository;
     private final FoodRepository foodRepository;
+    private final FoodFileService fileService;
 
-    public FoodOrdersServiceImpl(OrdersRepository repository, FoodRepository foodRepository) {
+    public FoodOrdersServiceImpl(OrdersRepository repository, FoodRepository foodRepository, FoodFileService fileService) {
         this.repository = repository;
         this.foodRepository = foodRepository;
+        this.fileService = fileService;
     }
 
     @Override
@@ -33,6 +39,12 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     public LoadResult<Orders> getAll(DataSourceLoadOptions<Orders> loadOptions) {
         LoadResult<Orders> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+
+        list.stream().map(val -> {
+            InputStream stream = fileService.getObjects(val.getFood().getFoodId().toString());
+            val.setImage(stream != null ? IOUtils.toString(stream, StandardCharsets.UTF_8) : null);
+            return val;
+        }).toList();
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());

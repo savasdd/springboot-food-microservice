@@ -45,10 +45,19 @@
                                   [allowDeleting]="true"
                                   [useIcons]="true">
                                 </dxo-editing>
-
+                                <dxi-column
+                                  dataField="image"
+                                  [width]="130"
+                                  [allowFiltering]="false"
+                                  [allowSorting]="false"
+                                  cellTemplate="cellTemplate"></dxi-column>
                                 <dxi-column dataField="food.foodName" caption="Food"></dxi-column>
                                 <dxi-column dataField="status" caption="Status"></dxi-column>
                                 <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
+
+                                <div *dxTemplate="let data of 'cellTemplate'">
+                                  <img class="images_basket" [src]="data.value" alt=""/>
+                                </div>
                               </dx-data-grid>
                             </dx-scroll-view>
 

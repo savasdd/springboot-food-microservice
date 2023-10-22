@@ -95,7 +95,7 @@ public class FoodServiceImpl implements FoodService {
         dto.setVersion(0L);
         var newModel = repository.save(dto);
 
-        logService.eventLog("api/foods", List.of(modelMapper), 201, ELogType.FOOD);
+        logService.eventLog("api/foods", List.of(newModel), 201, ELogType.FOOD);
         log.info("create food {} ", newModel.getFoodId());
         return newModel;
     }

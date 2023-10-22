@@ -43,6 +43,8 @@ export class OrderComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'foodId',
       load: (loadOptions) => {
+        loadOptions.filter = [];
+        loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);
         return this.service.findAllOrder(loadOptions).toPromise().then((response: any) => {
           return {
             data: response.data,
@@ -97,8 +99,6 @@ export class OrderComponent implements OnInit {
   }
 
   addBasket(event: any) {
-    // this.basketList.push({ID: event.foodId, Name: event.foodName, Price: event.price, Image: event.image});
-
     const data = {
       food: {foodId: event.foodId},
       price: event.price,
