@@ -1,10 +1,7 @@
 package com.food.controller;
 
-import com.food.model.LogAccount;
-import com.food.model.LogCategory;
 import com.food.model.LogFood;
-import com.food.model.LogStock;
-import com.food.service.LogService;
+import com.food.service.FoodService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,34 +13,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(allowedHeaders = "*",origins = "*")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class LogController {
 
-    private final LogService logService;
+    private final FoodService logService;
 
-    public LogController(LogService logService) {
+    public LogController(FoodService logService) {
         this.logService = logService;
     }
 
+
     @GetMapping(value = "/logs/foods")
-    public ResponseEntity<List<LogFood>> getAllFood(){
-        return new ResponseEntity<>(logService.getAllFood(), HttpStatus.OK);
+    public ResponseEntity<List<LogFood>> getAllFood() {
+        return new ResponseEntity<>(logService.getLogFood(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/logs/accounts")
-    public ResponseEntity<List<LogAccount>> getAllAccount(){
-        return new ResponseEntity<>(logService.getAllAccount(), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/logs/stocks")
-    public ResponseEntity<List<LogStock>> getAllStock(){
-        return new ResponseEntity<>(logService.getAllStock(), HttpStatus.OK);
-    }
-
-
-    @GetMapping(value = "/logs/categorys")
-    public ResponseEntity<List<LogCategory>> getAllCategory(){
-        return new ResponseEntity<>(logService.getAllCategory(), HttpStatus.OK);
-    }
 
 }

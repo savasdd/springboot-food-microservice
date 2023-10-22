@@ -4,7 +4,6 @@ import com.food.config.RabbitConfig;
 import com.food.dto.LogFood;
 import com.food.enums.ELogType;
 import com.food.event.LogEvent;
-import com.food.event.LogFoodEvent;
 import com.food.service.LogService;
 import com.food.utils.EventUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,29 +22,32 @@ public class LogServiceImpl implements LogService {
 
     private final WebClient.Builder webClient;
     private final RabbitTemplate template;
-    private final Queue queue;
     private final RabbitConfig config;
 
-    public LogServiceImpl(WebClient.Builder webClient, RabbitTemplate template, Queue queue, RabbitConfig config) {
+    public LogServiceImpl(WebClient.Builder webClient, RabbitTemplate template, RabbitConfig config) {
         this.webClient = webClient;
         this.template = template;
-        this.queue = queue;
         this.config = config;
     }
 
     @Override
     public void eventLog(String service, List<Object> body, Integer status) {
-        var event = LogEvent.builder().username("savas.dede").message("log event").body(body).service(service).status(status).logType(ELogType.FOOD).build();
+        var event = LogEvent.builder().username("savas.dede").message("log event").body(body).service(service).status(status).logType(ELogType.CATEGORY).build();
 
         template.convertAndSend(config.exchange, config.routing, event);
         log.info("send rabbit log");
     }
 
     @Override
+    public void eventLogJson(String service, List<Object> body, Integer status) {
+        var event = LogEvent.builder().username("savas.dede").message("log event").body(body).service(service).status(status).logType(ELogType.FOOD).build();
+
+        template.convertAndSend(config.exchange, config.routingJson, event);
+        log.info("send rabbit log");
+    }
+
+    @Override
     public void producerLog(LogFood dto) {
-        LogFoodEvent event = LogFoodEvent.builder().log(dto).status(200).message("food kafka log").build();
-        template.convertAndSend(queue.getName(), event);
-        log.info("create food logs");
     }
 
 

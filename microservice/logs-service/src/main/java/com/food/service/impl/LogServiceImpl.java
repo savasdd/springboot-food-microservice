@@ -1,107 +1,63 @@
 package com.food.service.impl;
 
-import com.food.config.RabbitConfig;
 import com.food.event.LogEvent;
-import com.food.event.LogStockEvent;
-import com.food.model.LogAccount;
 import com.food.model.LogCategory;
 import com.food.model.LogFood;
+import com.food.model.LogPayment;
 import com.food.model.LogStock;
-import com.food.repository.AccountRepository;
-import com.food.repository.CategoryRepository;
-import com.food.repository.FoodRepository;
-import com.food.repository.StockRepository;
-import com.food.service.LogService;
-import com.food.utils.EventUtil;
+import com.food.service.CategoryService;
+import com.food.service.FoodService;
+import com.food.service.PaymentService;
+import com.food.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Slf4j
 @Service
-public class LogServiceImpl implements LogService {
+public class LogServiceImpl {
 
-    private final FoodRepository foodRepository;
-    private final AccountRepository accountRepository;
-    private final StockRepository stockRepository;
-    private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+    private final FoodService foodService;
+    private final CategoryService categoryService;
+    private final PaymentService paymentService;
+    private final StockService stockService;
 
-    public LogServiceImpl(FoodRepository foodRepository, AccountRepository accountRepository, StockRepository stockRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
-        this.foodRepository = foodRepository;
-        this.accountRepository = accountRepository;
-        this.stockRepository = stockRepository;
-        this.categoryRepository = categoryRepository;
+    public LogServiceImpl(ModelMapper modelMapper, FoodService foodService, CategoryService categoryService, PaymentService paymentService, StockService stockService) {
         this.modelMapper = modelMapper;
+        this.foodService = foodService;
+        this.categoryService = categoryService;
+        this.paymentService = paymentService;
+        this.stockService = stockService;
     }
 
-    @Override
     @RabbitListener(queues = {"${rabbit.queue}"})
     @Transactional
     public void eventLog(LogEvent event) {
-        System.out.println(event);
 
-        log.info(event.getMessage() + " {}", event.getStatus());
-    }
-
-    @Override
-    //@RabbitListener(queues = {"${rabbit.queue.name}"})
-    //@Transactional
-    public void consumeStockLog(@Payload LogStockEvent event) {
-        if (event.getLog() != null) {
-            createStock(modelMapper.map(event.getLog(), LogStock.class));
+        switch (event.getLogType()) {
+            case FOOD:
+                foodService.createLogFood(LogFood.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                break;
+            case STOCK:
+                stockService.createLogStock(LogStock.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                break;
+            case PAYMENT:
+                paymentService.createLogPayment(LogPayment.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                break;
+            case CATEGORY:
+                categoryService.createLogCategory(LogCategory.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                break;
+            case USER:
+                break;
+            default:
+                log.info("undefined type");
+                break;
         }
+
         log.info(event.getMessage() + " {}", event.getStatus());
-    }
-
-
-    @Override
-    @Transactional
-    public List<LogFood> getAllFood() {
-        var list = foodRepository.findAll();
-        log.info("list foods {} ", list.size());
-        return list;
-    }
-
-    private Boolean createFood(LogFood dto) {
-        var model = foodRepository.save(dto);
-        log.info("create food {} ", model.getId());
-        return true;
-    }
-
-    @Override
-    @Transactional
-    public List<LogAccount> getAllAccount() {
-        var list = accountRepository.findAll();
-        log.info("list accounts {} ", list.size());
-        return list;
-    }
-
-    @Override
-    @Transactional
-    public List<LogStock> getAllStock() {
-        var list = stockRepository.findAll();
-        log.info("list stock {} ", list.size());
-        return list;
-    }
-
-    private Boolean createStock(LogStock dto) {
-        var model = stockRepository.save(dto);
-        log.info("create stock {} ", model.getId());
-        return true;
-    }
-
-    @Override
-    @Transactional
-    public List<LogCategory> getAllCategory() {
-        var list = categoryRepository.findAll();
-        log.info("list category {} ", list.size());
-        return list;
     }
 
 
