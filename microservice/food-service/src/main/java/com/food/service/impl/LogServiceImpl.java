@@ -31,8 +31,8 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public void eventLog(String service, List<Object> body, Integer status) {
-        var event = LogEvent.builder().username("savas.dede").message("log event").body(body).service(service).status(status).logType(ELogType.CATEGORY).build();
+    public void eventLog(String service, List<Object> body, Integer status, ELogType logType) {
+        var event = LogEvent.builder().username("savas.dede").message("log event").body(body).service(service).status(status).logType(logType).build();
 
         template.convertAndSend(config.exchange, config.routing, event);
         log.info("send rabbit log");

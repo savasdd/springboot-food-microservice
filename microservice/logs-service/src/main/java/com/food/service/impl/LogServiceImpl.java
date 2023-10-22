@@ -57,7 +57,7 @@ public class LogServiceImpl {
                 break;
         }
 
-        log.info(event.getMessage() + " {}", event.getStatus());
+        log.info(event.getMessage() + " {} {}", event.getLogType(), event.getStatus());
     }
 
 

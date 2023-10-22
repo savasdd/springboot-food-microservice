@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.enums.ELogType;
 import com.food.model.Category;
 import com.food.repository.CategoryRepository;
 import com.food.service.CategoryService;
@@ -39,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
         response.setData(list.getContent());
         response.setTotalCount(list.stream().count());
 
+        logService.eventLog("api/category", List.of(response), 200, ELogType.CATEGORY);
         log.info("Category getAll");
         return response;
     }
@@ -47,6 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category create(Category dto) {
         var model = repository.save(dto);
 
+        logService.eventLog("api/category", List.of(model), 201, ELogType.CATEGORY);
         log.info("Category save");
         return model;
     }
@@ -62,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
         }).get();
 
         var model = repository.save(update);
-        logService.eventLog("api/category", List.of(model), 200);
+        logService.eventLog("api/category", List.of(model), 200, ELogType.CATEGORY);
         log.info("Category update");
         return model;
     }
