@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
 import com.food.repository.FoodRepository;
-import com.food.service.OrderService;
+import com.food.service.PaymentService;
 import com.food.utils.EventUtil;
 import com.food.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +22,13 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class OrderServiceImpl implements OrderService {
+public class PaymentServiceImpl implements PaymentService {
 
     private final KafkaTemplate<String, String> template;
     private final StreamsBuilderFactoryBean kafkaStreamsFactory;
     private final FoodRepository repository;
 
-    public OrderServiceImpl(KafkaTemplate<String, String> template, StreamsBuilderFactoryBean kafkaStreamsFactory, FoodRepository repository) {
+    public PaymentServiceImpl(KafkaTemplate<String, String> template, StreamsBuilderFactoryBean kafkaStreamsFactory, FoodRepository repository) {
         this.template = template;
         this.kafkaStreamsFactory = kafkaStreamsFactory;
         this.repository = repository;

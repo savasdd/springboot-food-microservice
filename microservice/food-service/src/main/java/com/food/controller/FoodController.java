@@ -1,11 +1,8 @@
 package com.food.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.food.dto.FoodDto;
-import com.food.event.OrderEvent;
 import com.food.model.Food;
 import com.food.service.FoodService;
-import com.food.service.impl.OrderServiceImpl;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api")

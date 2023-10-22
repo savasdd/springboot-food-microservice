@@ -9,15 +9,20 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
+import { Orders } from './orders';
+import { LoadResultGroup } from './loadResultGroup';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageNumber?: number;
-    pageSize?: number;
-    unpaged?: boolean;
-    paged?: boolean;
+/**
+ * 
+ */
+export interface LoadResultOrders { 
+    data?: Array<Orders>;
+    totalCount?: number;
+    groupData?: Array<LoadResultGroup>;
+    groupCount?: number;
+    success?: boolean;
+    errorId?: number;
+    result?: Array<Orders>;
 }
 

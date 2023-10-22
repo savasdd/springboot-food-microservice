@@ -1,9 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
-import {faBasketShopping, faCoffee, faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
+import {faShoppingBasket, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import DataSource from "devextreme/data/data_source";
 import notify from 'devextreme/ui/notify';
+import {OrderService} from "../../../services/order.service";
+import {DxDataGridComponent} from "devextreme-angular";
+import {Orders} from "../../../services/food-service-api";
 
 @Component({
   selector: 'app-order',
@@ -12,14 +15,19 @@ import notify from 'devextreme/ui/notify';
   preserveWhitespaces: true,
 })
 export class OrderComponent implements OnInit {
+  @ViewChild('orderDataGrid', {static: true}) orderDataGrid: any = DxDataGridComponent;
   dataSource: any = {};
+  dataOrderSource: any = {};
   dataSourceBasket: any;
   totalPrice: number = 0;
   foodData: any;
   basketList: Array<{ ID: string, Name: string, Price: number, Image: string }> = [];
 
-  constructor(private service: FoodService, private cd: ChangeDetectorRef) {
+  constructor(private service: FoodService,
+              private orderService: OrderService,
+              private cd: ChangeDetectorRef) {
     this.loadGrid();
+    this.loadOrderGrid();
 
     this.totalPrice = 0;
     this.basketList = [];
@@ -54,19 +62,65 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  addBasket(event: any) {
-    this.basketList.push({ID: event.foodId, Name: event.foodName, Price: event.price, Image: event.image});
-    //this.cd.detectChanges();
-    this.dataSourceBasket.load();
-    this.calculateBasket();
-    this.showNotify(event.foodName);
+  loadOrderGrid() {
+    this.dataOrderSource = new CustomStore({
+      key: 'orderId',
+      load: (loadOptions) => {
+        return this.orderService.findAll(loadOptions).toPromise().then((response: any) => {
+          this.calculateBasket(response.data);
+          return {
+            data: response.data,
+            totalCount: response.totalCount
+          };
+        });
+      },
+
+      byKey: (key) => {
+        return this.orderService.findOne(key).toPromise().then((response) => {
+          return response;
+        }, err => {
+          throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+        });
+      },
+      remove: (key) => {
+        return this.orderService.delete(key).toPromise().then((response) => {
+            return;
+          },
+          err => {
+            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
+            console.log(message);
+          }
+        );
+      }
+
+    });
   }
 
-  calculateBasket() {
-    if (this.basketList.length > 0) {
+  addBasket(event: any) {
+    // this.basketList.push({ID: event.foodId, Name: event.foodName, Price: event.price, Image: event.image});
+
+    const data = {
+      food: {foodId: event.foodId},
+      price: event.price,
+      totalPrice: 0,
+      status: Orders.StatusEnum.Basket
+    };
+
+    this.orderService.save(data).subscribe((response) => {
+      if (response) {
+        this.showNotify(event.foodName);
+        this.refreshDataGrid();
+      }
+    });
+    //this.cd.detectChanges();
+  }
+
+
+  calculateBasket(data: any[]) {
+    if (data) {
       this.totalPrice = 0;
-      this.basketList.map((m) => {
-        this.totalPrice = this.totalPrice + m.Price;
+      data.map((m) => {
+        this.totalPrice = this.totalPrice + m.price;
       });
     }
   }
@@ -84,46 +138,16 @@ export class OrderComponent implements OnInit {
     });
   }
 
-
-  pushData(dto: any): any {
-    const dataList: never[] = [];
-    let array: never[] = [];
-    dto.map((m: any) => {
-      const list = this.pushDataList(m.foodId, m.foodName, 'Diamond', null, m.price, m.description, dataList);
-      array = list.length > 0 ? list : [];
-    });
-
-    this.foodData = array.length > 0 ? array : [];
-    return array.length > 0 ? array : [];
+  refreshDataGrid() {
+    this.orderDataGrid.instance.refresh();
   }
 
-
-  pushDataList(Id: any, Name: any, Class: any, Images: any, Price: any, Notes: any, dataList: any): any {
-    dataList.push({
-      ID: Id,
-      Name: Name,
-      Class: Class,
-      Images: Images,
-      Price: Price,
-      Notes: Notes,
-    });
-    return dataList;
-  }
-
-  protected readonly faCoffee = faCoffee;
-  protected readonly faBasketShopping = faBasketShopping;
   protected readonly faShoppingBasket = faShoppingBasket;
+  protected readonly faTrashAlt = faTrashAlt;
 }
 
 
-export class FoodData {
-  ID: number | undefined;
-  Name: string | undefined;
-  Picture: string | undefined;
-  Notes: string | undefined;
-  Class: string | undefined;
-  Price: number | undefined;
-}
+
 
 
 

@@ -1,9 +1,8 @@
 package com.food;
 
 import com.food.db.CreatingDatabase;
-import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
-import com.food.service.OrderService;
+import com.food.service.PaymentService;
 import com.food.utils.EventUtil;
 import com.food.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +39,7 @@ public class FoodServiceApplication {
     }
 
     @Autowired
-    private OrderService orderService;
+    private PaymentService orderService;
 
     @Bean
     public KStream<Long, OrderEvent> stream(StreamsBuilder builder) {

@@ -9,15 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageNumber?: number;
-    pageSize?: number;
-    unpaged?: boolean;
-    paged?: boolean;
+export interface DataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember { 
+    name?: string;
+    modifiers?: number;
+    synthetic?: boolean;
 }
 

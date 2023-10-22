@@ -11,9 +11,9 @@
  */
 import { PageableObject } from './pageableObject';
 import { DataSourceGroup } from './dataSourceGroup';
+import { DataSourceLoadOptionsOrdersJoinListValue } from './dataSourceLoadOptionsOrdersJoinListValue';
 import { StoreSortView } from './storeSortView';
 import { DataSourceGroupView } from './dataSourceGroupView';
-import { DataSourceLoadOptionsFoodJoinListValue } from './dataSourceLoadOptionsFoodJoinListValue';
 
 
 /**
@@ -37,10 +37,10 @@ export interface DataSourceLoadOptionsCategory {
     select?: Array<string>;
     group?: Array<DataSourceGroup>;
     groupSummary?: Array<DataSourceGroupView>;
-    joinList?: { [key: string]: DataSourceLoadOptionsFoodJoinListValue; };
+    joinList?: { [key: string]: DataSourceLoadOptionsOrdersJoinListValue; };
     pageable?: PageableObject;
     camelToSnake?: boolean;
-    mockPageable?: PageableObject;
     sortable?: PageableObject;
+    mockPageable?: PageableObject;
 }
 

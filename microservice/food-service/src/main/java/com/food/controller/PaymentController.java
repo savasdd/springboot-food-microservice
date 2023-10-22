@@ -2,7 +2,7 @@ package com.food.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.food.event.OrderEvent;
-import com.food.service.impl.OrderServiceImpl;
+import com.food.service.impl.PaymentServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class PaymentController {
 
-    private final OrderServiceImpl orderService;
+    private final PaymentServiceImpl orderService;
 
-    public PaymentController(OrderServiceImpl orderService) {
+    public PaymentController(PaymentServiceImpl orderService) {
         this.orderService = orderService;
     }
 

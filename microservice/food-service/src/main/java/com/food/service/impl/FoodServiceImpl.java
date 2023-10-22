@@ -87,7 +87,6 @@ public class FoodServiceImpl implements FoodService {
         return loadResult;
     }
 
-    @MongoLog(status = 201)
     @Override
     @Transactional
     public Food create(Food dto) {
@@ -101,7 +100,6 @@ public class FoodServiceImpl implements FoodService {
         return newModel;
     }
 
-    @MongoLog(status = 200)
     @Override
     @Transactional
     public FoodDto update(String id, Food dto) {
@@ -122,7 +120,6 @@ public class FoodServiceImpl implements FoodService {
         return modelMapDto(newModel);
     }
 
-    @MongoLog(status = 202)
     @Override
     @Transactional
     public Food delete(String id) {

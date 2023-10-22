@@ -121,7 +121,7 @@
 
 //Basket
 ::ng-deep .filter-container {
-  width: 70%;
+  width: 65%;
   float: right;
   margin-bottom: 25px;
   height: 210px;
@@ -132,9 +132,9 @@
 }
 
 ::ng-deep .list-container {
-  background-color: rgba(191, 191, 191, 0.15);
+  //background-color: rgba(191, 191, 191, 0.15);
   float: right;
-  width: 30%;
+  width: 35%;
 }
 
 ::ng-deep .list-container .dx-scrollable-container {
@@ -161,7 +161,14 @@
 
 ::ng-deep .product > div.price {
   float: right;
+  text-align: center;
   font-size: 18px;
+}
+
+::ng-deep .product > div.trash {
+  float: right;
+  font-size: 18px;
+  color: #e74f83;
 }
 
 ::ng-deep .dx-filterbuilder .dx-numberbox {

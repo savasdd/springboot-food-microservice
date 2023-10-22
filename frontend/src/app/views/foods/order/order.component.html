@@ -34,15 +34,24 @@
                           </div>
 
                           <div class="list-container">
-                            <dx-list [dataSource]="dataSourceBasket">
-                              <div *dxTemplate="let item of 'item'">
-                                <div class="product">
-                                  <img src="{{ item.Image }}" alt=""/>
-                                  <div>{{ item.Name }}</div>
-                                  <div class="price">{{ item.Price + ' TL'}}</div>
-                                </div>
-                              </div>
-                            </dx-list>
+                            <dx-scroll-view id="scrollview">
+                              <dx-data-grid
+                                #orderDataGrid
+                                [dataSource]="dataOrderSource"
+                                keyExpr="ID"
+                                [showBorders]="true">
+                                <dxo-editing
+                                  mode="form"
+                                  [allowDeleting]="true"
+                                  [useIcons]="true">
+                                </dxo-editing>
+
+                                <dxi-column dataField="food.foodName" caption="Food"></dxi-column>
+                                <dxi-column dataField="status" caption="Status"></dxi-column>
+                                <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
+                              </dx-data-grid>
+                            </dx-scroll-view>
+
                           </div>
                         </div>
                       </div>
@@ -81,7 +90,8 @@
                               cellTemplate="operationTemplate"
                               [allowSorting]="false" [allowFiltering]="false"></dxi-column>
                   <div style="text-align: center;" *dxTemplate="let data of 'operationTemplate'">
-                    <fa-icon class="basket-icon" [icon]="faShoppingBasket" (click)="addBasket(data.data)"></fa-icon>
+                    <fa-icon class="basket-icon" [icon]="faShoppingBasket" title="Ekle"
+                             (click)="addBasket(data.data)"></fa-icon>
                   </div>
 
                   <div *dxTemplate="let data of 'cellTemplate'">

@@ -5,7 +5,7 @@ import com.food.event.OrderEvent;
 
 import java.util.List;
 
-public interface OrderService {
+public interface PaymentService {
 
     OrderEvent create(OrderEvent order) throws JsonProcessingException;
 
