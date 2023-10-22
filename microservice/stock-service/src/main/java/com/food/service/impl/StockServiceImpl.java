@@ -2,8 +2,10 @@ package com.food.service.impl;
 
 import com.food.aop.MongoLog;
 import com.food.dto.StockDto;
+import com.food.enums.ELogType;
 import com.food.model.Stock;
 import com.food.repository.StockRepository;
+import com.food.service.LogService;
 import com.food.service.StockService;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
@@ -19,9 +21,11 @@ import java.util.stream.Collectors;
 @Service
 public class StockServiceImpl implements StockService {
     private final StockRepository repository;
+    private final LogService logService;
 
-    public StockServiceImpl(StockRepository repository) {
+    public StockServiceImpl(StockRepository repository, LogService logService) {
         this.repository = repository;
+        this.logService = logService;
     }
 
     @Override
@@ -31,6 +35,7 @@ public class StockServiceImpl implements StockService {
         response.setData(list.getContent());
         response.setTotalCount(list.stream().count());
 
+        logService.eventLog("api/stock", List.of(response), 200, ELogType.STOCK);
         log.info("list stock {} ", response.totalCount);
         return response;
     }
@@ -59,6 +64,7 @@ public class StockServiceImpl implements StockService {
         model.setFoodId(dto.getFoodId());
         var newModel = repository.save(model);
 
+        logService.eventLog("api/stock", List.of(model), 201, ELogType.STOCK);
         log.info("create stock {} ", newModel.getStockId());
         return modelMapDto(newModel);
     }
@@ -81,6 +87,7 @@ public class StockServiceImpl implements StockService {
         });
         var model = repository.save(newStock.get());
 
+        logService.eventLog("api/stock", List.of(model), 200, ELogType.STOCK);
         log.info("update stock {} ", id);
         return modelMapDto(model);
     }

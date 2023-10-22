@@ -59,7 +59,7 @@ public class MongoLogAspect {
             dto.setBody(convertObjectToJson(response));
         }
 
-        service.producerLog(dto);
+        ///service.producerLog(dto);
         return result;
     }
 

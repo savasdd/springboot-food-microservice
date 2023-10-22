@@ -1,7 +1,9 @@
 package com.food.service.impl;
 
+import com.food.enums.ELogType;
 import com.food.model.Payment;
 import com.food.repository.PaymentRepository;
+import com.food.service.LogService;
 import com.food.service.PaymentService;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
@@ -10,16 +12,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository repository;
+    private final LogService logService;
 
-    public PaymentServiceImpl(PaymentRepository repository) {
+    public PaymentServiceImpl(PaymentRepository repository, LogService logService) {
         this.repository = repository;
+        this.logService = logService;
     }
 
     @Override
@@ -40,6 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
 
+        logService.eventLog("api/payment", List.of(loadResult), 200, ELogType.PAYMENT);
         return loadResult;
     }
 
@@ -48,6 +52,7 @@ public class PaymentServiceImpl implements PaymentService {
         dto.setVersion(0L);
         var model = repository.save(dto);
 
+        logService.eventLog("api/payment", List.of(model), 201, ELogType.PAYMENT);
         log.info("create payments");
         return model;
     }
@@ -66,6 +71,7 @@ public class PaymentServiceImpl implements PaymentService {
         }).get();
 
         var model = repository.save(update);
+        logService.eventLog("api/payment", List.of(model), 200, ELogType.PAYMENT);
         log.info("update payments {}", id);
         return model;
     }

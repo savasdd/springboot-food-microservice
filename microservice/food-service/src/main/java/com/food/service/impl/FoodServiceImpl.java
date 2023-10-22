@@ -3,12 +3,14 @@ package com.food.service.impl;
 import com.food.aop.MongoLog;
 import com.food.dto.CategoryDto;
 import com.food.dto.FoodDto;
+import com.food.enums.ELogType;
 import com.food.model.Category;
 import com.food.model.Food;
 import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
 import com.food.service.FoodFileService;
 import com.food.service.FoodService;
+import com.food.service.LogService;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import io.micrometer.core.instrument.util.IOUtils;
@@ -21,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -33,12 +34,14 @@ public class FoodServiceImpl implements FoodService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
     private final FoodFileService fileService;
+    private final LogService logService;
 
-    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper, FoodFileService fileService) {
+    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper, FoodFileService fileService, LogService logService) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
         this.fileService = fileService;
+        this.logService = logService;
     }
 
     @Override
@@ -63,6 +66,7 @@ public class FoodServiceImpl implements FoodService {
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
+        logService.eventLog("api/foods", List.of(loadResult), 200, ELogType.FOOD);
         log.info("list food {} ", loadResult.totalCount);
         return loadResult;
     }
@@ -92,6 +96,7 @@ public class FoodServiceImpl implements FoodService {
         dto.setVersion(0L);
         var newModel = repository.save(dto);
 
+        logService.eventLog("api/foods", List.of(modelMapper), 201, ELogType.FOOD);
         log.info("create food {} ", newModel.getFoodId());
         return newModel;
     }
@@ -110,9 +115,10 @@ public class FoodServiceImpl implements FoodService {
             var.setStatus(dto.getStatus() != null ? dto.getStatus() : var.getStatus());
             return var;
         }).get();
-        var newModel = repository.save(newFood);
-        log.info("update food {} ", id);
 
+        var newModel = repository.save(newFood);
+        logService.eventLog("api/foods", List.of(newModel), 200, ELogType.FOOD);
+        log.info("update food {} ", id);
         return modelMapDto(newModel);
     }
 
@@ -124,6 +130,7 @@ public class FoodServiceImpl implements FoodService {
         if (food.isPresent()) {
             var dto = food.get();
             repository.delete(food.get());
+            logService.eventLog("api/foods", List.of(dto), 200, ELogType.FOOD);
             return dto;
         } else
             return null;
