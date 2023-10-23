@@ -4,6 +4,8 @@ import com.food.aop.MongoLog;
 import com.food.dto.CategoryDto;
 import com.food.dto.FoodDto;
 import com.food.enums.ELogType;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Category;
 import com.food.model.Food;
 import com.food.repository.CategoryRepository;
@@ -46,7 +48,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Transactional
-    public List<FoodDto> getAll() {
+    public List<FoodDto> getAll() throws GeneralException, GeneralWarning {
         var list = repository.findAll();
         var dtoList = list.stream().map(var -> modelMapDto(var)).collect(Collectors.toList());
         log.info("list food {} ", list.size());
@@ -54,13 +56,13 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public Food getByOne(String id) {
+    public Food getByOne(String id) throws GeneralException, GeneralWarning {
         var model = repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
         return model;
     }
 
     @Override
-    public LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) {
+    public LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) throws GeneralException, GeneralWarning {
         LoadResult<Food> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
 
@@ -72,7 +74,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public LoadResult<Food> getAllOrder(DataSourceLoadOptions<Food> loadOptions) {
+    public LoadResult<Food> getAllOrder(DataSourceLoadOptions<Food> loadOptions) throws GeneralException, GeneralWarning {
         LoadResult<Food> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
 
@@ -90,7 +92,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Transactional
-    public Food create(Food dto) {
+    public Food create(Food dto) throws GeneralException, GeneralWarning {
         var category = categoryRepository.findById((dto.getCategory() != null && dto.getCategory().getId() != null) ? dto.getCategory().getId() : -1);
         dto.setCategory(category.isPresent() ? category.get() : null);
         dto.setVersion(0L);
@@ -103,7 +105,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Transactional
-    public FoodDto update(String id, Food dto) {
+    public FoodDto update(String id, Food dto) throws GeneralException, GeneralWarning {
         var category = categoryRepository.findById((dto.getCategory() != null && dto.getCategory().getId() != null) ? dto.getCategory().getId() : -1);
         var foods = repository.findById(UUID.fromString(id));
         var newFood = foods.map(var -> {
@@ -123,7 +125,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Transactional
-    public Food delete(String id) {
+    public Food delete(String id) throws GeneralException, GeneralWarning {
         var food = repository.findById(UUID.fromString(id));
         if (food.isPresent()) {
             var dto = food.get();

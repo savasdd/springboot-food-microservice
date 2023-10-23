@@ -2,6 +2,8 @@ package com.food.service.impl;
 
 import com.food.dto.PaymentDto;
 import com.food.dto.StockDto;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Orders;
 import com.food.repository.FoodRepository;
 import com.food.repository.OrdersRepository;
@@ -41,13 +43,13 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     }
 
     @Override
-    public Orders getByOne(String id) {
+    public Orders getByOne(String id) throws GeneralException, GeneralWarning {
         var model = repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
         return model;
     }
 
     @Override
-    public LoadResult<Orders> getAll(DataSourceLoadOptions<Orders> loadOptions) {
+    public LoadResult<Orders> getAll(DataSourceLoadOptions<Orders> loadOptions) throws GeneralException, GeneralWarning {
         LoadResult<Orders> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
 
@@ -63,12 +65,15 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
         return loadResult;
     }
 
-    //TODO control stock and payment
     @Override
-    public Orders create(Orders dto) {
+    public Orders create(Orders dto) throws GeneralException, GeneralWarning {
         var price = repository.getSumPrice(dto.getFood().getFoodId(), dto.getStatus());
         var count = repository.getCountPrice(dto.getFood().getFoodId(), dto.getStatus());
         var stock = getStockStatus(dto.getFood().getFoodId());
+
+        if (stock == null || count > stock.getAvailableItems())
+            throw new GeneralException("Ürüne ait stok kaydı bulunamadı!");
+
 
         if (stock != null && count < stock.getAvailableItems()) {
             var payment = getPaymentStatus(stock.getStockId());
@@ -85,7 +90,7 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
         return null;
     }
 
-    private StockDto getStockStatus(UUID foodId) {
+    private StockDto getStockStatus(UUID foodId) throws GeneralException, GeneralWarning {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
         HttpEntity entity = new HttpEntity(headers);
@@ -101,7 +106,7 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
         return null;
     }
 
-    private BigDecimal getPaymentStatus(UUID stockId) {
+    private BigDecimal getPaymentStatus(UUID stockId) throws GeneralException, GeneralWarning {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
         HttpEntity entity = new HttpEntity(headers);
@@ -113,7 +118,7 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     }
 
     @Override
-    public Orders delete(String id) {
+    public Orders delete(String id) throws GeneralException, GeneralWarning {
         var order = getByOne(id);
         repository.deleteById(UUID.fromString(id));
         return order;

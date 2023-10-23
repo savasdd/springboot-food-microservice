@@ -1,6 +1,8 @@
 package com.food.controller;
 
 import com.food.dto.FoodFileDto;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.service.FoodFileService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.MediaType;
@@ -23,24 +25,24 @@ public class FoodFileController {
     }
 
     @GetMapping(value = "/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<FoodFileDto>> getAllFoodFile(@PathVariable String id) {
+    public ResponseEntity<List<FoodFileDto>> getAllFoodFile(@PathVariable String id) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getListObjects(id));
     }
 
     @GetMapping(value = "/getOne", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<InputStream> getFoodFile(@RequestPart("fileName") String fileName) {
+    public ResponseEntity<InputStream> getFoodFile(@RequestPart("fileName") String fileName) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getObjects(fileName));
     }
 
     @Operation(description = "Users load image save")
     @PostMapping(value = "/upload", consumes = {"multipart/form-data", MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<FoodFileDto> foodFileUpload(@RequestPart("foodId") String userId, @RequestPart("fileName") String fileName, @RequestPart("fileType") String fileType, @RequestPart("file") MultipartFile file) {
+    public ResponseEntity<FoodFileDto> foodFileUpload(@RequestPart("foodId") String userId, @RequestPart("fileName") String fileName, @RequestPart("fileType") String fileType, @RequestPart("file") MultipartFile file) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.uploadFile(FoodFileDto.builder().foodId(userId).filename(fileName).fileType(fileType).fileData(file).build()));
     }
 
     @Operation(description = "delete image")
     @DeleteMapping(value = "/delete/{fileName}")
-    public ResponseEntity<String> deleteFoodFile(@PathVariable("fileName") String fileName) {
+    public ResponseEntity<String> deleteFoodFile(@PathVariable("fileName") String fileName) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.deleteObjects(fileName));
     }
 

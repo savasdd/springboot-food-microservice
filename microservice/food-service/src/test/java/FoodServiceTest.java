@@ -1,4 +1,6 @@
 import com.food.dto.FoodDto;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Food;
 import com.food.repository.FoodRepository;
 import com.food.service.impl.FoodServiceImpl;
@@ -34,7 +36,7 @@ public class FoodServiceTest {
     }
 
     @Test
-    void getAllTest() {
+    void getAllTest() throws GeneralException, GeneralWarning {
         List<Food> foodList = new ArrayList<>();
         foodList.add(Food.builder().foodId(UUID.randomUUID()).foodName("Pizza").description("İtalyan Pizza").category(null).build());
         Mockito.when(repository.findAll()).thenReturn(foodList);
@@ -46,7 +48,7 @@ public class FoodServiceTest {
     }
 
     @Test
-    void createTest() {
+    void createTest() throws GeneralException, GeneralWarning {
         Food foodDto = new Food();
         foodDto.setFoodName("Pizza");
         foodDto.setCategory(null);
@@ -60,7 +62,7 @@ public class FoodServiceTest {
     }
 
     @Test
-    void updateTest() {
+    void updateTest() throws GeneralException, GeneralWarning {
         UUID id = UUID.randomUUID();
         Food foodDto = new Food();
         foodDto.setFoodName("Pizza");
@@ -76,7 +78,7 @@ public class FoodServiceTest {
     }
 
     @Test
-    void testDeleteExistingFood() {
+    void testDeleteExistingFood() throws GeneralException, GeneralWarning {
         final UUID FOOD_ID = UUID.randomUUID();
         Food food = Food.builder()
                 .foodId(FOOD_ID)
@@ -96,7 +98,7 @@ public class FoodServiceTest {
     }
 
     @Test
-    void testDeleteNonExistingFood() {
+    void testDeleteNonExistingFood() throws GeneralException, GeneralWarning {
         final UUID FOOD_ID = UUID.randomUUID();
         when(repository.findById(FOOD_ID)).thenReturn(Optional.empty());
 

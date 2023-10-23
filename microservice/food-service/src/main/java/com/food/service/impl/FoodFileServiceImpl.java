@@ -2,6 +2,8 @@ package com.food.service.impl;
 
 import com.food.config.minio.MinioConfig;
 import com.food.dto.FoodFileDto;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.minio.MinioUtil;
 import com.food.service.FoodFileService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,7 @@ public class FoodFileServiceImpl implements FoodFileService {
     }
 
     @Override
-    public List<FoodFileDto> getListObjects(String foodId) {
+    public List<FoodFileDto> getListObjects(String foodId) throws GeneralException, GeneralWarning {
         var result = minioUtil.listObjects(minioProperties.getBucketName());
 
         var list = StreamSupport.stream(result.spliterator(), true).map(val -> {
@@ -46,14 +48,14 @@ public class FoodFileServiceImpl implements FoodFileService {
     }
 
     @Override
-    public FoodFileDto uploadFile(FoodFileDto dto) {
+    public FoodFileDto uploadFile(FoodFileDto dto) throws GeneralException, GeneralWarning {
         var result = minioUtil.putObject(minioProperties.getBucketName(), dto.getFileData(), dto.getFilename(), dto.getFileType(), dto.getFoodId());
 
         return FoodFileDto.builder().foodId(dto.getFoodId()).build();
     }
 
     @Override
-    public String deleteObjects(String fileName) {
+    public String deleteObjects(String fileName) throws GeneralException, GeneralWarning {
         var result = minioUtil.removeObject(minioProperties.getBucketName(), fileName);
         return "Success";
     }

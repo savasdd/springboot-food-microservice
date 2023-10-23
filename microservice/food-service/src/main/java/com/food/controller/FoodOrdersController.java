@@ -1,5 +1,7 @@
 package com.food.controller;
 
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Orders;
 import com.food.service.FoodOrdersService;
 import com.food.spesification.response.LoadResult;
@@ -23,27 +25,27 @@ public class FoodOrdersController {
 
     @Operation(description = "Orders getAll by loadResult")
     @PostMapping(value = "/orders/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoadResult<Orders>> getAllFoodOrdersLoad(@RequestBody DataSourceLoadOptions<Orders> loadOptions) {
+    public ResponseEntity<LoadResult<Orders>> getAllFoodOrdersLoad(@RequestBody DataSourceLoadOptions<Orders> loadOptions) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
 
     @Operation(description = "Orders getOne")
     @GetMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Orders> getFoodOrdersByOne(@PathVariable String id) {
+    public ResponseEntity<Orders> getFoodOrdersByOne(@PathVariable String id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getByOne(id), HttpStatus.OK);
     }
 
     @Operation(description = "Orders save")
     @PostMapping(value = "/orders", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Orders> createFoodOrders(@RequestBody Orders dto) {
+    public ResponseEntity<Orders> createFoodOrders(@RequestBody Orders dto) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
 
     @Operation(description = "Orders delete by id")
     @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Orders> deleteFoodOrders(@PathVariable("id") String id) {
+    public ResponseEntity<Orders> deleteFoodOrders(@PathVariable("id") String id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 
