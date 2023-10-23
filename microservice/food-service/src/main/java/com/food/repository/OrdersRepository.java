@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface OrdersRepository extends JpaSpecificationExecutor<Orders>, JpaRepository<Orders, UUID>, BaseRepository<Orders, UUID> {
 
-    @Query("select sum(v.price) from ORDERS v where v.food.foodId = :foodId and v.status = :status")
+    @Query("select COALESCE(sum(v.price),0.0)  from ORDERS v where v.food.foodId = :foodId and v.status = :status")
     Double getSumPrice(UUID foodId, EOrderType status);
 
     @Query("select count(v.food.foodId) from ORDERS v where v.food.foodId = :foodId and v.status = :status")

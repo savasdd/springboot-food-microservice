@@ -59,7 +59,7 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
-        log.info("list órders {} ", loadResult.totalCount);
+        log.info("list orders {} ", loadResult.totalCount);
         return loadResult;
     }
 

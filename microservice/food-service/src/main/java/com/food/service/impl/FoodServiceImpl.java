@@ -84,6 +84,7 @@ public class FoodServiceImpl implements FoodService {
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
+        log.info("list food {} ", loadResult.totalCount);
         return loadResult;
     }
 
