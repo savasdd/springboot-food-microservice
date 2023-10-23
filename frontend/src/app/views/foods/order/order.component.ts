@@ -2,8 +2,6 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
 import {faShoppingBasket, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import DataSource from "devextreme/data/data_source";
-import notify from 'devextreme/ui/notify';
 import {OrderService} from "../../../services/order.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import {Orders} from "../../../services/food-service-api";
@@ -20,7 +18,6 @@ export class OrderComponent implements OnInit {
   @ViewChild('orderDataGrid', {static: true}) orderDataGrid: any = DxDataGridComponent;
   dataSource: any = {};
   dataOrderSource: any = {};
-  dataSourceBasket: any;
   totalPrice: number = 0;
   basketList: Array<{ ID: string, Name: string, Price: number, Image: string }> = [];
 
@@ -31,12 +28,7 @@ export class OrderComponent implements OnInit {
               private cd: ChangeDetectorRef) {
     this.loadGrid();
     this.loadOrderGrid();
-
     this.totalPrice = 0;
-    this.basketList = [];
-    this.dataSourceBasket = new DataSource({
-      store: this.basketList,
-    });
   }
 
   ngOnInit(): void {
