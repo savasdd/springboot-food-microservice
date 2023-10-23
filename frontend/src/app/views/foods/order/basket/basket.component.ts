@@ -1,7 +1,8 @@
-import {ChangeDetectorRef, Component, OnChanges, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import CustomStore from "devextreme/data/custom_store";
-import {Orders} from "../../../../services/food-service-api";
 import {OrderService} from "../../../../services/order.service";
+import {DxDataGridComponent} from "devextreme-angular";
+import {Orders} from "../../../../services/food-service-api";
 
 @Component({
   selector: 'app-basket',
@@ -9,6 +10,7 @@ import {OrderService} from "../../../../services/order.service";
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnChanges {
+  @ViewChild('orderDataGrid', {static: true}) orderDataGrid: any = DxDataGridComponent;
   dataSource: any = {};
   totalPrice: number = 0;
 
@@ -25,8 +27,8 @@ export class BasketComponent implements OnChanges {
     this.dataSource = new CustomStore({
       key: 'orderId',
       load: (loadOptions) => {
-        loadOptions.filter = [];
-        loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);
+        // loadOptions.filter = [];
+        // loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);
         return this.orderService.findAll(loadOptions).toPromise().then((response: any) => {
           this.calculateBasket(response.data);
           return {
@@ -47,13 +49,24 @@ export class BasketComponent implements OnChanges {
     });
   }
 
+  paymentBasket() {
+    if (this.totalPrice > 0) {
+
+      this.refreshDataGrid();
+    }
+  }
+
   calculateBasket(data: any[]) {
     if (data) {
       this.totalPrice = 0;
       data.map((m) => {
-        this.totalPrice = this.totalPrice + m.price;
+        this.totalPrice = m.status === Orders.StatusEnum.Basket ? this.totalPrice + m.price : 0;
       });
     }
+  }
+
+  refreshDataGrid() {
+    this.orderDataGrid.instance.refresh();
   }
 
 }
