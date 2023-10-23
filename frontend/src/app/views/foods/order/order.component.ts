@@ -27,7 +27,7 @@ export class OrderComponent implements OnInit {
   constructor(private service: FoodService,
               private orderService: OrderService,
               private stockService: StockService,
-              private message: MessageService,
+              private messageService: MessageService,
               private cd: ChangeDetectorRef) {
     this.loadGrid();
     this.loadOrderGrid();
@@ -111,7 +111,7 @@ export class OrderComponent implements OnInit {
 
     this.orderService.save(data).subscribe((response) => {
       if (response) {
-        this.message.success(event.foodName + " Sepete Eklendi");
+        this.messageService.success(event.foodName + " Sepete Eklendi");
         this.refreshDataGrid();
       }
     });
