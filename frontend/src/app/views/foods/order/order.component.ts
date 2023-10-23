@@ -7,6 +7,7 @@ import {DxDataGridComponent} from "devextreme-angular";
 import {Orders} from "../../../services/food-service-api";
 import {StockService} from "../../../services/stock.service";
 import {MessageService} from "../../../services/message.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order',
@@ -25,6 +26,7 @@ export class OrderComponent implements OnInit {
               private orderService: OrderService,
               private stockService: StockService,
               private messageService: MessageService,
+              private router: Router,
               private cd: ChangeDetectorRef) {
     this.loadGrid();
     this.loadOrderGrid();
@@ -110,6 +112,11 @@ export class OrderComponent implements OnInit {
     //this.cd.detectChanges();
   }
 
+  callBasket() {
+    if (this.totalPrice > 0) {
+      this.router.navigate(['/foods/baskets']);
+    }
+  }
 
   calculateBasket(data: any[]) {
     if (data) {

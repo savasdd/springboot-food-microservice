@@ -23,8 +23,8 @@ import {PaymentComponent} from './payment/payment.component';
 import {DevExtremeModule} from "devextreme-angular";
 import {CategoryComponent} from './category/category.component';
 import {OrderComponent} from './order/order.component';
-import { ImagesComponent } from './food/images/images.component';
-import { BasketComponent } from './order/basket/basket.component';
+import {ImagesComponent} from './food/images/images.component';
+import {BasketComponent} from './order/basket/basket.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 const routes: Routes = [
@@ -59,6 +59,12 @@ const routes: Routes = [
         path: 'orders', component: OrderComponent,
         data: {
           title: 'Order'
+        }
+      },
+      {
+        path: 'baskets', component: BasketComponent,
+        data: {
+          title: 'Basket'
         }
       },
     ]

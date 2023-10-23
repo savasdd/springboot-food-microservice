@@ -1,5 +1,7 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import DataSource from 'devextreme/data/data_source';
+import {ChangeDetectorRef, Component, OnChanges, SimpleChanges} from '@angular/core';
+import CustomStore from "devextreme/data/custom_store";
+import {Orders} from "../../../../services/food-service-api";
+import {OrderService} from "../../../../services/order.service";
 
 @Component({
   selector: 'app-basket',
@@ -7,34 +9,51 @@ import DataSource from 'devextreme/data/data_source';
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnChanges {
-  @Input() basketList: any;
-  dataSource: any;
+  dataSource: any = {};
   totalPrice: number = 0;
-  products: any[] = [{
-    ID: 1,
-    Name: 'Muz',
-    Price: 25,
-    Image: 'assets/images/food/muz.png',
-  }, {
-    ID: 3,
-    Name: 'Elma',
-    Price: 14,
-    Image: 'assets/images/food/elma.png',
-  }, {
-    ID: 4,
-    Name: 'Pizza',
-    Price: 78,
-    Image: 'assets/images/food/pizza.png',
-  }];
 
-  constructor(private cd: ChangeDetectorRef) {
-    this.dataSource = new DataSource({
-      store: this.products,
-    });
+  constructor(private cd: ChangeDetectorRef,
+              private orderService: OrderService) {
+    this.loadOrderGrid();
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.basketList)
+  }
+
+  loadOrderGrid() {
+    this.dataSource = new CustomStore({
+      key: 'orderId',
+      load: (loadOptions) => {
+        loadOptions.filter = [];
+        loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);
+        return this.orderService.findAll(loadOptions).toPromise().then((response: any) => {
+          this.calculateBasket(response.data);
+          return {
+            data: response.data,
+            totalCount: response.totalCount
+          };
+        });
+      },
+
+      byKey: (key) => {
+        return this.orderService.findOne(key).toPromise().then((response) => {
+          return response;
+        }, err => {
+          throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+        });
+      },
+
+    });
+  }
+
+  calculateBasket(data: any[]) {
+    if (data) {
+      this.totalPrice = 0;
+      data.map((m) => {
+        this.totalPrice = this.totalPrice + m.price;
+      });
+    }
   }
 
 }

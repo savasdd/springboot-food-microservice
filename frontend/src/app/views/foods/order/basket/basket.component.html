@@ -4,16 +4,16 @@
       <div class="col-md-12">
         <div class="card border" style="margin-bottom: 0px;">
 
-          <div class="card-body" style="min-height: calc(10vh - 193px);">
+          <div class="card-body" style="min-height: calc(50vh - 193px);">
             <div class="row">
               <div class="filter-container">
-                <img class="basket"  ngSrc="assets/images/food/basket.png" height="80"
-                     width="100" alt=""/>
+                <img class="basket" ngSrc="assets/images/food/basket.png" height="90" width="110" alt=""/>
 
                 <div class="dx-fieldset">
                   <div class="dx-field">
                     <div class="dx-field-label">
-                      <button type="button" class="btn btn-outline-primary">Sepetim</button>
+                      <button type="button" class="btn btn-outline-primary">Ödeme
+                      </button>
                     </div>
                   </div>
                   <div class="dx-field">
@@ -21,28 +21,38 @@
                     <div class="dx-field-value-static">{{totalPrice + ' TL'}}</div>
                   </div>
                 </div>
-
               </div>
 
               <div class="list-container">
-                <dx-list [dataSource]="dataSource">
-                  <div *dxTemplate="let item of 'item'">
-                    <div class="product">
-                      <img src="{{ item.Image }}" alt=""/>
-                      <div>{{ item.Name }}</div>
-                      <div class="price">{{ item.Price + ' TL'}}</div>
-                    </div>
+                <dx-data-grid
+                  #orderDataGrid
+                  [dataSource]="dataSource"
+                  keyExpr="ID"
+                  [showBorders]="true">
+                  <dxo-editing
+                    mode="form"
+                    [allowDeleting]="false"
+                    [useIcons]="true">
+                  </dxo-editing>
+                  <dxi-column
+                    dataField="image"
+                    [width]="130"
+                    [allowFiltering]="false"
+                    [allowSorting]="false"
+                    cellTemplate="cellTemplate"></dxi-column>
+                  <dxi-column dataField="food.foodName" caption="Food"></dxi-column>
+                  <dxi-column dataField="status" caption="Status"></dxi-column>
+                  <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
+
+                  <div *dxTemplate="let data of 'cellTemplate'">
+                    <img class="images_basket" [src]="data.value" alt=""/>
                   </div>
-                </dx-list>
+                </dx-data-grid>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
