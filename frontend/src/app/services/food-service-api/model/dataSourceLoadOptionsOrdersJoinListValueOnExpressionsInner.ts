@@ -13,8 +13,8 @@ import { DataSourceLoadOptionsOrdersJoinListValueParentParentPathCompoundSelecti
 
 
 export interface DataSourceLoadOptionsOrdersJoinListValueOnExpressionsInner { 
-    compoundSelection?: boolean;
     compoundSelectionItems?: Array<DataSourceLoadOptionsOrdersJoinListValueParentParentPathCompoundSelectionItemsInner>;
+    compoundSelection?: boolean;
     alias?: string;
 }
 

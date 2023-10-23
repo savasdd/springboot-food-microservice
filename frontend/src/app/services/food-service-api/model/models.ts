@@ -14,9 +14,9 @@ export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttri
 export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringType';
 export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner';
 export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
+export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner';
+export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType';
 export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInner';
-export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredSingularAttributesInnerType';
-export * from './dataSourceLoadOptionsOrdersJoinListValueParentFetchesInnerAttributeDeclaringTypePluralAttributesInner';
 export * from './dataSourceLoadOptionsOrdersJoinListValueParentModel';
 export * from './dataSourceLoadOptionsOrdersJoinListValueParentParentPath';
 export * from './dataSourceLoadOptionsOrdersJoinListValueParentParentPathCompoundSelectionItemsInner';

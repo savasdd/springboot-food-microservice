@@ -8,6 +8,7 @@ import {OrderService} from "../../../services/order.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import {Orders} from "../../../services/food-service-api";
 import {StockService} from "../../../services/stock.service";
+import {MessageService} from "../../../services/message.service";
 
 @Component({
   selector: 'app-order',
@@ -26,6 +27,7 @@ export class OrderComponent implements OnInit {
   constructor(private service: FoodService,
               private orderService: OrderService,
               private stockService: StockService,
+              private message: MessageService,
               private cd: ChangeDetectorRef) {
     this.loadGrid();
     this.loadOrderGrid();
@@ -109,7 +111,7 @@ export class OrderComponent implements OnInit {
 
     this.orderService.save(data).subscribe((response) => {
       if (response) {
-        this.showNotify(event.foodName);
+        this.message.success(event.foodName + " Sepete Eklendi");
         this.refreshDataGrid();
       }
     });
@@ -126,18 +128,6 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  showNotify(name: string) {
-    notify({
-      message: name + " Sepete Eklendi",
-      width: 300,
-      displayTime: 1000,
-      type: 'success',
-      shading: true
-    }, {
-      position: "top center",
-      direction: "up-push"
-    });
-  }
 
   refreshDataGrid() {
     this.orderDataGrid.instance.refresh();
