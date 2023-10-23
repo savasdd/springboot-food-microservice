@@ -1,6 +1,8 @@
 package com.food.controller;
 
 import com.food.dto.StockDto;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Stock;
 import com.food.service.StockService;
 import com.food.spesification.response.LoadResult;
@@ -26,43 +28,43 @@ public class StockController {
 
     @Operation(description = "Stock getAll by loadResult")
     @PostMapping(value = "/stocks/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoadResult<Stock>> getAllStockLoad(@RequestBody DataSourceLoadOptions<Stock> loadOptions) {
+    public ResponseEntity<LoadResult<Stock>> getAllStockLoad(@RequestBody DataSourceLoadOptions<Stock> loadOptions) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(stockService.getAll(loadOptions), HttpStatus.OK);
     }
 
     @Operation(description = "Stock getAll")
     @GetMapping(value = "/stocks", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<StockDto>> getAllStock() {
+    public ResponseEntity<List<StockDto>> getAllStock() throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(stockService.getAll(), HttpStatus.OK);
     }
 
     @Operation(description = "Stock getById")
     @GetMapping(value = "/stocks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StockDto> getStockOne(@PathVariable String id) {
+    public ResponseEntity<StockDto> getStockOne(@PathVariable String id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(stockService.getById(id), HttpStatus.OK);
     }
 
     @Operation(description = "Stock save")
     @PostMapping(value = "/stocks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StockDto> createStock(@RequestBody StockDto dto) {
+    public ResponseEntity<StockDto> createStock(@RequestBody StockDto dto) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(stockService.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Stock update by id")
     @PutMapping(value = "/stocks/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StockDto> updateStock(@PathVariable("id") String id, @RequestBody StockDto dto) {
+    public ResponseEntity<StockDto> updateStock(@PathVariable("id") String id, @RequestBody StockDto dto) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(stockService.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Stock delete by id")
     @DeleteMapping(value = "/stocks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StockDto> deleteStock(@PathVariable("id") String id) {
+    public ResponseEntity<StockDto> deleteStock(@PathVariable("id") String id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(stockService.delete(id), HttpStatus.OK);
     }
 
     @Operation(description = "Stock getById")
     @GetMapping(value = "/stocks/byFood/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Stock>> getStockByFood(@PathVariable String id) {
+    public ResponseEntity<List<Stock>> getStockByFood(@PathVariable String id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(stockService.getStockByFoodId(id), HttpStatus.OK);
     }
 

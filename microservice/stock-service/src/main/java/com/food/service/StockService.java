@@ -1,26 +1,27 @@
 package com.food.service;
 
 import com.food.dto.StockDto;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Stock;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface StockService {
 
-    LoadResult<Stock> getAll(DataSourceLoadOptions<Stock> loadOptions);
+    LoadResult<Stock> getAll(DataSourceLoadOptions<Stock> loadOptions) throws GeneralException, GeneralWarning;
 
-    List<StockDto> getAll();
+    List<StockDto> getAll() throws GeneralException, GeneralWarning;
 
-    StockDto getById(String id);
+    StockDto getById(String id) throws GeneralException, GeneralWarning;
 
-    StockDto create(StockDto dto);
+    StockDto create(StockDto dto) throws GeneralException, GeneralWarning;
 
-    StockDto update(String id, StockDto dto);
+    StockDto update(String id, StockDto dto) throws GeneralException, GeneralWarning;
 
-    StockDto delete(String id);
+    StockDto delete(String id) throws GeneralException, GeneralWarning;
 
-    List<Stock> getStockByFoodId(String id);
+    List<Stock> getStockByFoodId(String id) throws GeneralException, GeneralWarning;
 }

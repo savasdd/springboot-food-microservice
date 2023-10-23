@@ -1,4 +1,6 @@
 import com.food.dto.StockDto;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Stock;
 import com.food.repository.StockRepository;
 import com.food.service.impl.StockServiceImpl;
@@ -35,7 +37,7 @@ public class StockServiceTest {
     }
 
     @Test
-    void getStockAllTest() {
+    void getStockAllTest() throws GeneralException, GeneralWarning {
         UUID uuid = UUID.randomUUID();
         List<Stock> list = new ArrayList<>();
         list.add(Stock.builder().stockId(UUID.randomUUID()).foodId(uuid).price(BigDecimal.ZERO).description("stock test").build());
@@ -48,7 +50,7 @@ public class StockServiceTest {
     }
 
     @Test
-    void createStockTest() {
+    void createStockTest() throws GeneralException, GeneralWarning {
         UUID uuid = UUID.randomUUID();
         StockDto dto = StockDto.builder().stockId(UUID.randomUUID()).foodId(uuid).price(new BigDecimal(10)).price(BigDecimal.ZERO).description("stock test").build();
         Stock category = Stock.builder().stockId(UUID.randomUUID()).foodId(uuid).price(BigDecimal.ZERO).description("stock test").build();
@@ -60,7 +62,7 @@ public class StockServiceTest {
     }
 
     @Test
-    void updateStockTest() {
+    void updateStockTest() throws GeneralException, GeneralWarning {
         UUID uuid = UUID.randomUUID();
         StockDto dto = StockDto.builder().stockId(uuid).foodId(uuid).price(new BigDecimal(5)).price(BigDecimal.ZERO).description("stock test").build();
         Optional<Stock> account = Optional.of(Stock.builder().stockId(uuid).foodId(uuid).price(BigDecimal.ONE).description("stock test1").build());
@@ -77,7 +79,7 @@ public class StockServiceTest {
     }
 
     @Test
-    void deleteExistStockTest() {
+    void deleteExistStockTest() throws GeneralException, GeneralWarning {
         UUID uuid = UUID.randomUUID();
         Stock category = Stock.builder().stockId(uuid).foodId(uuid).price(BigDecimal.ZERO).description("stock test").build();
 
@@ -92,7 +94,7 @@ public class StockServiceTest {
     }
 
     @Test
-    void deleteNonExistStockTest() {
+    void deleteNonExistStockTest() throws GeneralException, GeneralWarning {
         final UUID uuid = UUID.randomUUID();
         when(repository.findById(uuid)).thenReturn(Optional.empty());
 

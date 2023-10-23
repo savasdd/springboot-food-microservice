@@ -1,6 +1,8 @@
 package com.food.service.impl;
 
 import com.food.enums.ELogType;
+import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Payment;
 import com.food.repository.PaymentRepository;
 import com.food.service.LogService;
@@ -26,18 +28,17 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<Payment> getAll() {
-        log.info("GetAll payments");
+    public List<Payment> getAll()  throws GeneralException, GeneralWarning {
         return repository.findAll();
     }
 
     @Override
-    public Payment getByOne(String id) {
+    public Payment getByOne(String id)  throws GeneralException, GeneralWarning {
         return repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
     }
 
     @Override
-    public LoadResult<Payment> getAll(DataSourceLoadOptions<Payment> loadOptions) {
+    public LoadResult<Payment> getAll(DataSourceLoadOptions<Payment> loadOptions)  throws GeneralException, GeneralWarning {
         LoadResult<Payment> loadResult = new LoadResult<>();
         var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
         loadResult.setData(list.getContent());
@@ -48,7 +49,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment create(Payment dto) {
+    public Payment create(Payment dto)  throws GeneralException, GeneralWarning {
         dto.setVersion(0L);
         var model = repository.save(dto);
 
@@ -58,7 +59,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment update(String id, Payment dto) {
+    public Payment update(String id, Payment dto)  throws GeneralException, GeneralWarning {
         var payments = repository.findById(UUID.fromString(id));
         var update = payments.map(val -> {
             val.setStockId(dto.getStockId() != null ? dto.getStockId() : val.getStockId());
@@ -77,7 +78,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id)  throws GeneralException, GeneralWarning {
         repository.deleteById(UUID.fromString(id));
         log.info("delete payments {}", id);
     }
