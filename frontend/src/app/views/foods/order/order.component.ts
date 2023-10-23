@@ -7,6 +7,7 @@ import notify from 'devextreme/ui/notify';
 import {OrderService} from "../../../services/order.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import {Orders} from "../../../services/food-service-api";
+import {StockService} from "../../../services/stock.service";
 
 @Component({
   selector: 'app-order',
@@ -20,11 +21,11 @@ export class OrderComponent implements OnInit {
   dataOrderSource: any = {};
   dataSourceBasket: any;
   totalPrice: number = 0;
-  foodData: any;
   basketList: Array<{ ID: string, Name: string, Price: number, Image: string }> = [];
 
   constructor(private service: FoodService,
               private orderService: OrderService,
+              private stockService: StockService,
               private cd: ChangeDetectorRef) {
     this.loadGrid();
     this.loadOrderGrid();

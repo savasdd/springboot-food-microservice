@@ -106,6 +106,11 @@ public class StockServiceImpl implements StockService {
             return null;
     }
 
+    @Override
+    public List<Stock> getStockByFoodId(String id) {
+        return repository.findByFoodId(UUID.fromString(id));
+    }
+
 
     private StockDto modelMapDto(Stock dto) {
         return StockDto.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).name(dto.getName()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();

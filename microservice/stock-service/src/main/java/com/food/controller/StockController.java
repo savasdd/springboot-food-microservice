@@ -60,4 +60,11 @@ public class StockController {
         return new ResponseEntity<>(stockService.delete(id), HttpStatus.OK);
     }
 
+    @Operation(description = "Stock getById")
+    @GetMapping(value = "/stocks/byFood/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Stock>> getStockByFood(@PathVariable String id) {
+        return new ResponseEntity<>(stockService.getStockByFoodId(id), HttpStatus.OK);
+    }
+
+
 }

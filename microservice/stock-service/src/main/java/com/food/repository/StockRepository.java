@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface StockRepository extends JpaSpecificationExecutor<Stock>, JpaRepository<Stock, UUID>, BaseRepository<Stock, UUID> {
+public interface StockRepository extends JpaRepository<Stock, UUID>, JpaSpecificationExecutor<Stock> {
 
     List<Stock> findByFoodId(UUID foodId);
 

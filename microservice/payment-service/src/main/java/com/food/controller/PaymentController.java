@@ -61,5 +61,11 @@ public class PaymentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Operation(description = "Payment getPaymentByFood")
+    @GetMapping(value = "/payments/byStock/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Payment>> getPaymentByStock(@PathVariable String id) {
+        return ResponseEntity.ok(service.getPaymentByStock(id));
+    }
+
 
 }

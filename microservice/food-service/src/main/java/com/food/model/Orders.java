@@ -50,4 +50,10 @@ public class Orders extends BaseEntity {
     @Transient
     private String image;
 
+    @Transient
+    private Double stockAvailable;
+
+    @Transient
+    private Double paymentAvailable;
+
 }

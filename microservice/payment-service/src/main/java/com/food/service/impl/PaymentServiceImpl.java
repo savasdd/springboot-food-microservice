@@ -81,4 +81,9 @@ public class PaymentServiceImpl implements PaymentService {
         repository.deleteById(UUID.fromString(id));
         log.info("delete payments {}", id);
     }
+
+    @Override
+    public List<Payment> getPaymentByStock(String id) {
+        return repository.findPaymentByStockId(UUID.fromString(id));
+    }
 }

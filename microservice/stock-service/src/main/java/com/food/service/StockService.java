@@ -21,4 +21,6 @@ public interface StockService {
     StockDto update(String id, StockDto dto);
 
     StockDto delete(String id);
+
+    List<Stock> getStockByFoodId(String id);
 }

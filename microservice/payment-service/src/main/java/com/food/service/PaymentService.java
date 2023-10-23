@@ -19,4 +19,6 @@ public interface PaymentService {
     Payment update(String id, Payment dto);
 
     void delete(String id);
+
+    List<Payment> getPaymentByStock(String id);
 }
