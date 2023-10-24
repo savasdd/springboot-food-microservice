@@ -1,8 +1,8 @@
 package com.food.service.grpc.impl;
 
-import com.food.grpc.PaymentRequest;
-import com.food.grpc.PaymentResponse;
-import com.food.grpc.PaymentServiceGrpc;
+import com.food.grpc.payment.PaymentRequest;
+import com.food.grpc.payment.PaymentResponse;
+import com.food.grpc.payment.PaymentServiceGrpc;
 import com.food.service.grpc.PaymentGrpcService;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;

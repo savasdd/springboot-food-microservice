@@ -1,6 +1,6 @@
 package com.food.service.grpc;
 
-import com.food.grpc.StockResponse;
+import com.food.grpc.stock.StockResponse;
 
 public interface StockGrpcService {
     StockResponse getStock(String foodId);

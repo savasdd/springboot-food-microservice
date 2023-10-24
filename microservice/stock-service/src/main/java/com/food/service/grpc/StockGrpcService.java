@@ -1,8 +1,8 @@
 package com.food.service.grpc;
 
-import com.food.grpc.StockRequest;
-import com.food.grpc.StockResponse;
-import com.food.grpc.StockServiceGrpc;
+import com.food.grpc.stock.StockRequest;
+import com.food.grpc.stock.StockResponse;
+import com.food.grpc.stock.StockServiceGrpc;
 import com.food.service.StockService;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;

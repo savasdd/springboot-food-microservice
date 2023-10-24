@@ -1,8 +1,8 @@
 package com.food.service.grpc;
 
-import com.food.grpc.PaymentRequest;
-import com.food.grpc.PaymentResponse;
-import com.food.grpc.PaymentServiceGrpc;
+import com.food.grpc.payment.PaymentRequest;
+import com.food.grpc.payment.PaymentResponse;
+import com.food.grpc.payment.PaymentServiceGrpc;
 import com.food.service.PaymentService;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;

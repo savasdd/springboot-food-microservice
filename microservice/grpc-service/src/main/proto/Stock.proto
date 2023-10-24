@@ -1,6 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-package com.food.grpc;
+package com.food.grpc.stock;
 import "google/protobuf/wrappers.proto";
 
 

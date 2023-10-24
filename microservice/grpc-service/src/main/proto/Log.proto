@@ -1,0 +1,23 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.food.grpc.log;
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+
+message LogRequest {
+  string username = 1;
+  string service = 2;
+  string message = 3;
+  int32 status = 4;
+  string logType = 5;
+  google.protobuf.ListValue body = 6;
+}
+
+message LogResponse {
+  int64 status = 1;
+}
+
+service LogService {
+  rpc createLog(LogRequest) returns (LogResponse);
+}
+
