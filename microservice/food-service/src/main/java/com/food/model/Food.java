@@ -1,5 +1,6 @@
 package com.food.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.food.enums.EClassType;
 import com.food.enums.EPaymentType;
 import com.food.model.base.BaseEntity;
@@ -36,6 +37,7 @@ public class Food extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
+    @JsonBackReference
     private Category category;
 
     @Length(min = 2)

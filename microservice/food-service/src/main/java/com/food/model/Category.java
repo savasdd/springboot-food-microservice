@@ -1,13 +1,15 @@
 package com.food.model;
 
-import com.food.model.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.food.enums.ECategoryType;
+import com.food.model.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +32,8 @@ public class Category extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "categoryType")
     private ECategoryType categoryType;
+
+    @OneToMany(mappedBy = "category")
+    @JsonManagedReference
+    private List<Food> foodList;
 }
