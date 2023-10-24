@@ -1,6 +1,5 @@
 package com.food.service.impl;
 
-import com.food.aop.MongoLog;
 import com.food.dto.CategoryDto;
 import com.food.dto.FoodDto;
 import com.food.enums.ELogType;
@@ -13,6 +12,7 @@ import com.food.repository.FoodRepository;
 import com.food.service.FoodFileService;
 import com.food.service.FoodService;
 import com.food.service.LogService;
+import com.food.service.grpc.StockGrpcService;
 import com.food.spesification.response.LoadResult;
 import com.food.spesification.source.DataSourceLoadOptions;
 import io.micrometer.core.instrument.util.IOUtils;
@@ -58,6 +58,7 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Food getByOne(String id) throws GeneralException, GeneralWarning {
         var model = repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
+
         return model;
     }
 

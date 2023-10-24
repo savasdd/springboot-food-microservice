@@ -9,6 +9,7 @@ import com.food.repository.FoodRepository;
 import com.food.repository.OrdersRepository;
 import com.food.service.FoodFileService;
 import com.food.service.FoodOrdersService;
+import com.food.service.grpc.StockGrpcService;
 import com.food.spesification.Filter;
 import com.food.spesification.enums.FilterOperator;
 import com.food.spesification.response.LoadResult;
@@ -34,12 +35,14 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     private final FoodRepository foodRepository;
     private final FoodFileService fileService;
     private final RestTemplate restTemplate;
+    private final StockGrpcService grpcService;
 
-    public FoodOrdersServiceImpl(OrdersRepository repository, FoodRepository foodRepository, FoodFileService fileService, RestTemplate restTemplate) {
+    public FoodOrdersServiceImpl(OrdersRepository repository, FoodRepository foodRepository, FoodFileService fileService, RestTemplate restTemplate, StockGrpcService grpcService) {
         this.repository = repository;
         this.foodRepository = foodRepository;
         this.fileService = fileService;
         this.restTemplate = restTemplate;
+        this.grpcService = grpcService;
     }
 
     @Override
@@ -69,18 +72,18 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     public Orders create(Orders dto) throws GeneralException, GeneralWarning {
         var price = repository.getSumPrice(dto.getFood().getFoodId(), dto.getStatus());
         var count = repository.getCountPrice(dto.getFood().getFoodId(), dto.getStatus());
-        var stock = getStockStatus(dto.getFood().getFoodId());
+        var stock = grpcService.getStock(dto.getFood().getFoodId().toString());
 
         if (stock == null || count > stock.getAvailableItems())
             throw new GeneralException("Ürüne ait stok kaydı bulunamadı!");
 
-        var payment = getPaymentStatus(stock.getStockId());
+        var payment = getPaymentStatus(UUID.fromString(stock.getStockId()));
         if (payment == null || payment.getAmountAvailable().equals(BigDecimal.ZERO) || payment.getAmountAvailable().doubleValue() < price)
             throw new GeneralException("Ürüne ait ödeme kaydı bulunamadı!");
 
         var food = foodRepository.findById(dto.getFood().getFoodId()).orElseThrow(() -> new RuntimeException("Not Found!"));
         dto.setFood(food);
-        dto.setStockId(stock.getStockId());
+        dto.setStockId(UUID.fromString(stock.getStockId()));
         dto.setPaymentId(payment.getPaymentId());
         dto.setCreateDate(new Date());
         var model = repository.save(dto);
