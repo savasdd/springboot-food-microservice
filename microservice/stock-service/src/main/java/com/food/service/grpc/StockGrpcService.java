@@ -22,10 +22,10 @@ public class StockGrpcService extends StockServiceGrpc.StockServiceImplBase {
     public void getStock(StockRequest request, StreamObserver<StockResponse> responseObserver) {
         try {
             var stock = service.getStockByFoodId(request.getFoodId());
-            responseObserver.onNext(!stock.isEmpty() ? StockResponse.newBuilder().setStockId(stock.get(0).getStockId().toString()).setAvailableItems(stock.get(0).getAvailableItems()).build() : null);
+            responseObserver.onNext(!stock.isEmpty() ? StockResponse.newBuilder().setStockId(stock.get(0).getStockId().toString()).setAvailableItems(stock.get(0).getAvailableItems()).setStatus(200).build() : StockResponse.newBuilder().setStatus(400).build());
             responseObserver.onCompleted();
 
-            log.info("Stock Grpc");
+            log.info("Call StockGrpcService");
         } catch (Exception e) {
             log.error(e.getMessage());
         }

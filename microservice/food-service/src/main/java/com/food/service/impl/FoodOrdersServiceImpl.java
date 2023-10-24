@@ -74,7 +74,7 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
         var count = repository.getCountPrice(dto.getFood().getFoodId(), dto.getStatus());
         var stock = grpcService.getStock(dto.getFood().getFoodId().toString());
 
-        if (stock == null || count > stock.getAvailableItems())
+        if (stock.getStatus() == 400 || count > stock.getAvailableItems())
             throw new GeneralException("Ürüne ait stok kaydı bulunamadı!");
 
         var payment = getPaymentStatus(UUID.fromString(stock.getStockId()));
