@@ -1,5 +1,6 @@
 package com.food.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.food.enums.EOrderType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
@@ -46,6 +47,10 @@ public class Orders extends BaseEntity {
 
     @Column(name = "createDate")
     private Date createDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "orderDate")
+    private Date orderDate;
 
     @Transient
     private String image;
