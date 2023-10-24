@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.food.grpc;
+
+service PaymentService {
+  rpc getPayment(PaymentRequest) returns (PaymentResponse);
+}
+
+message PaymentRequest {
+  string stockId = 1;
+}
+
+message PaymentResponse {
+  string paymentId = 1;
+  double amountAvailable = 2;
+  int64 status = 3;
+}
