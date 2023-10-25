@@ -32,13 +32,13 @@ public class KeycloakAuthClient {
 
     @Value("${keycloak.realm}")
     String realm;
-    @Value("${keycloak.credentials.secret}")
+    @Value("${keycloak.secret}")
     String clientSecret;
 
     @Value("${keycloak.host}")
     String baseUrl;
 
-    @Value("${keycloak.auth-server-url}")
+    @Value("${keycloak.url}")
     String authUrl;
 
     public AccessTokenResponse authenticate(UserDto dto) {
