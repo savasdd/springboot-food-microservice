@@ -1,5 +1,5 @@
 server:
-  host: 127.0.0.1
+  host: localhost
   port: 8085
 
 keycloak:
@@ -18,6 +18,13 @@ spring:
     import: info.properties,eureka.properties,predicate.properties
   security:
     oauth2:
-      resource-server:
+      resourceserver:
         jwt:
-          issuer-uri: ${keycloak.host}/realms/${keycloak.realm}
+          issuer-uri: http://localhost:8043/auth/realms/food-microservice
+          jwk-set-uri: http://localhost:8043/auth/realms/food-microservice/protocol/openid-connect/certs
+
+jwt:
+  auth:
+    converter:
+      resource-id: ${keycloak.resource}
+      principal-attribute: preferred_username
