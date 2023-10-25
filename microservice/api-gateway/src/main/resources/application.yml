@@ -3,7 +3,7 @@ server:
   port: 8085
 
 keycloak:
-  host: http://${server.host}}:8043/auth
+  host: http://${server.host}:8043/auth
   realm: food-microservice
   resource: food-microservice-backend
   secret: 8It8vOmZU0iAWEJGbEgowvUaQWSSH523

@@ -1,6 +1,7 @@
 package com.food.service.impl;
 
 import com.food.dto.UserDto;
+import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
 import com.food.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,31 +25,31 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public AccessTokenResponse authenticate(UserDto dto) throws Exception {
+    public AccessTokenResponse authenticate(UserDto dto) throws GeneralException {
         AccessTokenResponse response = client.authenticate(dto);
         return response;
     }
 
     @Override
-    public AccessTokenResponse refreshToken(String token) {
+    public AccessTokenResponse refreshToken(String token) throws GeneralException {
         AccessTokenResponse response = client.refreshToken(token);
         return response;
     }
 
     @Override
-    public UserRepresentation getUser(String username) {
+    public UserRepresentation getUser(String username) throws GeneralException {
         UserRepresentation userList = client.initClient().users().search(username.trim()).get(0);
         return userList;
     }
 
     @Override
-    public List<RoleRepresentation> getRoles() {
+    public List<RoleRepresentation> getRoles() throws GeneralException {
         List<RoleRepresentation> list = client.initClient().roles().list();
         return list;
     }
 
     @Override
-    public List<GroupRepresentation> getGroup() {
+    public List<GroupRepresentation> getGroup() throws GeneralException {
         List<GroupRepresentation> list = client.initClient().groups().groups();
         return list;
     }

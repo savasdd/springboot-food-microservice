@@ -2,6 +2,7 @@ package com.food.controller;
 
 import com.food.dto.KeycloakTokenResponse;
 import com.food.dto.UserDto;
+import com.food.exception.GeneralException;
 import com.food.service.AuthService;
 import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -23,17 +24,17 @@ public class AuthController {
     }
 
     @PostMapping("/getToken")
-    public ResponseEntity<AccessTokenResponse> getToken(@RequestBody UserDto dto) throws Exception {
+    public ResponseEntity<AccessTokenResponse> getToken(@RequestBody UserDto dto) throws GeneralException {
         return new ResponseEntity<>(authService.authenticate(dto), HttpStatus.OK);
     }
 
     @PostMapping("/getRefreshToken")
-    public ResponseEntity<AccessTokenResponse> refreshToken(@RequestBody KeycloakTokenResponse token) {
+    public ResponseEntity<AccessTokenResponse> refreshToken(@RequestBody KeycloakTokenResponse token) throws GeneralException{
         return new ResponseEntity<>(authService.refreshToken(token.getRefreshToken()), HttpStatus.OK);
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<List<RoleRepresentation>> getUserRoles() throws Exception {
+    public ResponseEntity<List<RoleRepresentation>> getUserRoles()  throws GeneralException{
         return new ResponseEntity<>(authService.getRoles(), HttpStatus.OK);
     }
 
