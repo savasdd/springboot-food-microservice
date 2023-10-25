@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  keycloak:
+      image: quay.io/keycloak/keycloak:legacy
+      container_name: keycloak_oauth
+      ports:
+        - 8043:8080
+        - 8443:8443
+        - 8787:8787
+      environment:
+        JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.upload_scripts=enabled
+        DB_VENDOR: POSTGRES
+        #DB_ADDR: 192.168.1.21:5432
+        DB_ADDR: 192.168.1.23:5432
+        DB_DATABASE: keycloak_db
+        DB_USER: postgres
+        DB_SCHEMA: public
+        DB_PASSWORD: postgres
+        KC_HEALTH_ENABLED: 'true'
+        KC_HTTP_ENABLED: 'true'
+        KC_METRICS_ENABLED: 'true'
+        KC_HOSTNAME: keycloak.com.au
+        KC_HOSTNAME_PORT: 8043
+        KC_PROXY: reencrypt
+        KEYCLOAK_USER: admin_keycloak
+        KEYCLOAK_PASSWORD: 123456
+        KEYCLOAK_FRONTEND_URL: http://localhost:8043/auth
+        #KC_HOSTNAME_URL: http://keycloak.com.svs:8043

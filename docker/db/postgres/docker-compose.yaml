@@ -3,16 +3,20 @@ version: '3.3'
 services:
   db:
     image: postgres:14.1-alpine
-    container_name: postgres_db
+    container_name: postgres_kyc_db
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=keycloak
+    expose:
+      - "54322"
     ports:
-      - '5432:5432'
+      - "54322:54322"
     volumes: 
-      - db:/var/lib/postgresql/data
-
+      - product-volume:/var/lib/postgresql/data
+    command: -p 54322
+    
 volumes:
-  db:
+  product-volume:
     driver: local
