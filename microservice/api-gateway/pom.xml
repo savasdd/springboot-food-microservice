@@ -14,6 +14,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <spring.boot.version>2.7.8</spring.boot.version>
         <resteasy.version>3.0.9.Final</resteasy.version>
         <keycloak.version>1.8.0.CR1-SNAPSHOT</keycloak.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,6 +84,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <!--Keycloak-->

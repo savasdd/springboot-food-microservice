@@ -1,20 +1,22 @@
 package com.food.service;
 
 import com.food.dto.UserDto;
-import com.food.dto.UserRolDto;
-import com.food.service.impl.AuthServiceImpl;
-import com.food.utils.kyce.KeycloakTokenResponse;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.keycloak.representations.AccessTokenResponse;
+import org.keycloak.representations.idm.GroupRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
 
 
 public interface AuthService {
-    public KeycloakTokenResponse getToken(UserDto dto) throws Exception;
+    AccessTokenResponse authenticate(UserDto dto) throws Exception;
 
-    public KeycloakTokenResponse refreshToken(String token);
+    AccessTokenResponse refreshToken(String token);
 
-    public List<UserRolDto> getUserRoles();
+    UserRepresentation getUser(String username);
+
+    List<RoleRepresentation> getRoles();
+
+    List<GroupRepresentation> getGroup();
 }

@@ -1,4 +1,4 @@
-package com.food.utils.kyce;
+package com.food.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.food.dto.UserRolDto;

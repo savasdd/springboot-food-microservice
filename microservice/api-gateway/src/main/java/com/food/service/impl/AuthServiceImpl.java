@@ -1,64 +1,57 @@
 package com.food.service.impl;
 
 import com.food.dto.UserDto;
-import com.food.dto.UserRolDto;
+import com.food.keycloak.KeycloakClient;
 import com.food.service.AuthService;
-import com.food.utils.kyce.AuthUtils;
-import com.food.utils.kyce.KeycloakAuthClient;
-import com.food.utils.kyce.KeycloakTokenResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.representations.AccessTokenResponse;
+import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final AuthUtils utils;
-    private final KeycloakAuthClient client;
+    private final KeycloakClient client;
 
-    public AuthServiceImpl(AuthUtils utils, KeycloakAuthClient client) {
-        this.utils = utils;
+    public AuthServiceImpl(KeycloakClient client) {
         this.client = client;
     }
 
-    @Override
-    public KeycloakTokenResponse getToken(UserDto dto) throws Exception {
-        AccessTokenResponse response = client.authenticateApi(dto);
-        log.info("Generate Token: " + dto.getUsername());
-        return new KeycloakTokenResponse(response.getToken(), response.getExpiresIn(), response.getTokenType(), utils.getUserRol(response.getToken()), response.getRefreshToken(), response.getRefreshExpiresIn());
 
-//        if (client.isLoginUser(dto.getUsername())) {
-//            log.info("Generate Token: " + dto.getUsername());
-//            return new KeycloakTokenResponse(response.getToken(), response.getExpiresIn(), response.getTokenType(), utils.getUserRol(response.getToken()), response.getRefreshToken(), response.getRefreshExpiresIn());
-//        } else
-//            throw new Exception("Kullanıcı Giriş Yetkisi Yok!");
+    @Override
+    public AccessTokenResponse authenticate(UserDto dto) throws Exception {
+        AccessTokenResponse response = client.authenticate(dto);
+        return response;
     }
 
     @Override
-    public KeycloakTokenResponse refreshToken(String token) {
-        try {
-            AccessTokenResponse response = client.refreshToken(token);
-            log.info("Generate Refresh Token");
-            return new KeycloakTokenResponse(response.getToken(), response.getExpiresIn(), response.getTokenType(), utils.getUserRol(response.getToken()), response.getRefreshToken(), response.getRefreshExpiresIn());
-
-        } catch (Exception e) {
-            log.error("Token Hatası");
-            e.printStackTrace();
-            return null;
-        }
+    public AccessTokenResponse refreshToken(String token) {
+        AccessTokenResponse response = client.refreshToken(token);
+        return response;
     }
 
     @Override
-    public List<UserRolDto> getUserRoles() {
-        List<RoleRepresentation> list = client.getUserRoles(utils.getCurrentAuditor().get());
-        var rolList = list.stream().map(m -> new UserRolDto(m.getName())).collect(Collectors.toList());
-        log.info("Get User Roles");
-        return rolList.size() > 0 ? rolList : null;
+    public UserRepresentation getUser(String username) {
+        UserRepresentation userList = client.initClient().users().search(username.trim()).get(0);
+        return userList;
     }
+
+    @Override
+    public List<RoleRepresentation> getRoles() {
+        List<RoleRepresentation> list = client.initClient().roles().list();
+        return list;
+    }
+
+    @Override
+    public List<GroupRepresentation> getGroup() {
+        List<GroupRepresentation> list = client.initClient().groups().groups();
+        return list;
+    }
+
 
 }
