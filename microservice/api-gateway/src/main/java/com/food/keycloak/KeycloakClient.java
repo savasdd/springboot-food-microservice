@@ -54,7 +54,6 @@ public class KeycloakClient {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(paramMap, headers);
 
-        log.info("Try to authenticate");
         final RestTemplate restTemplate = new RestTemplate();
         return getAccessTokenResponse(entity, restTemplate);
     }

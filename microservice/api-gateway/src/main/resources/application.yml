@@ -6,7 +6,7 @@ keycloak:
   host: http://${server.host}:8043/auth
   realm: food-microservice
   resource: food-microservice-backend
-  secret: 8It8vOmZU0iAWEJGbEgowvUaQWSSH523
+  secret: bQWQTn5RAfDSsXPG8ko7AsEnqsW7hbmj
   url: ${keycloak.host}/realms/${keycloak.realm}/protocol/openid-connect/token
 
 spring:
