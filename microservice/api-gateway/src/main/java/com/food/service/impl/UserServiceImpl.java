@@ -53,12 +53,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String createRoles(RolDto dto) throws GeneralException {
+    public RolDto createRoles(RolDto dto) throws GeneralException {
         RoleRepresentation rol = new RoleRepresentation();
         rol.setName(dto.getName());
         rol.setDescription(dto.getDescription());
         client.initClient().roles().create(rol);
-        return "Success";
+        return dto;
     }
 
     @Override

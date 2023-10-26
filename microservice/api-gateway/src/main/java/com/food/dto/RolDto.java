@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class RolDto implements Serializable {
+    private String id;
     private String name;
     private String description;
 }

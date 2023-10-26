@@ -39,6 +39,15 @@ export class AuthRolComponent implements OnInit {
           };
         });
       },
+      insert: (values) => {
+        return this.service.saveRol(values).toPromise().then((response) => {
+            return;
+          },
+          err => {
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+          }
+        );
+      },
     });
   }
 }

@@ -17,7 +17,7 @@ public interface UserService {
 
     GenericResponse getRoles() throws GeneralException;
 
-    String createRoles(RolDto dto) throws GeneralException;
+    RolDto createRoles(RolDto dto) throws GeneralException;
 
     GenericResponse getGroup() throws GeneralException;
 }

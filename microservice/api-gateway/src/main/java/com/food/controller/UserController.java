@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/roles")
-    public ResponseEntity<String> createGatewayRoles(@RequestBody RolDto dto) throws GeneralException {
+    public ResponseEntity<RolDto> createGatewayRoles(@RequestBody RolDto dto) throws GeneralException {
         return new ResponseEntity<>(service.createRoles(dto), HttpStatus.CREATED);
     }
 
