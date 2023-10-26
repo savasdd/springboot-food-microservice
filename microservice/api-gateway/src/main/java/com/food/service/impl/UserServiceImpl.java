@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.dto.GenericResponse;
 import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
 import com.food.service.UserService;
@@ -29,26 +30,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserRepresentation> getAllUser() throws GeneralException {
+    public GenericResponse getAllUser() throws GeneralException {
+        var response = new GenericResponse<UserRepresentation>();
         var list = client.initClient().users().list();
+        response.setData(list);
+        response.setTotalCount(list.size());
 
         log.info("get users {}", list.size());
-        return list;
+        return response;
     }
 
     @Override
-    public List<RoleRepresentation> getRoles() throws GeneralException {
+    public GenericResponse getRoles() throws GeneralException {
+        var response = new GenericResponse<RoleRepresentation>();
         List<RoleRepresentation> list = client.initClient().roles().list();
+        response.setData(list);
+        response.setTotalCount(list.size());
 
         log.info("get roles {}", list.size());
-        return list;
+        return response;
     }
 
     @Override
-    public List<GroupRepresentation> getGroup() throws GeneralException {
+    public GenericResponse getGroup() throws GeneralException {
+        var response = new GenericResponse<GroupRepresentation>();
         List<GroupRepresentation> list = client.initClient().groups().groups();
+        response.setData(list);
+        response.setTotalCount(list.size());
 
         log.info("get group {}", list.size());
-        return list;
+        return response;
     }
 }

@@ -34,8 +34,8 @@ export class AuthGroupComponent implements OnInit {
       load: (loadOptions) => {
         return this.service.findAllGroup(loadOptions).toPromise().then((response: any) => {
           return {
-            data: response,
-            totalCount: 200
+            data: response.data,
+            totalCount: response.totalCount
           };
         });
       },

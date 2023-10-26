@@ -1,5 +1,6 @@
 package com.food.service;
 
+import com.food.dto.GenericResponse;
 import com.food.exception.GeneralException;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -11,9 +12,9 @@ import java.util.List;
 public interface UserService {
     UserRepresentation getUser(String username) throws GeneralException;
 
-    List<UserRepresentation> getAllUser() throws GeneralException;
+    GenericResponse getAllUser() throws GeneralException;
 
-    List<RoleRepresentation> getRoles() throws GeneralException;
+    GenericResponse getRoles() throws GeneralException;
 
-    List<GroupRepresentation> getGroup() throws GeneralException;
+    GenericResponse getGroup() throws GeneralException;
 }
