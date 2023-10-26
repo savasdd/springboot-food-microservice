@@ -1,6 +1,7 @@
 package com.food.controller;
 
 import com.food.dto.GenericResponse;
+import com.food.dto.RolDto;
 import com.food.exception.GeneralException;
 import com.food.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +34,11 @@ public class UserController {
     @GetMapping("/roles")
     public ResponseEntity<GenericResponse> getGatewayRoles() throws GeneralException {
         return new ResponseEntity<>(service.getRoles(), HttpStatus.OK);
+    }
+
+    @PostMapping("/roles")
+    public ResponseEntity<String> createGatewayRoles(@RequestBody RolDto dto) throws GeneralException {
+        return new ResponseEntity<>(service.createRoles(dto), HttpStatus.CREATED);
     }
 
     @GetMapping("/groups")

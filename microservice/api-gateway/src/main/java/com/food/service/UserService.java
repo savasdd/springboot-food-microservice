@@ -1,6 +1,7 @@
 package com.food.service;
 
 import com.food.dto.GenericResponse;
+import com.food.dto.RolDto;
 import com.food.exception.GeneralException;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -15,6 +16,8 @@ public interface UserService {
     GenericResponse getAllUser() throws GeneralException;
 
     GenericResponse getRoles() throws GeneralException;
+
+    String createRoles(RolDto dto) throws GeneralException;
 
     GenericResponse getGroup() throws GeneralException;
 }
