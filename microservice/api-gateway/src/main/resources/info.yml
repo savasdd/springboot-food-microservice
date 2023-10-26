@@ -1,0 +1,27 @@
+management:
+  server:
+    port: ${server.port}
+  endpoints:
+    web:
+      exposure:
+        exclude: '*'
+  endpoint:
+    health:
+      show-components: always
+      show-details: always
+    caches:
+      enabled: false
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+
+info:
+  application:
+    name: api-gateway service backend
+    description: service backend
+    author:
+      name: Savas Dede
+      bio: Software Developer
+      githubProfile: https://github.com/savasdd

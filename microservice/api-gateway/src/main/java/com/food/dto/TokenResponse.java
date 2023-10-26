@@ -1,7 +1,6 @@
 package com.food.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.food.dto.UserRolDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class KeycloakTokenResponse {
+public class TokenResponse {
 
     @JsonProperty("access_token")
     private String accessToken;

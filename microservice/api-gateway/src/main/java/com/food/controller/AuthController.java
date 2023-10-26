@@ -1,6 +1,6 @@
 package com.food.controller;
 
-import com.food.dto.KeycloakTokenResponse;
+import com.food.dto.TokenResponse;
 import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
 import com.food.service.AuthService;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -30,11 +29,11 @@ public class AuthController {
     }
 
     @PostMapping("/getRefreshToken")
-    public ResponseEntity<AccessTokenResponse> refreshToken(@RequestBody KeycloakTokenResponse token) throws GeneralException {
+    public ResponseEntity<AccessTokenResponse> refreshToken(@RequestBody TokenResponse token) throws GeneralException {
         return new ResponseEntity<>(authService.refreshToken(token.getRefreshToken()), HttpStatus.OK);
     }
 
-    //    @RolesAllowed({"ADMIN_ROLU"})
+    //@RolesAllowed({"ADMIN_ROLU"})
     @GetMapping("/roles")
     public ResponseEntity<List<RoleRepresentation>> getUserRoles() throws GeneralException {
         return new ResponseEntity<>(authService.getRoles(), HttpStatus.OK);

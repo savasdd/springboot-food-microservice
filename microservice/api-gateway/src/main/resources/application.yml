@@ -15,7 +15,7 @@ spring:
   banner:
     location: banner.txt
   config:
-    import: info.properties,eureka.properties,predicate.properties
+    import: info.yml,eureka.yml,predicate.properties
   security:
     oauth2:
       resourceserver:
