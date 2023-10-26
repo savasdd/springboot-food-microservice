@@ -35,7 +35,7 @@ import {TokenResponse} from "../model/TokenResponse";
 @Injectable({
   providedIn: 'root'
 })
-export class UserController {
+export class UserAuthController {
 
     protected basePath = 'http://localhost:8085';
     public defaultHeaders = new HttpHeaders();
@@ -97,10 +97,10 @@ export class UserController {
     }
 
 
-  public createGatewayRoles(payment: UserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
-  public createGatewayRoles(payment: UserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
-  public createGatewayRoles(payment: UserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
-  public createGatewayRoles(payment: UserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+  public createGatewayRole(payment: UserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any>;
+  public createGatewayRole(payment: UserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<any>>;
+  public createGatewayRole(payment: UserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<any>>;
+  public createGatewayRole(payment: UserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
     if (payment === null || payment === undefined) {
       throw new Error('Required parameter payment was null or undefined when calling createPayment.');
     }

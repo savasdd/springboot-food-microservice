@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxFormComponent} from "devextreme-angular";
-import {UserService} from "../../../services/user.service";
+import {UserFileService} from "../../../services/user-file.service";
 import notify from "devextreme/ui/notify";
 
 @Component({
@@ -13,7 +13,7 @@ export class UserProfileComponent implements OnInit {
   @ViewChild(DxFormComponent, {static: false}) form: any = DxFormComponent;
 
 
-  constructor(private service: UserService) {
+  constructor(private service: UserFileService) {
   }
 
   ngOnInit(): void {
