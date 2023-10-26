@@ -1,0 +1,24 @@
+server:
+  host: 127.0.0.1
+  port: 8087
+  db: food_stock_db
+
+spring:
+  application:
+    name: stock-service
+  banner:
+    location: banner.txt
+  config:
+    import: eureka.yml,info.yml,kafka.yml,rabbit.yml,quartz.yml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${server.host}:5432/${server.db}
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+grpc:
+  server:
+    port: 9090

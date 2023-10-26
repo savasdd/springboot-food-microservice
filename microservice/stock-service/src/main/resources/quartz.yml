@@ -1,0 +1,5 @@
+stock:
+  action:
+    schedule: false
+  sum:
+    schedule: false
