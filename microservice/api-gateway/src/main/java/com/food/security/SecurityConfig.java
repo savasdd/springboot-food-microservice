@@ -32,8 +32,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
                         .pathMatchers("/eureka/**").permitAll()
-                        .pathMatchers("/api/auth/getToken").permitAll()
-                        .pathMatchers("/api/auth/getRefreshToken").permitAll()
+                        .pathMatchers("/api/auth/**").permitAll()
                         .pathMatchers("/actuator/**").permitAll()
                         .anyExchange()
                         .authenticated())
