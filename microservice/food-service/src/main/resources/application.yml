@@ -1,0 +1,30 @@
+server:
+  host: 127.0.0.1
+  port: 8081
+  db: food_db
+
+
+spring:
+  application:
+    name: food-service
+  banner:
+    location: banner.txt
+  config:
+    import: eureka.yml,info.yml,kafka.yml,rabbit.yml,minio.yml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${server.host}:5432/${server.db}
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+grpc:
+  client:
+    grpc-stock-service:
+      address: static://${server.host}:9090
+      negotiation-type: plaintext
+    grpc-payment-service:
+      address: static://${server.host}:9091
+      negotiation-type: plaintext

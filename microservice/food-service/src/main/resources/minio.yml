@@ -1,0 +1,15 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+
+minio:
+  bucket-name: minio-food
+  accessKey: minioadmin
+  secretKey: minioadmin
+  port: 9004
+  secure: false
+  image-size: 10485760
+  file-size: 1073741824
+  endpoint: http://${server.host}:9004
