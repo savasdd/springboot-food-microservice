@@ -1,11 +1,13 @@
 package com.food.service.impl;
 
 import com.food.dto.GenericResponse;
+import com.food.dto.GroupDto;
 import com.food.dto.RolDto;
 import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
 import com.food.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -18,14 +20,16 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final KeycloakClient client;
+    private final RealmResource resource;
 
     public UserServiceImpl(KeycloakClient client) {
         this.client = client;
+        this.resource = client.initClient();
     }
 
     @Override
     public UserRepresentation getUser(String username) throws GeneralException {
-        UserRepresentation userList = client.initClient().users().search(username.trim()).get(0);
+        UserRepresentation userList = resource.users().search(username.trim()).get(0);
         log.info("get user {}", username);
         return userList;
     }
@@ -33,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GenericResponse getAllUser() throws GeneralException {
         var response = new GenericResponse<UserRepresentation>();
-        var list = client.initClient().users().list();
+        var list = resource.users().list();
         response.setData(list);
         response.setTotalCount(list.size());
 
@@ -44,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GenericResponse getRoles() throws GeneralException {
         var response = new GenericResponse<RoleRepresentation>();
-        List<RoleRepresentation> list = client.initClient().roles().list();
+        List<RoleRepresentation> list = resource.roles().list();
         response.setData(list);
         response.setTotalCount(list.size());
 
@@ -57,14 +61,22 @@ public class UserServiceImpl implements UserService {
         RoleRepresentation rol = new RoleRepresentation();
         rol.setName(dto.getName());
         rol.setDescription(dto.getDescription());
-        client.initClient().roles().create(rol);
+        resource.roles().create(rol);
+        return dto;
+    }
+
+    @Override
+    public GroupDto createGroup(GroupDto dto) throws GeneralException {
+        GroupRepresentation group = new GroupRepresentation();
+        group.setName(dto.getName());
+        resource.groups().add(group);
         return dto;
     }
 
     @Override
     public GenericResponse getGroup() throws GeneralException {
         var response = new GenericResponse<GroupRepresentation>();
-        List<GroupRepresentation> list = client.initClient().groups().groups();
+        List<GroupRepresentation> list = resource.groups().groups();
         response.setData(list);
         response.setTotalCount(list.size());
 

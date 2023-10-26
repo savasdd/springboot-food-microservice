@@ -39,6 +39,15 @@ export class AuthGroupComponent implements OnInit {
           };
         });
       },
+      insert: (values) => {
+        return this.service.saveGroup(values).toPromise().then((response) => {
+            return;
+          },
+          err => {
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+          }
+        );
+      },
     });
   }
 }

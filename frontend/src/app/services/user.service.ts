@@ -34,6 +34,10 @@ export class UserService {
     return this.service.createGatewayRole(data).pipe(catchError(this.handleError));
   }
 
+  saveGroup(data: any) {
+    return this.service.createGatewayGroup(data).pipe(catchError(this.handleError));
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     const service = new MessageService;

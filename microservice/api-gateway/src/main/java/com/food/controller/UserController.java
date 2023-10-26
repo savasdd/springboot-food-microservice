@@ -1,6 +1,7 @@
 package com.food.controller;
 
 import com.food.dto.GenericResponse;
+import com.food.dto.GroupDto;
 import com.food.dto.RolDto;
 import com.food.exception.GeneralException;
 import com.food.service.UserService;
@@ -44,6 +45,11 @@ public class UserController {
     @GetMapping("/groups")
     public ResponseEntity<GenericResponse> getGatewayGroup() throws GeneralException {
         return new ResponseEntity<>(service.getGroup(), HttpStatus.OK);
+    }
+
+    @PostMapping("/groups")
+    public ResponseEntity<GroupDto> createGatewayGroup(@RequestBody GroupDto dto) throws GeneralException {
+        return new ResponseEntity<>(service.createGroup(dto), HttpStatus.CREATED);
     }
 
     //@RolesAllowed({"ADMIN_ROLU"})
