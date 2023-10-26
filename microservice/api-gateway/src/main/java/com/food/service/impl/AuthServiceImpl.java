@@ -1,5 +1,6 @@
 package com.food.service.impl;
 
+import com.food.dto.TokenResponse;
 import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
@@ -20,17 +21,16 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public AccessTokenResponse authenticate(UserDto dto) throws GeneralException {
+    public TokenResponse authenticate(UserDto dto) throws GeneralException {
         AccessTokenResponse response = client.authenticate(dto);
-        return response;
+        return TokenResponse.builder().accessToken(response.getToken()).expiresIn(response.getExpiresIn()).tokenType(response.getTokenType()).refreshToken(response.getRefreshToken()).expiresInRefresh(response.getRefreshExpiresIn()).build();
     }
 
     @Override
-    public AccessTokenResponse refreshToken(String token) throws GeneralException {
+    public TokenResponse refreshToken(String token) throws GeneralException {
         AccessTokenResponse response = client.refreshToken(token);
-        return response;
+        return TokenResponse.builder().accessToken(response.getToken()).expiresIn(response.getExpiresIn()).tokenType(response.getTokenType()).refreshToken(response.getRefreshToken()).expiresInRefresh(response.getRefreshExpiresIn()).build();
     }
-
 
 
 }

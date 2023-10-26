@@ -21,12 +21,12 @@ public class AuthController {
     }
 
     @PostMapping("/getToken")
-    public ResponseEntity<AccessTokenResponse> getToken(@RequestBody UserDto dto) throws GeneralException {
+    public ResponseEntity<TokenResponse> getToken(@RequestBody UserDto dto) throws GeneralException {
         return new ResponseEntity<>(authService.authenticate(dto), HttpStatus.OK);
     }
 
     @PostMapping("/getRefreshToken")
-    public ResponseEntity<AccessTokenResponse> refreshToken(@RequestBody TokenResponse token) throws GeneralException {
+    public ResponseEntity<TokenResponse> refreshToken(@RequestBody TokenResponse token) throws GeneralException {
         return new ResponseEntity<>(authService.refreshToken(token.getRefreshToken()), HttpStatus.OK);
     }
 

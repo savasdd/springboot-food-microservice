@@ -1,5 +1,6 @@
 package com.food.service;
 
+import com.food.dto.TokenResponse;
 import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
 import org.keycloak.representations.AccessTokenResponse;
@@ -11,8 +12,8 @@ import java.util.List;
 
 
 public interface AuthService {
-    AccessTokenResponse authenticate(UserDto dto) throws GeneralException;
+    TokenResponse authenticate(UserDto dto) throws GeneralException;
 
-    AccessTokenResponse refreshToken(String token) throws GeneralException;
+    TokenResponse refreshToken(String token) throws GeneralException;
 
 }

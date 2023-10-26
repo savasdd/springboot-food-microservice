@@ -6,7 +6,7 @@ api/categoryController.service.ts
 api/foodController.service.ts
 api/foodFileController.service.ts
 api/foodOrdersController.service.ts
-api/paymentController.service.ts
+api/authController.service.ts
 api/userFileController.service.ts
 configuration.ts
 encoder.ts
