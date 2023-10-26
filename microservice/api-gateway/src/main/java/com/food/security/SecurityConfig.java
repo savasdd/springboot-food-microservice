@@ -17,9 +17,6 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
-            "/eureka/**",
-            "/api/auth/**",
-            "/actuator/**",
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
@@ -53,6 +50,10 @@ public class SecurityConfig {
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
                         .and()
                         .authorizeExchange()
+                        .pathMatchers("/eureka/**").permitAll()
+                        .pathMatchers("/api/auth/**").permitAll()
+                        .pathMatchers("/api/users/**").permitAll()
+                        .pathMatchers("/actuator/**").permitAll()
                         .pathMatchers(AUTH_WHITELIST).permitAll()
                         .anyExchange()
                         .authenticated())
