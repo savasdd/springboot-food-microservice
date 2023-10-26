@@ -28,7 +28,7 @@
 
                 <dxo-paging [enabled]="true"></dxo-paging>
                 <dxo-editing
-                  mode="row"
+                  mode="form"
                   [allowUpdating]="false"
                   [allowDeleting]="false"
                   [allowAdding]="true"
@@ -43,12 +43,18 @@
                   </dxi-item>
                 </dxo-toolbar>
 
-                <dxi-column dataField="id" ></dxi-column>
-                <dxi-column dataField="firstName" caption="Name"></dxi-column>
+                <dxi-column dataField="firstName" caption="Name">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
                 <dxi-column dataField="lastName" caption="Surname"></dxi-column>
-                <dxi-column dataField="username" caption="Username"></dxi-column>
+                <dxi-column dataField="username" caption="Username">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
                 <dxi-column dataField="email"></dxi-column>
                 <dxi-column dataField="enabled"></dxi-column>
+                <dxi-column dataField="password" [visible]="false">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
 
                 <dxo-paging [pageSize]="10"></dxo-paging>
                 <dxo-pager

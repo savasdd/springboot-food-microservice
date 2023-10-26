@@ -44,7 +44,9 @@
                 </dxo-toolbar>
 
                 <dxi-column dataField="id" [allowEditing]="false" cellTemplate="cellTemplate"></dxi-column>
-                <dxi-column dataField="name" cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="name" cellTemplate="cellTemplate">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
                 <dxi-column dataField="description" cellTemplate="cellTemplate"></dxi-column>
 
                 <div *dxTemplate="let data of 'cellTemplate'">
