@@ -11,6 +11,8 @@ import java.util.List;
 public interface UserService {
     UserRepresentation getUser(String username) throws GeneralException;
 
+    List<UserRepresentation> getAllUser() throws GeneralException;
+
     List<RoleRepresentation> getRoles() throws GeneralException;
 
     List<GroupRepresentation> getGroup() throws GeneralException;

@@ -2,6 +2,7 @@ package com.food.controller;
 
 import com.food.exception.GeneralException;
 import com.food.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -22,12 +23,12 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/user/{username}")
-    public ResponseEntity<UserRepresentation> getGatewayUser(@PathVariable String username) throws GeneralException {
-        return new ResponseEntity<>(service.getUser(username), HttpStatus.OK);
+    @Operation(description = "get all users")
+    @GetMapping("")
+    public ResponseEntity<List<UserRepresentation>> getGatewayAllUser() throws GeneralException {
+        return new ResponseEntity<>(service.getAllUser(), HttpStatus.OK);
     }
 
-    //@RolesAllowed({"ADMIN_ROLU"})
     @GetMapping("/roles")
     public ResponseEntity<List<RoleRepresentation>> getGatewayRoles() throws GeneralException {
         return new ResponseEntity<>(service.getRoles(), HttpStatus.OK);
@@ -37,4 +38,11 @@ public class UserController {
     public ResponseEntity<List<GroupRepresentation>> getGatewayGroup() throws GeneralException {
         return new ResponseEntity<>(service.getGroup(), HttpStatus.OK);
     }
+
+    //@RolesAllowed({"ADMIN_ROLU"})
+    @GetMapping("/user/{username}")
+    public ResponseEntity<UserRepresentation> getGatewayUser(@PathVariable String username) throws GeneralException {
+        return new ResponseEntity<>(service.getUser(username), HttpStatus.OK);
+    }
+
 }

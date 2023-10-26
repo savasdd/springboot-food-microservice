@@ -24,18 +24,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserRepresentation getUser(String username) throws GeneralException {
         UserRepresentation userList = client.initClient().users().search(username.trim()).get(0);
+        log.info("get user {}", username);
         return userList;
+    }
+
+    @Override
+    public List<UserRepresentation> getAllUser() throws GeneralException {
+        var list = client.initClient().users().list();
+
+        log.info("get users {}", list.size());
+        return list;
     }
 
     @Override
     public List<RoleRepresentation> getRoles() throws GeneralException {
         List<RoleRepresentation> list = client.initClient().roles().list();
+
+        log.info("get roles {}", list.size());
         return list;
     }
 
     @Override
     public List<GroupRepresentation> getGroup() throws GeneralException {
         List<GroupRepresentation> list = client.initClient().groups().groups();
+
+        log.info("get group {}", list.size());
         return list;
     }
 }

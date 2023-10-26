@@ -16,10 +16,26 @@ import java.util.Arrays;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
+    private static final String[] AUTH_WHITELIST = {
+            "/eureka/**",
+            "/api/auth/**",
+            "/actuator/**",
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/configuration/**"
+    };
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:8085"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.addAllowedHeader("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -31,9 +47,9 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.csrf().disable()
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
-                        .pathMatchers("/eureka/**").permitAll()
-                        .pathMatchers("/api/auth/**").permitAll()
-                        .pathMatchers("/actuator/**").permitAll()
+                        .and()
+                        .authorizeExchange()
+                        .pathMatchers(AUTH_WHITELIST).permitAll()
                         .anyExchange()
                         .authenticated())
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
