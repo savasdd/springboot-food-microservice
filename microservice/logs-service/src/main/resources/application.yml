@@ -1,0 +1,18 @@
+server:
+  host: 127.0.0.1
+  port: 8086
+  db: log_db
+  username: root
+  password: root123
+
+
+spring:
+  application:
+    name: logs-service
+  banner:
+    location: banner.txt
+  config:
+    import: eureka.yml,info.yml,rabbit.yml
+  data:
+    mongodb:
+      uri: mongodb://${server.username}:${server.password}@${server.host}:27017/${server.db}?authSource=admin
