@@ -1,0 +1,24 @@
+server:
+  host: 127.0.0.1
+  port: 8088
+  db: food_payment_db
+
+spring:
+  application:
+    name: payment-service
+  banner:
+    location: banner.txt
+  config:
+    import: eureka.yml,info.yml,kafka.yml,rabbit.yml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${server.host}:5432/${server.db}
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+grpc:
+  server:
+    port: 9091
