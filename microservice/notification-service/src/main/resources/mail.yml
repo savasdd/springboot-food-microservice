@@ -1,0 +1,16 @@
+mail:
+  host: svsdd22@gmail.com
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${mail.host}
+    password: xxxx xxxx xxxx xxxx
+    properties:
+      mail:
+        debug: true
+    mail:
+      smtp:
+        starttls:
+          enable: true
