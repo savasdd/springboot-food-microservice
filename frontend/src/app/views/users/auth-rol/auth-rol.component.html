@@ -43,7 +43,7 @@
                   </dxi-item>
                 </dxo-toolbar>
 
-                <dxi-column dataField="id" cellTemplate="cellTemplate"></dxi-column>
+                <dxi-column dataField="id" [allowEditing]="false" cellTemplate="cellTemplate"></dxi-column>
                 <dxi-column dataField="name" cellTemplate="cellTemplate"></dxi-column>
 
                 <div *dxTemplate="let data of 'cellTemplate'">
