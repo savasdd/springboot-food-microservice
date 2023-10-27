@@ -19,14 +19,14 @@ export class GroupRolComponent implements OnChanges {
   constructor(private service: UserService) {
     this.loadGrid = this.loadGrid.bind(this);
     this.loadRol = this.loadRol.bind(this);
+
+    this.loadGrid();
+    this.loadRol();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.groupId = this.data ? this.data.id : null;
-    if (this.groupId !== null) {
-      this.loadGrid();
-      this.loadRol();
-    }
+
   }
 
   logEvent(eventName: any) {
@@ -38,39 +38,39 @@ export class GroupRolComponent implements OnChanges {
   }
 
   loadGrid() {
-    this.dataSource = new CustomStore({
-      key: 'id',
-      load: (loadOptions) => {
-        return this.service.getGroupRol(this.groupId).toPromise().then((response: any) => {
-          return {
-            data: response.data,
-            totalCount: response.totalCount
-          };
-        });
-      },
-      insert: (values) => {
-        values.groupId = this.groupId;
-        values.name = this.filterRol(values.id);
-        return this.service.addGroupRol(values).toPromise().then((response) => {
-            return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
-          }
-        );
-      },
-      remove: (key) => {
-        const dto = {id: key, groupId: this.groupId, name: this.filterRol(key)};
-        return this.service.leaveGroupRol(dto).toPromise().then((response) => {
-            return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
-          }
-        );
-      }
+      this.dataSource = new CustomStore({
+        key: 'id',
+        load: (loadOptions) => {
+          return this.service.getGroupRol(this.groupId).toPromise().then((response: any) => {
+            return {
+              data: response.data,
+              totalCount: response.totalCount
+            };
+          });
+        },
+        insert: (values) => {
+          values.groupId = this.groupId;
+          values.name = this.filterRol(values.id);
+          return this.service.addGroupRol(values).toPromise().then((response) => {
+              return;
+            },
+            err => {
+              throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+            }
+          );
+        },
+        remove: (key) => {
+          const dto = {id: key, groupId: this.groupId, name: this.filterRol(key)};
+          return this.service.leaveGroupRol(dto).toPromise().then((response) => {
+              return;
+            },
+            err => {
+              throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+            }
+          );
+        }
 
-    });
+      });
   }
 
 

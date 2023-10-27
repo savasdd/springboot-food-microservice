@@ -24,6 +24,7 @@ import {AuthRolComponent} from './auth-rol/auth-rol.component';
 import {AuthGroupComponent} from './auth-group/auth-group.component';
 import { UserGroupComponent } from './auth-user/user-group/user-group.component';
 import { GroupRolComponent } from './auth-group/group-rol/group-rol.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 const routes: Routes = [
   {
@@ -66,25 +67,26 @@ const routes: Routes = [
     UserGroupComponent,
     GroupRolComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    ButtonModule,
-    ButtonGroupModule,
-    GridModule,
-    IconModule,
-    CardModule,
-    UtilitiesModule,
-    DropdownModule,
-    SharedModule,
-    FormModule,
-    ReactiveFormsModule,
-    DocsComponentsModule,
-    NavbarModule,
-    CollapseModule,
-    NavModule,
-    DevExtremeModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        ButtonModule,
+        ButtonGroupModule,
+        GridModule,
+        IconModule,
+        CardModule,
+        UtilitiesModule,
+        DropdownModule,
+        SharedModule,
+        FormModule,
+        ReactiveFormsModule,
+        DocsComponentsModule,
+        NavbarModule,
+        CollapseModule,
+        NavModule,
+        DevExtremeModule,
+        FontAwesomeModule,
+    ]
 })
 export class UsersModule {
 }

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
 import {UserService} from "../../../services/user.service";
 import CustomStore from "devextreme/data/custom_store";
+import {faRefresh, faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-auth-group',
@@ -11,7 +12,7 @@ import CustomStore from "devextreme/data/custom_store";
 export class AuthGroupComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
-  events: Array<string> = [];
+  updateMod: boolean = false;
   data: any;
 
   constructor(private service: UserService) {
@@ -25,6 +26,7 @@ export class AuthGroupComponent implements OnInit {
   onEditorPreparing(e: any) {
     if (e.parentType === 'dataRow') {
       this.data = e.row.data;
+      this.updateMod = e.row.data.id != undefined;
     }
   }
 
@@ -54,4 +56,7 @@ export class AuthGroupComponent implements OnInit {
       },
     });
   }
+
+  protected readonly faShoppingBasket = faShoppingBasket;
+  protected readonly faRefresh = faRefresh;
 }

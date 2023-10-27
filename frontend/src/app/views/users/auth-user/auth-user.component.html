@@ -38,7 +38,7 @@
                       <dxi-item dataField="enabled"></dxi-item>
                     </dxi-item>
 
-                    <dxi-item itemType="tabbed" [colSpan]="2" [colCount]="2">
+                    <dxi-item itemType="tabbed" *ngIf="updateMod" [colSpan]="2" [colCount]="2">
                       <dxi-tab id="id1" title="Group">
                         <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
                           <div *dxTemplate="let item of 'detail'">
@@ -61,8 +61,8 @@
                 <dxo-toolbar>
                   <dxi-item name="addRowButton"></dxi-item>
                   <dxi-item location="after">
-                    <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
-                    </dx-button>
+                    <fa-icon class="basket-icon" [icon]="faRefresh" title="Refresh" style="cursor: pointer"
+                             (click)="refreshDataGrid($event)"></fa-icon>
                   </dxi-item>
                 </dxo-toolbar>
 
