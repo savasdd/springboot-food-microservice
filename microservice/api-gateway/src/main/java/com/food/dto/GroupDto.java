@@ -11,5 +11,6 @@ import java.io.Serializable;
 @Builder
 public class GroupDto implements Serializable {
     private String id;
+    private String userId;
     private String name;
 }

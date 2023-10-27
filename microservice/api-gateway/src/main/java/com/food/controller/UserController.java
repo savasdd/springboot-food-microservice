@@ -44,6 +44,11 @@ public class UserController {
         return new ResponseEntity<>(service.getUserGroup(id), HttpStatus.OK);
     }
 
+    @PostMapping("/users/group")
+    public ResponseEntity<GroupDto> gatewayJoinUserGroup(@RequestBody GroupDto id) throws GeneralException {
+        return new ResponseEntity<>(service.joinUserGroup(id), HttpStatus.CREATED);
+    }
+
     //@RolesAllowed({"ADMIN_ROLU"})
     @GetMapping("/users/{username}")
     public ResponseEntity<UserRepresentation> getGatewayUser(@PathVariable String username) throws GeneralException {

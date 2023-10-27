@@ -48,15 +48,16 @@ export class UserGroupComponent implements OnChanges {
           };
         });
       },
-      // insert: (values) => {
-      //   return this.service.saveUser(values).toPromise().then((response) => {
-      //       return;
-      //     },
-      //     err => {
-      //       throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
-      //     }
-      //   );
-      // },
+      insert: (values) => {
+        values.userId = this.userId;
+        return this.service.joinUserGroup(values).toPromise().then((response) => {
+            return;
+          },
+          err => {
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+          }
+        );
+      },
       // remove: (key) => {
       //   return this.service.deleteUser(key).toPromise().then((response) => {
       //       return;

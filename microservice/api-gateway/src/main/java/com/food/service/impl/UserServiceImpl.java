@@ -1,6 +1,7 @@
 package com.food.service.impl;
 
 import com.food.dto.GenericResponse;
+import com.food.dto.GroupDto;
 import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
@@ -55,6 +56,13 @@ public class UserServiceImpl implements UserService {
         response.setTotalCount(list.size());
 
         return response;
+    }
+
+    @Override
+    public GroupDto joinUserGroup(GroupDto dto) throws GeneralException {
+        UserResource userResource = resource.users().get(dto.getUserId());
+        userResource.joinGroup(dto.getId());
+        return dto;
     }
 
     @Override
