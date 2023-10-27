@@ -25,33 +25,38 @@ public class UserController {
 
     @Operation(description = "get all users")
     @GetMapping("/users")
-    public ResponseEntity<GenericResponse> getGatewayAllUser() throws GeneralException {
+    public ResponseEntity<GenericResponse> getAllUser() throws GeneralException {
         return new ResponseEntity<>(service.getAllUser(), HttpStatus.OK);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserDto> createGatewayUser(@RequestBody UserDto dto) throws GeneralException {
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto dto) throws GeneralException {
         return new ResponseEntity<>(service.createUser(dto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<UserDto> deleteGatewayUser(@PathVariable String id) throws GeneralException {
+    public ResponseEntity<UserDto> deleteUser(@PathVariable String id) throws GeneralException {
         return new ResponseEntity<>(service.deleteUser(id), HttpStatus.OK);
     }
 
     @GetMapping("/users/group/{id}")
-    public ResponseEntity<GenericResponse> getGatewayUserGroup(@PathVariable String id) throws GeneralException {
+    public ResponseEntity<GenericResponse> getUserGroup(@PathVariable String id) throws GeneralException {
         return new ResponseEntity<>(service.getUserGroup(id), HttpStatus.OK);
     }
 
     @PostMapping("/users/group")
-    public ResponseEntity<GroupDto> gatewayJoinUserGroup(@RequestBody GroupDto id) throws GeneralException {
-        return new ResponseEntity<>(service.joinUserGroup(id), HttpStatus.CREATED);
+    public ResponseEntity<GroupDto> joinUserGroup(@RequestBody GroupDto dto) throws GeneralException {
+        return new ResponseEntity<>(service.joinUserGroup(dto), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/users/group/leave")
+    public ResponseEntity<GroupDto> leaveUserGroup(@RequestBody GroupDto dto) throws GeneralException {
+        return new ResponseEntity<>(service.leaveUserGroup(dto), HttpStatus.OK);
     }
 
     //@RolesAllowed({"ADMIN_ROLU"})
     @GetMapping("/users/{username}")
-    public ResponseEntity<UserRepresentation> getGatewayUser(@PathVariable String username) throws GeneralException {
+    public ResponseEntity<UserRepresentation> getUser(@PathVariable String username) throws GeneralException {
         return new ResponseEntity<>(service.getUser(username), HttpStatus.OK);
     }
 

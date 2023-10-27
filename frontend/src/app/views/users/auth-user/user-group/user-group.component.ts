@@ -58,16 +58,16 @@ export class UserGroupComponent implements OnChanges {
           }
         );
       },
-      // remove: (key) => {
-      //   return this.service.deleteUser(key).toPromise().then((response) => {
-      //       return;
-      //     },
-      //     err => {
-      //       const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
-      //       console.log(message);
-      //     }
-      //   );
-      // }
+      remove: (key) => {
+        const dto = {id: key, userId: this.userId};
+        return this.service.leaveUserGroup(dto).toPromise().then((response) => {
+            return;
+          },
+          err => {
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+          }
+        );
+      }
 
     });
   }

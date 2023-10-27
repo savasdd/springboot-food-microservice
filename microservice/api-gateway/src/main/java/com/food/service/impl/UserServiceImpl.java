@@ -66,6 +66,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public GroupDto leaveUserGroup(GroupDto dto) throws GeneralException {
+        UserResource userResource = resource.users().get(dto.getUserId());
+        userResource.leaveGroup(dto.getId());
+        return dto;
+    }
+
+    @Override
     public UserDto createUser(UserDto dto) throws GeneralException {
         UserRepresentation user = new UserRepresentation();
         user.setEnabled(dto.getEnabled());

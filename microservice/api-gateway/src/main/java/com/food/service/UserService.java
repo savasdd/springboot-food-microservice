@@ -16,6 +16,8 @@ public interface UserService {
 
     GroupDto joinUserGroup(GroupDto dto) throws GeneralException;
 
+    GroupDto leaveUserGroup(GroupDto dto) throws GeneralException;
+
     UserDto createUser(UserDto dto) throws GeneralException;
 
     UserDto deleteUser(String id) throws GeneralException;

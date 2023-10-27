@@ -43,8 +43,13 @@ export class UserService {
   }
 
   joinUserGroup(data: any) {
-    return this.service.joinGatewayUserGroup(data).pipe(catchError(this.handleError));
+    return this.service.joinUserGroup(data).pipe(catchError(this.handleError));
   }
+
+  leaveUserGroup(data: any) {
+    return this.service.leaveUserGroup(data).pipe(catchError(this.handleError));
+  }
+
 
   deleteUser(id: any) {
     return this.service.deleteGatewayUser(id).pipe(catchError(this.handleError));
