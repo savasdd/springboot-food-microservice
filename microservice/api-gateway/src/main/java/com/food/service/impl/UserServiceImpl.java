@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         user.setAttributes(Collections.singletonMap("origin", Arrays.asList("Food Users")));
 
         Response response = resource.users().create(user);
-        log.info("Repsonse: %s %s%n", response.getStatus(), response.getStatusInfo());
+        log.info("Repsonse: {} {}", response.getStatus(), response.getStatusInfo());
         String userId = CreatedResponseUtil.getCreatedId(response);
         UserResource userResource = resource.users().get(userId);
 
@@ -72,10 +72,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUser(String id) throws GeneralException {
+    public UserDto deleteUser(String id) throws GeneralException {
         UserResource userResource = resource.users().get(id);
         userResource.remove();
-        return "Success";
+        return UserDto.builder().id(id).build();
     }
 
 

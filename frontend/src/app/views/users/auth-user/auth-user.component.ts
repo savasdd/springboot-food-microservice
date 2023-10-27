@@ -8,7 +8,7 @@ import CustomStore from "devextreme/data/custom_store";
   templateUrl: './auth-user.component.html',
   styleUrls: ['./auth-user.component.scss']
 })
-export class AuthUserComponent  implements OnInit {
+export class AuthUserComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
@@ -39,6 +39,25 @@ export class AuthUserComponent  implements OnInit {
           };
         });
       },
+      insert: (values) => {
+        return this.service.saveUser(values).toPromise().then((response) => {
+            return;
+          },
+          err => {
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
+          }
+        );
+      },
+      remove: (key) => {
+        return this.service.deleteUser(key).toPromise().then((response) => {
+            return;
+          },
+          err => {
+            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
+            console.log(message);
+          }
+        );
+      }
     });
   }
 }

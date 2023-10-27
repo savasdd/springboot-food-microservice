@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> createGatewayUser(@PathVariable String id) throws GeneralException {
+    public ResponseEntity<UserDto> deleteGatewayUser(@PathVariable String id) throws GeneralException {
         return new ResponseEntity<>(service.deleteUser(id), HttpStatus.OK);
     }
 

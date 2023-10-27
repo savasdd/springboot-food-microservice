@@ -38,6 +38,10 @@ export class UserService {
     return this.service.createGatewayGroup(data).pipe(catchError(this.handleError));
   }
 
+  deleteUser(id: any) {
+    return this.service.deleteGatewayUser(id).pipe(catchError(this.handleError));
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     const service = new MessageService;

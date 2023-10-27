@@ -13,6 +13,6 @@ public interface UserService {
 
     UserDto createUser(UserDto dto) throws GeneralException;
 
-    String deleteUser(String id) throws GeneralException;
+    UserDto deleteUser(String id) throws GeneralException;
 
 }
