@@ -1,0 +1,6 @@
+#eureka.client.serviceUrl.defaultZone=http://eureka:123@localhost:8761/eureka
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${server.host}:8761/eureka

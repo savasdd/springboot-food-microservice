@@ -1,0 +1,50 @@
+management:
+  security:
+    enabled: false
+  server:
+    ssl:
+      enabled: false
+    port: ${server.port}
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
+    enabled-by-default: true
+  endpoint:
+    shutdown:
+      enabled: false
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+    health:
+      show-components: always
+      show-details: always
+      enabled: true
+      probes:
+        enabled: true
+    caches:
+      enabled: false
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    enable:
+      jvm: true
+      all: true
+    tags:
+      application: ${spring.application.name}
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+
+info:
+  application:
+    name: ${spring.application.name}
+    description: service backend
+    author:
+      name: Savas Dede
+      bio: Software Developer
+      githubProfile: https://github.com/savasdd

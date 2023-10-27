@@ -11,7 +11,7 @@ public class ApplicationProperties {
     static Properties prop;
     static Properties getProp() {
         if (prop == null) {
-            prop = new BaseProperties("application.properties").getProperties();
+            prop = new BaseProperties("application.yml").getProperties();
         }
         return prop;
     }

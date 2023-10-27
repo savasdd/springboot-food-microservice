@@ -15,15 +15,16 @@ public class CreatingDatabase {
         Statement statement = null;
         try {
             log.debug("Creating database if not exist...");
-            connection = DriverManager.getConnection("jdbc:postgresql://" + ApplicationProperties.getValue("server.host") + ":5432/", ApplicationProperties.getValue("spring.datasource.username"), ApplicationProperties.getValue("spring.datasource.password"));
+            //connection = DriverManager.getConnection("jdbc:postgresql://" + ApplicationProperties.getValue("server.host") + ":5432/", ApplicationProperties.getValue("spring.datasource.username"), ApplicationProperties.getValue("spring.datasource.password"));
+            connection = DriverManager.getConnection("jdbc:postgresql://" + ApplicationProperties.getValue("host") + ":5432/", ApplicationProperties.getValue("username"), ApplicationProperties.getValue("password"));
             statement = connection.createStatement();
-            statement.executeQuery("SELECT count(*) FROM pg_database WHERE datname = '" + ApplicationProperties.getValue("server.db") + "'");
+            statement.executeQuery("SELECT count(*) FROM pg_database WHERE datname = '" + ApplicationProperties.getValue("db") + "'");
             ResultSet resultSet = statement.getResultSet();
             resultSet.next();
             int count = resultSet.getInt(1);
 
             if (count <= 0) {
-                statement.executeUpdate("CREATE DATABASE " + ApplicationProperties.getValue("server.db"));
+                statement.executeUpdate("CREATE DATABASE " + ApplicationProperties.getValue("db"));
                 log.debug("Database created.");
             } else {
                 log.debug("Database already exist.");

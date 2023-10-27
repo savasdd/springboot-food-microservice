@@ -1,0 +1,20 @@
+server:
+  host: 127.0.0.1
+  port: 8089
+  db: food_user_db
+
+spring:
+  application:
+    name: user-service
+  banner:
+    location: banner.txt
+  config:
+    import: eureka.yml,info.yml,rabbit.yml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${server.host}:5432/${server.db}
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
