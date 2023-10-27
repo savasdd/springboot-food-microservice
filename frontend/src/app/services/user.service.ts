@@ -14,32 +14,32 @@ export class UserService {
   }
 
   findAllUser(loadOptions: any) {
-    return this.service.getGatewayAllUser().pipe(catchError(this.handleError));
+    return this.service.getAllUser().pipe(catchError(this.handleError));
   }
 
   getUserGroup(id: any) {
-    return this.service.getGatewayUserGroup(id).pipe(catchError(this.handleError));
+    return this.service.getUserGroup(id).pipe(catchError(this.handleError));
   }
 
   findAllRoll(loadOptions: any) {
-    return this.service.getGatewayRoles().pipe(catchError(this.handleError));
+    return this.service.getRoles().pipe(catchError(this.handleError));
   }
 
   findAllGroup(loadOptions: any) {
-    return this.service.getGatewayGroup().pipe(catchError(this.handleError));
+    return this.service.getGroups().pipe(catchError(this.handleError));
   }
 
 
   saveUser(data: any) {
-    return this.service.createGatewayUser(data).pipe(catchError(this.handleError));
+    return this.service.createUser(data).pipe(catchError(this.handleError));
   }
 
   saveRol(data: any) {
-    return this.service.createGatewayRole(data).pipe(catchError(this.handleError));
+    return this.service.createRole(data).pipe(catchError(this.handleError));
   }
 
   saveGroup(data: any) {
-    return this.service.createGatewayGroup(data).pipe(catchError(this.handleError));
+    return this.service.createGroup(data).pipe(catchError(this.handleError));
   }
 
   joinUserGroup(data: any) {
@@ -52,7 +52,7 @@ export class UserService {
 
 
   deleteUser(id: any) {
-    return this.service.deleteGatewayUser(id).pipe(catchError(this.handleError));
+    return this.service.deleteUser(id).pipe(catchError(this.handleError));
   }
 
 

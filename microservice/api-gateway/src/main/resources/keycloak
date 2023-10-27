@@ -1,10 +1,10 @@
 ===>CREATE USER
 		UserRepresentation user = new UserRepresentation();
         user.setEnabled(true);
-        user.setUsername("hasan.demir");
-        user.setFirstName("Hasan");
-        user.setLastName("Demir");
-        user.setEmail("hasan.demir@gmail.com");
+        user.setUsername("savas.dede");
+        user.setFirstName("Savas");
+        user.setLastName("Dede");
+        user.setEmail("svsdd@gmail.com");
         user.setAttributes(Collections.singletonMap("origin", Arrays.asList("Food Users")));
 
         Response response = resource.users().create(user);
