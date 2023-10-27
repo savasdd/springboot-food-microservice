@@ -2,6 +2,7 @@ package com.food.controller;
 
 import com.food.dto.GenericResponse;
 import com.food.dto.GroupDto;
+import com.food.dto.RolDto;
 import com.food.exception.GeneralException;
 import com.food.service.GroupService;
 import org.springframework.http.HttpStatus;
@@ -30,5 +31,20 @@ public class GroupController {
         return new ResponseEntity<>(service.createGroup(dto), HttpStatus.CREATED);
     }
 
+
+    @GetMapping("/groups/role/{id}")
+    public ResponseEntity<GenericResponse> getGroupRol(@PathVariable String id) throws GeneralException {
+        return new ResponseEntity<>(service.getGroupRol(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/groups/role")
+    public ResponseEntity<RolDto> addRolGroup(@RequestBody RolDto dto) throws GeneralException {
+        return new ResponseEntity<>(service.addGroupRol(dto), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/groups/role/leave")
+    public ResponseEntity<RolDto> leaveGroupRol(@RequestBody RolDto dto) throws GeneralException {
+        return new ResponseEntity<>(service.leaveGroupRol(dto), HttpStatus.OK);
+    }
 
 }

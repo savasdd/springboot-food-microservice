@@ -12,19 +12,8 @@
                             [dataSource]="dataSource"
                             keyExpr="ID"
                             [allowColumnReordering]="true"
-                            [showBorders]="true"
-                            (onEditingStart)="logEvent('EditingStart')"
-                            (onInitNewRow)="logEvent('InitNewRow')"
-                            (onRowInserting)="logEvent('RowInserting')"
-                            (onRowInserted)="logEvent('RowInserted')"
-                            (onRowUpdating)="logEvent('RowUpdating')"
-                            (onRowUpdated)="logEvent('RowUpdated')"
-                            (onRowRemoving)="logEvent('RowRemoving')"
-                            (onRowRemoved)="logEvent('RowRemoved')"
-                            (onSaving)="logEvent('Saving')"
-                            (onSaved)="logEvent('Saved')"
-                            (onEditCanceling)="logEvent('EditCanceling')"
-                            (onEditCanceled)="logEvent('EditCanceled')">
+                            (onEditorPreparing)="onEditorPreparing($event)"
+                            [showBorders]="true">
 
                 <dxo-paging [enabled]="true"></dxo-paging>
                 <dxo-editing
@@ -38,7 +27,7 @@
                     title="Group Info"
                     [showTitle]="true"
                     width="30%"
-                    height="50%">
+                    height="55%">
                   </dxo-popup>
                   <dxo-form>
                     <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
@@ -50,7 +39,7 @@
                       <dxi-tab id="id1" title="Role">
                         <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
                           <div *dxTemplate="let item of 'detail'">
-
+                            <app-group-rol *ngIf="data" [data]="data"></app-group-rol>
                           </div>
                         </dxi-item>
                       </dxi-tab>

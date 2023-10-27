@@ -29,6 +29,9 @@ export class UserService {
     return this.service.getGroups().pipe(catchError(this.handleError));
   }
 
+  getGroupRol(id: any) {
+    return this.service.getGroupRol(id).pipe(catchError(this.handleError));
+  }
 
   saveUser(data: any) {
     return this.service.createUser(data).pipe(catchError(this.handleError));
@@ -46,9 +49,18 @@ export class UserService {
     return this.service.joinUserGroup(data).pipe(catchError(this.handleError));
   }
 
+  addGroupRol(data: any) {
+    return this.service.addGroupRol(data).pipe(catchError(this.handleError));
+  }
+
   leaveUserGroup(data: any) {
     return this.service.leaveUserGroup(data).pipe(catchError(this.handleError));
   }
+
+  leaveGroupRol(data: any) {
+    return this.service.leaveGroupRol(data).pipe(catchError(this.handleError));
+  }
+
 
 
   deleteUser(id: any) {

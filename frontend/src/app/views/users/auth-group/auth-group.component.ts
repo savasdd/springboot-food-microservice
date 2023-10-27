@@ -12,6 +12,7 @@ export class AuthGroupComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
+  data: any;
 
   constructor(private service: UserService) {
     this.loadGrid();
@@ -20,8 +21,11 @@ export class AuthGroupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logEvent(eventName: any) {
-    this.events.unshift(eventName);
+
+  onEditorPreparing(e: any) {
+    if (e.parentType === 'dataRow') {
+      this.data = e.row.data;
+    }
   }
 
   refreshDataGrid(e: any) {

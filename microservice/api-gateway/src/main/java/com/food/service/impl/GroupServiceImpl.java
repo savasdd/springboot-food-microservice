@@ -3,24 +3,16 @@ package com.food.service.impl;
 import com.food.dto.GenericResponse;
 import com.food.dto.GroupDto;
 import com.food.dto.RolDto;
-import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
 import com.food.service.GroupService;
-import com.food.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.admin.client.CreatedResponseUtil;
+import org.keycloak.admin.client.resource.GroupResource;
 import org.keycloak.admin.client.resource.RealmResource;
-import org.keycloak.admin.client.resource.UserResource;
-import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
-import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.core.Response;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -47,6 +39,16 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public GenericResponse getGroupRol(String id) throws GeneralException {
+        var response = new GenericResponse<RoleRepresentation>();
+        GroupResource groupResource = resource.groups().group(id);
+        var list = groupResource.roles().realmLevel().listAll();
+        response.setData(list);
+        response.setTotalCount(list.size());
+        return response;
+    }
+
+    @Override
     public GroupDto createGroup(GroupDto dto) throws GeneralException {
         GroupRepresentation group = new GroupRepresentation();
         group.setName(dto.getName());
@@ -54,7 +56,25 @@ public class GroupServiceImpl implements GroupService {
         return dto;
     }
 
+    @Override
+    public RolDto addGroupRol(RolDto dto) throws GeneralException {
+        GroupResource groupResource = resource.groups().group(dto.getGroupId());
+        RoleRepresentation role = new RoleRepresentation();
+        role.setName(dto.getName());
+        role.setId(dto.getId());
+        groupResource.roles().realmLevel().add(List.of(role));
+        return dto;
+    }
 
+    @Override
+    public RolDto leaveGroupRol(RolDto dto) throws GeneralException {
+        GroupResource groupResource = resource.groups().group(dto.getGroupId());
+        RoleRepresentation role = new RoleRepresentation();
+        role.setName(dto.getName());
+        role.setId(dto.getId());
+        groupResource.roles().realmLevel().remove(List.of(role));
+        return dto;
+    }
 
 
 }
