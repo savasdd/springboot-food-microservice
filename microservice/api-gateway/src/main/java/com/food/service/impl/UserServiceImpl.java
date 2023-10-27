@@ -10,6 +10,7 @@ import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,17 @@ public class UserServiceImpl implements UserService {
         response.setTotalCount(list.size());
 
         log.info("get users {}", list.size());
+        return response;
+    }
+
+    @Override
+    public GenericResponse getUserGroup(String userId) throws GeneralException {
+        var response = new GenericResponse<GroupRepresentation>();
+        UserResource userResource = resource.users().get(userId);
+        var list = userResource.groups();
+        response.setData(list);
+        response.setTotalCount(list.size());
+
         return response;
     }
 

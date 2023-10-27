@@ -20,9 +20,6 @@ export class AuthUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logEvent(eventName: any) {
-    this.events.unshift(eventName);
-  }
 
   refreshDataGrid(e: any) {
     this.dataSourceGrid.instance.refresh();

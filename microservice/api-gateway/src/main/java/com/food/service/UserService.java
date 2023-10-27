@@ -11,6 +11,8 @@ public interface UserService {
 
     GenericResponse getAllUser() throws GeneralException;
 
+    GenericResponse getUserGroup(String userId) throws GeneralException;
+
     UserDto createUser(UserDto dto) throws GeneralException;
 
     UserDto deleteUser(String id) throws GeneralException;

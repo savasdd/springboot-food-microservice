@@ -39,6 +39,11 @@ public class UserController {
         return new ResponseEntity<>(service.deleteUser(id), HttpStatus.OK);
     }
 
+    @GetMapping("/users/group/{id}")
+    public ResponseEntity<GenericResponse> getGatewayUserGroup(@PathVariable String id) throws GeneralException {
+        return new ResponseEntity<>(service.getUserGroup(id), HttpStatus.OK);
+    }
+
     //@RolesAllowed({"ADMIN_ROLU"})
     @GetMapping("/users/{username}")
     public ResponseEntity<UserRepresentation> getGatewayUser(@PathVariable String username) throws GeneralException {
