@@ -21,13 +21,13 @@ public class GroupController {
     }
 
     @GetMapping("/groups")
-    public ResponseEntity<GenericResponse> getGatewayGroup() throws GeneralException {
+    public ResponseEntity<GenericResponse> getGroup() throws GeneralException {
         return new ResponseEntity<>(service.getGroup(), HttpStatus.OK);
     }
 
     //@RolesAllowed({"ADMIN_ROLU"})
     @PostMapping("/groups")
-    public ResponseEntity<GroupDto> createGatewayGroup(@RequestBody GroupDto dto) throws GeneralException {
+    public ResponseEntity<GroupDto> createGroup(@RequestBody GroupDto dto) throws GeneralException {
         return new ResponseEntity<>(service.createGroup(dto), HttpStatus.CREATED);
     }
 

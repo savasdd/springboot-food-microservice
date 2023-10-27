@@ -20,12 +20,12 @@ public class RolController {
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<GenericResponse> getGatewayRoles() throws GeneralException {
+    public ResponseEntity<GenericResponse> getRoles() throws GeneralException {
         return new ResponseEntity<>(service.getRoles(), HttpStatus.OK);
     }
 
     @PostMapping("/roles")
-    public ResponseEntity<RolDto> createGatewayRole(@RequestBody RolDto dto) throws GeneralException {
+    public ResponseEntity<RolDto> createRole(@RequestBody RolDto dto) throws GeneralException {
         return new ResponseEntity<>(service.createRoles(dto), HttpStatus.CREATED);
     }
 
