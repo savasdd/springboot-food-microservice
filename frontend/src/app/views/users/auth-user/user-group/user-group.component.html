@@ -34,7 +34,14 @@
       </dxi-item>
     </dxo-toolbar>
 
-    <dxi-column dataField="name"></dxi-column>
+    <dxi-column dataField="id">
+      <dxo-lookup
+        [dataSource]="groupDataSource"
+        valueExpr="id"
+        displayExpr="name">
+      </dxo-lookup>
+
+    </dxi-column>
 
     <dxo-paging [pageSize]="10"></dxo-paging>
     <dxo-pager

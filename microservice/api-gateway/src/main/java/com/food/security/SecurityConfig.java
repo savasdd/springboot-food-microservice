@@ -53,6 +53,8 @@ public class SecurityConfig {
                         .pathMatchers("/eureka/**").permitAll()
                         .pathMatchers("/api/auth/**").permitAll()
                         .pathMatchers("/api/users/**").permitAll()
+                        .pathMatchers("/api/roles/**").permitAll()
+                        .pathMatchers("/api/groups/**").permitAll()
                         .pathMatchers("/actuator/**").permitAll()
                         .pathMatchers(AUTH_WHITELIST).permitAll()
                         .anyExchange()

@@ -11,16 +11,22 @@ import CustomStore from "devextreme/data/custom_store";
 export class UserGroupComponent implements OnChanges {
   @Input() data: any;
   dataSource: any = {};
+  groupDataSource: any = {};
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   userId: any;
 
   constructor(private service: UserService) {
+    this.loadGrid = this.loadGrid.bind(this);
+    this.loadGroup = this.loadGroup.bind(this);
     this.loadGrid();
+    this.loadGroup();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userId = this.data ? this.data.id : null;
+    // this.loadGrid();
+    // this.loadGroup();
   }
 
   logEvent(eventName: any) {
@@ -62,6 +68,12 @@ export class UserGroupComponent implements OnChanges {
       //   );
       // }
 
+    });
+  }
+
+  loadGroup() {
+    this.service.findAllGroup(null).toPromise().then((response: any) => {
+      this.groupDataSource = response.data;
     });
   }
 

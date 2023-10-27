@@ -145,7 +145,7 @@ export class UserAuthController {
       }
     }
 
-    let localVarPath = `/api/users/roles`;
+    let localVarPath = `/api/roles`;
     return this.httpClient.request<TokenResponse>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
@@ -208,7 +208,7 @@ export class UserAuthController {
       }
     }
 
-    let localVarPath = `/api/users/groups`;
+    let localVarPath = `/api/groups`;
     return this.httpClient.request<TokenResponse>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
@@ -483,7 +483,7 @@ export class UserAuthController {
       }
     }
 
-    let localVarPath = `/api/users/roles`;
+    let localVarPath = `/api/roles`;
     return this.httpClient.request<Array<any>>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
@@ -533,7 +533,7 @@ export class UserAuthController {
       }
     }
 
-    let localVarPath = `/api/users/groups`;
+    let localVarPath = `/api/groups`;
     return this.httpClient.request<Array<any>>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
