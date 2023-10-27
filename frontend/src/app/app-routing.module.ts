@@ -30,6 +30,9 @@ const routes: Routes = [
       {
         path: 'users', loadChildren: () => import('./views/users/users.module').then((m) => m.UsersModule)
       },
+      {
+        path: 'datas', loadChildren: () => import('./views/data/data.module').then((m) => m.DataModule)
+      },
     ]
   },
   {
