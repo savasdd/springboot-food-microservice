@@ -28,11 +28,39 @@
 
                 <dxo-paging [enabled]="true"></dxo-paging>
                 <dxo-editing
-                  mode="form"
-                  [allowUpdating]="false"
-                  [allowDeleting]="false"
+                  mode="popup"
+                  [allowUpdating]="true"
+                  [allowDeleting]="true"
                   [allowAdding]="true"
                   [useIcons]="true">
+                  <dxo-popup
+                    title="User Info"
+                    [showTitle]="true"
+                    width="40%"
+                    height="50%">
+                  </dxo-popup>
+                  <dxo-form>
+                    <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                      <dxi-item dataField="firstName"></dxi-item>
+                      <dxi-item dataField="lastName"></dxi-item>
+                      <dxi-item dataField="username"></dxi-item>
+                      <dxi-item dataField="email"></dxi-item>
+                      <dxi-item dataField="password"></dxi-item>
+                      <dxi-item dataField="enabled"></dxi-item>
+                    </dxi-item>
+
+                    <dxi-item itemType="tabbed" [colSpan]="2" [colCount]="2">
+                      <dxi-tab id="id1" title="Group">
+                        <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+                          <div *dxTemplate="let item of 'detail'">
+
+                          </div>
+                        </dxi-item>
+                      </dxi-tab>
+
+                    </dxi-item>
+
+                  </dxo-form>
                 </dxo-editing>
 
                 <dxo-toolbar>

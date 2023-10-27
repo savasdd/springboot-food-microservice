@@ -1,0 +1,139 @@
+===>CREATE USER
+		UserRepresentation user = new UserRepresentation();
+        user.setEnabled(true);
+        user.setUsername("hasan.demir");
+        user.setFirstName("Hasan");
+        user.setLastName("Demir");
+        user.setEmail("hasan.demir@gmail.com");
+        user.setAttributes(Collections.singletonMap("origin", Arrays.asList("Food Users")));
+
+        Response response = resource.users().create(user);
+        System.out.printf("Repsonse: %s %s%n", response.getStatus(), response.getStatusInfo());
+        String userId = CreatedResponseUtil.getCreatedId(response);
+        UserResource userResource = resource.users().get(userId);
+
+        CredentialRepresentation passwordCred = new CredentialRepresentation();
+        passwordCred.setTemporary(false);
+        passwordCred.setType(CredentialRepresentation.PASSWORD);
+        passwordCred.setValue("test");
+        userResource.resetPassword(passwordCred);
+
+===>DELETE USER
+		UserResource userResource = resource.users().get("faaca9b3-4d2a-4d8d-a4b5-a5f4a3cf6181");
+        userResource.remove();
+
+
+===>GET USER GROUP
+		UserResource userResource = resource.users().get("6a25b3ce-6d1c-43a6-90da-86fd8d6bc271");
+        var group = userResource.groups();
+
+
+===>GET GROUP ROLE
+		GroupResource groupResource = resource.groups().group("a885cf1e-983c-4c91-be5a-677099197fb9");
+        var list = groupResource.roles().realmLevel().listAll();
+
+
+===>USER JOIN AND LEAVE GROUP
+		UserResource userResource = resource.users().get("6a25b3ce-6d1c-43a6-90da-86fd8d6bc271");
+        userResource.joinGroup("20b43ea7-3176-4a18-962e-7284c8b9fb45");
+		userResource.leaveGroup("20b43ea7-3176-4a18-962e-7284c8b9fb45");
+
+
+===>ROLE ADD AND REMOVE FROM GROUP
+		GroupResource groupResource = resource.groups().group("b227eb4f-5b75-4554-9257-056e7694260b");
+        RoleRepresentation role = new RoleRepresentation();
+        role.setName("CATEGORY_SEARCH");
+        role.setId("22a597eb-41b5-488d-9fcb-9be1ac46f7e0");
+        groupResource.roles().realmLevel().add(List.of(role));
+		groupResource.roles().realmLevel().remove(List.of(role));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

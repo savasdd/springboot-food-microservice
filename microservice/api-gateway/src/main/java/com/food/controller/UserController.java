@@ -3,20 +3,17 @@ package com.food.controller;
 import com.food.dto.GenericResponse;
 import com.food.dto.GroupDto;
 import com.food.dto.RolDto;
+import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
 import com.food.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.keycloak.representations.idm.GroupRepresentation;
-import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class UserController {
 
@@ -27,35 +24,26 @@ public class UserController {
     }
 
     @Operation(description = "get all users")
-    @GetMapping("")
+    @GetMapping("/users")
     public ResponseEntity<GenericResponse> getGatewayAllUser() throws GeneralException {
         return new ResponseEntity<>(service.getAllUser(), HttpStatus.OK);
     }
 
-    @GetMapping("/roles")
-    public ResponseEntity<GenericResponse> getGatewayRoles() throws GeneralException {
-        return new ResponseEntity<>(service.getRoles(), HttpStatus.OK);
+    @PostMapping("/users")
+    public ResponseEntity<UserDto> createGatewayUser(@RequestBody UserDto dto) throws GeneralException {
+        return new ResponseEntity<>(service.createUser(dto), HttpStatus.CREATED);
     }
 
-    @PostMapping("/roles")
-    public ResponseEntity<RolDto> createGatewayRoles(@RequestBody RolDto dto) throws GeneralException {
-        return new ResponseEntity<>(service.createRoles(dto), HttpStatus.CREATED);
-    }
-
-    @GetMapping("/groups")
-    public ResponseEntity<GenericResponse> getGatewayGroup() throws GeneralException {
-        return new ResponseEntity<>(service.getGroup(), HttpStatus.OK);
-    }
-
-    @PostMapping("/groups")
-    public ResponseEntity<GroupDto> createGatewayGroup(@RequestBody GroupDto dto) throws GeneralException {
-        return new ResponseEntity<>(service.createGroup(dto), HttpStatus.CREATED);
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<String> createGatewayUser(@PathVariable String id) throws GeneralException {
+        return new ResponseEntity<>(service.deleteUser(id), HttpStatus.OK);
     }
 
     //@RolesAllowed({"ADMIN_ROLU"})
-    @GetMapping("/user/{username}")
+    @GetMapping("/users/{username}")
     public ResponseEntity<UserRepresentation> getGatewayUser(@PathVariable String username) throws GeneralException {
         return new ResponseEntity<>(service.getUser(username), HttpStatus.OK);
     }
+
 
 }

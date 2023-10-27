@@ -28,11 +28,35 @@
 
                 <dxo-paging [enabled]="true"></dxo-paging>
                 <dxo-editing
-                  mode="row"
-                  [allowUpdating]="false"
+                  mode="popup"
+                  [allowUpdating]="true"
                   [allowDeleting]="false"
                   [allowAdding]="true"
                   [useIcons]="true">
+
+                  <dxo-popup
+                    title="Group Info"
+                    [showTitle]="true"
+                    width="30%"
+                    height="50%">
+                  </dxo-popup>
+                  <dxo-form>
+                    <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+                      <dxi-item dataField=id></dxi-item>
+                      <dxi-item dataField="name"></dxi-item>
+                    </dxi-item>
+
+                    <dxi-item itemType="tabbed" [colSpan]="2" [colCount]="2">
+                      <dxi-tab id="id1" title="Role">
+                        <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+                          <div *dxTemplate="let item of 'detail'">
+
+                          </div>
+                        </dxi-item>
+                      </dxi-tab>
+                    </dxi-item>
+
+                  </dxo-form>
                 </dxo-editing>
 
                 <dxo-toolbar>

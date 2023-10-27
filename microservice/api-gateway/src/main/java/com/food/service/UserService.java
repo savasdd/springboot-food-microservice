@@ -1,14 +1,9 @@
 package com.food.service;
 
 import com.food.dto.GenericResponse;
-import com.food.dto.GroupDto;
-import com.food.dto.RolDto;
+import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
-import org.keycloak.representations.idm.GroupRepresentation;
-import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-
-import java.util.List;
 
 
 public interface UserService {
@@ -16,10 +11,8 @@ public interface UserService {
 
     GenericResponse getAllUser() throws GeneralException;
 
-    GenericResponse getRoles() throws GeneralException;
+    UserDto createUser(UserDto dto) throws GeneralException;
 
-    RolDto createRoles(RolDto dto) throws GeneralException;
-    GroupDto createGroup(GroupDto dto) throws GeneralException;
+    String deleteUser(String id) throws GeneralException;
 
-    GenericResponse getGroup() throws GeneralException;
 }

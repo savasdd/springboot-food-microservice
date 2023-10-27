@@ -10,6 +10,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class UserDto implements Serializable {
+    private String id;
+    private String firstName;
+    private String lastName;
     private String username;
+    private String email;
     private String password;
+    private Boolean enabled;
 }

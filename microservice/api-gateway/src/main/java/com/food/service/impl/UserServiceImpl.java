@@ -1,19 +1,21 @@
 package com.food.service.impl;
 
 import com.food.dto.GenericResponse;
-import com.food.dto.GroupDto;
-import com.food.dto.RolDto;
+import com.food.dto.UserDto;
 import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
 import com.food.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.resource.RealmResource;
-import org.keycloak.representations.idm.GroupRepresentation;
-import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.admin.client.resource.UserResource;
+import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.ws.rs.core.Response;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Slf4j
 @Service
@@ -46,41 +48,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public GenericResponse getRoles() throws GeneralException {
-        var response = new GenericResponse<RoleRepresentation>();
-        List<RoleRepresentation> list = resource.roles().list();
-        response.setData(list);
-        response.setTotalCount(list.size());
+    public UserDto createUser(UserDto dto) throws GeneralException {
+        UserRepresentation user = new UserRepresentation();
+        user.setEnabled(dto.getEnabled());
+        user.setUsername(dto.getUsername());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setEmail(dto.getEmail());
+        user.setAttributes(Collections.singletonMap("origin", Arrays.asList("Food Users")));
 
-        log.info("get roles {}", list.size());
-        return response;
-    }
+        Response response = resource.users().create(user);
+        log.info("Repsonse: %s %s%n", response.getStatus(), response.getStatusInfo());
+        String userId = CreatedResponseUtil.getCreatedId(response);
+        UserResource userResource = resource.users().get(userId);
 
-    @Override
-    public RolDto createRoles(RolDto dto) throws GeneralException {
-        RoleRepresentation rol = new RoleRepresentation();
-        rol.setName(dto.getName());
-        rol.setDescription(dto.getDescription());
-        resource.roles().create(rol);
+        CredentialRepresentation passwordCred = new CredentialRepresentation();
+        passwordCred.setTemporary(false);
+        passwordCred.setType(CredentialRepresentation.PASSWORD);
+        passwordCred.setValue(dto.getPassword());
+        userResource.resetPassword(passwordCred);
+        log.info("create user {}", userId);
         return dto;
     }
 
     @Override
-    public GroupDto createGroup(GroupDto dto) throws GeneralException {
-        GroupRepresentation group = new GroupRepresentation();
-        group.setName(dto.getName());
-        resource.groups().add(group);
-        return dto;
+    public String deleteUser(String id) throws GeneralException {
+        UserResource userResource = resource.users().get(id);
+        userResource.remove();
+        return "Success";
     }
 
-    @Override
-    public GenericResponse getGroup() throws GeneralException {
-        var response = new GenericResponse<GroupRepresentation>();
-        List<GroupRepresentation> list = resource.groups().groups();
-        response.setData(list);
-        response.setTotalCount(list.size());
 
-        log.info("get group {}", list.size());
-        return response;
-    }
 }
