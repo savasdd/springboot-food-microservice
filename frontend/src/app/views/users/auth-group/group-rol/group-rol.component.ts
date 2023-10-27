@@ -50,6 +50,7 @@ export class GroupRolComponent implements OnChanges {
       },
       insert: (values) => {
         values.groupId = this.groupId;
+        values.name = this.filterRol(values.id);
         return this.service.addGroupRol(values).toPromise().then((response) => {
             return;
           },
@@ -59,7 +60,7 @@ export class GroupRolComponent implements OnChanges {
         );
       },
       remove: (key) => {
-        const dto = {id: key, groupId: this.groupId};
+        const dto = {id: key, groupId: this.groupId, name: this.filterRol(key)};
         return this.service.leaveGroupRol(dto).toPromise().then((response) => {
             return;
           },
@@ -77,6 +78,15 @@ export class GroupRolComponent implements OnChanges {
     this.service.findAllRoll(null).toPromise().then((response: any) => {
       this.rolDataSource = response.data;
     });
+  }
+
+  filterRol(id: string): any {
+    let result;
+    if (this.rolDataSource) {
+      result = this.rolDataSource.filter((s: any) => s.id === id);
+    }
+
+    return result.length > 0 ? result[0].name : null;
   }
 
 }

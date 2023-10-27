@@ -58,6 +58,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public RolDto addGroupRol(RolDto dto) throws GeneralException {
+        if (dto.getName() == null)
+            throw new GeneralException("Rol Name Not Found!");
+
         GroupResource groupResource = resource.groups().group(dto.getGroupId());
         RoleRepresentation role = new RoleRepresentation();
         role.setName(dto.getName());
@@ -68,6 +71,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public RolDto leaveGroupRol(RolDto dto) throws GeneralException {
+        if (dto.getName() == null)
+            throw new GeneralException("Rol Name Not Found!");
+
         GroupResource groupResource = resource.groups().group(dto.getGroupId());
         RoleRepresentation role = new RoleRepresentation();
         role.setName(dto.getName());
