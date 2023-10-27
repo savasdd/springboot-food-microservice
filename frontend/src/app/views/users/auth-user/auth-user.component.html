@@ -12,6 +12,7 @@
                             [dataSource]="dataSource"
                             keyExpr="ID"
                             [allowColumnReordering]="true"
+                            (onEditorPreparing)="onEditorPreparing($event)"
                             [showBorders]="true">
 
                 <dxo-paging [enabled]="true"></dxo-paging>
@@ -41,11 +42,17 @@
                       <dxi-tab id="id1" title="Group">
                         <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
                           <div *dxTemplate="let item of 'detail'">
-
+                            <app-user-group *ngIf="data" [data]="data"></app-user-group>
                           </div>
                         </dxi-item>
                       </dxi-tab>
 
+                      <dxi-tab id="id2" title="Department">
+                        <dxi-item itemType="department" [colCount]="1" [colSpan]="2">
+                          <div *dxTemplate="let item of 'detail'">
+                          </div>
+                        </dxi-item>
+                      </dxi-tab>
                     </dxi-item>
 
                   </dxo-form>

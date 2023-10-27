@@ -43,8 +43,6 @@ public class UserServiceImpl implements UserService {
         var list = resource.users().list();
         response.setData(list);
         response.setTotalCount(list.size());
-
-        log.info("get users {}", list.size());
         return response;
     }
 

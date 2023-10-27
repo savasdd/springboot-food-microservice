@@ -17,6 +17,10 @@ export class UserService {
     return this.service.getGatewayAllUser().pipe(catchError(this.handleError));
   }
 
+  getUserGroup(id: any) {
+    return this.service.getGatewayUserGroup(id).pipe(catchError(this.handleError));
+  }
+
   findAllRoll(loadOptions: any) {
     return this.service.getGatewayRoles().pipe(catchError(this.handleError));
   }

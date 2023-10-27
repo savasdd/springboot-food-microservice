@@ -22,6 +22,7 @@ import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {AuthUserComponent} from './auth-user/auth-user.component';
 import {AuthRolComponent} from './auth-rol/auth-rol.component';
 import {AuthGroupComponent} from './auth-group/auth-group.component';
+import { UserGroupComponent } from './auth-user/user-group/user-group.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,7 @@ const routes: Routes = [
     AuthUserComponent,
     AuthRolComponent,
     AuthGroupComponent,
+    UserGroupComponent,
   ],
   imports: [
     CommonModule,

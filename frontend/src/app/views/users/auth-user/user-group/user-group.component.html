@@ -1,0 +1,60 @@
+<div>
+  <dx-data-grid #dataSourceGrid
+                [dataSource]="dataSource"
+                keyExpr="ID"
+                [allowColumnReordering]="true"
+                [showBorders]="true"
+                (onEditingStart)="logEvent('EditingStart')"
+                (onInitNewRow)="logEvent('InitNewRow')"
+                (onRowInserting)="logEvent('RowInserting')"
+                (onRowInserted)="logEvent('RowInserted')"
+                (onRowUpdating)="logEvent('RowUpdating')"
+                (onRowUpdated)="logEvent('RowUpdated')"
+                (onRowRemoving)="logEvent('RowRemoving')"
+                (onRowRemoved)="logEvent('RowRemoved')"
+                (onSaving)="logEvent('Saving')"
+                (onSaved)="logEvent('Saved')"
+                (onEditCanceling)="logEvent('EditCanceling')"
+                (onEditCanceled)="logEvent('EditCanceled')">
+
+    <dxo-paging [enabled]="true"></dxo-paging>
+    <dxo-editing
+      mode="row"
+      [allowUpdating]="false"
+      [allowDeleting]="true"
+      [allowAdding]="true"
+      [useIcons]="true">
+    </dxo-editing>
+
+    <dxo-toolbar>
+      <dxi-item name="addRowButton"></dxi-item>
+      <dxi-item location="after">
+        <dx-button icon="refresh" (onClick)="refreshDataGrid($event)">
+        </dx-button>
+      </dxi-item>
+    </dxo-toolbar>
+
+    <dxi-column dataField="name"></dxi-column>
+
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5,10, 20, 50, 100]"
+      [showInfo]="true">
+    </dxo-pager>
+
+    <dxo-header-filter
+      [visible]=false>
+    </dxo-header-filter>
+    <dxo-filter-row
+      [visible]="false">
+    </dxo-filter-row>
+
+    <dxo-remote-operations
+      [sorting]="true"
+      [paging]="true"
+      [filtering]="true">
+    </dxo-remote-operations>
+  </dx-data-grid>
+
+</div>
