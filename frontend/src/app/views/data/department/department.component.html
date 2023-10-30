@@ -1,1 +1,43 @@
-<p>department works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border" style="margin-bottom: 0px;">
+          <div class="card-header card-header-info card-header-icon">
+            <h4 class="card-title">Department List</h4>
+          </div>
+          <div class="card-body" style="min-height: calc(90vh - 193px);">
+            <div class="row">
+
+              <dx-tree-list
+                id="tasks"
+                [dataSource]="dataSource"
+                keyExpr="id"
+                parentIdExpr="parent.id"
+                [columnAutoWidth]="true"
+                [wordWrapEnabled]="true"
+                [showBorders]="true"
+                (onInitNewRow)="initNewRow($event)">
+                <dxo-editing
+                  mode="batch"
+                  [allowAdding]="true"
+                  [allowUpdating]="true"
+                  [allowDeleting]="true">
+                </dxo-editing>
+
+                <dxi-column dataField="name" [minWidth]="250">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="code" [minWidth]="120">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+              </dx-tree-list>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

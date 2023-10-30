@@ -85,5 +85,4 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  protected readonly Category = Category;
 }

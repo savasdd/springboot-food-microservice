@@ -19,6 +19,12 @@ export class DepartmentComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  initNewRow(e: any) {
+    e.data.Task_Status = 'Not Started';
+    e.data.Task_Start_Date = new Date();
+    e.data.Task_Due_Date = new Date();
+  }
+
   refreshDataGrid(e: any) {
     this.dataGrid.instance.refresh();
   }

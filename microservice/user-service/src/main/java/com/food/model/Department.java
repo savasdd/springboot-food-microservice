@@ -26,7 +26,6 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"searchCode", "isDeleted"}),
         @UniqueConstraint(columnNames = {"code", "isDeleted"})
 })
-@DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
 //@SQLDelete(sql = "UPDATE department SET is_deleted = id WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "is_deleted = 0")
 @JsonIgnoreProperties(ignoreUnknown = true)
