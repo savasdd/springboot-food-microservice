@@ -36,7 +36,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
-        //logService.eventLog("api/foods", List.of(loadResult), 200, ELogType.FOOD);
         log.info("get all {} ", loadResult.totalCount);
         return loadResult;
     }

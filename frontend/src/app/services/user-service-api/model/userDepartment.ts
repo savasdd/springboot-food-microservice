@@ -9,15 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Sort } from './sort';
+import { Department } from './department';
 
 
-export interface PageableObject { 
-    offset?: number;
-    sort?: Sort;
-    pageSize?: number;
-    pageNumber?: number;
-    unpaged?: boolean;
-    paged?: boolean;
+/**
+ * 
+ */
+export interface UserDepartment { 
+    id?: number;
+    department?: Department;
+    userId?: string;
+    description?: string;
 }
 

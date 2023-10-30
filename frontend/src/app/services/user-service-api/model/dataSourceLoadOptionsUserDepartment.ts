@@ -19,7 +19,7 @@ import { DataSourceGroupView } from './dataSourceGroupView';
 /**
  * 
  */
-export interface DataSourceLoadOptionsDepartment { 
+export interface DataSourceLoadOptionsUserDepartment { 
     requireTotalCount?: boolean;
     searchOperation?: string;
     searchValue?: string;
