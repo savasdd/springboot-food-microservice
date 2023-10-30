@@ -35,7 +35,7 @@ public class UserDepartmentServiceImpl implements UserDepartmentService {
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
-        log.info("get all {} ", loadResult.totalCount);
+        log.info("get all user {} ", loadResult.totalCount);
         return loadResult;
     }
 
