@@ -36,7 +36,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         loadResult.setData(list.getContent());
         loadResult.setTotalCount(list.stream().count());
-        log.info("get all {} ", loadResult.totalCount);
+        log.info("get all load {} ", loadResult.totalCount);
         return loadResult;
     }
 

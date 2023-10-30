@@ -50,6 +50,7 @@
                       <dxi-tab id="id2" title="Department">
                         <dxi-item itemType="department" [colCount]="1" [colSpan]="2">
                           <div *dxTemplate="let item of 'detail'">
+                            <app-user-department *ngIf="data" [data]="data"></app-user-department>
                           </div>
                         </dxi-item>
                       </dxi-tab>

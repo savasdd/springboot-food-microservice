@@ -3,7 +3,7 @@ import {Category, CategoryControllerService} from "./food-service-api";
 import {catchError, Observable, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "./message.service";
-import {DepartmentControllerService} from "./user-service-api";
+import {Department, DepartmentControllerService} from "./user-service-api";
 
 
 @Injectable({
@@ -18,7 +18,7 @@ export class DepartmentService {
     return this.service.getAllDepartmentLoad(loadOptions).pipe(catchError(this.handleError));
   }
 
-  findAlls(): Observable<any> {
+  findAlls(): Observable<Department[]> {
     return this.service.getAllDepartment().pipe(catchError(this.handleError));
   }
 

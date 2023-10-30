@@ -10,17 +10,17 @@
  * Do not edit the class manually.
  */
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner';
-import { DataSourceLoadOptionsUserDepartmentJoinListValueParentModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentModel';
+import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath';
 
 
 export interface DataSourceLoadOptionsUserDepartmentJoinListValueParent { 
     correlated?: boolean;
-    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentModel;
     parentPath?: DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath;
-    compoundSelection?: boolean;
+    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel;
     compoundSelectionItems?: Array<DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner>;
+    compoundSelection?: boolean;
     alias?: string;
     fetches?: Set<DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner>;
 }

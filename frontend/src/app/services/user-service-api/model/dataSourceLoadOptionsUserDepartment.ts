@@ -38,9 +38,9 @@ export interface DataSourceLoadOptionsUserDepartment {
     group?: Array<DataSourceGroup>;
     groupSummary?: Array<DataSourceGroupView>;
     joinList?: { [key: string]: DataSourceLoadOptionsUserDepartmentJoinListValue; };
-    pageable?: PageableObject;
     camelToSnake?: boolean;
-    sortable?: PageableObject;
     mockPageable?: PageableObject;
+    sortable?: PageableObject;
+    pageable?: PageableObject;
 }
 

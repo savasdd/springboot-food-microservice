@@ -24,7 +24,7 @@ public class DepartmentController {
         this.service = service;
     }
 
-    @GetMapping(value = "/departments")
+    @GetMapping(value = "/departments", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Department>> getAllDepartment() throws GeneralException {
         return ResponseEntity.ok(service.getAll());
     }

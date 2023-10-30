@@ -11,9 +11,9 @@
  */
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueOn } from './dataSourceLoadOptionsUserDepartmentJoinListValueOn';
-import { DataSourceLoadOptionsUserDepartmentJoinListValueParentModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentModel';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParent } from './dataSourceLoadOptionsUserDepartmentJoinListValueParent';
+import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath';
 
@@ -21,14 +21,14 @@ import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath } from
 export interface DataSourceLoadOptionsUserDepartmentJoinListValue { 
     parent?: DataSourceLoadOptionsUserDepartmentJoinListValueParent;
     attribute?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute;
-    on?: DataSourceLoadOptionsUserDepartmentJoinListValueOn;
     joinType?: DataSourceLoadOptionsUserDepartmentJoinListValue.JoinTypeEnum;
+    on?: DataSourceLoadOptionsUserDepartmentJoinListValueOn;
     correlationParent?: DataSourceLoadOptionsUserDepartmentJoinListValueParent;
     correlated?: boolean;
-    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentModel;
     parentPath?: DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath;
-    compoundSelection?: boolean;
+    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel;
     compoundSelectionItems?: Array<DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner>;
+    compoundSelection?: boolean;
     alias?: string;
     fetches?: Set<DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner>;
 }

@@ -10,16 +10,22 @@
  * Do not edit the class manually.
  */
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeJavaMember } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeJavaMember';
+import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType';
 
 
-export interface DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner { 
+export interface DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner { 
+    type?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType;
+    version?: boolean;
+    id?: boolean;
+    optional?: boolean;
     name?: string;
     association?: boolean;
-    persistentAttributeType?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner.PersistentAttributeTypeEnum;
+    persistentAttributeType?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.PersistentAttributeTypeEnum;
     javaMember?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeJavaMember;
     collection?: boolean;
+    bindableType?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.BindableTypeEnum;
 }
-export namespace DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInner {
+export namespace DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner {
     export type PersistentAttributeTypeEnum = 'MANY_TO_ONE' | 'ONE_TO_ONE' | 'BASIC' | 'EMBEDDED' | 'MANY_TO_MANY' | 'ONE_TO_MANY' | 'ELEMENT_COLLECTION';
     export const PersistentAttributeTypeEnum = {
         ManyToOne: 'MANY_TO_ONE' as PersistentAttributeTypeEnum,
@@ -29,6 +35,12 @@ export namespace DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesIn
         ManyToMany: 'MANY_TO_MANY' as PersistentAttributeTypeEnum,
         OneToMany: 'ONE_TO_MANY' as PersistentAttributeTypeEnum,
         ElementCollection: 'ELEMENT_COLLECTION' as PersistentAttributeTypeEnum
+    };
+    export type BindableTypeEnum = 'SINGULAR_ATTRIBUTE' | 'PLURAL_ATTRIBUTE' | 'ENTITY_TYPE';
+    export const BindableTypeEnum = {
+        SingularAttribute: 'SINGULAR_ATTRIBUTE' as BindableTypeEnum,
+        PluralAttribute: 'PLURAL_ATTRIBUTE' as BindableTypeEnum,
+        EntityType: 'ENTITY_TYPE' as BindableTypeEnum
     };
 }
 

@@ -20,12 +20,13 @@ export class UserDepartmentComponent implements OnChanges {
   constructor(private service: DepartmentUserService,
               private departService: DepartmentService) {
     this.loadGrid = this.loadGrid.bind(this);
+    this.loadDepartment = this.loadDepartment.bind(this);
+    this.loadGrid();
+    this.loadDepartment();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userId = this.data ? this.data.id : null;
-    this.loadGrid();
-    this.loadDepartment();
   }
 
   logEvent(eventName: any) {
