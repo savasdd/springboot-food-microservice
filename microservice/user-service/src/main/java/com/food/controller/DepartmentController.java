@@ -1,9 +1,14 @@
 package com.food.controller;
 
 import com.food.exception.GeneralException;
+import com.food.exception.GeneralWarning;
 import com.food.model.Department;
 import com.food.service.DepartmentService;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +27,12 @@ public class DepartmentController {
     @GetMapping(value = "/departments")
     public ResponseEntity<List<Department>> getAllDepartment() throws GeneralException {
         return ResponseEntity.ok(service.getAll());
+    }
+
+    @Operation(description = "Department getAll by loadResult")
+    @PostMapping(value = "/departments/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LoadResult<Department>> getAllFoodLoad(@RequestBody DataSourceLoadOptions<Department> loadOptions) throws GeneralException, GeneralWarning {
+        return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
     @GetMapping(value = "/departments/{id}")

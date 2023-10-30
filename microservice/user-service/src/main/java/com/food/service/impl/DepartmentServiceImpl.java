@@ -1,9 +1,12 @@
 package com.food.service.impl;
 
+import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.model.Department;
 import com.food.repository.DepartmentRepository;
 import com.food.service.DepartmentService;
+import com.food.spesification.response.LoadResult;
+import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,18 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         log.info("get all {}", list.size());
         return list;
+    }
+
+    @Override
+    public LoadResult<Department> getAll(DataSourceLoadOptions<Department> loadOptions) throws GeneralException {
+        LoadResult<Department> loadResult = new LoadResult<>();
+        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+
+        loadResult.setData(list.getContent());
+        loadResult.setTotalCount(list.stream().count());
+        //logService.eventLog("api/foods", List.of(loadResult), 200, ELogType.FOOD);
+        log.info("get all {} ", loadResult.totalCount);
+        return loadResult;
     }
 
     @Override
