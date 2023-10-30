@@ -14,11 +14,13 @@
                 [dataSource]="dataSource"
                 keyExpr="id"
                 parentIdExpr="parent.id"
+                remoteOperations="true"
                 [columnAutoWidth]="true"
                 [wordWrapEnabled]="true"
                 [showBorders]="true"
                 (onInitNewRow)="initNewRow($event)">
                 <dxo-paging [enabled]="true"></dxo-paging>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
                 <dxo-editing
                   mode="batch"
                   [allowAdding]="true"
