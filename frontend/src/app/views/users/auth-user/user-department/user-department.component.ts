@@ -16,13 +16,14 @@ export class UserDepartmentComponent implements OnChanges {
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   userId: any = null;
+  dropDownOptions: any;
 
   constructor(private service: DepartmentUserService,
               private departService: DepartmentService) {
-    this.loadGrid = this.loadGrid.bind(this);
-    this.loadDepartment = this.loadDepartment.bind(this);
-    this.loadGrid();
+    // this.loadGrid = this.loadGrid.bind(this);
+    // this.loadDepartment = this.loadDepartment.bind(this);
     this.loadDepartment();
+    this.loadGrid();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,6 +36,15 @@ export class UserDepartmentComponent implements OnChanges {
 
   refreshDataGrid(e: any) {
     this.dataSourceGrid.instance.refresh();
+  }
+
+  onSelectionPersonChanged(selectedRowKeys: any, cellInfo: any, dropDownBoxComponent: any) {
+    console.log(selectedRowKeys[0])
+
+    cellInfo.setValue(selectedRowKeys[0]);
+    if (selectedRowKeys.length > 0) {
+      dropDownBoxComponent.close();
+    }
   }
 
   loadGrid() {
@@ -91,8 +101,22 @@ export class UserDepartmentComponent implements OnChanges {
   }
 
   loadDepartment() {
-    this.departService.findAlls().toPromise().then((response: any) => {
-      this.departmentDataSource = response;
+    this.departmentDataSource = new CustomStore({
+      key: 'id',
+      load: (loadOptions) => {
+        return this.departService.findAll(loadOptions).toPromise().then((response: any) => {
+          return {
+            data: response.data,
+            totalCount: response.totalCount
+          };
+        });
+      },
+
+      byKey: (key) => {
+        return this.departService.findOne(key).toPromise().then((response) => {
+          return response;
+        });
+      },
     });
   }
 }

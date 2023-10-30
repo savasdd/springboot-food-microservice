@@ -28,11 +28,6 @@
 
                 <dxo-scrolling mode="standard"></dxo-scrolling>
                 <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
-                <dxo-pager
-                  [showPageSizeSelector]="true"
-                  [allowedPageSizes]="[5, 10, 20]"
-                  [showInfo]="true">
-                </dxo-pager>
                 <dxo-search-panel [visible]="true"></dxo-search-panel>
 
                 <dxi-column dataField="name" [minWidth]="250">
@@ -43,10 +38,10 @@
                 </dxi-column>
                 <dxi-column dataField="level" [minWidth]="120"></dxi-column>
 
-                <dxo-paging [pageSize]="2"></dxo-paging>
+                <dxo-paging [pageSize]="5"></dxo-paging>
                 <dxo-pager
                   [showPageSizeSelector]="true"
-                  [allowedPageSizes]="[1,10, 20, 50, 100]"
+                  [allowedPageSizes]="[5,10, 20, 50, 100]"
                   [showInfo]="true">
                 </dxo-pager>
               </dx-tree-list>

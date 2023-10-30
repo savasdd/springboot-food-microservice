@@ -23,7 +23,7 @@ public class UserDepartment extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
     @Column(name = "userId")

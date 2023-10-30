@@ -41,7 +41,53 @@
         displayExpr="name">
       </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="department.code" caption="Code"></dxi-column>
+
+
+    <div *dxTemplate="let cellInfo of 'dropDownTemplate'">
+      <dx-drop-down-box
+        [dataSource]="departmentDataSource"
+        [(value)]="cellInfo.value"
+        displayExpr="name"
+        valueExpr="id"
+        contentTemplate="contentTemplate">
+        <div *dxTemplate="let e of 'contentTemplate'">
+          <dx-tree-list
+            #dataGrid
+            [dataSource]="departmentDataSource"
+            keyExpr="id"
+            parentIdExpr="parent.id"
+            [columnAutoWidth]="true"
+            [wordWrapEnabled]="true"
+            [showBorders]="true"
+            [selectedRowKeys]="[cellInfo.value]"
+            [focusedRowEnabled]="true"
+            [focusedRowKey]="cellInfo.value"
+            [hoverStateEnabled]="true"
+            [showRowLines]="true"
+            [rowAlternationEnabled]="true"
+            (onSelectionChanged)="onSelectionPersonChanged($event.selectedRowKeys, cellInfo, e.component)">
+            <dxo-editing
+              mode="batch"
+              [allowAdding]="false"
+              [allowUpdating]="false"
+              [allowDeleting]="false">
+            </dxo-editing>
+
+            <dxo-scrolling mode="standard"></dxo-scrolling>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+
+            <dxi-column dataField="name" [minWidth]="250"></dxi-column>
+
+            <dxo-paging [pageSize]="2"></dxo-paging>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[1,10, 20, 50, 100]"
+              [showInfo]="true">
+            </dxo-pager>
+          </dx-tree-list>
+        </div>
+      </dx-drop-down-box>
+    </div>
 
     <dxo-paging [pageSize]="10"></dxo-paging>
     <dxo-pager
