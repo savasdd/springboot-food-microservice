@@ -31,7 +31,7 @@ public class DepartmentController {
 
     @Operation(description = "Department getAll by loadResult")
     @PostMapping(value = "/departments/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoadResult<Department>> getAllFoodLoad(@RequestBody DataSourceLoadOptions<Department> loadOptions) throws GeneralException, GeneralWarning {
+    public ResponseEntity<LoadResult<Department>> getAllDepartmentLoad(@RequestBody DataSourceLoadOptions<Department> loadOptions) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 

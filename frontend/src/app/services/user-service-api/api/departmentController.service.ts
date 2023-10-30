@@ -278,12 +278,12 @@ export class DepartmentControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllFoodLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResultDepartment>;
-    public getAllFoodLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResultDepartment>>;
-    public getAllFoodLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResultDepartment>>;
-    public getAllFoodLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getAllDepartmentLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResultDepartment>;
+    public getAllDepartmentLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResultDepartment>>;
+    public getAllDepartmentLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResultDepartment>>;
+    public getAllDepartmentLoad(dataSourceLoadOptionsDepartment: DataSourceLoadOptionsDepartment, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (dataSourceLoadOptionsDepartment === null || dataSourceLoadOptionsDepartment === undefined) {
-            throw new Error('Required parameter dataSourceLoadOptionsDepartment was null or undefined when calling getAllFoodLoad.');
+            throw new Error('Required parameter dataSourceLoadOptionsDepartment was null or undefined when calling getAllDepartmentLoad.');
         }
 
         let localVarHeaders = this.defaultHeaders;

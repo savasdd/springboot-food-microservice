@@ -13,19 +13,24 @@ import { DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttribute
 import { DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType } from './dataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType';
 
 
-export interface DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner { 
-    type?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType;
-    optional?: boolean;
-    id?: boolean;
-    version?: boolean;
+export interface DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner { 
+    elementType?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInnerElementType;
+    collectionType?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner.CollectionTypeEnum;
     name?: string;
     collection?: boolean;
     association?: boolean;
     javaMember?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember;
-    persistentAttributeType?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.PersistentAttributeTypeEnum;
-    bindableType?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner.BindableTypeEnum;
+    persistentAttributeType?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner.PersistentAttributeTypeEnum;
+    bindableType?: DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner.BindableTypeEnum;
 }
-export namespace DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeSingularAttributesInner {
+export namespace DataSourceLoadOptionsDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeDeclaredPluralAttributesInner {
+    export type CollectionTypeEnum = 'COLLECTION' | 'SET' | 'LIST' | 'MAP';
+    export const CollectionTypeEnum = {
+        Collection: 'COLLECTION' as CollectionTypeEnum,
+        Set: 'SET' as CollectionTypeEnum,
+        List: 'LIST' as CollectionTypeEnum,
+        Map: 'MAP' as CollectionTypeEnum
+    };
     export type PersistentAttributeTypeEnum = 'MANY_TO_ONE' | 'ONE_TO_ONE' | 'BASIC' | 'EMBEDDED' | 'MANY_TO_MANY' | 'ONE_TO_MANY' | 'ELEMENT_COLLECTION';
     export const PersistentAttributeTypeEnum = {
         ManyToOne: 'MANY_TO_ONE' as PersistentAttributeTypeEnum,

@@ -15,9 +15,9 @@ import { Sort } from './sort';
 export interface PageableObject { 
     offset?: number;
     sort?: Sort;
-    pageSize?: number;
     pageNumber?: number;
-    unpaged?: boolean;
+    pageSize?: number;
     paged?: boolean;
+    unpaged?: boolean;
 }
 
