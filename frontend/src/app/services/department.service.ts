@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Category, CategoryControllerService} from "./food-service-api";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, firstValueFrom, Observable, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "./message.service";
-import {Department, DepartmentControllerService} from "./user-service-api";
+import {Department, DepartmentControllerService, LoadResultUserDepartment} from "./user-service-api";
 
 
 @Injectable({
@@ -15,27 +15,28 @@ export class DepartmentService {
   }
 
   findAll(loadOptions: any) {
-    return this.service.getAllDepartmentLoad(loadOptions).pipe(catchError(this.handleError));
+    return firstValueFrom(this.service.getAllDepartmentLoad(loadOptions));
+    //return this.service.getAllDepartmentUserLoad(loadOptions).pipe(catchError(this.handleError));
   }
 
   findAlls(): Observable<Department[]> {
     return this.service.getAllDepartment().pipe(catchError(this.handleError));
   }
 
-  findOne(id: number): Observable<any> {
-    return this.service.getOneDepartment(id).pipe(catchError(this.handleError));
+  findOne(id: number) {
+    return firstValueFrom(this.service.getOneDepartment(id).pipe(catchError(this.handleError)));
   }
 
   save(data: any) {
-    return this.service.createDepartment(data).pipe(catchError(this.handleError));
+    return firstValueFrom(this.service.createDepartment(data).pipe(catchError(this.handleError)));
   }
 
   update(id: number, data: any) {
-    return this.service.updateDepartment(id, data).pipe(catchError(this.handleError));
+    return firstValueFrom(this.service.updateDepartment(id, data).pipe(catchError(this.handleError)));
   }
 
   delete(id: number) {
-    return this.service.deleteDepartment(id).pipe(catchError(this.handleError));
+    return firstValueFrom(this.service.deleteDepartment(id).pipe(catchError(this.handleError)));
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -1,9 +1,14 @@
 import {Injectable} from "@angular/core";
 import {Category, CategoryControllerService} from "./food-service-api";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, firstValueFrom, Observable, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "./message.service";
-import {DepartmentControllerService, UserDepartmentControllerService} from "./user-service-api";
+import {
+  DepartmentControllerService,
+  LoadResultDepartment,
+  LoadResultUserDepartment,
+  UserDepartmentControllerService
+} from "./user-service-api";
 
 
 @Injectable({
@@ -14,8 +19,9 @@ export class DepartmentUserService {
   constructor(private service: UserDepartmentControllerService) {
   }
 
-  findAll(loadOptions: any) {
-    return this.service.getAllDepartmentUserLoad(loadOptions).pipe(catchError(this.handleError));
+  findAll(loadOptions: any): Promise<LoadResultUserDepartment> {
+    return firstValueFrom(this.service.getAllDepartmentUserLoad(loadOptions));
+    //return this.service.getAllDepartmentUserLoad(loadOptions).pipe(catchError(this.handleError));
   }
 
   findAlls(): Observable<any> {

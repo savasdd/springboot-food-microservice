@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
 import {DepartmentService} from "../../../services/department.service";
 import CustomStore from "devextreme/data/custom_store";
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-department',
@@ -33,7 +34,7 @@ export class DepartmentComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -42,13 +43,13 @@ export class DepartmentComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response) => {
+        return this.service.findOne(key).then((response) => {
           return response;
         });
       },
 
       insert: (values) => {
-        return this.service.save(values).toPromise().then((response) => {
+        return this.service.save(values).then((response) => {
             return;
           },
           err => {
@@ -58,7 +59,7 @@ export class DepartmentComponent implements OnInit {
       },
       update: (key, values: any) => {
         values.id = key;
-        return this.service.update(key, values).toPromise().then((response) => {
+        return this.service.update(key, values).then((response) => {
             return;
           },
           err => {
@@ -67,7 +68,7 @@ export class DepartmentComponent implements OnInit {
         );
       },
       remove: (key) => {
-        return this.service.delete(key).toPromise().then((response) => {
+        return this.service.delete(key).then((response) => {
             return;
           },
           err => {

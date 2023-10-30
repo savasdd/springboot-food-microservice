@@ -3,6 +3,7 @@ import {DxDataGridComponent} from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
 import {DepartmentUserService} from "../../../../services/department-user.service";
 import {DepartmentService} from "../../../../services/department.service";
+import {UtilService} from "../../../../services/util.service";
 
 @Component({
   selector: 'app-user-department',
@@ -53,7 +54,7 @@ export class UserDepartmentComponent implements OnChanges {
       load: (loadOptions) => {
         loadOptions.filter = [];
         loadOptions.filter.push(['userId', '=', this.userId]);
-        return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -62,7 +63,7 @@ export class UserDepartmentComponent implements OnChanges {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response) => {
+        return this.service.findOne(key).toPromise().then((response: any) => {
           return response;
         });
       },
@@ -104,7 +105,7 @@ export class UserDepartmentComponent implements OnChanges {
     this.departmentDataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.departService.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.departService.findAll(loadOptions).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -113,7 +114,7 @@ export class UserDepartmentComponent implements OnChanges {
       },
 
       byKey: (key) => {
-        return this.departService.findOne(key).toPromise().then((response) => {
+        return this.departService.findOne(key).then((response) => {
           return response;
         });
       },
