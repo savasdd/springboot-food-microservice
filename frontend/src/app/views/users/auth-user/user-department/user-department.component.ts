@@ -20,8 +20,8 @@ export class UserDepartmentComponent implements OnChanges {
 
   constructor(private service: DepartmentUserService,
               private departService: DepartmentService) {
-    // this.loadGrid = this.loadGrid.bind(this);
-    // this.loadDepartment = this.loadDepartment.bind(this);
+    this.loadGrid = this.loadGrid.bind(this);
+    this.loadDepartment = this.loadDepartment.bind(this);
     this.loadDepartment();
     this.loadGrid();
   }
