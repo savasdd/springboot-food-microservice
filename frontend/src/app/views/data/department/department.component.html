@@ -10,7 +10,7 @@
             <div class="row">
 
               <dx-tree-list
-                id="tasks"
+                #dataGrid
                 [dataSource]="dataSource"
                 keyExpr="id"
                 parentIdExpr="parent.id"
@@ -18,6 +18,7 @@
                 [wordWrapEnabled]="true"
                 [showBorders]="true"
                 (onInitNewRow)="initNewRow($event)">
+                <dxo-paging [enabled]="true"></dxo-paging>
                 <dxo-editing
                   mode="batch"
                   [allowAdding]="true"
@@ -25,12 +26,29 @@
                   [allowDeleting]="true">
                 </dxo-editing>
 
+                <dxo-scrolling mode="standard"></dxo-scrolling>
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                <dxo-pager
+                  [showPageSizeSelector]="true"
+                  [allowedPageSizes]="[5, 10, 20]"
+                  [showInfo]="true">
+                </dxo-pager>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                
                 <dxi-column dataField="name" [minWidth]="250">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
                 <dxi-column dataField="code" [minWidth]="120">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
+                <dxi-column dataField="level" [minWidth]="120"></dxi-column>
+
+                <dxo-paging [pageSize]="2"></dxo-paging>
+                <dxo-pager
+                  [showPageSizeSelector]="true"
+                  [allowedPageSizes]="[1,10, 20, 50, 100]"
+                  [showInfo]="true">
+                </dxo-pager>
               </dx-tree-list>
 
             </div>

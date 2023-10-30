@@ -1,6 +1,5 @@
 package com.food.service.impl;
 
-import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.model.Department;
 import com.food.repository.DepartmentRepository;
@@ -49,7 +48,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department create(Department dto) throws GeneralException {
-        if (dto.getParent() == null || dto.getParent().getId() == null)
+        if (dto.getParent() == null || dto.getParent().getId() == null || dto.getParent().getParent() == null)
             dto.setParent(null);
         else
             dto.setParent(getOne(dto.getParent().getId()));
@@ -74,7 +73,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         }).get();
 
         var model = repository.save(update);
-        log.info("creat {}", model.getId());
+        log.info("update {}", model.getId());
         return model;
     }
 
