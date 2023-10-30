@@ -20,7 +20,7 @@
     <dxo-paging [enabled]="true"></dxo-paging>
     <dxo-editing
       mode="row"
-      [allowUpdating]="false"
+      [allowUpdating]="true"
       [allowDeleting]="true"
       [allowAdding]="true"
       [useIcons]="true">
@@ -41,6 +41,7 @@
         displayExpr="name">
       </dxo-lookup>
     </dxi-column>
+    <dxi-column dataField="department.code" caption="Code"></dxi-column>
 
     <dxo-paging [pageSize]="10"></dxo-paging>
     <dxo-pager
