@@ -17,7 +17,7 @@ const TOKEN_HEADER_KEY = 'Authorization';
 
 
 @Injectable()
-export class Auth implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public jwtHelper: JwtHelperService = new JwtHelperService();
@@ -93,5 +93,5 @@ export class Auth implements HttpInterceptor {
 }
 
 export const authInterceptorProviders = [
-  {provide: HTTP_INTERCEPTORS, useClass: Auth, multi: true}
+  {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
 ];

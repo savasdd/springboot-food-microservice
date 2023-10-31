@@ -12,7 +12,7 @@ import {AppComponent} from './app.component';
 
 // Import containers
 import {DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent} from './containers';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {
@@ -37,6 +37,12 @@ import {
 } from '@coreui/angular';
 
 import {IconModule, IconSetService} from '@coreui/icons-angular';
+import {LoaderService} from "./auth/service/loader.service";
+import {AuthService} from "./auth/service/auth.service";
+import {AuthGuard} from "./auth/guards/auth.guard";
+import {ErrorInterceptor} from "./auth/interceptors/error";
+import {LoaderInterceptor} from "./auth/interceptors/loader";
+import {AuthInterceptor} from "./auth/interceptors/auth";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -77,10 +83,13 @@ const APP_CONTAINERS = [
     FontAwesomeModule
   ],
   providers: [
-    {
-      provide: LocationStrategy,
-      useClass: HashLocationStrategy
-    },
+    LoaderService,
+    AuthService,
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     IconSetService,
     Title
   ],
