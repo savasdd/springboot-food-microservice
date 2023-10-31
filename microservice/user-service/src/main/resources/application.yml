@@ -3,13 +3,18 @@ server:
   port: 8082
   db: food_user_db
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${server.host}:8761/eureka/
+
 spring:
   application:
     name: user-service
   banner:
     location: banner.txt
   config:
-    import: eureka.yml,info.yml,rabbit.yml
+    import: info.yml,rabbit.yml
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${server.host}:5432/${server.db}

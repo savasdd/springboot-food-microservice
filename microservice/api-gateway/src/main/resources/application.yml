@@ -9,19 +9,37 @@ keycloak:
   secret: bQWQTn5RAfDSsXPG8ko7AsEnqsW7hbmj
   url: ${keycloak.host}/realms/${keycloak.realm}/protocol/openid-connect/token
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${server.host}:8761/eureka/
+
 spring:
   application:
     name: api-gateway
   banner:
     location: banner.txt
   config:
-    import: info.yml,eureka.yml,predicate.properties
+    import: info.yml
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://${server.host}:8043/auth/realms/${keycloak.realm}
           jwk-set-uri: http://${server.host}:8043/auth/realms/${keycloak.realm}/protocol/openid-connect/certs
+  cloud:
+    loadbalancer:
+      configurations: health-check
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          #uri: http://127.0.0.1:8082/
+          predicates:
+            - Path=/api/**
 
 jwt:
   auth:
@@ -32,3 +50,5 @@ jwt:
 openapi:
   oAuthFlow:
     tokenUrl: http://localhost:9000/realms/${keycloak.realm}/protocol/openid-connect/token
+
+
