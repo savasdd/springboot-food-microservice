@@ -44,6 +44,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@openapitools/openapi-generator-cli": "^2.7.0",
+    "angular-web-storage": "^16.0.0",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
     "bootstrap-material-design": "^4.1.3",
