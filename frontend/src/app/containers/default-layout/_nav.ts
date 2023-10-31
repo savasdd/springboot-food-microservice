@@ -65,22 +65,22 @@ export const navItems: INavData[] = [
     ]
   },
   {
-    name: 'Login',
+    name: 'Logout',
     url: '/login',
     iconComponent: {name: 'cilLockLocked'},
-    children: [
-      {
-        name: 'Login',
-        url: '/login'
-      },
-      // {
-      //   name: 'Error 404',
-      //   url: '/404'
-      // },
-      // {
-      //   name: 'Error 500',
-      //   url: '/500'
-      // }
-    ]
+    // children: [
+    //   {
+    //     name: 'Login',
+    //     url: '/login'
+    //   },
+    //   // {
+    //   //   name: 'Error 404',
+    //   //   url: '/404'
+    //   // },
+    //   // {
+    //   //   name: 'Error 500',
+    //   //   url: '/500'
+    //   // }
+    // ]
   },
 ];
