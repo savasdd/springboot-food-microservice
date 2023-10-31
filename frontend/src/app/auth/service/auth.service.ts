@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {GatewayService} from "../../gateway.service";
+import {GatewayService} from "../../services/gateway.service";
 import {TokenService} from "./token.service";
-import {TokenResponse, UserDto} from "../../api-gateway-api";
+import {TokenResponse, UserDto} from "../../services/api-gateway-api";
 import {tap} from "rxjs";
 
 

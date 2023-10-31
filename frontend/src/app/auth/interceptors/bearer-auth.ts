@@ -3,7 +3,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {SessionStorageService} from "angular-web-storage";
 import {TokenService} from "../service/token.service";
 import {Observable} from "rxjs";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../environments/environment";
 
 
 @Injectable()

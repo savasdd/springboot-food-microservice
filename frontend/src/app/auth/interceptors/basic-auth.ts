@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {SessionStorageService} from "angular-web-storage";
 import {Observable} from "rxjs";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../environments/environment";
 
 
 @Injectable()

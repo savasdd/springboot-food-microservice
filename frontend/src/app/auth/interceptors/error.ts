@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {MessageService} from "../../message.service";
+import {MessageService} from "../../services/message.service";
 import {catchError, Observable, throwError} from "rxjs";
 import {Router} from "@angular/router";
 
