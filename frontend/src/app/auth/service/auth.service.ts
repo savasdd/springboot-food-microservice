@@ -14,7 +14,7 @@ export class AuthService {
               private tokenService: TokenService) {
   }
 
-  login(username: string, password: string) {
+  login(username: any, password: any) {
     const dto: UserDto = {
       username: username,
       password: password
