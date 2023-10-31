@@ -3,10 +3,10 @@ import {SessionStorageService} from "angular-web-storage";
 import {Router} from "@angular/router";
 
 
-const TOKEN_KEY = 'auth-token';
-const REFRESH_TOKEN_KEY = 'auth-refresh-token';
-const USER_KEY = 'auth-user';
-const ROL_KEY = 'auth-rol';
+const TOKEN_KEY = 'service-token';
+const REFRESH_TOKEN_KEY = 'service-refresh-token';
+const USER_KEY = 'service-user';
+const ROL_KEY = 'service-rol';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +53,7 @@ export class TokenService {
   }
 
 
-  public getRol(): string {
+  public getRol(): any {
     return this.sessionStorage.get(ROL_KEY);
   }
 

@@ -5,7 +5,7 @@ import CustomStore from "devextreme/data/custom_store";
 import {faRefresh} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-auth-user',
+  selector: 'app-service-user',
   templateUrl: './auth-user.component.html',
   styleUrls: ['./auth-user.component.scss']
 })

@@ -5,7 +5,7 @@ import CustomStore from "devextreme/data/custom_store";
 import {faRefresh, faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-auth-group',
+  selector: 'app-service-group',
   templateUrl: './auth-group.component.html',
   styleUrls: ['./auth-group.component.scss']
 })

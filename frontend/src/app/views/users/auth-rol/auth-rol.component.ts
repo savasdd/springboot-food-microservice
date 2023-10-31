@@ -4,7 +4,7 @@ import {UserService} from "../../../services/user.service";
 import CustomStore from "devextreme/data/custom_store";
 
 @Component({
-  selector: 'app-auth-rol',
+  selector: 'app-service-rol',
   templateUrl: './auth-rol.component.html',
   styleUrls: ['./auth-rol.component.scss']
 })
