@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public TokenResponse authenticate(UserDto dto) throws GeneralException {
         if (dto.getUsername() == null || dto.getPassword() == null)
-            throw new GeneralException("Invalid Username or Password!");
+            throw new GeneralException("Invalid username or password!");
 
         AccessTokenResponse response = client.authenticate(dto);
         return TokenResponse.builder().accessToken(response.getToken()).expiresIn(response.getExpiresIn()).tokenType(response.getTokenType()).refreshToken(response.getRefreshToken()).expiresInRefresh(response.getRefreshExpiresIn()).build();

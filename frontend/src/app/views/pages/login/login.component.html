@@ -3,40 +3,51 @@
     <c-row class="justify-content-center">
       <c-col md="8">
         <c-card-group>
-          <c-card class="p-4">
-            <c-card-body>
-              <form cForm [formGroup]="loginForm" method="POST">
-                <h1>Login</h1>
-                <p class="text-medium-emphasis">Sign In to your account</p>
-                <c-input-group class="mb-3">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilUser"></svg>
-                  </span>
-                  <input autoComplete="username" id="username" formControlName="username" cFormControl
-                         placeholder="Username"/>
-                </c-input-group>
-                <c-input-group class="mb-4">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </span>
-                  <input
-                    autoComplete="current-password"
-                    id="password"
-                    formControlName="password"
-                    cFormControl
-                    placeholder="Password"
-                    type="password"
-                  />
-                </c-input-group>
-                <c-row>
-                  <c-col xs="6">
-                    <button cButton class="px-4" color="primary" (click)="login()">
-                      Login
-                    </button>
-                  </c-col>
-                </c-row>
-              </form>
-            </c-card-body>
+          <c-card class="c-card">
+
+            <div>
+              <div class="align-self-center mt-auto mb-auto login-card">
+                <div class="pages-panel flex flex-column">
+                  <div class="pages-detail mb-6 px-6 mt-6" style="text-align:center">
+                    <h2>FOOD SALES</h2>
+                  </div>
+
+                  <div class="flex flex-column px-3">
+                    <form cForm [formGroup]="loginForm" method="POST">
+                      <c-input-group class="mb-3">
+                        <span cInputGroupText>
+                          <svg cIcon name="cilUser"></svg>
+                        </span>
+                        <input autoComplete="username" id="username" formControlName="username" cFormControl
+                               placeholder="Username"/>
+                      </c-input-group>
+                      <c-input-group class="mb-4">
+                        <span cInputGroupText>
+                          <svg cIcon name="cilLockLocked"></svg>
+                        </span>
+                        <input
+                          autoComplete="current-password"
+                          id="password"
+                          formControlName="password"
+                          cFormControl
+                          placeholder="Password"
+                          type="password"
+                        />
+                      </c-input-group>
+
+                      <div class="ml-3 mr-3 mt-3 mb-4" style="text-align:center">
+                        <button cButton class="p-button" color="primary" (click)="login()">
+                          Login
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
           </c-card>
 
           <!--          <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">-->

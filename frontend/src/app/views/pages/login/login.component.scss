@@ -41,12 +41,6 @@ nz-layout {
   height: 100%;
 }
 
-.etkb-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .login-bg .body .body-content .body-right {
   height: 100%;
 }
@@ -61,12 +55,19 @@ nz-layout {
   z-index: 1;
   background-color: white;
   border-radius: 20px;
-  border: 2px solid #c0a263;
+  border: 1px solid #c0a263;
   background-color: rgb(255, 255, 255, 1);
 }
 
-p-button .p-button {
-  width: 100%;
+.c-card {
+  z-index: 1;
+  background-color: white;
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255, 1);
+}
+
+.p-button {
+  width: 20%;
 }
 
 p-dialog {
@@ -83,32 +84,32 @@ p-dialog {
   }
 
   .login-card {
-    width: 80%;
+    width: 100%;
   }
 }
 
 
 @media screen and (min-width: 960px) {
   .login-card {
-    width: 60%;
+    width: 100%;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .login-card {
-    width: 60%;
+    width: 100%;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .login-card {
-    width: 50%;
+    width: 100%;
   }
 }
 
 @media screen and (min-width: 1480px) {
   .login-card {
-    width: 40%;
+    width: 100%;
   }
 }
 
