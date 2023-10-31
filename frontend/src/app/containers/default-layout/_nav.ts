@@ -13,34 +13,34 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Orders',
-        url: '/foods/orders'
+        url: 'foods/orders'
       },
       {
         name: 'Food',
-        url: '/foods/foods'
+        url: 'foods/foods'
       },
       {
         name: 'Stock',
-        url: '/foods/stocks'
+        url: 'foods/stocks'
       },
       {
         name: 'Payment',
-        url: '/foods/payments'
+        url: 'foods/payments'
       },
       {
         name: 'Category',
-        url: '/foods/categorys'
+        url: 'foods/categorys'
       },
     ]
   },
   {
     name: 'Department',
-    url: '/datas',
+    url: '/data',
     iconComponent: {name: 'cilBookmark'},
     children: [
       {
         name: 'Department',
-        url: '/datas/department'
+        url: 'data/department'
       },
     ]
   },
@@ -51,15 +51,15 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'User',
-        url: '/users/user'
+        url: 'users/user'
       },
       {
         name: 'Group',
-        url: '/users/group'
+        url: 'users/group'
       },
       {
         name: 'Rol',
-        url: '/users/rol'
+        url: 'users/rol'
       },
 
     ]
@@ -67,24 +67,20 @@ export const navItems: INavData[] = [
   {
     name: 'Login',
     url: '/login',
-    iconComponent: {name: 'cil-star'},
+    iconComponent: {name: 'cilLockLocked'},
     children: [
       {
         name: 'Login',
         url: '/login'
       },
-      {
-        name: 'Register',
-        url: '/register'
-      },
-      {
-        name: 'Error 404',
-        url: '/404'
-      },
-      {
-        name: 'Error 500',
-        url: '/500'
-      }
+      // {
+      //   name: 'Error 404',
+      //   url: '/404'
+      // },
+      // {
+      //   name: 'Error 500',
+      //   url: '/500'
+      // }
     ]
   },
 ];
