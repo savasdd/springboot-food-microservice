@@ -1,6 +1,6 @@
 package com.food.keycloak;
 
-import com.food.config.KeycloakConfig;
+import com.food.config.keycloak.KeycloakConfig;
 import com.food.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

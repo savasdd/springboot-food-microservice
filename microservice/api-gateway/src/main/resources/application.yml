@@ -37,7 +37,6 @@ spring:
       routes:
         - id: user-service
           uri: lb://user-service
-          #uri: http://127.0.0.1:8082/
           predicates:
             - Path=/api/**
 

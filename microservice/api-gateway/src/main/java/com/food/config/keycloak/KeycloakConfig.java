@@ -1,4 +1,4 @@
-package com.food.config;
+package com.food.config.keycloak;
 
 import lombok.Getter;
 import lombok.Setter;
