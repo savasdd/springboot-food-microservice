@@ -19,17 +19,11 @@ public class RolServiceImpl implements RolService {
 
     @Autowired
     private KeycloakClient client;
-    private RealmResource resource;
-
-//    public RolServiceImpl(KeycloakClient client) {
-//        this.client = client;
-//        this.resource = client.initClient();
-//    }
 
     @Override
     public GenericResponse getRoles() throws GeneralException {
         var response = new GenericResponse<RoleRepresentation>();
-        List<RoleRepresentation> list = resource.roles().list();
+        List<RoleRepresentation> list = client.initClient().roles().list();
         response.setData(list);
         response.setTotalCount(list.size());
 
@@ -42,7 +36,7 @@ public class RolServiceImpl implements RolService {
         RoleRepresentation rol = new RoleRepresentation();
         rol.setName(dto.getName());
         rol.setDescription(dto.getDescription());
-        resource.roles().create(rol);
+        client.initClient().roles().create(rol);
         return dto;
     }
 

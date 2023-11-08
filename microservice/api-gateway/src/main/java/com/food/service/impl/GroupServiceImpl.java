@@ -25,12 +25,6 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private KeycloakClient client;
 
-    private RealmResource resource;
-
-//    public GroupServiceImpl() {
-//        this.resource = this.client.initClient();
-//    }
-
 
     @Override
     public GenericResponse getGroup() throws GeneralException {
@@ -46,7 +40,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GenericResponse getGroupRol(String id) throws GeneralException {
         var response = new GenericResponse<RoleRepresentation>();
-        GroupResource groupResource = resource.groups().group(id);
+        GroupResource groupResource = client.initClient().groups().group(id);
         var list = groupResource.roles().realmLevel().listAll();
         response.setData(list);
         response.setTotalCount(list.size());
@@ -57,7 +51,7 @@ public class GroupServiceImpl implements GroupService {
     public GroupDto createGroup(GroupDto dto) throws GeneralException {
         GroupRepresentation group = new GroupRepresentation();
         group.setName(dto.getName());
-        resource.groups().add(group);
+        client.initClient().groups().add(group);
         return dto;
     }
 
@@ -66,7 +60,7 @@ public class GroupServiceImpl implements GroupService {
         if (dto.getName() == null)
             throw new GeneralException("Rol Name Not Found!");
 
-        GroupResource groupResource = resource.groups().group(dto.getGroupId());
+        GroupResource groupResource = client.initClient().groups().group(dto.getGroupId());
         RoleRepresentation role = new RoleRepresentation();
         role.setName(dto.getName());
         role.setId(dto.getId());
@@ -79,7 +73,7 @@ public class GroupServiceImpl implements GroupService {
         if (dto.getName() == null)
             throw new GeneralException("Rol Name Not Found!");
 
-        GroupResource groupResource = resource.groups().group(dto.getGroupId());
+        GroupResource groupResource = client.initClient().groups().group(dto.getGroupId());
         RoleRepresentation role = new RoleRepresentation();
         role.setName(dto.getName());
         role.setId(dto.getId());

@@ -26,16 +26,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private KeycloakClient client;
-    private RealmResource resource;
 
-//    public UserServiceImpl(KeycloakClient client) {
-//        this.client = client;
-//        this.resource = client.initClient();
-//    }
 
     @Override
     public UserRepresentation getUser(String username) throws GeneralException {
-        UserRepresentation userList = resource.users().search(username.trim()).get(0);
+        UserRepresentation userList = client.initClient().users().search(username.trim()).get(0);
         log.info("get user {}", username);
         return userList;
     }
@@ -43,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GenericResponse getAllUser() throws GeneralException {
         var response = new GenericResponse<UserRepresentation>();
-        var list = resource.users().list();
+        var list = client.initClient().users().list();
         response.setData(list);
         response.setTotalCount(list.size());
         return response;
@@ -52,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GenericResponse getUserGroup(String userId) throws GeneralException {
         var response = new GenericResponse<GroupRepresentation>();
-        UserResource userResource = resource.users().get(userId);
+        UserResource userResource = client.initClient().users().get(userId);
         var list = userResource.groups();
         response.setData(list);
         response.setTotalCount(list.size());
@@ -62,14 +57,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public GroupDto joinUserGroup(GroupDto dto) throws GeneralException {
-        UserResource userResource = resource.users().get(dto.getUserId());
+        UserResource userResource = client.initClient().users().get(dto.getUserId());
         userResource.joinGroup(dto.getId());
         return dto;
     }
 
     @Override
     public GroupDto leaveUserGroup(GroupDto dto) throws GeneralException {
-        UserResource userResource = resource.users().get(dto.getUserId());
+        UserResource userResource = client.initClient().users().get(dto.getUserId());
         userResource.leaveGroup(dto.getId());
         return dto;
     }
@@ -84,10 +79,10 @@ public class UserServiceImpl implements UserService {
         user.setEmail(dto.getEmail());
         user.setAttributes(Collections.singletonMap("origin", Arrays.asList("Food Users")));
 
-        Response response = resource.users().create(user);
+        Response response = client.initClient().users().create(user);
         log.info("Repsonse: {} {}", response.getStatus());
         String userId = CreatedResponseUtil.getCreatedId(response);
-        UserResource userResource = resource.users().get(userId);
+        UserResource userResource = client.initClient().users().get(userId);
 
         CredentialRepresentation passwordCred = new CredentialRepresentation();
         passwordCred.setTemporary(false);
@@ -100,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto deleteUser(String id) throws GeneralException {
-        UserResource userResource = resource.users().get(id);
+        UserResource userResource = client.initClient().users().get(id);
         userResource.remove();
         return UserDto.builder().id(id).build();
     }
