@@ -8,6 +8,7 @@ import com.food.service.RolService;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +17,14 @@ import java.util.List;
 @Service
 public class RolServiceImpl implements RolService {
 
-    private final KeycloakClient client;
-    private final RealmResource resource;
+    @Autowired
+    private KeycloakClient client;
+    private RealmResource resource;
 
-    public RolServiceImpl(KeycloakClient client) {
-        this.client = client;
-        this.resource = client.initClient();
-    }
+//    public RolServiceImpl(KeycloakClient client) {
+//        this.client = client;
+//        this.resource = client.initClient();
+//    }
 
     @Override
     public GenericResponse getRoles() throws GeneralException {

@@ -13,6 +13,7 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
@@ -23,13 +24,14 @@ import java.util.Collections;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final KeycloakClient client;
-    private final RealmResource resource;
+    @Autowired
+    private KeycloakClient client;
+    private RealmResource resource;
 
-    public UserServiceImpl(KeycloakClient client) {
-        this.client = client;
-        this.resource = client.initClient();
-    }
+//    public UserServiceImpl(KeycloakClient client) {
+//        this.client = client;
+//        this.resource = client.initClient();
+//    }
 
     @Override
     public UserRepresentation getUser(String username) throws GeneralException {
@@ -83,7 +85,7 @@ public class UserServiceImpl implements UserService {
         user.setAttributes(Collections.singletonMap("origin", Arrays.asList("Food Users")));
 
         Response response = resource.users().create(user);
-        log.info("Repsonse: {} {}", response.getStatus(), response.getStatusInfo());
+        log.info("Repsonse: {} {}", response.getStatus());
         String userId = CreatedResponseUtil.getCreatedId(response);
         UserResource userResource = resource.users().get(userId);
 

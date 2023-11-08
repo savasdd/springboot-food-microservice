@@ -6,31 +6,36 @@ import com.food.dto.RolDto;
 import com.food.exception.GeneralException;
 import com.food.keycloak.KeycloakClient;
 import com.food.service.GroupService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.resource.GroupResource;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Slf4j
 @Service
 public class GroupServiceImpl implements GroupService {
 
-    private final KeycloakClient client;
-    private final RealmResource resource;
+    @Autowired
+    private KeycloakClient client;
 
-    public GroupServiceImpl(KeycloakClient client) {
-        this.client = client;
-        this.resource = client.initClient();
-    }
+    private RealmResource resource;
+
+//    public GroupServiceImpl() {
+//        this.resource = this.client.initClient();
+//    }
+
 
     @Override
     public GenericResponse getGroup() throws GeneralException {
         var response = new GenericResponse<GroupRepresentation>();
-        List<GroupRepresentation> list = resource.groups().groups();
+        List<GroupRepresentation> list = client.initClient().groups().groups();
         response.setData(list);
         response.setTotalCount(list.size());
 

@@ -31,14 +31,7 @@ public class KeycloakClient {
         paramMap.add("password", dto.getPassword().trim());
         paramMap.add("grant_type", OAuth2Constants.PASSWORD);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(paramMap, headers);
-
-        log.info("Try to authenticate");
-        final RestTemplate restTemplate = new RestTemplate();
-        return getAccessTokenResponse(entity, restTemplate);
+        return getHeaderResponse(paramMap);
     }
 
 
@@ -49,6 +42,10 @@ public class KeycloakClient {
         paramMap.add("refresh_token", token);
         paramMap.add("grant_type", OAuth2Constants.REFRESH_TOKEN);
 
+        return getHeaderResponse(paramMap);
+    }
+
+    private AccessTokenResponse getHeaderResponse(MultiValueMap<String, String> paramMap) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));

@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
@@ -25,7 +28,7 @@ public class GroupController {
         return new ResponseEntity<>(service.getGroup(), HttpStatus.OK);
     }
 
-    //@RolesAllowed({"ADMIN_ROLU"})
+    //@RolesAllowed({"FOOD_SEARCH"})
     @PostMapping("/groups")
     public ResponseEntity<GroupDto> createGroup(@RequestBody GroupDto dto) throws GeneralException {
         return new ResponseEntity<>(service.createGroup(dto), HttpStatus.CREATED);
