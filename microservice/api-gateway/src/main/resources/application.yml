@@ -17,6 +17,9 @@ eureka:
 spring:
   application:
     name: api-gateway
+  #  main:
+  #    web-application-type: reactive
+  #    allow-bean-definition-overriding: true
   banner:
     location: banner.txt
   config:
@@ -26,7 +29,8 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://${server.host}:8043/auth/realms/${keycloak.realm}
-          jwk-set-uri: http://${server.host}:8043/auth/realms/${keycloak.realm}/protocol/openid-connect/certs
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
   cloud:
     loadbalancer:
       configurations: health-check
@@ -44,10 +48,4 @@ jwt:
   auth:
     converter:
       resource-id: ${keycloak.resource}
-      principal-attribute: preferred_username
-
-openapi:
-  oAuthFlow:
-    tokenUrl: http://localhost:9000/realms/${keycloak.realm}/protocol/openid-connect/token
-
-
+      principle-attribute: preferred_username
