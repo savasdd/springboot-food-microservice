@@ -43,7 +43,7 @@ export class TokenService {
     this.sessionStorage.set(USER_KEY, username);
   }
 
-  public saveRol(rol: Object): void {
+  public saveRol(rol: any): void {
     this.sessionStorage.remove(ROL_KEY);
     this.sessionStorage.set(ROL_KEY, rol);
   }

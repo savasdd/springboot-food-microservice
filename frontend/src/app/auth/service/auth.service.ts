@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {GatewayService} from "../../services/gateway.service";
 import {TokenService} from "./token.service";
-import {TokenResponse, UserDto} from "../../services/api-gateway-api";
 import {tap} from "rxjs";
+import {TokenResponse, UserDto} from "../../services/gateway-service-api";
 
 
 @Injectable({
@@ -20,7 +20,7 @@ export class AuthService {
       password: password
     };
 
-    return this.service.getToken(dto).pipe((tap((response: TokenResponse) => {
+    return this.service.getToken(dto).pipe((tap((response: TokenResponse): any => {
       if (response) {
         this.tokenService.saveToken(response.access_token);
         this.tokenService.saveRefreshToken(response.refresh_token);

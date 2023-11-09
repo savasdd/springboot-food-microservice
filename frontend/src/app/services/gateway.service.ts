@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {catchError, Observable, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "./message.service";
-import {AuthControllerService, TokenResponse, UserDto} from "./api-gateway-api";
+import {AuthControllerService, TokenResponse, UserDto} from "./gateway-service-api";
 
 
 @Injectable({

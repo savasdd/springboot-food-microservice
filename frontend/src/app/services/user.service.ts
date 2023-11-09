@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {catchError, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "./message.service";
-import {UserAuthController} from "./api-gateway-api";
+import {GroupControllerService, RolControllerService, UserControllerService} from "./gateway-service-api";
 
 
 @Injectable({
@@ -10,61 +10,62 @@ import {UserAuthController} from "./api-gateway-api";
 })
 export class UserService {
 
-  constructor(private service: UserAuthController) {
+  constructor(private userService: UserControllerService,
+              private rolService: RolControllerService,
+              private groupService: GroupControllerService) {
   }
 
   findAllUser(loadOptions: any) {
-    return this.service.getAllUser().pipe(catchError(this.handleError));
+    return this.userService.getAllUser().pipe(catchError(this.handleError));
   }
 
   getUserGroup(id: any) {
-    return this.service.getUserGroup(id).pipe(catchError(this.handleError));
+    return this.userService.getUserGroup(id).pipe(catchError(this.handleError));
   }
 
   findAllRoll(loadOptions: any) {
-    return this.service.getRoles().pipe(catchError(this.handleError));
+    return this.rolService.getRoles().pipe(catchError(this.handleError));
   }
 
   findAllGroup(loadOptions: any) {
-    return this.service.getGroups().pipe(catchError(this.handleError));
+    return this.groupService.getGroup().pipe(catchError(this.handleError));
   }
 
   getGroupRol(id: any) {
-    return this.service.getGroupRol(id).pipe(catchError(this.handleError));
+    return this.groupService.getGroupRol(id).pipe(catchError(this.handleError));
   }
 
   saveUser(data: any) {
-    return this.service.createUser(data).pipe(catchError(this.handleError));
+    return this.userService.createUser(data).pipe(catchError(this.handleError));
   }
 
   saveRol(data: any) {
-    return this.service.createRole(data).pipe(catchError(this.handleError));
+    return this.rolService.createRole(data).pipe(catchError(this.handleError));
   }
 
   saveGroup(data: any) {
-    return this.service.createGroup(data).pipe(catchError(this.handleError));
+    return this.groupService.createGroup(data).pipe(catchError(this.handleError));
   }
 
   joinUserGroup(data: any) {
-    return this.service.joinUserGroup(data).pipe(catchError(this.handleError));
+    return this.userService.joinUserGroup(data).pipe(catchError(this.handleError));
   }
 
   addGroupRol(data: any) {
-    return this.service.addGroupRol(data).pipe(catchError(this.handleError));
+    return this.groupService.addRolGroup(data).pipe(catchError(this.handleError));
   }
 
   leaveUserGroup(data: any) {
-    return this.service.leaveUserGroup(data).pipe(catchError(this.handleError));
+    return this.userService.leaveUserGroup(data).pipe(catchError(this.handleError));
   }
 
   leaveGroupRol(data: any) {
-    return this.service.leaveGroupRol(data).pipe(catchError(this.handleError));
+    return this.groupService.leaveGroupRol(data).pipe(catchError(this.handleError));
   }
 
 
-
   deleteUser(id: any) {
-    return this.service.deleteUser(id).pipe(catchError(this.handleError));
+    return this.userService.deleteUser(id).pipe(catchError(this.handleError));
   }
 
 
