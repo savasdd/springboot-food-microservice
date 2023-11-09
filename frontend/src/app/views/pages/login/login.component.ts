@@ -33,11 +33,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-
-
     this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe((data: any) => {
       this.router.navigate([this.returnUrl]);
     }, (err: any) => {
+      console.log(err.error.warningMessage)
       // this.messageService.error('Yanlış eposta veya şifre!');
     });
 

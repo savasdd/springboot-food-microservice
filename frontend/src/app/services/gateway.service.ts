@@ -14,7 +14,8 @@ export class GatewayService {
   }
 
   getToken(dto: UserDto) {
-    return this.service.getToken(dto).pipe(catchError(this.handleError));
+    // return this.service.getToken(dto).pipe(catchError(this.handleError));
+    return this.service.getToken(dto);
   }
 
 
