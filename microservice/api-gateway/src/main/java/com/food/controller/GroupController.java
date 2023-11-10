@@ -24,7 +24,7 @@ public class GroupController {
         this.service = service;
     }
 
-    @GetMapping(value = "/groups", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/groups", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponse> getGroup() throws GeneralException {
         return new ResponseEntity<>(service.getGroup(), HttpStatus.OK);
     }

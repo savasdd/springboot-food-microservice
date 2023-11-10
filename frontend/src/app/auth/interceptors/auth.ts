@@ -7,7 +7,7 @@ import {
   HTTP_INTERCEPTORS,
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler,
+  HttpHandler, HttpHeaders,
   HttpInterceptor,
   HttpRequest
 } from "@angular/common/http";
@@ -85,7 +85,12 @@ export class AuthInterceptor implements HttpInterceptor {
       console.log('Token is expired: ' + tokenIsExpired);
       return request;
     } else {
-      return request.clone({headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
+      const headers = new HttpHeaders({
+        TOKEN_HEADER_KEY: 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      });
+      return request.clone({headers: headers});
+      // return request.clone({headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
     }
 
   }
