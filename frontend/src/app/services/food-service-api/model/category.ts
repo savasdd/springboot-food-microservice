@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Food } from './food';
 
 
 /**
@@ -19,6 +20,7 @@ export interface Category {
     name?: string;
     description?: string;
     categoryType?: Category.CategoryTypeEnum;
+    foodList?: Array<Food>;
 }
 export namespace Category {
     export type CategoryTypeEnum = 'SEBZE' | 'MEYVE' | 'KAHVALTI' | 'FIRIN';

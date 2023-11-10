@@ -24,9 +24,8 @@ export interface Orders {
     totalPrice?: number;
     status?: Orders.StatusEnum;
     createDate?: string;
+    orderDate?: string;
     image?: string;
-    stockAvailable?: number;
-    paymentAvailable?: number;
 }
 export namespace Orders {
     export type StatusEnum = 'BASKET' | 'ACCEPT' | 'REJECT';

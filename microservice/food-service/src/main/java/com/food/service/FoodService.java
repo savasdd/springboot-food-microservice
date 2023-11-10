@@ -1,11 +1,11 @@
 package com.food.service;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.dto.FoodDto;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
 import com.food.model.Food;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
 
 import java.util.List;
 
@@ -15,8 +15,9 @@ public interface FoodService {
 
     Food getByOne(String id) throws GeneralException, GeneralWarning;
 
-    LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) throws GeneralException, GeneralWarning;
-    LoadResult<Food> getAllOrder(DataSourceLoadOptions<Food> loadOptions) throws GeneralException, GeneralWarning;
+    LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning;
+
+    LoadResult getAllOrder(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning;
 
     Food create(Food dto) throws GeneralException, GeneralWarning;
 

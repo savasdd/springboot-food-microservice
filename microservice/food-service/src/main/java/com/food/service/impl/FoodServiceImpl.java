@@ -1,5 +1,7 @@
 package com.food.service.impl;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.dto.CategoryDto;
 import com.food.dto.FoodDto;
 import com.food.enums.ELogType;
@@ -12,9 +14,7 @@ import com.food.repository.FoodRepository;
 import com.food.service.FoodFileService;
 import com.food.service.FoodService;
 import com.food.service.LogService;
-import com.food.service.grpc.StockGrpcService;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
+import com.food.utils.JsonUtil;
 import io.micrometer.core.instrument.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -63,21 +63,20 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public LoadResult<Food> getAll(DataSourceLoadOptions<Food> loadOptions) throws GeneralException, GeneralWarning {
-        LoadResult<Food> loadResult = new LoadResult<>();
-        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+    public LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
+        loadOptions.setRequireTotalCount(true);
+        var list = repository.load(loadOptions);
 
-        loadResult.setData(list.getContent());
-        loadResult.setTotalCount(list.stream().count());
-        logService.eventLog("api/foods", List.of(loadResult), 200, ELogType.FOOD);
-        log.info("list food {} ", loadResult.totalCount);
-        return loadResult;
+        logService.eventLog("api/foods", List.of(list), 200, ELogType.FOOD);
+        log.info("list food {} ", list.getTotalCount());
+        return list;
     }
 
     @Override
-    public LoadResult<Food> getAllOrder(DataSourceLoadOptions<Food> loadOptions) throws GeneralException, GeneralWarning {
-        LoadResult<Food> loadResult = new LoadResult<>();
-        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+    public LoadResult getAllOrder(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
+        loadOptions.setRequireTotalCount(true);
+        var result = repository.load(loadOptions);
+        var list = JsonUtil.fromJsonList(result, Food.class);
 
         list.stream().map(val -> {
             InputStream stream = fileService.getObjects(val.getFoodId().toString());
@@ -85,9 +84,11 @@ public class FoodServiceImpl implements FoodService {
             return val;
         }).toList();
 
-        loadResult.setData(list.getContent());
+        LoadResult loadResult = new LoadResult();
+        loadResult.setItems(list);
         loadResult.setTotalCount(list.stream().count());
-        log.info("list food {} ", loadResult.totalCount);
+
+        log.info("list food {} ", result.getTotalCount());
         return loadResult;
     }
 

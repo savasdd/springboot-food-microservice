@@ -42,7 +42,7 @@ export class CategoryComponent implements OnInit {
       load: (loadOptions) => {
         return this.service.findAll(loadOptions).toPromise().then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });

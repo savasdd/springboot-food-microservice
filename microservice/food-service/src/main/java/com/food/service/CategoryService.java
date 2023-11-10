@@ -1,9 +1,8 @@
 package com.food.service;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.model.Category;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
-import org.apache.kafka.common.protocol.types.Field;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface CategoryService {
 
     Category getByOne(Long id);
 
-    LoadResult<Category> getAll(DataSourceLoadOptions<Category> loadOptions);
+    LoadResult getAll(DataSourceLoadOptions loadOptions);
 
     Category create(Category dto);
 

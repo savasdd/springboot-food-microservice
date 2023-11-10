@@ -19,9 +19,9 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { DataSourceLoadOptionsOrders } from '../model/dataSourceLoadOptionsOrders';
+import { DataSourceLoadOptions } from '../model/dataSourceLoadOptions';
 // @ts-ignore
-import { LoadResultOrders } from '../model/loadResultOrders';
+import { LoadResult } from '../model/loadResult';
 // @ts-ignore
 import { Orders } from '../model/orders';
 
@@ -223,16 +223,16 @@ export class FoodOrdersControllerService {
 
     /**
      * Orders getAll by loadResult
-     * @param dataSourceLoadOptionsOrders 
+     * @param dataSourceLoadOptions 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllFoodOrdersLoad(dataSourceLoadOptionsOrders: DataSourceLoadOptionsOrders, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResultOrders>;
-    public getAllFoodOrdersLoad(dataSourceLoadOptionsOrders: DataSourceLoadOptionsOrders, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResultOrders>>;
-    public getAllFoodOrdersLoad(dataSourceLoadOptionsOrders: DataSourceLoadOptionsOrders, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResultOrders>>;
-    public getAllFoodOrdersLoad(dataSourceLoadOptionsOrders: DataSourceLoadOptionsOrders, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (dataSourceLoadOptionsOrders === null || dataSourceLoadOptionsOrders === undefined) {
-            throw new Error('Required parameter dataSourceLoadOptionsOrders was null or undefined when calling getAllFoodOrdersLoad.');
+    public getAllFoodOrdersLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResult>;
+    public getAllFoodOrdersLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResult>>;
+    public getAllFoodOrdersLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResult>>;
+    public getAllFoodOrdersLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (dataSourceLoadOptions === null || dataSourceLoadOptions === undefined) {
+            throw new Error('Required parameter dataSourceLoadOptions was null or undefined when calling getAllFoodOrdersLoad.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -276,10 +276,10 @@ export class FoodOrdersControllerService {
         }
 
         let localVarPath = `/api/orders/all`;
-        return this.httpClient.request<LoadResultOrders>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<LoadResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: dataSourceLoadOptionsOrders,
+                body: dataSourceLoadOptions,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

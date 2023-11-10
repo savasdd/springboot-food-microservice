@@ -60,7 +60,7 @@ export class FoodComponent implements OnInit {
         // loadOptions.filter.push(['searchImage', '=', false]);
         return this.service.findAll(loadOptions).toPromise().then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
@@ -89,8 +89,7 @@ export class FoodComponent implements OnInit {
             return;
           },
           err => {
-            const message = 'Kayıt Güncelleme Hatası: ' + err.error.errorMessage;
-            console.log(message);
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
@@ -99,8 +98,7 @@ export class FoodComponent implements OnInit {
             return;
           },
           err => {
-            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
-            console.log(message);
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }

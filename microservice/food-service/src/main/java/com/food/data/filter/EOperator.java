@@ -1,5 +1,5 @@
-package com.food.spesification.enums;
+package com.food.data.filter;
 
-public enum FilterOperator {
+public enum EOperator {
     equal, notEqual, greater, greaterEqual, less, lessEqual, between, startswith
 }

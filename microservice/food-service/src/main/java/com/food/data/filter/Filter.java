@@ -1,7 +1,5 @@
-package com.food.spesification;
+package com.food.data.filter;
 
-import com.food.spesification.enums.FilterCondition;
-import com.food.spesification.enums.FilterOperator;
 import de.danielbechler.diff.ObjectDifferBuilder;
 import de.danielbechler.diff.node.DiffNode;
 import lombok.Getter;
@@ -19,29 +17,28 @@ import java.util.function.Consumer;
 public class Filter<T> {
 
     private T instance;
-    private FilterCondition condition;
-    private FilterOperator operation;
+    private ECondition condition;
+    private EOperator operation;
     private ArrayList<Object> filter;
-    private ArrayList<String> nullJoins = new ArrayList<String>();
     private final KeyValue keyValue = new KeyValue();
     private boolean ifCond = true;
 
     private final Map<Integer, ArrayList<Object>> filterList = new HashMap<>();
     private ArrayList<Object> currentFilter;
-    private FilterCondition groupCondition;
+    private ECondition groupCondition;
 
     public Filter(Class<T> clazz) {
         try {
-            instance = (T) Builder.build(clazz.getDeclaredConstructor().newInstance(), false).get();
+            instance = (T) Builder.build(clazz.getDeclaredConstructor().newInstance()).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public Filter<T> with(Consumer<T> setter) {
-        T afterInstance = null;
+        T beforeInstance = null;
         try {
-            afterInstance = (T) Builder.build(this.instance.getClass().getDeclaredConstructor().newInstance(), false).get();
+            beforeInstance = (T) Builder.build(this.instance.getClass().getDeclaredConstructor().newInstance()).get();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +46,7 @@ public class Filter<T> {
 
         if (ifCond) {
             setter.accept(instance);
-            DiffNode diff = ObjectDifferBuilder.buildDefault().compare(afterInstance, instance);
+            DiffNode diff = ObjectDifferBuilder.buildDefault().compare(beforeInstance, instance);
 
             if (diff.hasChanges()) {
                 diff.visit((node, visit) -> {
@@ -76,8 +73,8 @@ public class Filter<T> {
             newGroup.add(filter);
             filter = newGroup;
         }
-        condition(FilterCondition.and);
-        operation(FilterOperator.equal);
+        condition(ECondition.and);
+        operation(EOperator.equal);
         addDelete();
         return filter;
     }
@@ -85,7 +82,7 @@ public class Filter<T> {
     public void addDelete() {
         T deleteInstance;
         try {
-            deleteInstance = (T) Builder.build(this.instance.getClass().getDeclaredConstructor().newInstance(), true).get();
+            deleteInstance = (T) Builder.build(this.instance.getClass().getDeclaredConstructor().newInstance()).get();
 
             DiffNode diff = ObjectDifferBuilder.buildDefault().compare(deleteInstance, instance);
 
@@ -110,8 +107,7 @@ public class Filter<T> {
         return new Filter<>(clazz);
     }
 
-
-    public Filter<T> condition(FilterCondition condition) {
+    public Filter<T> condition(ECondition condition) {
         if (filter == null) {
             filter = new ArrayList<>();
         }
@@ -119,7 +115,7 @@ public class Filter<T> {
         return this;
     }
 
-    public Filter<T> operation(FilterOperator operation) {
+    public Filter<T> operation(EOperator operation) {
         if (filter == null) {
             filter = new ArrayList<>();
         }
@@ -166,9 +162,6 @@ public class Filter<T> {
 
 
     private void addFilter(String key, Object value) {
-        if (value == null) {
-            nullJoins.add(key);
-        }
         ArrayList<Object> processFilter = currentFilter != null ? currentFilter : this.filter;
         if (processFilter.size() > 0) {
             processFilter.add(getConditionString(this.condition));
@@ -183,7 +176,8 @@ public class Filter<T> {
 
     private void clearValue() {
         try {
-            instance = (T) Builder.build(this.instance.getClass().getDeclaredConstructor().newInstance(), false).get();
+            instance = (T) Builder.build(this.instance.getClass().getDeclaredConstructor().newInstance()).get();
+//            instance = (T) setChildren(this.instance.getClass().getDeclaredConstructor().newInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -209,7 +203,7 @@ public class Filter<T> {
         return null;
     }
 
-    private String getOperatorString(FilterOperator operator) {
+    private String getOperatorString(EOperator operator) {
         switch (operator) {
             case equal:
                 return "=";
@@ -230,7 +224,7 @@ public class Filter<T> {
         return null;
     }
 
-    private String getConditionString(FilterCondition condition) {
+    private String getConditionString(ECondition condition) {
         switch (condition) {
             case and:
                 return "and";

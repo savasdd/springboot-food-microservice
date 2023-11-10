@@ -1,9 +1,9 @@
 package com.food.controller;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.model.Category;
 import com.food.service.CategoryService;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +25,7 @@ public class CategoryController {
 
     @Operation(description = "Category getAll by loadResult")
     @PostMapping(value = "/categorys/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoadResult<Category>> getAllCategoryLoad(@RequestBody DataSourceLoadOptions<Category> loadOptions) {
+    public ResponseEntity<LoadResult> getAllCategoryLoad(@RequestBody DataSourceLoadOptions loadOptions) {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 

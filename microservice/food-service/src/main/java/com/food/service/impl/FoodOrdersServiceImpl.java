@@ -1,5 +1,7 @@
 package com.food.service.impl;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.dto.StockDto;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
@@ -10,10 +12,7 @@ import com.food.service.FoodFileService;
 import com.food.service.FoodOrdersService;
 import com.food.service.grpc.PaymentGrpcService;
 import com.food.service.grpc.StockGrpcService;
-import com.food.spesification.Filter;
-import com.food.spesification.enums.FilterOperator;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
+import com.food.utils.JsonUtil;
 import io.micrometer.core.instrument.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -52,9 +51,10 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     }
 
     @Override
-    public LoadResult<Orders> getAll(DataSourceLoadOptions<Orders> loadOptions) throws GeneralException, GeneralWarning {
-        LoadResult<Orders> loadResult = new LoadResult<>();
-        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
+    public LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
+        loadOptions.setRequireTotalCount(true);
+        var result = repository.load(loadOptions);
+        var list = JsonUtil.fromJsonList(result, Orders.class);
 
         list.stream().map(val -> {
             InputStream stream = fileService.getObjects(val.getFood().getFoodId().toString());
@@ -62,9 +62,11 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
             return val;
         }).toList();
 
-        loadResult.setData(list.getContent());
+        LoadResult loadResult = new LoadResult();
+        loadResult.setItems(list);
         loadResult.setTotalCount(list.stream().count());
-        log.info("list orders {} ", loadResult.totalCount);
+
+        log.info("list orders {} ", result.getTotalCount());
         return loadResult;
     }
 
@@ -107,9 +109,9 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
             return response.getBody().length > 0 ? StockDto.builder().availableItems(response.getBody()[0].getAvailableItems()).stockId(response.getBody()[0].getStockId()).build() : null;
         }
 
-        DataSourceLoadOptions<StockDto> loadOptions = new DataSourceLoadOptions<>();
-        loadOptions.setMandatoryFilter(Filter.build(StockDto.class).operation(FilterOperator.equal).with(w -> w.setFoodId(foodId)).get());
-        HttpEntity<DataSourceLoadOptions> request = new HttpEntity<>(loadOptions);
+//        DataSourceLoadOptions<StockDto> loadOptions = new DataSourceLoadOptions<>();
+//        loadOptions.setMandatoryFilter(Filter.build(StockDto.class).operation(FilterOperator.equal).with(w -> w.setFoodId(foodId)).get());
+//        HttpEntity<DataSourceLoadOptions> request = new HttpEntity<>(loadOptions);
 
         return null;
     }

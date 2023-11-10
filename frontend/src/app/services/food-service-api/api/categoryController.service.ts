@@ -21,9 +21,9 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { Category } from '../model/category';
 // @ts-ignore
-import { DataSourceLoadOptionsCategory } from '../model/dataSourceLoadOptionsCategory';
+import { DataSourceLoadOptions } from '../model/dataSourceLoadOptions';
 // @ts-ignore
-import { LoadResultCategory } from '../model/loadResultCategory';
+import { LoadResult } from '../model/loadResult';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -277,16 +277,16 @@ export class CategoryControllerService {
 
     /**
      * Category getAll by loadResult
-     * @param dataSourceLoadOptionsCategory 
+     * @param dataSourceLoadOptions 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllCategoryLoad(dataSourceLoadOptionsCategory: DataSourceLoadOptionsCategory, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResultCategory>;
-    public getAllCategoryLoad(dataSourceLoadOptionsCategory: DataSourceLoadOptionsCategory, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResultCategory>>;
-    public getAllCategoryLoad(dataSourceLoadOptionsCategory: DataSourceLoadOptionsCategory, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResultCategory>>;
-    public getAllCategoryLoad(dataSourceLoadOptionsCategory: DataSourceLoadOptionsCategory, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (dataSourceLoadOptionsCategory === null || dataSourceLoadOptionsCategory === undefined) {
-            throw new Error('Required parameter dataSourceLoadOptionsCategory was null or undefined when calling getAllCategoryLoad.');
+    public getAllCategoryLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResult>;
+    public getAllCategoryLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResult>>;
+    public getAllCategoryLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResult>>;
+    public getAllCategoryLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (dataSourceLoadOptions === null || dataSourceLoadOptions === undefined) {
+            throw new Error('Required parameter dataSourceLoadOptions was null or undefined when calling getAllCategoryLoad.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -330,10 +330,10 @@ export class CategoryControllerService {
         }
 
         let localVarPath = `/api/categorys/all`;
-        return this.httpClient.request<LoadResultCategory>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<LoadResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: dataSourceLoadOptionsCategory,
+                body: dataSourceLoadOptions,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

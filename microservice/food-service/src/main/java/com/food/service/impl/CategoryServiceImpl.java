@@ -1,12 +1,12 @@
 package com.food.service.impl;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.enums.ELogType;
 import com.food.model.Category;
 import com.food.repository.CategoryRepository;
 import com.food.service.CategoryService;
 import com.food.service.LogService;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +34,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public LoadResult<Category> getAll(DataSourceLoadOptions<Category> loadOptions) {
-        LoadResult<Category> response = new LoadResult<>();
-        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
-        response.setData(list.getContent());
-        response.setTotalCount(list.stream().count());
+    public LoadResult getAll(DataSourceLoadOptions loadOptions) {
+        loadOptions.setRequireTotalCount(true);
+        var list = repository.load(loadOptions);
 
-        logService.eventLog("api/category", List.of(response), 200, ELogType.CATEGORY);
+        logService.eventLog("api/category", List.of(list), 200, ELogType.CATEGORY);
         log.info("Category getAll");
-        return response;
+        return list;
     }
 
     @Override

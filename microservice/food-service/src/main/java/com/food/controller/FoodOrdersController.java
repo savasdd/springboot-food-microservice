@@ -1,11 +1,11 @@
 package com.food.controller;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
 import com.food.model.Orders;
 import com.food.service.FoodOrdersService;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +25,7 @@ public class FoodOrdersController {
 
     @Operation(description = "Orders getAll by loadResult")
     @PostMapping(value = "/orders/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoadResult<Orders>> getAllFoodOrdersLoad(@RequestBody DataSourceLoadOptions<Orders> loadOptions) throws GeneralException, GeneralWarning {
+    public ResponseEntity<LoadResult> getAllFoodOrdersLoad(@RequestBody DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
