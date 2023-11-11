@@ -20,8 +20,7 @@ export class CategoryComponent implements OnInit {
     {name: CategoryTypeEnum.Meyve},
     {name: CategoryTypeEnum.Kahvalti},
     {name: CategoryTypeEnum.Firin},
-    {name: CategoryTypeEnum.Su},
-    {name: CategoryTypeEnum.Sut},
+    {name: CategoryTypeEnum.Icecek},
     {name: CategoryTypeEnum.Atistirma},
   ];
 

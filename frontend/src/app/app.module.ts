@@ -86,12 +86,12 @@ const APP_CONTAINERS = [
     LoaderService,
     AuthService,
     AuthGuard,
+    IconSetService,
+    Title,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    IconSetService,
-    Title
   ],
   bootstrap: [AppComponent]
 })

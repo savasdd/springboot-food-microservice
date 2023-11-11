@@ -85,12 +85,15 @@ export class AuthInterceptor implements HttpInterceptor {
       console.log('Token is expired: ' + tokenIsExpired);
       return request;
     } else {
+
       const headers = new HttpHeaders({
-        TOKEN_HEADER_KEY: 'Bearer ' + token,
-        'Content-Type': 'application/json'
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': ' GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Authorization': 'Bearer ' + token,
       });
+
       return request.clone({headers: headers});
-      // return request.clone({headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
     }
 
   }

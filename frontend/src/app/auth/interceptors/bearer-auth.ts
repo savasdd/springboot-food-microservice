@@ -18,6 +18,7 @@ export class BearerAuthInterceptor implements HttpInterceptor {
     if (isApiUrl && token) {
       request = request.clone({
         setHeaders: {
+          'Content-Type':'application/json',
           Authorization: `Bearer ${token}`,
         }
       });
