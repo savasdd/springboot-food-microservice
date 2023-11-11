@@ -21,8 +21,8 @@ public class PaymentGrpcService extends PaymentServiceGrpc.PaymentServiceImplBas
     @Override
     public void getPayment(PaymentRequest request, StreamObserver<PaymentResponse> responseObserver) {
         try {
-            var payment = service.getPaymentByStock(Long.parseLong(request.getStockId()));
-            responseObserver.onNext(!payment.isEmpty() ? PaymentResponse.newBuilder().setPaymentId(payment.get(0).getId().toString()).setAmountAvailable(payment.get(0).getAmountAvailable().doubleValue()).setStatus(200).build() : PaymentResponse.newBuilder().setStatus(400).build());
+            var payment = service.getPaymentByStock(request.getStockId());
+            responseObserver.onNext(!payment.isEmpty() ? PaymentResponse.newBuilder().setPaymentId(payment.get(0).getId()).setAmountAvailable(payment.get(0).getAmountAvailable().doubleValue()).setStatus(200).build() : PaymentResponse.newBuilder().setStatus(400).build());
             responseObserver.onCompleted();
 
             log.info("Call PaymentGrpcService");

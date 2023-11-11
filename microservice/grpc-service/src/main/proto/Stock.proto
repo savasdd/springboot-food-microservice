@@ -9,11 +9,11 @@ service StockService {
 }
 
 message StockRequest {
-  string foodId = 1;
+  int64 foodId = 1;
 }
 
 message StockResponse {
-  string stockId = 1;
+  int64 stockId = 1;
   int64 availableItems = 2;
   int64 status = 3;
 }

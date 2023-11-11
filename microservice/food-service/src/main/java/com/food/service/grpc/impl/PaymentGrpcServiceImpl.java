@@ -13,7 +13,7 @@ public class PaymentGrpcServiceImpl implements PaymentGrpcService {
     PaymentServiceGrpc.PaymentServiceBlockingStub serviceBlockingStub;
 
     @Override
-    public PaymentResponse getPayment(String stockId) {
+    public PaymentResponse getPayment(Long stockId) {
         var response = serviceBlockingStub.getPayment(PaymentRequest.newBuilder().setStockId(stockId).build());
         return response;
     }

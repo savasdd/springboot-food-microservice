@@ -17,7 +17,7 @@ public class StockGrpcServiceImpl implements StockGrpcService {
     StockServiceGrpc.StockServiceStub stockServiceStub;
 
     @Override
-    public StockResponse getStock(String foodId) {
+    public StockResponse getStock(Long foodId) {
         var response = serviceBlockingStub.getStock(StockRequest.newBuilder().setFoodId(foodId).build());
         return response;
     }

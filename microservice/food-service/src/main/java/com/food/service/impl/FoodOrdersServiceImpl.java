@@ -76,7 +76,7 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     public Orders create(Orders dto) throws GeneralException, GeneralWarning {
         var price = repository.getSumPrice(dto.getFood().getId(), dto.getStatus());
         var count = repository.getCountPrice(dto.getFood().getId(), dto.getStatus());
-        var stock = stockGrpcService.getStock(dto.getFood().getId().toString());
+        var stock = stockGrpcService.getStock(dto.getFood().getId());
 
         if (stock.getStatus() == 400 || count > stock.getAvailableItems())
             throw new GeneralException("Ürüne ait stok kaydı bulunamadı!");
@@ -87,8 +87,8 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
 
         var food = foodRepository.findById(dto.getFood().getId()).orElseThrow(() -> new RuntimeException("Not Found!"));
         dto.setFood(food);
-        dto.setStockId(Long.parseLong(stock.getStockId()));
-        dto.setPaymentId(Long.parseLong(payment.getPaymentId()));
+        dto.setStockId(stock.getStockId());
+        dto.setPaymentId(payment.getPaymentId());
         dto.setCreateDate(new Date());
         var model = repository.save(dto);
         return model;
