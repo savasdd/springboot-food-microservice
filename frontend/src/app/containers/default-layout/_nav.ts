@@ -12,12 +12,12 @@ export const navItems: INavData[] = [
     iconComponent: {name: 'cil-list'},
     children: [
       {
-        name: 'Orders',
-        url: 'foods/orders'
-      },
-      {
         name: 'Food',
         url: 'foods/foods'
+      },
+      {
+        name: 'Orders',
+        url: 'foods/orders'
       },
       {
         name: 'Stock',
