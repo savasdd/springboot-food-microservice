@@ -51,10 +51,6 @@ export class FoodService {
   }
 
   uploadImage(id: any, fileName: any, fileType: any, file: any) {
-    console.log(id)
-    console.log(fileName)
-    console.log(fileType)
-    console.log(file)
     return this.fileService.foodFileUpload(id, fileName, fileType, file);
   }
 

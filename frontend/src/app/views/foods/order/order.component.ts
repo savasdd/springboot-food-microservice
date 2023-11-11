@@ -43,7 +43,7 @@ export class OrderComponent implements OnInit {
       load: (loadOptions) => {
         return this.service.findAllOrder(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
@@ -86,8 +86,7 @@ export class OrderComponent implements OnInit {
             return;
           },
           err => {
-            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
-            console.log(message);
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }
@@ -97,7 +96,7 @@ export class OrderComponent implements OnInit {
 
   addBasket(event: any) {
     const data = {
-      food: {foodId: event.foodId},
+      food: {id: event.id},
       price: event.price,
       totalPrice: 0,
       status: Orders.StatusEnum.Basket
