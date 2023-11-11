@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class FoodFileDto extends GenericDto {
 
-    private String foodId;
+    private Long foodId;
     private String filename;
     private String fileType;
     private Long size;

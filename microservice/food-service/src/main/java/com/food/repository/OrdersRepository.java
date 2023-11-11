@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface OrdersRepository extends JpaSpecificationExecutor<Orders>, JpaRepository<Orders, UUID>, BaseRepository<Orders, UUID> {
+public interface OrdersRepository extends JpaSpecificationExecutor<Orders>, JpaRepository<Orders, Long>, BaseRepository<Orders, Long> {
 
-    @Query("select COALESCE(sum(v.price),0.0)  from ORDERS v where v.food.foodId = :foodId and v.status = :status")
-    Double getSumPrice(UUID foodId, EOrderType status);
+    @Query("select COALESCE(sum(v.price),0.0)  from ORDERS v where v.food.id = :foodId and v.status = :status")
+    Double getSumPrice(Long foodId, EOrderType status);
 
-    @Query("select count(v.food.foodId) from ORDERS v where v.food.foodId = :foodId and v.status = :status")
-    Integer getCountPrice(UUID foodId, EOrderType status);
+    @Query("select count(v.food.id) from ORDERS v where v.food.id = :foodId and v.status = :status")
+    Integer getCountPrice(Long foodId, EOrderType status);
 }

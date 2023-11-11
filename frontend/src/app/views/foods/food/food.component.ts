@@ -5,6 +5,7 @@ import CustomStore from "devextreme/data/custom_store";
 import {CategoryService} from "../../../services/category.service";
 import {Category, OrderEvent} from "../../../services/food-service-api";
 import StatusEnum = OrderEvent.StatusEnum;
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-food',
@@ -54,11 +55,9 @@ export class FoodComponent implements OnInit {
 
   loadGrid() {
     this.dataSource = new CustomStore({
-      key: 'foodId',
+      key: 'id',
       load: (loadOptions) => {
-        // loadOptions.filter = [];
-        // loadOptions.filter.push(['searchImage', '=', false]);
-        return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount

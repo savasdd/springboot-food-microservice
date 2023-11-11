@@ -13,7 +13,7 @@ export class CategoryService {
   constructor(private categoryService: CategoryControllerService) {
   }
 
-  findAll(loadOptions: any) {
+  findAll(loadOptions: any): any {
     return this.categoryService.getAllCategoryLoad(loadOptions).pipe(catchError(this.handleError));
   }
 

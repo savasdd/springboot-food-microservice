@@ -13,7 +13,7 @@ public interface FoodService {
 
     List<FoodDto> getAll() throws GeneralException, GeneralWarning;
 
-    Food getByOne(String id) throws GeneralException, GeneralWarning;
+    Food getByOne(Long id) throws GeneralException, GeneralWarning;
 
     LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning;
 
@@ -21,8 +21,8 @@ public interface FoodService {
 
     Food create(Food dto) throws GeneralException, GeneralWarning;
 
-    FoodDto update(String id, Food dto) throws GeneralException, GeneralWarning;
+    Food update(Long id, Food dto) throws GeneralException, GeneralWarning;
 
-    Food delete(String id) throws GeneralException, GeneralWarning;
+    Food delete(Long id) throws GeneralException, GeneralWarning;
 
 }

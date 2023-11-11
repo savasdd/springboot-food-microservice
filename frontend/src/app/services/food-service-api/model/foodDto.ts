@@ -16,7 +16,7 @@ import { CategoryDto } from './categoryDto';
  * 
  */
 export interface FoodDto { 
-    foodId?: string;
+    foodId?: number;
     foodName?: string;
     description?: string;
     category?: CategoryDto;

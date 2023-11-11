@@ -30,12 +30,12 @@ public class MinioUtil {
 
     // Upload Files
     @SneakyThrows
-    public ObjectWriteResponse putObject(String bucketName, MultipartFile multipartFile, String filename, String fileType, String foodId) {
+    public ObjectWriteResponse putObject(String bucketName, MultipartFile multipartFile, String filename, String fileType, Long foodId) {
         LOGGER.info("MinioUtil | putObject is called");
         LOGGER.info("MinioUtil | putObject | filename : " + filename);
 
         InputStream inputStream = new ByteArrayInputStream(multipartFile.getBytes());
-        var result = minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).object(foodId).stream(inputStream, -1, minioConfig.getFileSize()).contentType(fileType).build());
+        var result = minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).object(foodId.toString()).stream(inputStream, -1, minioConfig.getFileSize()).contentType(fileType).build());
         return result;
     }
 

@@ -16,10 +16,10 @@ import { Food } from './food';
  * 
  */
 export interface Orders { 
-    orderId?: string;
+    id?: number;
     food?: Food;
-    stockId?: string;
-    paymentId?: string;
+    stockId?: number;
+    paymentId?: number;
     price?: number;
     totalPrice?: number;
     status?: Orders.StatusEnum;

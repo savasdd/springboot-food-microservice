@@ -21,12 +21,15 @@ export interface CategoryDto {
     categoryType?: CategoryDto.CategoryTypeEnum;
 }
 export namespace CategoryDto {
-    export type CategoryTypeEnum = 'SEBZE' | 'MEYVE' | 'KAHVALTI' | 'FIRIN';
+    export type CategoryTypeEnum = 'SEBZE' | 'MEYVE' | 'KAHVALTI' | 'FIRIN' | 'SU' | 'SUT' | 'ATISTIRMA';
     export const CategoryTypeEnum = {
         Sebze: 'SEBZE' as CategoryTypeEnum,
         Meyve: 'MEYVE' as CategoryTypeEnum,
         Kahvalti: 'KAHVALTI' as CategoryTypeEnum,
-        Firin: 'FIRIN' as CategoryTypeEnum
+        Firin: 'FIRIN' as CategoryTypeEnum,
+        Su: 'SU' as CategoryTypeEnum,
+        Sut: 'SUT' as CategoryTypeEnum,
+        Atistirma: 'ATISTIRMA' as CategoryTypeEnum
     };
 }
 

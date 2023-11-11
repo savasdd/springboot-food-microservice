@@ -2,17 +2,17 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="card border" style="margin-bottom: 0px;">
+        <div class="card border" style="margin-bottom: 0;">
           <div class="card-header card-header-info card-header-icon">
             <h4 class="card-title">Food List</h4>
           </div>
           <div class="card-body" style="min-height: calc(90vh - 193px);">
             <div class="row">
               <dx-data-grid #foodDataGrid
+                            [allowColumnReordering]="true"
+                            [showBorders]="true"
                             [dataSource]="dataSource"
-                            (onEditorPreparing)="onEditorPreparing($event)"
-                            [showBorders]="true">
-                <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                            (onEditorPreparing)="onEditorPreparing($event)">
                 <dxo-editing
                   mode="popup"
                   [allowUpdating]="true"
@@ -74,7 +74,10 @@
                 </dxi-column>
                 <dxi-column dataField="description" dataType="string"></dxi-column>
 
-                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-filter-row
+                  [visible]="true">
+                </dxo-filter-row>
+                <dxo-paging [pageSize]="5"></dxo-paging>
                 <dxo-pager
                   [visible]="true"
                   [allowedPageSizes]="allowedPageSizes"

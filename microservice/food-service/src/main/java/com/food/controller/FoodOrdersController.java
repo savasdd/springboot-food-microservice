@@ -32,7 +32,7 @@ public class FoodOrdersController {
 
     @Operation(description = "Orders getOne")
     @GetMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Orders> getFoodOrdersByOne(@PathVariable String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<Orders> getFoodOrdersByOne(@PathVariable Long id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getByOne(id), HttpStatus.OK);
     }
 
@@ -45,7 +45,7 @@ public class FoodOrdersController {
 
     @Operation(description = "Orders delete by id")
     @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Orders> deleteFoodOrders(@PathVariable("id") String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<Orders> deleteFoodOrders(@PathVariable("id") Long id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 

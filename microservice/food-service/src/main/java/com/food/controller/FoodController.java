@@ -46,7 +46,7 @@ public class FoodController {
 
     @Operation(description = "Food getOne")
     @GetMapping(value = "/foods/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Food> getFoodByOne(@PathVariable String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<Food> getFoodByOne(@PathVariable Long id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(foodService.getByOne(id), HttpStatus.OK);
     }
 
@@ -58,13 +58,13 @@ public class FoodController {
 
     @Operation(description = "Food update by id")
     @PutMapping(value = "/foods/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FoodDto> updateFood(@PathVariable("id") String id, @RequestBody Food dto) throws GeneralException, GeneralWarning {
+    public ResponseEntity<Food> updateFood(@PathVariable("id") Long id, @RequestBody Food dto) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(foodService.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Food delete by id")
     @DeleteMapping(value = "/foods/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Food> deleteFood(@PathVariable("id") String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<Food> deleteFood(@PathVariable("id") Long id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
     }
 

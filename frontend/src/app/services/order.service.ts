@@ -4,7 +4,6 @@ import {catchError, Observable, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "./message.service";
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +17,7 @@ export class OrderService {
   }
 
 
-  findOne(id: string): Observable<any> {
+  findOne(id: number): Observable<any> {
     return this.service.getFoodOrdersByOne(id).pipe(catchError(this.handleError));
   }
 
@@ -26,8 +25,7 @@ export class OrderService {
     return this.service.createFoodOrders(data).pipe(catchError(this.handleError));
   }
 
-
-  delete(id: string) {
+  delete(id: number) {
     return this.service.deleteFoodOrders(id).pipe(catchError(this.handleError));
   }
 

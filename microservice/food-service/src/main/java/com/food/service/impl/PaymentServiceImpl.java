@@ -76,8 +76,8 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void confirmPayment(OrderEvent event) {
-        var food = repository.findById(UUID.fromString(event.getFoodId())).orElseThrow(() -> new RuntimeException("Not found!"));
-        log.info("Found: {}", food.getFoodId());
+        var food = repository.findById(Long.parseLong(event.getFoodId())).orElseThrow(() -> new RuntimeException("Not found!"));
+        log.info("Found: {}", food.getId());
 
         if (event.getStatus().equals(EPaymentType.CONFIRMED)) {
             food.setStatus(EPaymentType.ACCEPT);

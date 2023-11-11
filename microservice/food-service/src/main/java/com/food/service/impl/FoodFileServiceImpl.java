@@ -25,12 +25,12 @@ public class FoodFileServiceImpl implements FoodFileService {
     }
 
     @Override
-    public List<FoodFileDto> getListObjects(String foodId) throws GeneralException, GeneralWarning {
+    public List<FoodFileDto> getListObjects(Long foodId) throws GeneralException, GeneralWarning {
         var result = minioUtil.listObjects(minioProperties.getBucketName());
 
         var list = StreamSupport.stream(result.spliterator(), true).map(val -> {
             try {
-                return FoodFileDto.builder().filename(val.get().objectName()).size(val.get().size()).foodId(val.get().objectName()).build();
+                return FoodFileDto.builder().filename(val.get().objectName()).size(val.get().size()).foodId(foodId).build();
 
             } catch (Exception e) {
                 log.error("Happened error when get list objects from minio: ", e);

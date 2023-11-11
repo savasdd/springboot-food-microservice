@@ -25,7 +25,7 @@ public class FoodFileController {
     }
 
     @GetMapping(value = "/all/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<FoodFileDto>> getAllFoodFile(@PathVariable String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<List<FoodFileDto>> getAllFoodFile(@PathVariable Long id) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getListObjects(id));
     }
 
@@ -35,9 +35,9 @@ public class FoodFileController {
     }
 
     @Operation(description = "Users load image save")
-    @PostMapping(value = "/upload", consumes = {"multipart/form-data", MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<FoodFileDto> foodFileUpload(@RequestPart("foodId") String userId, @RequestPart("fileName") String fileName, @RequestPart("fileType") String fileType, @RequestPart("file") MultipartFile file) throws GeneralException, GeneralWarning {
-        return ResponseEntity.ok(service.uploadFile(FoodFileDto.builder().foodId(userId).filename(fileName).fileType(fileType).fileData(file).build()));
+    @PostMapping(value = "/upload", consumes = {"multipart/form-data", MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FoodFileDto> foodFileUpload(@RequestPart("foodId") String id, @RequestPart("fileName") String fileName, @RequestPart("fileType") String fileType, @RequestPart("file") MultipartFile file) throws GeneralException, GeneralWarning {
+        return ResponseEntity.ok(service.uploadFile(FoodFileDto.builder().foodId(Long.parseLong(id)).filename(fileName).fileType(fileType).fileData(file).build()));
     }
 
     @Operation(description = "delete image")

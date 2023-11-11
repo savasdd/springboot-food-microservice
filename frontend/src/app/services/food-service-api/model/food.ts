@@ -16,7 +16,7 @@ import { Category } from './category';
  * 
  */
 export interface Food { 
-    foodId?: string;
+    id?: number;
     foodName?: string;
     price?: number;
     category?: Category;

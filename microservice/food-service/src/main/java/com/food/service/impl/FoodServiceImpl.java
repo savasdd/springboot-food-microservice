@@ -7,7 +7,6 @@ import com.food.dto.FoodDto;
 import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
-import com.food.model.Category;
 import com.food.model.Food;
 import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
@@ -26,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -46,18 +44,10 @@ public class FoodServiceImpl implements FoodService {
         this.logService = logService;
     }
 
-    @Override
-    @Transactional
-    public List<FoodDto> getAll() throws GeneralException, GeneralWarning {
-        var list = repository.findAll();
-        var dtoList = list.stream().map(var -> modelMapDto(var)).collect(Collectors.toList());
-        log.info("list food {} ", list.size());
-        return dtoList;
-    }
 
     @Override
-    public Food getByOne(String id) throws GeneralException, GeneralWarning {
-        var model = repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
+    public Food getByOne(Long id) throws GeneralException, GeneralWarning {
+        var model = repository.findById(id).orElseThrow(() -> new RuntimeException("Not Found!"));
 
         return model;
     }
@@ -73,13 +63,22 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public List<FoodDto> getAll() throws GeneralException, GeneralWarning {
+        var list = repository.findAll();
+        var dtoList = list.stream().map(var -> modelMapDto(var)).collect(Collectors.toList());
+        log.info("list food {} ", list.size());
+        return dtoList;
+    }
+
+
+    @Override
     public LoadResult getAllOrder(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
         loadOptions.setRequireTotalCount(true);
         var result = repository.load(loadOptions);
-        var list = JsonUtil.fromJsonList(result, Food.class);
+        var list = JsonUtil.fromJsonList(result.getItems(), Food.class);
 
         list.stream().map(val -> {
-            InputStream stream = fileService.getObjects(val.getFoodId().toString());
+            InputStream stream = fileService.getObjects(val.getId().toString());
             val.setImage(stream != null ? IOUtils.toString(stream, StandardCharsets.UTF_8) : null);
             return val;
         }).toList();
@@ -101,15 +100,15 @@ public class FoodServiceImpl implements FoodService {
         var newModel = repository.save(dto);
 
         logService.eventLog("api/foods", List.of(newModel), 201, ELogType.FOOD);
-        log.info("create food {} ", newModel.getFoodId());
+        log.info("create food {} ", newModel.getId());
         return newModel;
     }
 
     @Override
     @Transactional
-    public FoodDto update(String id, Food dto) throws GeneralException, GeneralWarning {
+    public Food update(Long id, Food dto) throws GeneralException, GeneralWarning {
         var category = categoryRepository.findById((dto.getCategory() != null && dto.getCategory().getId() != null) ? dto.getCategory().getId() : -1);
-        var foods = repository.findById(UUID.fromString(id));
+        var foods = repository.findById(id);
         var newFood = foods.map(var -> {
             var.setFoodName(dto.getFoodName() != null ? dto.getFoodName() : var.getFoodName());
             var.setPrice(dto.getPrice() != null ? dto.getPrice() : var.getPrice());
@@ -122,13 +121,13 @@ public class FoodServiceImpl implements FoodService {
         var newModel = repository.save(newFood);
         logService.eventLog("api/foods", List.of(newModel), 200, ELogType.FOOD);
         log.info("update food {} ", id);
-        return modelMapDto(newModel);
+        return newModel;
     }
 
     @Override
     @Transactional
-    public Food delete(String id) throws GeneralException, GeneralWarning {
-        var food = repository.findById(UUID.fromString(id));
+    public Food delete(Long id) throws GeneralException, GeneralWarning {
+        var food = repository.findById(id);
         if (food.isPresent()) {
             var dto = food.get();
             repository.delete(food.get());
@@ -139,18 +138,13 @@ public class FoodServiceImpl implements FoodService {
     }
 
 
-    private Food dtoMapModel(FoodDto dto) {
-        return Food.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).category(dto.getCategory() != null
-                ? modelMapper.map(dto.getCategory(), Category.class) : null).description(dto.getDescription()).build();
-    }
-
     private FoodDto modelMapDto(Food dto) {
         modelMapper.getConfiguration().setSkipNullEnabled(true)
                 .setFieldMatchingEnabled(true)
                 .setMatchingStrategy(MatchingStrategies.LOOSE)
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
                 .setSkipNullEnabled(true);
-        return FoodDto.builder().foodId(dto.getFoodId()).foodName(dto.getFoodName()).price(dto.getPrice()).category(dto.getCategory() != null ?
+        return FoodDto.builder().foodId(dto.getId()).foodName(dto.getFoodName()).price(dto.getPrice()).category(dto.getCategory() != null ?
                 modelMapper.map(dto.getCategory(), CategoryDto.class) : null).description(dto.getDescription()).build();
     }
 

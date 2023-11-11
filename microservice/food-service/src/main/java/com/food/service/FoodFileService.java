@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FoodFileService {
 
-    List<FoodFileDto> getListObjects(String foodId) throws GeneralException, GeneralWarning;
+    List<FoodFileDto> getListObjects(Long foodId) throws GeneralException, GeneralWarning;
 
     InputStream getObjects(String fileName);
 

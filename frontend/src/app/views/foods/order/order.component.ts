@@ -8,6 +8,7 @@ import {Orders} from "../../../services/food-service-api";
 import {StockService} from "../../../services/stock.service";
 import {MessageService} from "../../../services/message.service";
 import {Router} from "@angular/router";
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-order',
@@ -38,9 +39,9 @@ export class OrderComponent implements OnInit {
 
   loadGrid() {
     this.dataSource = new CustomStore({
-      key: 'foodId',
+      // key: 'id',
       load: (loadOptions) => {
-        return this.service.findAllOrder(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAllOrder(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -61,7 +62,6 @@ export class OrderComponent implements OnInit {
 
   loadOrderGrid() {
     this.dataOrderSource = new CustomStore({
-      key: 'orderId',
       load: (loadOptions) => {
         loadOptions.filter = [];
         loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);

@@ -8,12 +8,12 @@ import com.food.model.Orders;
 
 public interface FoodOrdersService {
 
-    Orders getByOne(String id) throws GeneralException, GeneralWarning;
+    Orders getByOne(Long id) throws GeneralException, GeneralWarning;
 
     LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning;
 
     Orders create(Orders dto) throws GeneralException, GeneralWarning;
 
-    Orders delete(String id) throws GeneralException, GeneralWarning;
+    Orders delete(Long id) throws GeneralException, GeneralWarning;
 
 }

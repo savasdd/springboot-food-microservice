@@ -43,8 +43,8 @@ export class ImagesComponent implements OnChanges {
   }
 
   loadData() {
-    if (this.foodData.foodId) {
-      this.foodId = this.foodData ? this.foodData.foodId : null;
+    if (this.foodData.id) {
+      this.foodId = this.foodData ? this.foodData.id : null;
       this.service.getAllImage(this.foodId).subscribe((response: FoodFileDto[]) => {
         if (response) {
           this.dataSource = response;

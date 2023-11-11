@@ -1,17 +1,17 @@
 package com.food.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.food.enums.EClassType;
 import com.food.enums.EPaymentType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.Check;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import java.io.InputStream;
-import java.util.UUID;
+import java.io.Serial;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -21,13 +21,16 @@ import java.util.UUID;
 @Entity(name = "FOOD")
 @Table
 @Check(constraints = "LENGTH(FOOD_NAME) > 1")
-public class Food extends BaseEntity {
+public class Food extends BaseEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "FOOD_ID")
-    private UUID foodId;
+    @Serial
+    private static final long serialVersionUID = -48260237983492874L;
+
+//    @Id
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+//    @Column(name = "FOOD_ID")
+//    private String id;
 
     @Column(name = "FOOD_NAME")
     private String foodName;
@@ -35,9 +38,10 @@ public class Food extends BaseEntity {
     @Column(name = "PRICE")
     private Double price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
-    @JsonBackReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@JsonBackReference("category")
     private Category category;
 
     @Length(min = 2)

@@ -13,11 +13,11 @@ export class FoodService {
   constructor(private service: FoodControllerService, private fileService: FoodFileControllerService) {
   }
 
-  findAll(loadOptions: any) {
+  findAll(loadOptions: any): any {
     return this.service.getAllFoodLoad(loadOptions).pipe(catchError(this.handleError));
   }
 
-  findAllOrder(loadOptions: any) {
+  findAllOrder(loadOptions: any): any {
     return this.service.getAllFoodLoadOrder(loadOptions).pipe(catchError(this.handleError));
   }
 
@@ -26,7 +26,7 @@ export class FoodService {
   }
 
 
-  findOne(id: string): Observable<any> {
+  findOne(id: number): Observable<any> {
     return this.service.getFoodByOne(id).pipe(catchError(this.handleError));
   }
 
@@ -34,11 +34,11 @@ export class FoodService {
     return this.service.createFood(data).pipe(catchError(this.handleError));
   }
 
-  update(id: string, data: any) {
+  update(id: number, data: any) {
     return this.service.updateFood(id, data).pipe(catchError(this.handleError));
   }
 
-  delete(id: string) {
+  delete(id: number) {
     return this.service.deleteFood(id).pipe(catchError(this.handleError));
   }
 
@@ -51,7 +51,11 @@ export class FoodService {
   }
 
   uploadImage(id: any, fileName: any, fileType: any, file: any) {
-    return this.fileService.foodFileUpload(id, fileName, fileType, file).pipe(catchError(this.handleError));
+    console.log(id)
+    console.log(fileName)
+    console.log(fileType)
+    console.log(file)
+    return this.fileService.foodFileUpload(id, fileName, fileType, file);
   }
 
   private handleError(error: HttpErrorResponse) {

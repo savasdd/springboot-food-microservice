@@ -45,26 +45,28 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
     }
 
     @Override
-    public Orders getByOne(String id) throws GeneralException, GeneralWarning {
-        var model = repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
+    public Orders getByOne(Long id) throws GeneralException, GeneralWarning {
+        var model = repository.findById(id).orElseThrow(() -> new RuntimeException("Not Found!"));
         return model;
     }
 
     @Override
     public LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
-        loadOptions.setRequireTotalCount(true);
-        var result = repository.load(loadOptions);
-        var list = JsonUtil.fromJsonList(result, Orders.class);
-
-        list.stream().map(val -> {
-            InputStream stream = fileService.getObjects(val.getFood().getFoodId().toString());
-            val.setImage(stream != null ? IOUtils.toString(stream, StandardCharsets.UTF_8) : null);
-            return val;
-        }).toList();
-
         LoadResult loadResult = new LoadResult();
-        loadResult.setItems(list);
-        loadResult.setTotalCount(list.stream().count());
+        var result = repository.load(loadOptions);
+
+        if (result.getTotalCount() > 0) {
+            var list = JsonUtil.fromJsonList(result.getItems(), Orders.class);
+
+            list.stream().map(val -> {
+                InputStream stream = fileService.getObjects(val.getFood().getId().toString());
+                val.setImage(stream != null ? IOUtils.toString(stream, StandardCharsets.UTF_8) : null);
+                return val;
+            }).toList();
+
+            loadResult.setItems(list);
+            loadResult.setTotalCount(list.stream().count());
+        }
 
         log.info("list orders {} ", result.getTotalCount());
         return loadResult;
@@ -72,9 +74,9 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
 
     @Override
     public Orders create(Orders dto) throws GeneralException, GeneralWarning {
-        var price = repository.getSumPrice(dto.getFood().getFoodId(), dto.getStatus());
-        var count = repository.getCountPrice(dto.getFood().getFoodId(), dto.getStatus());
-        var stock = stockGrpcService.getStock(dto.getFood().getFoodId().toString());
+        var price = repository.getSumPrice(dto.getFood().getId(), dto.getStatus());
+        var count = repository.getCountPrice(dto.getFood().getId(), dto.getStatus());
+        var stock = stockGrpcService.getStock(dto.getFood().getId().toString());
 
         if (stock.getStatus() == 400 || count > stock.getAvailableItems())
             throw new GeneralException("Ürüne ait stok kaydı bulunamadı!");
@@ -83,19 +85,19 @@ public class FoodOrdersServiceImpl implements FoodOrdersService {
         if (payment.getStatus() == 400 || payment.getAmountAvailable() < price)
             throw new GeneralException("Ürüne ait ödeme kaydı bulunamadı!");
 
-        var food = foodRepository.findById(dto.getFood().getFoodId()).orElseThrow(() -> new RuntimeException("Not Found!"));
+        var food = foodRepository.findById(dto.getFood().getId()).orElseThrow(() -> new RuntimeException("Not Found!"));
         dto.setFood(food);
-        dto.setStockId(UUID.fromString(stock.getStockId()));
-        dto.setPaymentId(UUID.fromString(payment.getPaymentId()));
+        dto.setStockId(Long.parseLong(stock.getStockId()));
+        dto.setPaymentId(Long.parseLong(payment.getPaymentId()));
         dto.setCreateDate(new Date());
         var model = repository.save(dto);
         return model;
     }
 
     @Override
-    public Orders delete(String id) throws GeneralException, GeneralWarning {
+    public Orders delete(Long id) throws GeneralException, GeneralWarning {
         var order = getByOne(id);
-        repository.deleteById(UUID.fromString(id));
+        repository.deleteById(id);
         return order;
     }
 

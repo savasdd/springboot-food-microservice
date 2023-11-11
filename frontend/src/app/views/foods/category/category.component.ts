@@ -4,6 +4,7 @@ import {DxDataGridComponent} from "devextreme-angular";
 import CustomStore from 'devextreme/data/custom_store';
 import {Category} from "../../../services/food-service-api";
 import CategoryTypeEnum = Category.CategoryTypeEnum;
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-category',
@@ -19,6 +20,9 @@ export class CategoryComponent implements OnInit {
     {name: CategoryTypeEnum.Meyve},
     {name: CategoryTypeEnum.Kahvalti},
     {name: CategoryTypeEnum.Firin},
+    {name: CategoryTypeEnum.Su},
+    {name: CategoryTypeEnum.Sut},
+    {name: CategoryTypeEnum.Atistirma},
   ];
 
   constructor(public service: CategoryService) {
@@ -40,7 +44,7 @@ export class CategoryComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount

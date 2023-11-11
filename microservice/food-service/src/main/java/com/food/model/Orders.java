@@ -1,14 +1,15 @@
 package com.food.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.food.enums.EOrderType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,23 +18,27 @@ import java.util.UUID;
 @Builder
 @Entity(name = "ORDERS")
 @Table
-public class Orders extends BaseEntity {
+public class Orders extends BaseEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "orderId")
-    private UUID orderId;
+    @Serial
+    private static final long serialVersionUID = -48260937983492874L;
 
-    @ManyToOne
-    @JoinColumn(name = "foodId", referencedColumnName = "FOOD_ID")
+//    @Id
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+//    @Column(name = "orderId")
+//    private UUID orderId;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "foodId", referencedColumnName = "ID")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Food food;
 
     @Column(name = "stockId")
-    private UUID stockId;
+    private Long stockId;
 
     @Column(name = "paymentId")
-    private UUID paymentId;
+    private Long paymentId;
 
     @Column(name = "price")
     private Double price;

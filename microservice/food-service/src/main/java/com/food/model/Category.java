@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -17,11 +19,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "CATEGORY")
 @Table
-public class Category extends BaseEntity {
+public class Category extends BaseEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Serial
+    private static final long serialVersionUID = -28260237983492874L;
 
     @Column(name = "NAME")
     private String name;
@@ -33,7 +34,7 @@ public class Category extends BaseEntity {
     @Column(name = "categoryType")
     private ECategoryType categoryType;
 
-    @OneToMany(mappedBy = "category")
-    @JsonManagedReference
-    private List<Food> foodList;
+//    @OneToMany(mappedBy="category", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+//    @JsonManagedReference("category")
+//    private List<Food> foodList;
 }

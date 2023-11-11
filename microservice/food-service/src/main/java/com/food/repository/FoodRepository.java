@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface FoodRepository extends JpaSpecificationExecutor<Food>, JpaRepository<Food, UUID>, BaseRepository<Food, UUID> {
+public interface FoodRepository extends JpaSpecificationExecutor<Food>, JpaRepository<Food, Long>, BaseRepository<Food, Long> {
 }

@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Food } from './food';
 
 
 /**
@@ -20,15 +19,17 @@ export interface Category {
     name?: string;
     description?: string;
     categoryType?: Category.CategoryTypeEnum;
-    foodList?: Array<Food>;
 }
 export namespace Category {
-    export type CategoryTypeEnum = 'SEBZE' | 'MEYVE' | 'KAHVALTI' | 'FIRIN';
+    export type CategoryTypeEnum = 'SEBZE' | 'MEYVE' | 'KAHVALTI' | 'FIRIN' | 'SU' | 'SUT' | 'ATISTIRMA';
     export const CategoryTypeEnum = {
         Sebze: 'SEBZE' as CategoryTypeEnum,
         Meyve: 'MEYVE' as CategoryTypeEnum,
         Kahvalti: 'KAHVALTI' as CategoryTypeEnum,
-        Firin: 'FIRIN' as CategoryTypeEnum
+        Firin: 'FIRIN' as CategoryTypeEnum,
+        Su: 'SU' as CategoryTypeEnum,
+        Sut: 'SUT' as CategoryTypeEnum,
+        Atistirma: 'ATISTIRMA' as CategoryTypeEnum
     };
 }
 

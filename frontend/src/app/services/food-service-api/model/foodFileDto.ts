@@ -15,7 +15,7 @@
  * 
  */
 export interface FoodFileDto { 
-    foodId?: string;
+    foodId?: number;
     filename?: string;
     fileType?: string;
     size?: number;

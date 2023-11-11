@@ -12,7 +12,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class FoodDto extends GenericDto {
 
-    private UUID foodId;
+    private Long foodId;
     private String foodName;
     private String description;
     private CategoryDto category;
