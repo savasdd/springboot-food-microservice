@@ -22,13 +22,7 @@ public class Orders extends BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -48260937983492874L;
-
-//    @Id
-//    @GeneratedValue(generator = "UUID")
-//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-//    @Column(name = "orderId")
-//    private UUID orderId;
-
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "foodId", referencedColumnName = "ID")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

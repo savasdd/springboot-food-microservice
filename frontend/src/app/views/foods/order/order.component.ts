@@ -39,7 +39,7 @@ export class OrderComponent implements OnInit {
 
   loadGrid() {
     this.dataSource = new CustomStore({
-      // key: 'id',
+      key: 'id',
       load: (loadOptions) => {
         return this.service.findAllOrder(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
@@ -62,13 +62,14 @@ export class OrderComponent implements OnInit {
 
   loadOrderGrid() {
     this.dataOrderSource = new CustomStore({
+      key: 'id',
       load: (loadOptions) => {
         loadOptions.filter = [];
         loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);
-        return this.orderService.findAll(loadOptions).toPromise().then((response: any) => {
-          this.calculateBasket(response.data);
+        return this.orderService.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+          this.calculateBasket(response.items);
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
