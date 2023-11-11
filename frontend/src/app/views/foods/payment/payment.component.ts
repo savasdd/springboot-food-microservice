@@ -6,6 +6,7 @@ import {Payment} from "../../../services/payment-service-api";
 import {StockService} from "../../../services/stock.service";
 import {Stock} from "../../../services/stock-service-api";
 import StatusEnum = Payment.StatusEnum;
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-payment',
@@ -44,11 +45,11 @@ export class PaymentComponent implements OnInit {
 
   loadGrid() {
     this.dataSource = new CustomStore({
-      key: 'paymentId',
+      key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
@@ -77,8 +78,7 @@ export class PaymentComponent implements OnInit {
             return;
           },
           err => {
-            const message = 'Kayıt Güncelleme Hatası: ' + err.error.errorMessage;
-            console.log(message);
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
@@ -87,8 +87,7 @@ export class PaymentComponent implements OnInit {
             return;
           },
           err => {
-            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
-            console.log(message);
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }

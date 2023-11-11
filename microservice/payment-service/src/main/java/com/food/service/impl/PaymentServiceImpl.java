@@ -1,5 +1,7 @@
 package com.food.service.impl;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
@@ -7,13 +9,10 @@ import com.food.model.Payment;
 import com.food.repository.PaymentRepository;
 import com.food.service.LogService;
 import com.food.service.PaymentService;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -28,28 +27,25 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<Payment> getAll()  throws GeneralException, GeneralWarning {
+    public List<Payment> getAll() throws GeneralException, GeneralWarning {
         return repository.findAll();
     }
 
     @Override
-    public Payment getByOne(String id)  throws GeneralException, GeneralWarning {
-        return repository.findById(UUID.fromString(id)).orElseThrow(() -> new RuntimeException("Not Found!"));
+    public Payment getByOne(Long id) throws GeneralException, GeneralWarning {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Not Found!"));
     }
 
     @Override
-    public LoadResult<Payment> getAll(DataSourceLoadOptions<Payment> loadOptions)  throws GeneralException, GeneralWarning {
-        LoadResult<Payment> loadResult = new LoadResult<>();
-        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
-        loadResult.setData(list.getContent());
-        loadResult.setTotalCount(list.stream().count());
+    public LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
+        var list = repository.load(loadOptions);
 
-        logService.eventLog("api/payment", List.of(loadResult), 200, ELogType.PAYMENT);
-        return loadResult;
+        logService.eventLog("api/payment", List.of(list), 200, ELogType.PAYMENT);
+        return list;
     }
 
     @Override
-    public Payment create(Payment dto)  throws GeneralException, GeneralWarning {
+    public Payment create(Payment dto) throws GeneralException, GeneralWarning {
         dto.setVersion(0L);
         var model = repository.save(dto);
 
@@ -59,8 +55,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment update(String id, Payment dto)  throws GeneralException, GeneralWarning {
-        var payments = repository.findById(UUID.fromString(id));
+    public Payment update(Long id, Payment dto) throws GeneralException, GeneralWarning {
+        var payments = repository.findById(id);
         var update = payments.map(val -> {
             val.setStockId(dto.getStockId() != null ? dto.getStockId() : val.getStockId());
             val.setAmountAvailable(dto.getAmountAvailable() != null ? dto.getAmountAvailable() : val.getAmountAvailable());
@@ -78,13 +74,13 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void delete(String id)  throws GeneralException, GeneralWarning {
-        repository.deleteById(UUID.fromString(id));
+    public void delete(Long id) throws GeneralException, GeneralWarning {
+        repository.deleteById(id);
         log.info("delete payments {}", id);
     }
 
     @Override
-    public List<Payment> getPaymentByStock(String id) {
-        return repository.findPaymentByStockId(UUID.fromString(id));
+    public List<Payment> getPaymentByStock(Long id) {
+        return repository.findPaymentByStockId(id);
     }
 }

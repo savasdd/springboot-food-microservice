@@ -13,11 +13,11 @@ export class PaymentService {
   constructor(private service: PaymentControllerService) {
   }
 
-  findAll(loadOptions: any) {
+  findAll(loadOptions: any): any {
     return this.service.getAllPaymentLoad(loadOptions).pipe(catchError(this.handleError));
   }
 
-  findOne(id: string): Observable<any> {
+  findOne(id: any): Observable<any> {
     return this.service.getByIdPayment(id).pipe(catchError(this.handleError));
   }
 
@@ -25,11 +25,11 @@ export class PaymentService {
     return this.service.createPayment(data).pipe(catchError(this.handleError));
   }
 
-  update(id: string, data: any) {
+  update(id: number, data: any) {
     return this.service.updatePayment(id, data).pipe(catchError(this.handleError));
   }
 
-  delete(id: string) {
+  delete(id: any) {
     return this.service.deletePayment(id).pipe(catchError(this.handleError));
   }
 

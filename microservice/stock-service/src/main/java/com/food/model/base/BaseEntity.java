@@ -20,6 +20,10 @@ public abstract class BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1656703245648711747L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @JsonIgnore
     @Column(name = "createdDate", updatable = false)
     private Date createdDate;

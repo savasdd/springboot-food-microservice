@@ -1,11 +1,11 @@
 package com.food.controller;
 
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
 import com.food.model.Payment;
 import com.food.service.PaymentService;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ public class PaymentController {
 
     @Operation(description = "Payment getAll by loadResult")
     @PostMapping(value = "/payments/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoadResult<Payment>> getAllPaymentLoad(@RequestBody DataSourceLoadOptions<Payment> loadOptions) throws GeneralException, GeneralWarning {
+    public ResponseEntity<LoadResult> getAllPaymentLoad(@RequestBody DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
@@ -39,7 +39,7 @@ public class PaymentController {
 
     @Operation(description = "Payment getById")
     @GetMapping(value = "/payments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Payment> getByIdPayment(@PathVariable String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<Payment> getByIdPayment(@PathVariable Long id) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getByOne(id));
     }
 
@@ -51,20 +51,20 @@ public class PaymentController {
 
     @Operation(description = "Payment update by id")
     @PutMapping(value = "/payments/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Payment> updatePayment(@PathVariable String id, @RequestBody Payment dto) throws GeneralException, GeneralWarning {
+    public ResponseEntity<Payment> updatePayment(@PathVariable("id") Long id, @RequestBody Payment dto) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
     @Operation(description = "Payment delete by id")
     @DeleteMapping(value = "/payments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> deletePayment(@PathVariable String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<?> deletePayment(@PathVariable Long id) throws GeneralException, GeneralWarning {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(description = "Payment getPaymentByFood")
     @GetMapping(value = "/payments/byStock/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Payment>> getPaymentByStock(@PathVariable String id) throws GeneralException, GeneralWarning {
+    public ResponseEntity<List<Payment>> getPaymentByStock(@PathVariable("id") Long id) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getPaymentByStock(id));
     }
 

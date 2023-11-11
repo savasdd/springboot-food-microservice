@@ -15,11 +15,12 @@
  * 
  */
 export interface Stock { 
+    id?: number;
     version?: number;
     createdBy?: string;
     updatedBy?: string;
-    stockId?: string;
-    foodId?: string;
+    foodId?: number;
+    name?: string;
     price?: number;
     availableItems?: number;
     reservedItems?: number;

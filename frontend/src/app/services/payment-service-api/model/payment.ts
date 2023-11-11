@@ -15,11 +15,11 @@
  * 
  */
 export interface Payment { 
+    id?: number;
     version?: number;
     createdBy?: string;
     updatedBy?: string;
-    paymentId?: string;
-    stockId?: string;
+    stockId?: number;
     amountAvailable?: number;
     amountReserved?: number;
     amount?: number;

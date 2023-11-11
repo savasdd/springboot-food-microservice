@@ -1,6 +1,5 @@
 package com.food.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.food.enums.EClassType;
 import com.food.enums.EPaymentType;
@@ -25,12 +24,6 @@ public class Food extends BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -48260237983492874L;
-
-//    @Id
-//    @GeneratedValue(generator = "UUID")
-//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-//    @Column(name = "FOOD_ID")
-//    private String id;
 
     @Column(name = "FOOD_NAME")
     private String foodName;

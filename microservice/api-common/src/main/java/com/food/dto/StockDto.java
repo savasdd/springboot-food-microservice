@@ -15,9 +15,9 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class StockDto extends GenericDto {
 
-    private UUID stockId;
+    private Long stockId;
 
-    private UUID foodId;
+    private Long foodId;
 
     private String name;
 

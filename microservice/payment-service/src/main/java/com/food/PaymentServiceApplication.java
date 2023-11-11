@@ -3,6 +3,7 @@ package com.food;
 import com.food.db.CreatingDatabase;
 import com.food.enums.EPaymentType;
 import com.food.event.OrderEvent;
+import com.food.repository.base.BaseRepositoryImpl;
 import com.food.service.OrderService;
 import com.food.utils.EventUtil;
 import com.food.utils.JsonUtil;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 
@@ -18,6 +20,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableKafka
+@EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)
 public class PaymentServiceApplication {
     public static void main(String[] args) {
         CreatingDatabase.builder().build();

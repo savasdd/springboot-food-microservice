@@ -13,7 +13,7 @@ export class StockService {
   constructor(private categoryService: StockControllerService) {
   }
 
-  findAll(loadOptions: any) {
+  findAll(loadOptions: any): any {
     return this.categoryService.getAllStockLoad(loadOptions).pipe(catchError(this.handleError));
   }
 
@@ -21,7 +21,7 @@ export class StockService {
     return this.categoryService.getAllStock().pipe(catchError(this.handleError));
   }
 
-  findOne(id: string): Observable<any> {
+  findOne(id: any): Observable<any> {
     return this.categoryService.getStockOne(id).pipe(catchError(this.handleError));
   }
 
@@ -29,11 +29,11 @@ export class StockService {
     return this.categoryService.createStock(data).pipe(catchError(this.handleError));
   }
 
-  update(id: string, data: any) {
+  update(id: any, data: any) {
     return this.categoryService.updateStock(id, data).pipe(catchError(this.handleError));
   }
 
-  delete(id: string) {
+  delete(id: any) {
     return this.categoryService.deleteStock(id).pipe(catchError(this.handleError));
   }
 

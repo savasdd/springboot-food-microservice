@@ -21,8 +21,8 @@ public class StockGrpcService extends StockServiceGrpc.StockServiceImplBase {
     @Override
     public void getStock(StockRequest request, StreamObserver<StockResponse> responseObserver) {
         try {
-            var stock = service.getStockByFoodId(request.getFoodId());
-            responseObserver.onNext(!stock.isEmpty() ? StockResponse.newBuilder().setStockId(stock.get(0).getStockId().toString()).setAvailableItems(stock.get(0).getAvailableItems()).setStatus(200).build() : StockResponse.newBuilder().setStatus(400).build());
+            var stock = service.getStockByFoodId(Long.parseLong(request.getFoodId()));
+            responseObserver.onNext(!stock.isEmpty() ? StockResponse.newBuilder().setStockId(stock.get(0).getId().toString()).setAvailableItems(stock.get(0).getAvailableItems()).setStatus(200).build() : StockResponse.newBuilder().setStatus(400).build());
             responseObserver.onCompleted();
 
             log.info("Call StockGrpcService");

@@ -6,6 +6,7 @@ import CustomStore from "devextreme/data/custom_store";
 import {FoodService} from "../../../services/food.service";
 import {Food} from "../../../services/food-service-api";
 import StatusEnum = Stock.StatusEnum;
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-stock',
@@ -50,11 +51,10 @@ export class StockComponent implements OnInit {
     });
 
     this.foodDataSource = new CustomStore({
-      key: 'foodId',
       load: (loadOptions) => {
-        return this.foodService.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.foodService.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
@@ -72,11 +72,10 @@ export class StockComponent implements OnInit {
 
   loadGrid() {
     this.dataSource = new CustomStore({
-      key: 'stockId',
       load: (loadOptions) => {
-        return this.service.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
@@ -105,8 +104,7 @@ export class StockComponent implements OnInit {
             return;
           },
           err => {
-            const message = 'Kayıt Güncelleme Hatası: ' + err.error.errorMessage;
-            console.log(message);
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
@@ -115,8 +113,7 @@ export class StockComponent implements OnInit {
             return;
           },
           err => {
-            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
-            console.log(message);
+            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }

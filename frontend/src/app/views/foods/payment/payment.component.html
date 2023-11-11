@@ -2,16 +2,16 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="card border" style="margin-bottom: 0px;">
+        <div class="card border" style="margin-bottom: 0;">
           <div class="card-header card-header-info card-header-icon">
             <h4 class="card-title">UserDto List</h4>
           </div>
           <div class="card-body" style="min-height: calc(90vh - 193px);">
             <div class="row">
               <dx-data-grid #paymentDataGrid
-                            [dataSource]="dataSource"
-                            keyExpr="ID"
-                            [showBorders]="true">
+                            [allowColumnReordering]="true"
+                            [showBorders]="true"
+                            [dataSource]="dataSource">
                 <dxo-paging [enabled]="false"></dxo-paging>
                 <dxo-editing
                   mode="form"
@@ -30,7 +30,7 @@
                 </dxo-toolbar>
 
                 <dxi-column dataField="stockId" [allowSorting]="false" caption="Stock">
-                  <dxo-lookup [dataSource]="stockDataSource" displayExpr="name" valueExpr="stockId">
+                  <dxo-lookup [dataSource]="stockDataSource" displayExpr="name" valueExpr="id">
                     <dxi-validation-rule type="required"></dxi-validation-rule>
                   </dxo-lookup>
                 </dxi-column>

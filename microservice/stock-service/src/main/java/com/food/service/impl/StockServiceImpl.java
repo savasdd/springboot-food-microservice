@@ -1,7 +1,8 @@
 package com.food.service.impl;
 
 import com.food.aop.MongoLog;
-import com.food.dto.StockDto;
+import com.food.data.options.DataSourceLoadOptions;
+import com.food.data.response.LoadResult;
 import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
@@ -9,15 +10,11 @@ import com.food.model.Stock;
 import com.food.repository.StockRepository;
 import com.food.service.LogService;
 import com.food.service.StockService;
-import com.food.spesification.response.LoadResult;
-import com.food.spesification.source.DataSourceLoadOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -31,51 +28,46 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public LoadResult<Stock> getAll(DataSourceLoadOptions<Stock> loadOptions) throws GeneralException, GeneralWarning {
-        LoadResult<Stock> response = new LoadResult<>();
-        var list = repository.findAll(loadOptions.toSpecification(), loadOptions.getPageable());
-        response.setData(list.getContent());
-        response.setTotalCount(list.stream().count());
+    public LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
+        var list = repository.load(loadOptions);
 
-        logService.eventLog("api/stock", List.of(response), 200, ELogType.STOCK);
-        log.info("list stock {} ", response.totalCount);
-        return response;
+        logService.eventLog("api/stock", List.of(list), 200, ELogType.STOCK);
+        log.info("list stock {} ", list.getTotalCount());
+        return list;
     }
 
     @Override
     @Transactional
-    public List<StockDto> getAll() throws GeneralException, GeneralWarning {
+    public List<Stock> getAll() throws GeneralException, GeneralWarning {
         var list = repository.findAll();
-        var dtolList = list.stream().map(val -> modelMapDto(val)).collect(Collectors.toList());
 
         log.info("list stock {} ", list.size());
-        return dtolList;
+        return list;
     }
 
     @Override
-    public StockDto getById(String id) throws GeneralException, GeneralWarning {
-        return modelMapDto(repository.findById(UUID.fromString(id)).get());
+    public Stock getById(Long id) throws GeneralException, GeneralWarning {
+        return repository.findById(id).get();
     }
 
     @MongoLog(status = 201)
     @Override
     @Transactional
-    public StockDto create(StockDto dto) throws GeneralException, GeneralWarning {
-        var model = dtoMapModel(dto);
-        model.setVersion(0L);
-        model.setFoodId(dto.getFoodId());
-        var newModel = repository.save(model);
+    public Stock create(Stock dto) throws GeneralException, GeneralWarning {
+        dto.setVersion(0L);
+        dto.setFoodId(dto.getFoodId());
+        var newModel = repository.save(dto);
 
-        logService.eventLog("api/stock", List.of(model), 201, ELogType.STOCK);
-        log.info("create stock {} ", newModel.getStockId());
-        return modelMapDto(newModel);
+        logService.eventLog("api/stock", List.of(dto), 201, ELogType.STOCK);
+        log.info("create stock {} ", dto.getId());
+        return newModel;
     }
 
     @MongoLog(status = 200)
     @Override
     @Transactional
-    public StockDto update(String id, StockDto dto) throws GeneralException, GeneralWarning {
-        var stocks = repository.findById(UUID.fromString(id));
+    public Stock update(Long id, Stock dto) throws GeneralException, GeneralWarning {
+        var stocks = repository.findById(id);
         var newStock = stocks.map(val -> {
             val.setFoodId(dto.getFoodId() != null ? dto.getFoodId() : val.getFoodId());
             val.setPrice(dto.getPrice() != null ? dto.getPrice() : val.getPrice());
@@ -91,16 +83,16 @@ public class StockServiceImpl implements StockService {
 
         logService.eventLog("api/stock", List.of(model), 200, ELogType.STOCK);
         log.info("update stock {} ", id);
-        return modelMapDto(model);
+        return model;
     }
 
     @MongoLog(status = 202)
     @Override
     @Transactional
-    public StockDto delete(String id) throws GeneralException, GeneralWarning {
-        var model = repository.findById(UUID.fromString(id));
+    public Stock delete(Long id) throws GeneralException, GeneralWarning {
+        var model = repository.findById(id);
         if (model.isPresent()) {
-            var dto = modelMapDto(model.get());
+            var dto = model.get();
             repository.delete(model.get());
             log.info("delete stock {} ", id);
             return dto;
@@ -109,16 +101,9 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public List<Stock> getStockByFoodId(String id) throws GeneralException, GeneralWarning {
-        return repository.findByFoodId(UUID.fromString(id));
+    public List<Stock> getStockByFoodId(Long id) throws GeneralException, GeneralWarning {
+        return repository.findByFoodId(id);
     }
 
 
-    private StockDto modelMapDto(Stock dto) {
-        return StockDto.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).name(dto.getName()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
-    }
-
-    private Stock dtoMapModel(StockDto dto) {
-        return Stock.builder().stockId(dto.getStockId()).foodId(dto.getFoodId()).name(dto.getName()).price(dto.getPrice()).availableItems(dto.getAvailableItems()).reservedItems(dto.getReservedItems()).status(dto.getStatus()).transactionDate(dto.getTransactionDate()).description(dto.getDescription()).build();
-    }
 }

@@ -3,13 +3,13 @@ package com.food.model;
 import com.food.enums.EPaymentType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,18 +19,13 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Entity
 @Table(name = "PAYMENT")
-public class Payment extends BaseEntity {
+public class Payment extends BaseEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "PAYMENT_ID", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    @Type(type = "uuid-char")
-    private UUID paymentId;
+    @Serial
+    private static final long serialVersionUID = 1656703945648711747L;
 
-    @Column(name = "STOCK_ID", columnDefinition = "char(36)")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID stockId;
+    @Column(name = "STOCK_ID")
+    private Long stockId;
 
     @Column(name = "AMOUNT_AVAILABLE")
     private BigDecimal amountAvailable;
