@@ -9,6 +9,7 @@ import com.food.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,32 +25,32 @@ public class UserController {
     }
 
     @Operation(description = "get all users")
-    @GetMapping("/users")
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponse> getAllUser() throws GeneralException {
         return new ResponseEntity<>(service.getAllUser(), HttpStatus.OK);
     }
 
-    @PostMapping("/users")
+    @PostMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto dto) throws GeneralException {
         return new ResponseEntity<>(service.createUser(dto), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> deleteUser(@PathVariable String id) throws GeneralException {
         return new ResponseEntity<>(service.deleteUser(id), HttpStatus.OK);
     }
 
-    @GetMapping("/users/group/{id}")
+    @GetMapping(value = "/users/group/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponse> getUserGroup(@PathVariable String id) throws GeneralException {
         return new ResponseEntity<>(service.getUserGroup(id), HttpStatus.OK);
     }
 
-    @PostMapping("/users/group")
+    @PostMapping(value = "/users/group", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupDto> joinUserGroup(@RequestBody GroupDto dto) throws GeneralException {
         return new ResponseEntity<>(service.joinUserGroup(dto), HttpStatus.CREATED);
     }
 
-    @PostMapping("/users/group/leave")
+    @PostMapping(value = "/users/group/leave", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupDto> leaveUserGroup(@RequestBody GroupDto dto) throws GeneralException {
         return new ResponseEntity<>(service.leaveUserGroup(dto), HttpStatus.OK);
     }
