@@ -22,14 +22,16 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService {
 
-    @Autowired
-    private KeycloakClient client;
+    private final RealmResource resource;
 
+    public GroupServiceImpl(KeycloakClient client) {
+        this.resource = client.initClient();
+    }
 
     @Override
     public GenericResponse getGroup() throws GeneralException {
         var response = new GenericResponse<GroupRepresentation>();
-        List<GroupRepresentation> list = client.initClient().groups().groups();
+        List<GroupRepresentation> list = resource.groups().groups();
         response.setData(list);
         response.setTotalCount(list.size());
 
@@ -40,7 +42,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GenericResponse getGroupRol(String id) throws GeneralException {
         var response = new GenericResponse<RoleRepresentation>();
-        GroupResource groupResource = client.initClient().groups().group(id);
+        GroupResource groupResource = resource.groups().group(id);
         var list = groupResource.roles().realmLevel().listAll();
         response.setData(list);
         response.setTotalCount(list.size());
@@ -51,7 +53,7 @@ public class GroupServiceImpl implements GroupService {
     public GroupDto createGroup(GroupDto dto) throws GeneralException {
         GroupRepresentation group = new GroupRepresentation();
         group.setName(dto.getName());
-        client.initClient().groups().add(group);
+        resource.groups().add(group);
         return dto;
     }
 
@@ -60,7 +62,7 @@ public class GroupServiceImpl implements GroupService {
         if (dto.getName() == null)
             throw new GeneralException("Rol Name Not Found!");
 
-        GroupResource groupResource = client.initClient().groups().group(dto.getGroupId());
+        GroupResource groupResource = resource.groups().group(dto.getGroupId());
         RoleRepresentation role = new RoleRepresentation();
         role.setName(dto.getName());
         role.setId(dto.getId());
@@ -73,7 +75,7 @@ public class GroupServiceImpl implements GroupService {
         if (dto.getName() == null)
             throw new GeneralException("Rol Name Not Found!");
 
-        GroupResource groupResource = client.initClient().groups().group(dto.getGroupId());
+        GroupResource groupResource = resource.groups().group(dto.getGroupId());
         RoleRepresentation role = new RoleRepresentation();
         role.setName(dto.getName());
         role.setId(dto.getId());

@@ -13,7 +13,6 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
@@ -24,13 +23,16 @@ import java.util.Collections;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private KeycloakClient client;
+    private final RealmResource resource;
+
+    public UserServiceImpl(KeycloakClient client) {
+        this.resource = client.initClient();
+    }
 
 
     @Override
     public UserRepresentation getUser(String username) throws GeneralException {
-        UserRepresentation userList = client.initClient().users().search(username.trim()).get(0);
+        UserRepresentation userList = resource.users().search(username.trim()).get(0);
         log.info("get user {}", username);
         return userList;
     }
@@ -38,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GenericResponse getAllUser() throws GeneralException {
         var response = new GenericResponse<UserRepresentation>();
-        var list = client.initClient().users().list();
+        var list = resource.users().list();
         response.setData(list);
         response.setTotalCount(list.size());
         return response;
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GenericResponse getUserGroup(String userId) throws GeneralException {
         var response = new GenericResponse<GroupRepresentation>();
-        UserResource userResource = client.initClient().users().get(userId);
+        UserResource userResource = resource.users().get(userId);
         var list = userResource.groups();
         response.setData(list);
         response.setTotalCount(list.size());
@@ -57,14 +59,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public GroupDto joinUserGroup(GroupDto dto) throws GeneralException {
-        UserResource userResource = client.initClient().users().get(dto.getUserId());
+        UserResource userResource = resource.users().get(dto.getUserId());
         userResource.joinGroup(dto.getId());
         return dto;
     }
 
     @Override
     public GroupDto leaveUserGroup(GroupDto dto) throws GeneralException {
-        UserResource userResource = client.initClient().users().get(dto.getUserId());
+        UserResource userResource = resource.users().get(dto.getUserId());
         userResource.leaveGroup(dto.getId());
         return dto;
     }
@@ -79,10 +81,10 @@ public class UserServiceImpl implements UserService {
         user.setEmail(dto.getEmail());
         user.setAttributes(Collections.singletonMap("origin", Arrays.asList("Food Users")));
 
-        Response response = client.initClient().users().create(user);
+        Response response = resource.users().create(user);
         log.info("Repsonse: {} {}", response.getStatus());
         String userId = CreatedResponseUtil.getCreatedId(response);
-        UserResource userResource = client.initClient().users().get(userId);
+        UserResource userResource = resource.users().get(userId);
 
         CredentialRepresentation passwordCred = new CredentialRepresentation();
         passwordCred.setTemporary(false);
@@ -95,7 +97,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto deleteUser(String id) throws GeneralException {
-        UserResource userResource = client.initClient().users().get(id);
+        UserResource userResource = resource.users().get(id);
         userResource.remove();
         return UserDto.builder().id(id).build();
     }

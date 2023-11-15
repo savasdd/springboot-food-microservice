@@ -17,13 +17,16 @@ import java.util.List;
 @Service
 public class RolServiceImpl implements RolService {
 
-    @Autowired
-    private KeycloakClient client;
+    private final RealmResource resource;
+
+    public RolServiceImpl(KeycloakClient client) {
+        this.resource = client.initClient();
+    }
 
     @Override
     public GenericResponse getRoles() throws GeneralException {
         var response = new GenericResponse<RoleRepresentation>();
-        List<RoleRepresentation> list = client.initClient().roles().list();
+        List<RoleRepresentation> list = resource.roles().list();
         response.setData(list);
         response.setTotalCount(list.size());
 
@@ -36,7 +39,7 @@ public class RolServiceImpl implements RolService {
         RoleRepresentation rol = new RoleRepresentation();
         rol.setName(dto.getName());
         rol.setDescription(dto.getDescription());
-        client.initClient().roles().create(rol);
+        resource.roles().create(rol);
         return dto;
     }
 
