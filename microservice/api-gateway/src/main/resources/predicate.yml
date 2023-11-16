@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    loadbalancer:
+      configurations: health-check
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: USER-SERVICE
+          uri: ${server.user}
+          predicates:
+            - Path=/api/**

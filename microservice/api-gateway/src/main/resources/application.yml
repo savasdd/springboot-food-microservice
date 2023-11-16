@@ -2,6 +2,12 @@ server:
   host: localhost
   port: 8085
 
+  food: http://${server.host}:8081
+  user: http://${server.host}:8082
+  logs: http://${server.host}:8086
+  stock: http://${server.host}:8087
+  payment: http://${server.host}:8088
+
 keycloak:
   host: http://${server.host}:8043/auth
   realm: food-microservice
@@ -23,27 +29,13 @@ spring:
   banner:
     location: banner.txt
   config:
-    import: info.yml
+    import: info.yml,predicate.yml
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://${server.host}:8043/auth/realms/${keycloak.realm}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
-
-  cloud:
-    loadbalancer:
-      configurations: health-check
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: user-service
-          uri: http://localhost:8082
-#          uri: lb://user-service
-          predicates:
-            - Path=/api/**
 
 jwt:
   auth:
