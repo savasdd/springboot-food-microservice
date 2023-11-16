@@ -1,4 +1,4 @@
-package com.food.security;
+package com.food.config.openapi;
 
 import org.springdoc.core.SwaggerUiConfigParameters;
 import org.springframework.boot.CommandLineRunner;
