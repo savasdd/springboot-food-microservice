@@ -1,0 +1,18 @@
+server:
+  host: localhost
+  port: 8761
+
+eureka:
+  instance:
+    hostname: ${server.host}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+spring:
+  application:
+    name: discovery-server
+  banner:
+    location: banner.txt
+  config:
+    import: info.yml
