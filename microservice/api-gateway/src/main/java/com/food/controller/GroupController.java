@@ -14,7 +14,7 @@ import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auths")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class GroupController {
 

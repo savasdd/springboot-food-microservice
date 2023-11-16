@@ -7,7 +7,16 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: USER-SERVICE
+        - id: food-service
+          order: 0
+          uri: ${server.food}
+          predicates:
+            - Host=**
+            - Path=/api/foods/**
+
+        - id: user-service
+          order: 1
           uri: ${server.user}
           predicates:
-            - Path=/api/**
+            - Host=**
+            - Path=/api/users/**

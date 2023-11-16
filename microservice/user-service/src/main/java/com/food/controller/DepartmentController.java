@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class DepartmentController {
     private final DepartmentService service;
