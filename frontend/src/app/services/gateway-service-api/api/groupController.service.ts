@@ -148,7 +148,7 @@ export class GroupControllerService {
             }
         }
 
-        let localVarPath = `/api/groups/role`;
+        let localVarPath = `/api/auths/groups/role`;
         return this.httpClient.request<RolDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -215,7 +215,7 @@ export class GroupControllerService {
             }
         }
 
-        let localVarPath = `/api/groups`;
+        let localVarPath = `/api/auths/groups`;
         return this.httpClient.request<GroupDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -269,7 +269,7 @@ export class GroupControllerService {
             }
         }
 
-        let localVarPath = `/api/groups`;
+        let localVarPath = `/api/auths/groups`;
         return this.httpClient.request<GenericResponseObject>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -326,7 +326,7 @@ export class GroupControllerService {
             }
         }
 
-        let localVarPath = `/api/groups/role/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/auths/groups/role/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<GenericResponseObject>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -392,7 +392,7 @@ export class GroupControllerService {
             }
         }
 
-        let localVarPath = `/api/groups/role/leave`;
+        let localVarPath = `/api/auths/groups/role/leave`;
         return this.httpClient.request<RolDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

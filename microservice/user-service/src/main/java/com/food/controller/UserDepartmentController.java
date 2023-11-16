@@ -25,7 +25,7 @@ public class UserDepartmentController {
         this.service = service;
     }
 
-    @GetMapping(value = "/departments/users")
+    @GetMapping(value = "/departments/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UserDepartment>> getAllDepartmentUser() throws GeneralException {
         return ResponseEntity.ok(service.getAll());
     }
@@ -36,7 +36,7 @@ public class UserDepartmentController {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/departments/users/{id}")
+    @GetMapping(value = "/departments/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDepartment> getOneDepartmentUser(@PathVariable Long id) throws GeneralException {
         return ResponseEntity.ok(service.getOne(id));
     }

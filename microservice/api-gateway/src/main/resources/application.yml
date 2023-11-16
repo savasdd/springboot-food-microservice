@@ -7,6 +7,7 @@ server:
   logs: http://${server.host}:8086
   stock: http://${server.host}:8087
   payment: http://${server.host}:8088
+  gateway: http://${server.host}:${server.port}
 
 keycloak:
   host: http://${server.host}:8043/auth
@@ -36,6 +37,13 @@ spring:
         jwt:
           issuer-uri: http://${server.host}:8043/auth/realms/${keycloak.realm}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
 
 jwt:
   auth:

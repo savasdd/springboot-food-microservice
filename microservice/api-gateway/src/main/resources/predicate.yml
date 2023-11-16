@@ -3,6 +3,9 @@ spring:
     loadbalancer:
       configurations: health-check
     gateway:
+      httpclient:
+        connect-timeout: 10000
+        response-timeout: 7s
       discovery:
         locator:
           enabled: true
@@ -41,3 +44,10 @@ spring:
           predicates:
             - Host=**
             - Path=/api/logs/**
+
+        - id: api-gateway
+          order: 5
+          uri: ${server.gateway}
+          predicates:
+            - Host=**
+            - Path=/swagger-ui.html
