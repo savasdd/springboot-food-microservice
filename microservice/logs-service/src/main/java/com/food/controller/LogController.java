@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/logs")
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class LogController {
 
@@ -23,7 +23,7 @@ public class LogController {
     }
 
 
-    @GetMapping(value = "/logs/foods")
+    @GetMapping(value = "/foods")
     public ResponseEntity<List<LogFood>> getAllFood() {
         return new ResponseEntity<>(logService.getLogFood(), HttpStatus.OK);
     }

@@ -20,3 +20,24 @@ spring:
           predicates:
             - Host=**
             - Path=/api/users/**
+
+        - id: stock-service
+          order: 2
+          uri: ${server.stock}
+          predicates:
+            - Host=**
+            - Path=/api/stocks/**
+
+        - id: payment-service
+          order: 3
+          uri: ${server.payment}
+          predicates:
+            - Host=**
+            - Path=/api/payments/**
+
+        - id: logs-service
+          order: 4
+          uri: ${server.logs}
+          predicates:
+            - Host=**
+            - Path=/api/logs/**
