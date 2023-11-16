@@ -145,7 +145,7 @@ export class PaymentControllerService {
             }
         }
 
-        let localVarPath = `/api/payments`;
+        let localVarPath = `/api/foods/payments`;
         return this.httpClient.request<OrderEvent>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

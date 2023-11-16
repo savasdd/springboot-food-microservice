@@ -10,16 +10,16 @@
  * Do not edit the class manually.
  */
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringType } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringType';
-import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeJavaMember } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeJavaMember';
+import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember';
 
 
 export interface DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute { 
     name?: string;
-    association?: boolean;
-    persistentAttributeType?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute.PersistentAttributeTypeEnum;
-    javaMember?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeJavaMember;
     collection?: boolean;
     declaringType?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringType;
+    association?: boolean;
+    persistentAttributeType?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute.PersistentAttributeTypeEnum;
+    javaMember?: DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttributeDeclaringTypeAttributesInnerJavaMember;
 }
 export namespace DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute {
     export type PersistentAttributeTypeEnum = 'MANY_TO_ONE' | 'ONE_TO_ONE' | 'BASIC' | 'EMBEDDED' | 'MANY_TO_MANY' | 'ONE_TO_MANY' | 'ELEMENT_COLLECTION';

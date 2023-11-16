@@ -149,7 +149,7 @@ export class CategoryControllerService {
             }
         }
 
-        let localVarPath = `/api/categorys`;
+        let localVarPath = `/api/foods/categorys`;
         return this.httpClient.request<Category>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -208,7 +208,7 @@ export class CategoryControllerService {
             }
         }
 
-        let localVarPath = `/api/categorys/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/api/foods/categorys/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
         return this.httpClient.request<string>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -262,7 +262,7 @@ export class CategoryControllerService {
             }
         }
 
-        let localVarPath = `/api/categorys`;
+        let localVarPath = `/api/foods/categorys`;
         return this.httpClient.request<Array<Category>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -329,7 +329,7 @@ export class CategoryControllerService {
             }
         }
 
-        let localVarPath = `/api/categorys/all`;
+        let localVarPath = `/api/foods/categorys/all`;
         return this.httpClient.request<LoadResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -388,7 +388,7 @@ export class CategoryControllerService {
             }
         }
 
-        let localVarPath = `/api/categorys/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/api/foods/categorys/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
         return this.httpClient.request<Category>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -459,7 +459,7 @@ export class CategoryControllerService {
             }
         }
 
-        let localVarPath = `/api/categorys/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/api/foods/categorys/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
         return this.httpClient.request<Category>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

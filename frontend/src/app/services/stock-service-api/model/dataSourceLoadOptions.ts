@@ -43,7 +43,7 @@ export interface DataSourceLoadOptions {
     searchExpr?: object;
     userData?: object;
     distinct?: boolean;
-    countQuery?: boolean;
     summaryQuery?: boolean;
+    countQuery?: boolean;
 }
 

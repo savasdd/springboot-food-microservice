@@ -148,7 +148,7 @@ export class UserDepartmentControllerService {
             }
         }
 
-        let localVarPath = `/api/departments/users`;
+        let localVarPath = `/api/users/departments/users`;
         return this.httpClient.request<UserDepartment>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -206,7 +206,7 @@ export class UserDepartmentControllerService {
             }
         }
 
-        let localVarPath = `/api/departments/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/api/users/departments/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
         return this.httpClient.request<object>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -259,7 +259,7 @@ export class UserDepartmentControllerService {
             }
         }
 
-        let localVarPath = `/api/departments/users`;
+        let localVarPath = `/api/users/departments/users`;
         return this.httpClient.request<Array<UserDepartment>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -326,7 +326,7 @@ export class UserDepartmentControllerService {
             }
         }
 
-        let localVarPath = `/api/departments/users/all`;
+        let localVarPath = `/api/users/departments/users/all`;
         return this.httpClient.request<LoadResultUserDepartment>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -384,7 +384,7 @@ export class UserDepartmentControllerService {
             }
         }
 
-        let localVarPath = `/api/departments/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/api/users/departments/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
         return this.httpClient.request<UserDepartment>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -454,7 +454,7 @@ export class UserDepartmentControllerService {
             }
         }
 
-        let localVarPath = `/api/departments/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/api/users/departments/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
         return this.httpClient.request<UserDepartment>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

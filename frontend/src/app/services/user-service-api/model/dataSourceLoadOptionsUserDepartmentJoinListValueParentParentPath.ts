@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel';
+import { DataSourceLoadOptionsUserDepartmentJoinListValueParentModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentModel';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner';
 
 
 export interface DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath { 
-    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel;
+    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentModel;
     compoundSelectionItems?: Array<DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner>;
     compoundSelection?: boolean;
     alias?: string;

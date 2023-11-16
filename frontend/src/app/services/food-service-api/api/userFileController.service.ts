@@ -179,7 +179,7 @@ export class UserFileControllerService {
             }
         }
 
-        let localVarPath = `/api/users/file/upload`;
+        let localVarPath = `/api/foods/users/file/upload`;
         return this.httpClient.request<UserFileDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

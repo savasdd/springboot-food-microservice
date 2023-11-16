@@ -11,9 +11,9 @@
  */
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInner';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueOn } from './dataSourceLoadOptionsUserDepartmentJoinListValueOn';
+import { DataSourceLoadOptionsUserDepartmentJoinListValueParentModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentModel';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentFetchesInnerAttribute';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParent } from './dataSourceLoadOptionsUserDepartmentJoinListValueParent';
-import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner';
 import { DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath } from './dataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath';
 
@@ -25,8 +25,8 @@ export interface DataSourceLoadOptionsUserDepartmentJoinListValue {
     on?: DataSourceLoadOptionsUserDepartmentJoinListValueOn;
     correlationParent?: DataSourceLoadOptionsUserDepartmentJoinListValueParent;
     correlated?: boolean;
+    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentModel;
     parentPath?: DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPath;
-    model?: DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathModel;
     compoundSelectionItems?: Array<DataSourceLoadOptionsUserDepartmentJoinListValueParentParentPathCompoundSelectionItemsInner>;
     compoundSelection?: boolean;
     alias?: string;
