@@ -19,7 +19,7 @@ keycloak:
 eureka:
   client:
     service-url:
-      defaultZone: http://${server.host}:8761/eureka/
+      defaultZone: http://${server.host}:8761/eureka
 
 spring:
   application:
