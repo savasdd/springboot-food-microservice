@@ -18,6 +18,6 @@ public class SwaggerConfig {
 //                .map(id -> id.replace("-service", ""))
 //                .forEach(swaggerUiParameters::addGroup);
 //    }
-    
+
 
 }
