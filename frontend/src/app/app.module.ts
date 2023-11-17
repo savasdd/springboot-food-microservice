@@ -84,16 +84,11 @@ const APP_CONTAINERS = [
     NgScrollbarModule,
     HttpClientModule,
     FontAwesomeModule,
-    ApiModule.forRoot(() => {
-      return new Configuration({
-        basePath: `${environment.apiUrl}`
-      });
-    }),
-    // ApiModuleFood.forRoot(() => {
-    //   return new ConfigurationFood({
+    // ApiModule.forRoot(() => {
+    //   return new Configuration({
     //     basePath: `${environment.apiUrl}`
     //   });
-    // })
+    // }),
   ],
   providers: [
     LoaderService,

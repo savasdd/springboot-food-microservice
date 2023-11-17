@@ -5,6 +5,7 @@ import CustomStore from 'devextreme/data/custom_store';
 import {Category} from "../../../services/food-service-api";
 import CategoryTypeEnum = Category.CategoryTypeEnum;
 import {UtilService} from "../../../services/util.service";
+import {GenericService} from "../../../services/generic.service";
 
 @Component({
   selector: 'app-category',
@@ -15,6 +16,7 @@ export class CategoryComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('categoryDataGrid', {static: true}) categoryDataGrid: any = DxDataGridComponent;
   events: Array<string> = [];
+  categoryService: GenericService;
   dataTypeSource: any = [
     {name: CategoryTypeEnum.Sebze},
     {name: CategoryTypeEnum.Meyve},
@@ -24,7 +26,8 @@ export class CategoryComponent implements OnInit {
     {name: CategoryTypeEnum.Atistirma},
   ];
 
-  constructor(public service: CategoryService) {
+  constructor(public service: GenericService) {
+    this.categoryService = this.service.instance('foods/categorys');
     this.loadGrid();
   }
 
@@ -43,7 +46,7 @@ export class CategoryComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+        return this.categoryService.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount
@@ -52,13 +55,13 @@ export class CategoryComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response) => {
+        return this.categoryService.findOne(key).then((response) => {
           return response;
         });
       },
 
       insert: (values) => {
-        return this.service.save(values).toPromise().then((response) => {
+        return this.categoryService.save(values).then((response) => {
             return;
           },
           err => {
@@ -68,7 +71,7 @@ export class CategoryComponent implements OnInit {
       },
       update: (key, values: any) => {
         values.id = key;
-        return this.service.update(key, values).toPromise().then((response) => {
+        return this.categoryService.update(key, values).then((response) => {
             return;
           },
           err => {
@@ -77,7 +80,7 @@ export class CategoryComponent implements OnInit {
         );
       },
       remove: (key) => {
-        return this.service.delete(key).toPromise().then((response) => {
+        return this.categoryService.delete(key).then((response) => {
             return;
           },
           err => {
