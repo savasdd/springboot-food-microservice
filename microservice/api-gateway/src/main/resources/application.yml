@@ -27,7 +27,7 @@ spring:
   banner:
     location: banner.txt
   config:
-    import: info.yml,predicate.yml
+    import: info.yml,predicate.yml,openapi.yml
   security:
     oauth2:
       resourceserver:
@@ -44,25 +44,25 @@ spring:
 #    path: /v3/api-docs
 
 
-springdoc:
-  enable-native-support: true
-  api-docs:
-    enabled: true
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-    config-url: /v3/api-docs/swagger-config
-    urls:
-      - url: /v3/api-docs
-        name: API Gateway Service
-        primaryName: API Gateway Service
-      - url: ${server.gateway}/foods/v3/api-docs
-        name: Food Service
-        primaryName: Food Service
-      #      - url: /user-service/v3/api-docs
-      - url: ${server.gateway}/users/v3/api-docs
-        name: User Service
-        primaryName: User Service
+#springdoc:
+#  enable-native-support: true
+#  api-docs:
+#    enabled: true
+#  swagger-ui:
+#    enabled: true
+#    path: /swagger-ui.html
+#    config-url: /v3/api-docs/swagger-config
+#    urls:
+#      - url: /v3/api-docs
+#        name: API Gateway Service
+#        primaryName: API Gateway Service
+#      - url: ${server.gateway}/foods/v3/api-docs
+#        name: Food Service
+#        primaryName: Food Service
+#      - url: /users/v3/api-docs
+##      - url: ${server.gateway}/users/v3/api-docs
+#        name: User Service
+#        primaryName: User Service
 
 
 jwt:

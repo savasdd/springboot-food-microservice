@@ -1,0 +1,32 @@
+server:
+  ssl:
+    enabled: false
+springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: Gateway Service
+
+      - url: /food-service/v3/api-docs
+        name: Food Service
+
+      - url: /user-service/v3/api-docs
+        name: User Service
+
+      - url: /payment-service/v3/api-docs
+        name: Payment Service
+
+      - url: /stock-service/v3/api-docs
+        name: Stock Service
+
+      - url: /log-service/v3/api-docs
+        name: Logs Service
+
+      - url: /notification-service/v3/api-docs
+        name: Notification Service
