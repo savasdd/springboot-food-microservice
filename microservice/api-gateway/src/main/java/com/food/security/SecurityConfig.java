@@ -23,21 +23,9 @@ public class SecurityConfig {
     private final JwtAuthConverter jwtAuthConverter;
 
     private static final String[] AUTH_WHITELIST = {
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            "/v3/api-docs/**",
-            "/user-service/v3/api-docs",
-            "/food-service/v3/api-docs",
-            "/payment-service/v3/api-docs",
-            "/stock-service/v3/api-docs",
-            "/log-service/v3/api-docs",
-            "/notification-service/v3/api-docs",
-            "/v3/api-docs/foods",
-            "/swagger-ui/**",
-            "/configuration/**",
+            "/swagger-resources/**", "/configuration/ui", "/configuration/security", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**",
+            "/user-service/v3/api-docs", "/food-service/v3/api-docs", "/payment-service/v3/api-docs", "/stock-service/v3/api-docs", "/log-service/v3/api-docs",
+            "/notification-service/v3/api-docs", "/v3/api-docs/foods", "/swagger-ui/**", "/configuration/**",
     };
 
     @Bean
