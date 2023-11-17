@@ -23,7 +23,7 @@ eureka:
 
 spring:
   application:
-    name: api-gateway
+    name: gateway-service
   banner:
     location: banner.txt
   config:

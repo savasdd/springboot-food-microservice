@@ -8,7 +8,7 @@ server:
 
 spring:
   application:
-    name: logs-service
+    name: log-service
   banner:
     location: banner.txt
   config:
