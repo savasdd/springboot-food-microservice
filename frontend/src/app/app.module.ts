@@ -89,11 +89,11 @@ const APP_CONTAINERS = [
         basePath: `${environment.apiUrl}`
       });
     }),
-    // ApiModuleFood.forRoot(() => {
-    //   return new ConfigurationFood({
-    //     basePath: `${environment.apiUrl}`
-    //   });
-    // })
+    ApiModuleFood.forRoot(() => {
+      return new ConfigurationFood({
+        basePath: `${environment.apiUrl}`
+      });
+    })
   ],
   providers: [
     LoaderService,

@@ -36,33 +36,33 @@ spring:
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
 
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    enabled: true
-  api-docs:
-    path: /v3/api-docs
-
-
 #springdoc:
-#  enable-native-support: true
-#  api-docs:
-#    enabled: true
 #  swagger-ui:
-#    enabled: true
 #    path: /swagger-ui.html
-#    config-url: /v3/api-docs/swagger-config
-#    urls:
-#      - url: /v3/api-docs
-#        name: API Gateway Service
-#        primaryName: API Gateway Service
-#      - url: /food-service/v3/api-docs/foods
-#        name: Food Service
-#        primaryName: Food Service
-#      #      - url: /user-service/v3/api-docs
-#      - url: ${server.user}/v3/api-docs
-#        name: User Service
-#        primaryName: User Service
+#    enabled: true
+#  api-docs:
+#    path: /v3/api-docs
+
+
+springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+        primaryName: API Gateway Service
+      - url: ${server.gateway}/foods/v3/api-docs
+        name: Food Service
+        primaryName: Food Service
+      #      - url: /user-service/v3/api-docs
+      - url: ${server.gateway}/users/v3/api-docs
+        name: User Service
+        primaryName: User Service
 
 
 jwt:
