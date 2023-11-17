@@ -1,12 +1,6 @@
 server:
   host: localhost
   port: 8085
-
-  food: http://${server.host}:8081
-  user: http://${server.host}:8082
-  logs: http://${server.host}:8086
-  stock: http://${server.host}:8087
-  payment: http://${server.host}:8088
   gateway: http://${server.host}:${server.port}
 
 keycloak:
@@ -42,28 +36,6 @@ spring:
 #    enabled: true
 #  api-docs:
 #    path: /v3/api-docs
-
-
-#springdoc:
-#  enable-native-support: true
-#  api-docs:
-#    enabled: true
-#  swagger-ui:
-#    enabled: true
-#    path: /swagger-ui.html
-#    config-url: /v3/api-docs/swagger-config
-#    urls:
-#      - url: /v3/api-docs
-#        name: API Gateway Service
-#        primaryName: API Gateway Service
-#      - url: ${server.gateway}/foods/v3/api-docs
-#        name: Food Service
-#        primaryName: Food Service
-#      - url: /users/v3/api-docs
-##      - url: ${server.gateway}/users/v3/api-docs
-#        name: User Service
-#        primaryName: User Service
-
 
 jwt:
   auth:
