@@ -10,28 +10,28 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: food-service
+        - id: foods-service
           order: 0
           uri: ${server.food}
           predicates:
             - Host=**
             - Path=/api/foods/**
 
-        - id: user-service
+        - id: users-service
           order: 1
           uri: ${server.user}
           predicates:
             - Host=**
             - Path=/api/users/**
 
-        - id: stock-service
+        - id: stocks-service
           order: 2
           uri: ${server.stock}
           predicates:
             - Host=**
             - Path=/api/stocks/**
 
-        - id: payment-service
+        - id: payments-service
           order: 3
           uri: ${server.payment}
           predicates:
@@ -45,9 +45,9 @@ spring:
             - Host=**
             - Path=/api/logs/**
 
-        - id: api-gateway
+        - id: gateways-service
           order: 5
           uri: ${server.gateway}
           predicates:
             - Host=**
-            - Path=/swagger-ui.html
+            - Path=/v3/api-docs

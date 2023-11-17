@@ -16,6 +16,7 @@ public class SwaggerConfig {
     public CommandLineRunner openApiGroups(
             RouteDefinitionLocator locator,
             SwaggerUiConfigParameters swaggerUiParameters) {
+
         return args -> Objects.requireNonNull(locator
                         .getRouteDefinitions().collectList().block())
                 .stream()
@@ -24,4 +25,15 @@ public class SwaggerConfig {
                 .map(id -> id.replace("-service", ""))
                 .forEach(swaggerUiParameters::addGroup);
     }
+
+
+//    @Bean
+//    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+//        return builder
+//                .routes()
+//                .route(r -> r.path("/food-service/v3/api-docs/foods").and().method(HttpMethod.GET).uri("lb://food-service"))
+//                .route(r -> r.path("/user-service/v3/api-docs").and().method(HttpMethod.GET).uri("lb://user-service"))
+//                .build();
+//    }
+
 }
