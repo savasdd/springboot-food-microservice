@@ -16,35 +16,35 @@ spring:
             - Host=**
             - Path=/api/foods/**
 
-        - id: users-service
+        - id: users
           order: 1
-          uri: ${server.user}
+          uri: lb://user-service
           predicates:
             - Host=**
             - Path=/api/users/**
 
-        - id: stocks-service
+        - id: stocks
           order: 2
-          uri: ${server.stock}
+          uri: lb://stock-service
           predicates:
             - Host=**
             - Path=/api/stocks/**
 
-        - id: payments-service
+        - id: payments
           order: 3
-          uri: ${server.payment}
+          uri: lb://payment-service
           predicates:
             - Host=**
             - Path=/api/payments/**
 
-        - id: logs-service
+        - id: logs
           order: 4
-          uri: ${server.logs}
+          uri: lb://log-service
           predicates:
             - Host=**
             - Path=/api/logs/**
 
-        - id: gateways-service
+        - id: gateways
           order: 5
           uri: ${server.gateway}
           predicates:
