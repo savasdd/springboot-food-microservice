@@ -43,6 +43,9 @@ import {AuthGuard} from "./auth/guards/auth.guard";
 import {ErrorInterceptor} from "./auth/interceptors/error";
 import {LoaderInterceptor} from "./auth/interceptors/loader";
 import {AuthInterceptor} from "./auth/interceptors/auth";
+import {ApiModule, Configuration} from "./services/gateway-service-api";
+import {ApiModule as ApiModuleFood, Configuration as ConfigurationFood} from "./services/food-service-api";
+import {environment} from "../environments/environment";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -80,7 +83,17 @@ const APP_CONTAINERS = [
     CardModule,
     NgScrollbarModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ApiModule.forRoot(() => {
+      return new Configuration({
+        basePath: `${environment.apiUrl}`
+      });
+    }),
+    // ApiModuleFood.forRoot(() => {
+    //   return new ConfigurationFood({
+    //     basePath: `${environment.apiUrl}`
+    //   });
+    // })
   ],
   providers: [
     LoaderService,
