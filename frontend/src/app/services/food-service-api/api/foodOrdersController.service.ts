@@ -36,7 +36,7 @@ import { Configuration }                                     from '../configurat
 })
 export class FoodOrdersControllerService {
 
-    protected basePath = 'http://localhost:8081';
+    protected basePath = 'http://172.16.6.152:8081';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
