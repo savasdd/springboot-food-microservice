@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
     {name: CategoryTypeEnum.Atistirma},
   ];
 
-  constructor(public service: GenericService) {
+  constructor(public service: GenericService, private service1: CategoryService) {
     this.categoryService = this.service.instance('foods/categorys');
     this.loadGrid();
   }
@@ -46,7 +46,7 @@ export class CategoryComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.categoryService.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+        return this.service1.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount
@@ -55,13 +55,13 @@ export class CategoryComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.categoryService.findOne(key).then((response) => {
+        return this.service1.findOne(key).toPromise().then((response) => {
           return response;
         });
       },
 
       insert: (values) => {
-        return this.categoryService.save(values).then((response) => {
+        return this.service1.save(values).toPromise().then((response) => {
             return;
           },
           err => {
@@ -71,7 +71,7 @@ export class CategoryComponent implements OnInit {
       },
       update: (key, values: any) => {
         values.id = key;
-        return this.categoryService.update(key, values).then((response) => {
+        return this.service1.update(key, values).toPromise().then((response) => {
             return;
           },
           err => {
@@ -80,7 +80,7 @@ export class CategoryComponent implements OnInit {
         );
       },
       remove: (key) => {
-        return this.categoryService.delete(key).then((response) => {
+        return this.service1.delete(key).toPromise().then((response) => {
             return;
           },
           err => {

@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Category, CategoryControllerService} from "./food-service-api";
 import {catchError, Observable, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "./message.service";
+import {CategoryControllerService} from "./gateway-service-api/api/categoryController.service";
+import {Category} from "./food-service-api";
 
 
 @Injectable({
@@ -14,27 +15,27 @@ export class CategoryService {
   }
 
   findAll(loadOptions: any): any {
-    return this.categoryService.getAllCategoryLoad(loadOptions).pipe(catchError(this.handleError));
+    return this.categoryService.getAllCategoryLoad(loadOptions);
   }
 
   findAlls(): Observable<Category[]> {
-    return this.categoryService.getAllCategory().pipe(catchError(this.handleError));
+    return this.categoryService.getAllCategory();
   }
 
   findOne(id: number): Observable<any> {
-    return this.categoryService.getCategoryByOne(id).pipe(catchError(this.handleError));
+    return this.categoryService.getCategoryByOne(id);
   }
 
   save(data: any) {
-    return this.categoryService.createCategory(data).pipe(catchError(this.handleError));
+    return this.categoryService.createCategory(data);
   }
 
   update(id: number, data: any) {
-    return this.categoryService.updateCategory(id, data).pipe(catchError(this.handleError));
+    return this.categoryService.updateCategory(id, data);
   }
 
   delete(id: number) {
-    return this.categoryService.deleteCategory(id).pipe(catchError(this.handleError));
+    return this.categoryService.deleteCategory(id);
   }
 
   private handleError(error: HttpErrorResponse) {
