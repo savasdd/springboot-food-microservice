@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/payments")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class PaymentController {
 
     private final PaymentService service;

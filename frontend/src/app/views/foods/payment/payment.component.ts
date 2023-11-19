@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {PaymentService} from "../../../services/payment.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
 import {Payment} from "../../../services/payment-service-api";
-import {StockService} from "../../../services/stock.service";
-import {Stock} from "../../../services/stock-service-api";
-import StatusEnum = Payment.StatusEnum;
 import {UtilService} from "../../../services/util.service";
+import {GenericService} from "../../../services/generic.service";
+import StatusEnum = Payment.StatusEnum;
 
 @Component({
   selector: 'app-payment',
@@ -17,6 +15,8 @@ export class PaymentComponent implements OnInit {
   dataSource: any = {};
   stockDataSource: any = {};
   @ViewChild('paymentDataGrid', {static: true}) paymentDataGrid: any = DxDataGridComponent;
+  stockService: GenericService;
+  paymentService: GenericService;
   dataTypeSource: any = [
     {name: StatusEnum.New},
     {name: StatusEnum.Accept},
@@ -25,17 +25,19 @@ export class PaymentComponent implements OnInit {
     {name: StatusEnum.Rollback},
   ];
 
-  constructor(private service: PaymentService, private stockService: StockService) {
-    this.loadGrid();
+  constructor(private service: GenericService) {
+    this.stockService = this.service.instance('stocks');
+    this.paymentService = this.service.instance('payments');
     this.loadStock();
+    this.loadGrid();
   }
 
   ngOnInit(): void {
   }
 
   loadStock() {
-    this.stockService.findAlls().subscribe((response: Stock[]) => {
-      this.stockDataSource = response;
+    this.stockService.findAll({skip: 0, take: 200}).then((response: any) => {
+      this.stockDataSource = response.items;
     });
   }
 
@@ -47,7 +49,7 @@ export class PaymentComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+        return this.paymentService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount
@@ -56,38 +58,27 @@ export class PaymentComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response) => {
+        return this.paymentService.findOne(key).then((response) => {
           return response;
-        }, err => {
-          throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
         });
       },
 
       insert: (values) => {
-        return this.service.save(values).toPromise().then((response) => {
+        return this.paymentService.save(values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       update: (key, values: any) => {
         values.id = key;
-        return this.service.update(key, values).toPromise().then((response) => {
+        return this.paymentService.update(key, values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       remove: (key) => {
-        return this.service.delete(key).toPromise().then((response) => {
+        return this.paymentService.delete(key).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }

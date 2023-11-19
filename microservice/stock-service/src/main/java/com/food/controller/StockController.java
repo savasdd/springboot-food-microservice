@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/stocks")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class StockController {
 
     private final StockService stockService;

@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
-import {DepartmentService} from "../../../services/department.service";
 import CustomStore from "devextreme/data/custom_store";
 import {UtilService} from "../../../services/util.service";
+import {GenericService} from "../../../services/generic.service";
 
 @Component({
   selector: 'app-department',
@@ -12,8 +12,10 @@ import {UtilService} from "../../../services/util.service";
 export class DepartmentComponent implements OnInit {
   dataSource: any = {};
   @ViewChild('dataGrid', {static: true}) dataGrid: any = DxDataGridComponent;
+  departmentService: GenericService;
 
-  constructor(private service: DepartmentService) {
+  constructor(private service: GenericService) {
+    this.departmentService = this.service.instance('users/departments');
     this.loadGrid();
   }
 
@@ -34,7 +36,7 @@ export class DepartmentComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
+        return this.departmentService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -43,36 +45,27 @@ export class DepartmentComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).then((response) => {
+        return this.departmentService.findOne(key).then((response) => {
           return response;
         });
       },
 
       insert: (values) => {
-        return this.service.save(values).then((response) => {
+        return this.departmentService.save(values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       update: (key, values: any) => {
         values.id = key;
-        return this.service.update(key, values).then((response) => {
+        return this.departmentService.update(key, values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       remove: (key) => {
-        return this.service.delete(key).then((response) => {
+        return this.departmentService.delete(key).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }

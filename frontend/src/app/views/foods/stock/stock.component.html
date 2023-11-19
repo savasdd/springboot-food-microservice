@@ -33,7 +33,7 @@
                 </dxo-toolbar>
 
                 <dxi-column dataField="foodId" [allowSorting]="false" caption="Food">
-                  <dxo-lookup [dataSource]="foodDataSource" displayExpr="foodName" valueExpr="foodId">
+                  <dxo-lookup [dataSource]="foodDataSource" displayExpr="foodName" valueExpr="id">
                     <dxi-validation-rule type="required"></dxi-validation-rule>
                   </dxo-lookup>
                 </dxi-column>

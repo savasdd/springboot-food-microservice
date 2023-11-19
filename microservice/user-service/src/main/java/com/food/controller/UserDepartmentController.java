@@ -17,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class UserDepartmentController {
     private final UserDepartmentService service;
 

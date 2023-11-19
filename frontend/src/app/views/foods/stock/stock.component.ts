@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {StockService} from "../../../services/stock.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import {Stock} from "../../../services/stock-service-api";
 import CustomStore from "devextreme/data/custom_store";
-import {FoodService} from "../../../services/food.service";
-import {Food} from "../../../services/food-service-api";
-import StatusEnum = Stock.StatusEnum;
 import {UtilService} from "../../../services/util.service";
+import {GenericService} from "../../../services/generic.service";
+import StatusEnum = Stock.StatusEnum;
 
 @Component({
   selector: 'app-stock',
@@ -18,6 +16,8 @@ export class StockComponent implements OnInit {
   foodDataSource: any = {};
   @ViewChild('stockDataGrid', {static: true}) stockDataGrid: any = DxDataGridComponent;
   dropDownOptions: any;
+  stockService: GenericService;
+  foodService: GenericService;
   dataTypeSource: any = [
     {name: StatusEnum.New},
     {name: StatusEnum.Accept},
@@ -26,7 +26,9 @@ export class StockComponent implements OnInit {
     {name: StatusEnum.Rollback},
   ];
 
-  constructor(private service: StockService, private foodService: FoodService) {
+  constructor(public service: GenericService) {
+    this.stockService = this.service.instance('stocks');
+    this.foodService = this.service.instance('foods');
     this.loadGrid();
     this.loadFood();
   }
@@ -46,27 +48,8 @@ export class StockComponent implements OnInit {
   }
 
   loadFood() {
-    this.foodService.findAlls().subscribe((response: Food[]) => {
-      this.foodDataSource = response;
-    });
-
-    this.foodDataSource = new CustomStore({
-      load: (loadOptions) => {
-        return this.foodService.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
-          return {
-            data: response.items,
-            totalCount: response.totalCount
-          };
-        });
-      },
-
-      byKey: (key) => {
-        return this.foodService.findOne(key).toPromise().then((response) => {
-          return response;
-        }, err => {
-          throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
-        });
-      },
+    this.foodService.findAll({"skip": 0, "take": 200}).then((response: any) => {
+      this.foodDataSource = response.items;
     });
   }
 
@@ -74,7 +57,7 @@ export class StockComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+        return this.stockService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount
@@ -83,7 +66,7 @@ export class StockComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response) => {
+        return this.stockService.findOne(key).then((response) => {
           return response;
         }, err => {
           throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
@@ -91,7 +74,7 @@ export class StockComponent implements OnInit {
       },
 
       insert: (values) => {
-        return this.service.save(values).toPromise().then((response) => {
+        return this.stockService.save(values).then((response) => {
             return;
           },
           err => {
@@ -101,7 +84,7 @@ export class StockComponent implements OnInit {
       },
       update: (key, values: any) => {
         values.id = key;
-        return this.service.update(key, values).toPromise().then((response) => {
+        return this.stockService.update(key, values).then((response) => {
             return;
           },
           err => {
@@ -110,7 +93,7 @@ export class StockComponent implements OnInit {
         );
       },
       remove: (key) => {
-        return this.service.delete(key).toPromise().then((response) => {
+        return this.stockService.delete(key).then((response) => {
             return;
           },
           err => {
