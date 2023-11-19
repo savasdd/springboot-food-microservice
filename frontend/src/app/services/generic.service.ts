@@ -29,33 +29,33 @@ export class GenericService {
   }
 
   findOne(id: any) {
-    return firstValueFrom(this.http.get(this.baseUrl + '' + id, this.requestOptions).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.get(this.baseUrl + '' + id).pipe(catchError(this.handleError)));
   }
 
 
   findAll(loadOptions: any) {
-    return firstValueFrom(this.http.post<any>(this.baseUrl + 'all', loadOptions, this.requestOptions).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.post<any>(this.baseUrl + 'all', loadOptions).pipe(catchError(this.handleError)));
   }
 
 
   save(data: any) {
-    return firstValueFrom(this.http.post(this.baseUrl + '', data, this.requestOptions).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.post(this.baseUrl + '', data).pipe(catchError(this.handleError)));
   }
 
   update(key: any, data: any) {
-    return firstValueFrom(this.http.put(this.baseUrl + '' + key, data, this.requestOptions).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.put(this.baseUrl + '' + key, data).pipe(catchError(this.handleError)));
   }
 
   delete(key: any) {
-    return firstValueFrom(this.http.delete(this.baseUrl + '' + key, this.requestOptions).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.delete(this.baseUrl + '' + key).pipe(catchError(this.handleError)));
   }
 
   customGet(path: string) {
-    return firstValueFrom(this.http.get(this.baseUrl + path, this.requestOptions).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.get(this.baseUrl + path).pipe(catchError(this.handleError)));
   }
 
   customPost(path: string, data: any) {
-    return firstValueFrom(this.http.post(this.baseUrl + path, data, this.requestOptions).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.post(this.baseUrl + path, data).pipe(catchError(this.handleError)));
   }
 
   customPostPermit(path: string, data: any) {
@@ -63,7 +63,7 @@ export class GenericService {
   }
 
   customPut(path: string, data: any) {
-    return firstValueFrom(this.http.put(this.baseUrl + path, data, this.requestOptions));
+    return firstValueFrom(this.http.put(this.baseUrl + path, data));
   }
 
   findAllGet(loadOptions: any) {

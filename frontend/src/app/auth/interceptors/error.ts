@@ -14,6 +14,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
+      if (err.status === 401) {
+        this.messageService.error(err.error.errorMessage);
+        console.log("Hata 401: " + err.error.errorMessage)
+      }
+
       if (err.status === 403) {
         this.messageService.error('Yetkisiz Erişim: ' + err.error.errorMessage);
         //this.router.navigate(['/login/status/forbidden']);
@@ -23,6 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.messageService.error(err.error.errorMessage);
         console.log("Hata 404: " + err.error.errorMessage)
       }
+
 
 
       if (err.status === 400) {

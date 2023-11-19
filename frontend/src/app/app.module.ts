@@ -43,6 +43,7 @@ import {ErrorInterceptor} from "./auth/interceptors/error";
 import {LoaderInterceptor} from "./auth/interceptors/loader";
 import {ApiModule, Configuration} from "./services/gateway-service-api";
 import {environment} from "../environments/environment";
+import {BearerAuthInterceptor} from "./auth/interceptors/bearer-auth";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -93,8 +94,9 @@ const APP_CONTAINERS = [
     // AuthGuard,
     IconSetService,
     Title,
-    // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true},
     // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
