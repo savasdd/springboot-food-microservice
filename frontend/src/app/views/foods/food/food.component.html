@@ -9,12 +9,13 @@
           <div class="card-body" style="min-height: calc(90vh - 193px);">
             <div class="row">
               <dx-data-grid #foodDataGrid
-                            [allowColumnReordering]="true"
-                            [showBorders]="true"
                             [dataSource]="dataSource"
-                            (onEditorPreparing)="onEditorPreparing($event)">
+                            keyExpr="ID"
+                            [allowColumnReordering]="true"
+                            (onEditorPreparing)="onEditorPreparing($event)"
+                            [showBorders]="true">
                 <dxo-editing
-                  mode="popup"
+                  mode="form"
                   [allowUpdating]="true"
                   [allowAdding]="true"
                   [allowDeleting]="true"
