@@ -16,6 +16,10 @@ export class AuthUserComponent implements OnInit {
   updateMod: boolean = false;
   data: any;
   userService: GenericService;
+  tabList: any[] = [
+    {id: 1, name: 'Group', key: 'information'},
+    {id: 2, name: "Department", key: 'action'},
+  ];
 
   constructor(private service: GenericService) {
     this.userService = this.service.instance('auths/users');

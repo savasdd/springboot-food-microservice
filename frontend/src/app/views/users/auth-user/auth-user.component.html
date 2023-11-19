@@ -17,7 +17,7 @@
 
                 <dxo-paging [enabled]="true"></dxo-paging>
                 <dxo-editing
-                  mode="popup"
+                  mode="form"
                   [allowUpdating]="true"
                   [allowDeleting]="true"
                   [allowAdding]="true"
@@ -38,23 +38,23 @@
                       <dxi-item dataField="enabled"></dxi-item>
                     </dxi-item>
 
-                    <dxi-item itemType="tabbed" *ngIf="updateMod" [colSpan]="2" [colCount]="2">
-                      <dxi-tab id="id1" title="Group">
-                        <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
-                          <div *dxTemplate="let item of 'detail'">
-                            <app-user-group *ngIf="data" [data]="data"></app-user-group>
-                          </div>
-                        </dxi-item>
-                      </dxi-tab>
+                    <!--                    <dxi-item itemType="tabbed" *ngIf="updateMod" [colSpan]="2" [colCount]="2">-->
+                    <!--                      <dxi-tab id="id1" title="Group">-->
+                    <!--                        <dxi-item itemType="group" [colCount]="1" [colSpan]="2">-->
+                    <!--                          <div *dxTemplate="let item of 'detail'">-->
+                    <!--                            <app-user-group *ngIf="data" [data]="data"></app-user-group>-->
+                    <!--                          </div>-->
+                    <!--                        </dxi-item>-->
+                    <!--                      </dxi-tab>-->
 
-                      <dxi-tab id="id2" title="Department">
-                        <dxi-item itemType="department" [colCount]="1" [colSpan]="2">
-                          <div *dxTemplate="let item of 'detail'">
-                            <app-user-department *ngIf="data" [data]="data"></app-user-department>
-                          </div>
-                        </dxi-item>
-                      </dxi-tab>
-                    </dxi-item>
+                    <!--                      <dxi-tab id="id2" title="Department">-->
+                    <!--                        <dxi-item itemType="department" [colCount]="1" [colSpan]="2">-->
+                    <!--                          <div *dxTemplate="let item of 'detail'">-->
+                    <!--                            <app-user-department *ngIf="data" [data]="data"></app-user-department>-->
+                    <!--                          </div>-->
+                    <!--                        </dxi-item>-->
+                    <!--                      </dxi-tab>-->
+                    <!--                    </dxi-item>-->
 
                   </dxo-form>
                 </dxo-editing>
@@ -79,6 +79,37 @@
                 <dxi-column dataField="password" [visible]="false">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
+                <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+
+                <div *dxTemplate="let temp of 'detail'">
+
+                  <dx-tab-panel
+                    height="90%"
+                    width="100%"
+                    [dataSource]="tabList"
+                    [selectedIndex]="0"
+                    [loop]="false"
+                    [animationEnabled]="true"
+                    [swipeEnabled]="false">
+
+                    <div *dxTemplate="let dto of 'title'">
+                      <span>{{ dto.name }}</span>
+                    </div>
+
+                    <div *dxTemplate="let dto of 'item'">
+                      <div class="tabpanel-item">
+
+                        <div *ngIf="dto.id===1">
+                          <app-user-group *ngIf="data" [data]="data"></app-user-group>
+                        </div>
+                        <div *ngIf="dto.id===2">
+                          <app-user-department *ngIf="data" [data]="data"></app-user-department>
+                        </div>
+                      </div>
+                    </div>
+
+                  </dx-tab-panel>
+                </div>
 
                 <dxo-paging [pageSize]="10"></dxo-paging>
                 <dxo-pager
