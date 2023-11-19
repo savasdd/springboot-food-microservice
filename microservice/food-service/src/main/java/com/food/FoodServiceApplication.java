@@ -24,8 +24,12 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.serializer.JsonSerde;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 @Slf4j
@@ -40,6 +44,7 @@ public class FoodServiceApplication {
         CreatingDatabase.builder().build();
         SpringApplication.run(FoodServiceApplication.class, args);
     }
+
 
     @Autowired
     private PaymentService orderService;

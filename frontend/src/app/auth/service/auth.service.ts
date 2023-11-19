@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core";
-import {GatewayService} from "../../services/gateway.service";
 import {TokenService} from "./token.service";
-import {tap} from "rxjs";
 import {TokenResponse, UserDto} from "../../services/gateway-service-api";
+import {GenericService} from "../../services/generic.service";
 
 
 @Injectable({
@@ -10,8 +9,12 @@ import {TokenResponse, UserDto} from "../../services/gateway-service-api";
 })
 export class AuthService {
 
-  constructor(private service: GatewayService,
-              private tokenService: TokenService) {
+  authService: GenericService;
+
+  constructor(
+    public service: GenericService,
+    private tokenService: TokenService) {
+    this.authService = this.service.instance('auth');
   }
 
   login(username: any, password: any) {
@@ -20,14 +23,15 @@ export class AuthService {
       password: password
     };
 
-    return this.service.getToken(dto).pipe((tap((response: TokenResponse): any => {
+
+    return this.authService.customPostPermit('getToken', dto).then((response: any): any => {
       if (response) {
         this.tokenService.saveToken(response.access_token);
         this.tokenService.saveRefreshToken(response.refresh_token);
         this.tokenService.saveUser(dto.username);
         this.tokenService.saveRol(response.roles);
       }
-    })));
+    });
 
   }
 
@@ -37,7 +41,7 @@ export class AuthService {
       access_token: token,
     };
 
-    return this.service.refreshToken(dto);
+    return this.authService.customPostPermit('getRefreshToken', dto);
   }
 
 }

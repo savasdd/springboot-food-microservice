@@ -38,13 +38,10 @@ import {
 
 import {IconModule, IconSetService} from '@coreui/icons-angular';
 import {LoaderService} from "./auth/service/loader.service";
-import {AuthService} from "./auth/service/auth.service";
 import {AuthGuard} from "./auth/guards/auth.guard";
 import {ErrorInterceptor} from "./auth/interceptors/error";
 import {LoaderInterceptor} from "./auth/interceptors/loader";
-import {AuthInterceptor} from "./auth/interceptors/auth";
 import {ApiModule, Configuration} from "./services/gateway-service-api";
-import {ApiModule as ApiModuleFood, Configuration as ConfigurationFood} from "./services/food-service-api";
 import {environment} from "../environments/environment";
 
 const APP_CONTAINERS = [
@@ -84,21 +81,21 @@ const APP_CONTAINERS = [
     NgScrollbarModule,
     HttpClientModule,
     FontAwesomeModule,
-    ApiModule.forRoot(() => {
-      return new Configuration({
-        basePath: `${environment.apiUrl}`
-      });
-    }),
+    // ApiModule.forRoot(() => {
+    //   return new Configuration({
+    //     basePath: `${environment.apiUrl}`
+    //   });
+    // }),
   ],
   providers: [
     LoaderService,
-    AuthService,
-    AuthGuard,
+    // AuthService,
+    // AuthGuard,
     IconSetService,
     Title,
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent]
