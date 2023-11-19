@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/foods")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class CategoryController {
 
     private final CategoryService service;

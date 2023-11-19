@@ -10,7 +10,7 @@ import {TokenService} from "../auth/service/token.service";
 })
 export class GenericService {
   private baseUrl: any = null;
-  private requestOptions: any;
+  private readonly requestOptions: any;
 
   constructor(protected http: HttpClient, private service: TokenService) {
     this.requestOptions = {

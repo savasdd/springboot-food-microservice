@@ -6,6 +6,7 @@ import {CategoryService} from "../../../services/category.service";
 import {Category, OrderEvent} from "../../../services/food-service-api";
 import StatusEnum = OrderEvent.StatusEnum;
 import {UtilService} from "../../../services/util.service";
+import {GenericService} from "../../../services/generic.service";
 
 @Component({
   selector: 'app-food',
@@ -23,6 +24,8 @@ export class FoodComponent implements OnInit {
   showInfo = true;
   showNavButtons = true;
   foodData: any;
+  foodService: GenericService;
+  categoryService: GenericService;
   dataTypeSource: any = [
     {name: StatusEnum.New},
     {name: StatusEnum.Accept},
@@ -31,12 +34,16 @@ export class FoodComponent implements OnInit {
     {name: StatusEnum.Rollback},
   ];
 
-  constructor(private service: FoodService, private categoryService: CategoryService) {
+  constructor(public service: GenericService) {
+    this.categoryService = this.service.instance('foods/categorys');
+    this.foodService = this.service.instance('foods');
+
+    this.categoryService.findAll(UtilService.setPage({"skip": 0, "take": 100})).then((response: any) => {
+      this.categoryDataSource = response.items;
+    });
+
     this.loadGrid();
 
-    this.categoryService.findAlls().subscribe((response: Category[]) => {
-      this.categoryDataSource = response;
-    });
   }
 
   ngOnInit(): void {
@@ -57,7 +64,7 @@ export class FoodComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+        return this.foodService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount
@@ -66,7 +73,7 @@ export class FoodComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response) => {
+        return this.foodService.findOne(key).then((response) => {
           return response;
         }, err => {
           throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
@@ -74,7 +81,7 @@ export class FoodComponent implements OnInit {
       },
 
       insert: (values) => {
-        return this.service.save(values).toPromise().then((response) => {
+        return this.foodService.save(values).then((response) => {
             return;
           },
           err => {
@@ -84,7 +91,7 @@ export class FoodComponent implements OnInit {
       },
       update: (key, values: any) => {
         values.id = key;
-        return this.service.update(key, values).toPromise().then((response) => {
+        return this.foodService.update(key, values).then((response) => {
             return;
           },
           err => {
@@ -93,7 +100,7 @@ export class FoodComponent implements OnInit {
         );
       },
       remove: (key) => {
-        return this.service.delete(key).toPromise().then((response) => {
+        return this.foodService.delete(key).then((response) => {
             return;
           },
           err => {
