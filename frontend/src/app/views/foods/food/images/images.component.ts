@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {DxDataGridComponent, DxFormComponent} from "devextreme-angular";
-import {FoodService} from "../../../../services/food.service";
 import {FoodFileDto} from "../../../../services/food-service-api";
 import notify from "devextreme/ui/notify";
+import {GenericService} from "../../../../services/generic.service";
 
 @Component({
   selector: 'app-images',
@@ -20,8 +20,10 @@ export class ImagesComponent implements OnChanges {
   popupVisible: boolean = false;
   fileData: FoodFileDto = {};
   foodId: any;
+  foodService: GenericService;
 
-  constructor(private service: FoodService) {
+  constructor(private service: GenericService) {
+    this.foodService = this.service.instance('foods/file');
 
   }
 
@@ -45,7 +47,7 @@ export class ImagesComponent implements OnChanges {
   loadData() {
     if (this.foodData.id) {
       this.foodId = this.foodData ? this.foodData.id : null;
-      this.service.getAllImage(this.foodId).subscribe((response: FoodFileDto[]) => {
+      this.foodService.customGet('/all/' + this.foodId).then((response: any) => {
         if (response) {
           this.dataSource = response;
         }
@@ -55,7 +57,7 @@ export class ImagesComponent implements OnChanges {
 
   deleteFoodImage(data: any) {
     if (data.foodId) {
-      this.service.deleteImage(data.foodId).subscribe((response: any) => {
+      this.foodService.customDelete('/delete/' + data.foodId).then((response: any) => {
         this.loadData();
       });
     }
@@ -76,7 +78,7 @@ export class ImagesComponent implements OnChanges {
   updateClick() {
     const formValid = this.form.instance.validate();
     if (formValid && this.fileData.fileData != null) {
-      this.service.uploadImage(this.foodId, this.fileData.filename, this.fileData.fileType, this.fileData.fileData).subscribe((response: any) => {
+      this.foodService.fileUpload('upload', this.foodId, this.fileData.filename, this.fileData.fileType, this.fileData.fileData).subscribe((response: any) => {
         notify({message: "Upload Success"});
         this.popupVisible = false;
         this.loadData();

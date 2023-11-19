@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/api/foods")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class UserFileController {
 
     private final UserFileService service;

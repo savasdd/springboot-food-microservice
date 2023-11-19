@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpContext, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {catchError, firstValueFrom, Observable, throwError} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {TokenService} from "../auth/service/token.service";
 import {MessageService} from "./message.service";
+import {FoodFileDto} from "./food-service-api";
 
 
 @Injectable({
@@ -11,15 +12,8 @@ import {MessageService} from "./message.service";
 })
 export class GenericService {
   private baseUrl: any = null;
-  private readonly requestOptions: any;
 
   constructor(protected http: HttpClient, private service: TokenService) {
-    this.requestOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.service.getToken()}`
-      })
-    };
   }
 
   instance(rootPath: string): GenericService {
@@ -66,27 +60,12 @@ export class GenericService {
     return firstValueFrom(this.http.put(this.baseUrl + path, data));
   }
 
+  customDelete(path: string) {
+    return firstValueFrom(this.http.delete(this.baseUrl + path));
+  }
+
   findAllGet(loadOptions: any) {
     return firstValueFrom(this.http.get(this.baseUrl + 'all?query=' + encodeURI(JSON.stringify(loadOptions))).pipe(catchError(this.handleError)));
-  }
-
-
-  customPostHttpOptions(path: string, httpOptions: any, data: any) {
-    return firstValueFrom(this.http.post(this.baseUrl + path, data, httpOptions));
-  }
-
-  customGetHttpOptions(path: string, httpOptions: any) {
-    return firstValueFrom(this.http.get(this.baseUrl + path, httpOptions));
-  }
-
-  customRawPost(path: string, data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + path, data);
-  }
-
-
-  saveObservable(data: any): Observable<any> {
-    return this.postRequest(this.baseUrl + 'save', data);
-
   }
 
 
@@ -98,6 +77,66 @@ export class GenericService {
       })
     );
   }
+
+  public fileUpload(path:string,foodId: string, fileName: any, fileType: any, file: Blob, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = [
+      'multipart/form-data',
+      'application/json'
+    ];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let localVarFormParams: { append(param: string, value: any): any; };
+    let localVarUseForm = false;
+    let localVarConvertFormParamsToString = false;
+    localVarUseForm = canConsumeForm;
+    if (localVarUseForm) {
+      localVarFormParams = new FormData();
+    } else {
+      localVarFormParams = new HttpParams();
+    }
+
+    if (foodId !== undefined) {
+      localVarFormParams = localVarFormParams.append('foodId', <any>foodId) as any || localVarFormParams;
+    }
+    if (fileName !== undefined) {
+      localVarFormParams = localVarFormParams.append('fileName', <any>fileName) as any || localVarFormParams;
+    }
+    if (fileType !== undefined) {
+      localVarFormParams = localVarFormParams.append('fileType', <any>fileType) as any || localVarFormParams;
+    }
+    if (file !== undefined) {
+      localVarFormParams = localVarFormParams.append('file', <any>file) as any || localVarFormParams;
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    return this.http.request<FoodFileDto>('post',this.baseUrl + path,
+      {
+        context: localVarHttpContext,
+        body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
+        responseType: <any>responseType_,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = 'multipart/form-data';
+    for (const consume of consumes) {
+      if (form === consume) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     const service = new MessageService;
