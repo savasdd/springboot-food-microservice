@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
-import {UserService} from "../../../services/user.service";
 import CustomStore from "devextreme/data/custom_store";
 import {faRefresh} from "@fortawesome/free-solid-svg-icons";
+import {GenericService} from "../../../services/generic.service";
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-service-user',
@@ -14,8 +15,10 @@ export class AuthUserComponent implements OnInit {
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   updateMod: boolean = false;
   data: any;
+  userService: GenericService;
 
-  constructor(private service: UserService) {
+  constructor(private service: GenericService) {
+    this.userService = this.service.instance('auths/users');
     this.loadGrid();
   }
 
@@ -38,7 +41,7 @@ export class AuthUserComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAllUser(loadOptions).toPromise().then((response: any) => {
+        return this.userService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -46,21 +49,14 @@ export class AuthUserComponent implements OnInit {
         });
       },
       insert: (values) => {
-        return this.service.saveUser(values).toPromise().then((response) => {
+        return this.userService.save(values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       remove: (key) => {
-        return this.service.deleteUser(key).toPromise().then((response) => {
+        return this.userService.delete(key).then((response) => {
             return;
-          },
-          err => {
-            const message = 'Kayıt Silme Hatası: ' + err.error.errorMessage;
-            console.log(message);
           }
         );
       }

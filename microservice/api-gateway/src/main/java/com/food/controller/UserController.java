@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @Operation(description = "get all users")
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponse> getAllUser() throws GeneralException {
+    @PostMapping(value = "/users/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponse> getAllUser(@RequestBody String loadOptions) throws GeneralException {
         return new ResponseEntity<>(service.getAllUser(), HttpStatus.OK);
     }
 

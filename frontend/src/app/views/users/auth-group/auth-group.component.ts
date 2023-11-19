@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
-import {UserService} from "../../../services/user.service";
 import CustomStore from "devextreme/data/custom_store";
 import {faRefresh, faShoppingBasket} from "@fortawesome/free-solid-svg-icons";
+import {GenericService} from "../../../services/generic.service";
+import {UtilService} from "../../../services/util.service";
 
 @Component({
   selector: 'app-service-group',
@@ -14,8 +15,10 @@ export class AuthGroupComponent implements OnInit {
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   updateMod: boolean = false;
   data: any;
+  groupService: GenericService;
 
-  constructor(private service: UserService) {
+  constructor(private service: GenericService) {
+    this.groupService = this.service.instance('auths/groups');
     this.loadGrid();
   }
 
@@ -38,7 +41,7 @@ export class AuthGroupComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAllGroup(loadOptions).toPromise().then((response: any) => {
+        return this.groupService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -46,11 +49,8 @@ export class AuthGroupComponent implements OnInit {
         });
       },
       insert: (values) => {
-        return this.service.saveGroup(values).toPromise().then((response) => {
+        return this.groupService.save(values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },

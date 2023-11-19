@@ -1,7 +1,8 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
-import {UserService} from "../../../../services/user.service";
 import CustomStore from "devextreme/data/custom_store";
+import {GenericService} from "../../../../services/generic.service";
+import {UtilService} from "../../../../services/util.service";
 
 @Component({
   selector: 'app-user-group',
@@ -15,10 +16,15 @@ export class UserGroupComponent implements OnChanges {
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   userId: any = null;
+  userService: GenericService;
+  groupService: GenericService;
 
-  constructor(private service: UserService) {
+  constructor(private service: GenericService) {
     this.loadGrid = this.loadGrid.bind(this);
     this.loadGroup = this.loadGroup.bind(this);
+    this.userService = this.service.instance('auths/users/group');
+    this.groupService = this.service.instance('auths/groups');
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,7 +47,7 @@ export class UserGroupComponent implements OnChanges {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.getUserGroup(this.userId).toPromise().then((response: any) => {
+        return this.userService.findOne(this.userId).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -50,21 +56,15 @@ export class UserGroupComponent implements OnChanges {
       },
       insert: (values) => {
         values.userId = this.userId;
-        return this.service.joinUserGroup(values).toPromise().then((response) => {
+        return this.userService.save(values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       remove: (key) => {
         const dto = {id: key, userId: this.userId};
-        return this.service.leaveUserGroup(dto).toPromise().then((response) => {
+        return this.userService.customPost('leave', dto).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }
@@ -73,7 +73,7 @@ export class UserGroupComponent implements OnChanges {
   }
 
   loadGroup() {
-    this.service.findAllGroup(null).toPromise().then((response: any) => {
+    this.groupService.findAll(UtilService.setPage({skip: null, take: null})).then((response: any) => {
       this.groupDataSource = response.data;
     });
   }

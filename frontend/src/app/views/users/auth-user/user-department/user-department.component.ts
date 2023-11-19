@@ -1,9 +1,8 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
-import {DepartmentUserService} from "../../../../services/department-user.service";
-import {DepartmentService} from "../../../../services/department.service";
 import {UtilService} from "../../../../services/util.service";
+import {GenericService} from "../../../../services/generic.service";
 
 @Component({
   selector: 'app-user-department',
@@ -17,12 +16,14 @@ export class UserDepartmentComponent implements OnChanges {
   @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   userId: any = null;
-  dropDownOptions: any;
+  departService: GenericService;
+  departUserService: GenericService;
 
-  constructor(private service: DepartmentUserService,
-              private departService: DepartmentService) {
+  constructor(private service: GenericService) {
     this.loadGrid = this.loadGrid.bind(this);
     this.loadDepartment = this.loadDepartment.bind(this);
+    this.departService = this.service.instance('users/departments');
+    this.departUserService = this.service.instance('users/departments/users');
     this.loadDepartment();
     this.loadGrid();
   }
@@ -40,8 +41,6 @@ export class UserDepartmentComponent implements OnChanges {
   }
 
   onSelectionPersonChanged(selectedRowKeys: any, cellInfo: any, dropDownBoxComponent: any) {
-    console.log(selectedRowKeys[0])
-
     cellInfo.setValue(selectedRowKeys[0]);
     if (selectedRowKeys.length > 0) {
       dropDownBoxComponent.close();
@@ -54,7 +53,7 @@ export class UserDepartmentComponent implements OnChanges {
       load: (loadOptions) => {
         loadOptions.filter = [];
         loadOptions.filter.push(['userId', '=', this.userId]);
-        return this.service.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
+        return this.departUserService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -63,38 +62,29 @@ export class UserDepartmentComponent implements OnChanges {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response: any) => {
+        return this.departUserService.findOne(key).then((response: any) => {
           return response;
         });
       },
 
       insert: (values) => {
         values.userId = this.userId;
-        return this.service.save(values).toPromise().then((response) => {
+        return this.departUserService.save(values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       update: (key, values: any) => {
         values.id = key;
         values.userId = this.userId;
-        return this.service.update(key, values).toPromise().then((response) => {
+        return this.departUserService.update(key, values).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       },
       remove: (key) => {
-        return this.service.delete(key).toPromise().then((response) => {
+        return this.departUserService.delete(key).then((response) => {
             return;
-          },
-          err => {
-            throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
         );
       }

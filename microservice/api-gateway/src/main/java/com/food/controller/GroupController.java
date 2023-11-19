@@ -15,7 +15,6 @@ import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/api/auths")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class GroupController {
 
     private final GroupService service;
@@ -24,8 +23,8 @@ public class GroupController {
         this.service = service;
     }
 
-    @GetMapping(value = "/groups", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponse> getGroup() throws GeneralException {
+    @PostMapping(value = "/groups/all", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponse> getGroup(@RequestBody String loadOptions) throws GeneralException {
         return new ResponseEntity<>(service.getGroup(), HttpStatus.OK);
     }
 
