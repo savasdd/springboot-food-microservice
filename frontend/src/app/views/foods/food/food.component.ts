@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DxDataGridComponent} from "devextreme-angular";
-import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
-import {CategoryService} from "../../../services/category.service";
-import {Category, OrderEvent} from "../../../services/food-service-api";
-import StatusEnum = OrderEvent.StatusEnum;
+import {OrderEvent} from "../../../services/food-service-api";
 import {UtilService} from "../../../services/util.service";
 import {GenericService} from "../../../services/generic.service";
+import StatusEnum = OrderEvent.StatusEnum;
 
 @Component({
   selector: 'app-food',
@@ -38,10 +36,7 @@ export class FoodComponent implements OnInit {
     this.categoryService = this.service.instance('foods/categorys');
     this.foodService = this.service.instance('foods');
 
-    this.categoryService.findAll(UtilService.setPage({"skip": 0, "take": 100})).then((response: any) => {
-      this.categoryDataSource = response.items;
-    });
-
+    this.loadCategory();
     this.loadGrid();
 
   }
@@ -57,6 +52,13 @@ export class FoodComponent implements OnInit {
     if (e.parentType === 'dataRow') {
       this.foodData = e.row.data;
     }
+  }
+
+
+  loadCategory() {
+    this.categoryService.findAll(UtilService.setPage({"skip": 0, "take": 100})).then((response: any) => {
+      this.categoryDataSource = response.items;
+    });
   }
 
 

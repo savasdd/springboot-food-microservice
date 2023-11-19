@@ -1,14 +1,12 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {FoodService} from "../../../services/food.service";
 import CustomStore from "devextreme/data/custom_store";
 import {faShoppingBasket, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
-import {OrderService} from "../../../services/order.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import {Orders} from "../../../services/food-service-api";
-import {StockService} from "../../../services/stock.service";
 import {MessageService} from "../../../services/message.service";
 import {Router} from "@angular/router";
 import {UtilService} from "../../../services/util.service";
+import {GenericService} from "../../../services/generic.service";
 
 @Component({
   selector: 'app-order',
@@ -21,14 +19,16 @@ export class OrderComponent implements OnInit {
   dataSource: any = {};
   dataOrderSource: any = {};
   totalPrice: number = 0;
+  foodService: GenericService;
+  orderService: GenericService;
   basketList: Array<{ ID: string, Name: string, Price: number, Image: string }> = [];
 
-  constructor(private service: FoodService,
-              private orderService: OrderService,
-              private stockService: StockService,
+  constructor(public service: GenericService,
               private messageService: MessageService,
               private router: Router,
               private cd: ChangeDetectorRef) {
+    this.foodService = this.service.instance('foods');
+    this.orderService = this.service.instance('foods/orders');
     this.loadGrid();
     this.loadOrderGrid();
     this.totalPrice = 0;
@@ -41,7 +41,7 @@ export class OrderComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.service.findAllOrder(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+        return this.foodService.customPost('/allOrder', UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount
@@ -50,7 +50,7 @@ export class OrderComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.service.findOne(key).toPromise().then((response) => {
+        return this.foodService.findOne(key).then((response) => {
           return response;
         }, err => {
           throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
@@ -66,7 +66,7 @@ export class OrderComponent implements OnInit {
       load: (loadOptions) => {
         loadOptions.filter = [];
         loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);
-        return this.orderService.findAll(UtilService.setPage(loadOptions)).toPromise().then((response: any) => {
+        return this.orderService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           this.calculateBasket(response.items);
           return {
             data: response.items,
@@ -76,14 +76,14 @@ export class OrderComponent implements OnInit {
       },
 
       byKey: (key) => {
-        return this.orderService.findOne(key).toPromise().then((response) => {
+        return this.orderService.findOne(key).then((response) => {
           return response;
         }, err => {
           throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
         });
       },
       remove: (key) => {
-        return this.orderService.delete(key).toPromise().then((response) => {
+        return this.orderService.delete(key).then((response) => {
             return;
           },
           err => {
@@ -103,7 +103,7 @@ export class OrderComponent implements OnInit {
       status: Orders.StatusEnum.Basket
     };
 
-    this.orderService.save(data).subscribe((response) => {
+    this.orderService.save(data).then((response) => {
       if (response) {
         this.messageService.success(event.foodName + " Sepete Eklendi");
         this.refreshDataGrid();

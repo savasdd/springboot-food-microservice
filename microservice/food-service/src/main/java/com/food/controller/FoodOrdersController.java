@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/foods")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class FoodOrdersController {
 
     private final FoodOrdersService service;

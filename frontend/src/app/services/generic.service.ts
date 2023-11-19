@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError, firstValueFrom, Observable, throwError} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {TokenService} from "../auth/service/token.service";
+import {MessageService} from "./message.service";
 
 
 @Injectable({
@@ -28,36 +29,33 @@ export class GenericService {
   }
 
   findOne(id: any) {
-    return firstValueFrom(this.http.get(this.baseUrl + '' + id, this.requestOptions));
+    return firstValueFrom(this.http.get(this.baseUrl + '' + id, this.requestOptions).pipe(catchError(this.handleError)));
   }
 
 
   findAll(loadOptions: any) {
-    return firstValueFrom(this.http.post<any>(this.baseUrl + 'all', loadOptions, this.requestOptions));
+    return firstValueFrom(this.http.post<any>(this.baseUrl + 'all', loadOptions, this.requestOptions).pipe(catchError(this.handleError)));
   }
 
-  findAllGet(loadOptions: any) {
-    return firstValueFrom(this.http.get(this.baseUrl + 'all?query=' + encodeURI(JSON.stringify(loadOptions))));
-  }
 
   save(data: any) {
-    return firstValueFrom(this.http.post(this.baseUrl + '', data, this.requestOptions));
+    return firstValueFrom(this.http.post(this.baseUrl + '', data, this.requestOptions).pipe(catchError(this.handleError)));
   }
 
   update(key: any, data: any) {
-    return firstValueFrom(this.http.put(this.baseUrl + '' + key, data, this.requestOptions));
+    return firstValueFrom(this.http.put(this.baseUrl + '' + key, data, this.requestOptions).pipe(catchError(this.handleError)));
   }
 
   delete(key: any) {
-    return firstValueFrom(this.http.delete(this.baseUrl + '' + key, this.requestOptions));
+    return firstValueFrom(this.http.delete(this.baseUrl + '' + key, this.requestOptions).pipe(catchError(this.handleError)));
   }
 
   customGet(path: string) {
-    return firstValueFrom(this.http.get(this.baseUrl + path, this.requestOptions));
+    return firstValueFrom(this.http.get(this.baseUrl + path, this.requestOptions).pipe(catchError(this.handleError)));
   }
 
   customPost(path: string, data: any) {
-    return firstValueFrom(this.http.post(this.baseUrl + path, data, this.requestOptions));
+    return firstValueFrom(this.http.post(this.baseUrl + path, data, this.requestOptions).pipe(catchError(this.handleError)));
   }
 
   customPostPermit(path: string, data: any) {
@@ -66,6 +64,10 @@ export class GenericService {
 
   customPut(path: string, data: any) {
     return firstValueFrom(this.http.put(this.baseUrl + path, data, this.requestOptions));
+  }
+
+  findAllGet(loadOptions: any) {
+    return firstValueFrom(this.http.get(this.baseUrl + 'all?query=' + encodeURI(JSON.stringify(loadOptions))).pipe(catchError(this.handleError)));
   }
 
 
@@ -95,6 +97,18 @@ export class GenericService {
         return throwError(() => err);
       })
     );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    const service = new MessageService;
+    if (error.status === 0) {
+      service.error(error.error.errorMessage);
+      console.error('An error occurred:', error.error);
+    } else {
+      service.error(error.error.errorMessage);
+      console.error(`Backend returned code ${error.status}, body was: `, error.error);
+    }
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
 
