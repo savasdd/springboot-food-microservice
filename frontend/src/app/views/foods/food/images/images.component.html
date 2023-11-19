@@ -59,25 +59,6 @@
       [(visible)]="popupVisible">
 
       <div *dxTemplate="let data of 'content'">
-
-        <!--        <dx-form id="form" [formData]="fileData"-->
-        <!--                 labelMode="floating" [colCount]="1">-->
-        <!--          <dxi-item dataField="fileData" caption="Image">-->
-        <!--            <dx-file-uploader [multiple]="false"-->
-        <!--                              name="photo"-->
-        <!--                              accept="image/*"-->
-        <!--                              uploadMode="instantly"-->
-        <!--                              [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"-->
-        <!--                              (onValueChanged)="onValueChanged($event)">-->
-        <!--            </dx-file-uploader>-->
-        <!--          </dxi-item>-->
-
-        <!--          <dxi-item [colSpan]="1">-->
-        <!--            <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save-->
-        <!--            </button>-->
-        <!--          </dxi-item>-->
-        <!--        </dx-form>-->
-
         <form id="form" #form method="post" enctype="multipart/form-data">
           <div class="dx-fieldset">
             <div class="dx-field">
@@ -107,7 +88,6 @@
             (onClick)="updateClick()">
           </dx-button>
         </form>
-
       </div>
 
     </dx-popup>
