@@ -1,5 +1,6 @@
 package com.food.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,5 +15,6 @@ public class FoodFileDto extends GenericDto {
     private String filename;
     private String fileType;
     private Long size;
+    @JsonIgnore
     private MultipartFile fileData;
 }

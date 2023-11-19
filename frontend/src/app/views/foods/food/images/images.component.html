@@ -49,10 +49,10 @@
 
   <div>
     <dx-popup
-      [width]="500"
-      [height]="400"
+      width="40%"
+      height="50%"
       [showTitle]="true"
-      title="Upload Image"
+      title="Food Image"
       [dragEnabled]="false"
       [hideOnOutsideClick]="false"
       [showCloseButton]="true"
@@ -60,23 +60,53 @@
 
       <div *dxTemplate="let data of 'content'">
 
-        <dx-form id="form" [formData]="fileData"
-                 labelMode="floating" [colCount]="1">
-          <dxi-item dataField="fileData" caption="Image">
-            <dx-file-uploader [multiple]="false"
-                              name="photo"
-                              accept="image/*"
-                              uploadMode="instantly"
-                              [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
-                              (onValueChanged)="onValueChanged($event)">
-            </dx-file-uploader>
-          </dxi-item>
+        <!--        <dx-form id="form" [formData]="fileData"-->
+        <!--                 labelMode="floating" [colCount]="1">-->
+        <!--          <dxi-item dataField="fileData" caption="Image">-->
+        <!--            <dx-file-uploader [multiple]="false"-->
+        <!--                              name="photo"-->
+        <!--                              accept="image/*"-->
+        <!--                              uploadMode="instantly"-->
+        <!--                              [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"-->
+        <!--                              (onValueChanged)="onValueChanged($event)">-->
+        <!--            </dx-file-uploader>-->
+        <!--          </dxi-item>-->
 
-          <dxi-item [colSpan]="1">
-            <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save
-            </button>
-          </dxi-item>
-        </dx-form>
+        <!--          <dxi-item [colSpan]="1">-->
+        <!--            <button id="button" type="button" class="btn btn-outline-primary" (click)="updateClick()">Save-->
+        <!--            </button>-->
+        <!--          </dxi-item>-->
+        <!--        </dx-form>-->
+
+        <form id="form" #form method="post" enctype="multipart/form-data">
+          <div class="dx-fieldset">
+            <div class="dx-field">
+              <div class="dx-field-label">Food:</div>
+              <dx-text-box
+                class="dx-field-value"
+                name="FirstName"
+                [inputAttr]="{ 'aria-label': 'First Name' }"
+                [value]="foodData.foodName"
+              ></dx-text-box>
+            </div>
+          </div>
+          <div id="fileuploader-container">
+            <dx-file-uploader
+              selectButtonText="Select photo"
+              labelText=""
+              accept="image/*"
+              (onValueChanged)="onValueChanged($event)"
+              uploadMode="useForm">
+            </dx-file-uploader>
+          </div>
+          <dx-button
+            id="button"
+            class="btn btn-outline-primary"
+            text="Save"
+            type="success"
+            (onClick)="updateClick()">
+          </dx-button>
+        </form>
 
       </div>
 

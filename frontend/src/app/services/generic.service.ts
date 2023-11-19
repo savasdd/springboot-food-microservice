@@ -78,7 +78,10 @@ export class GenericService {
     );
   }
 
-  public fileUpload(path:string,foodId: string, fileName: any, fileType: any, file: Blob, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+  public fileUpload(path: string, foodId: string, fileName: any, fileType: any, file: any, observe: any = 'body', reportProgress: boolean = false, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<any> {
     let localVarHttpContext: HttpContext | undefined = options && options.context;
     if (localVarHttpContext === undefined) {
       localVarHttpContext = new HttpContext();
@@ -116,7 +119,7 @@ export class GenericService {
     }
 
     let responseType_: 'text' | 'json' | 'blob' = 'json';
-    return this.http.request<FoodFileDto>('post',this.baseUrl + path,
+    return this.http.request<FoodFileDto>('post', this.baseUrl + path,
       {
         context: localVarHttpContext,
         body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
@@ -126,6 +129,7 @@ export class GenericService {
       }
     );
   }
+
 
   private canConsumeForm(consumes: string[]): boolean {
     const form = 'multipart/form-data';

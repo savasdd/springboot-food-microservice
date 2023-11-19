@@ -1,5 +1,12 @@
 import {Injectable} from "@angular/core";
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpHeaders,
+  HttpInterceptor,
+  HttpRequest
+} from "@angular/common/http";
 import {SessionStorageService} from "angular-web-storage";
 import {TokenService} from "../service/token.service";
 import {Observable, tap} from "rxjs";
@@ -18,12 +25,20 @@ export class BearerAuthInterceptor implements HttpInterceptor {
     const token = this.token.getToken();
     const isApiUrl = request.url.startsWith(environment.apiUrl);
     if (isApiUrl && token) {
-      request = request.clone({
-        setHeaders: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        }
-      });
+
+      let headers = new HttpHeaders();
+      headers = headers.set('Content-Type', 'multipart/form-data');
+      headers = headers.set('Content-Type', 'application/json');
+      headers = headers.set('Authorization', 'Bearer ' + token);
+
+      // request = request.clone({
+      //   setHeaders: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${token}`,
+      //   }
+      // });
+
+      request = request.clone({headers: headers});
     }
 
     return next.handle(request).pipe(tap(() => {
