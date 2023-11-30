@@ -29,7 +29,6 @@ public class GlobalFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getPath().toString();
         ServerHttpResponse response = exchange.getResponse();
-        //response.setStatusCode(HttpStatus.FORBIDDEN);
         ServerHttpRequest request = exchange.getRequest();
         DataBufferFactory dataBufferFactory = response.bufferFactory();
         ServerHttpResponseDecorator decoratedResponse = getDecoratedResponse(path, response, request, dataBufferFactory);
