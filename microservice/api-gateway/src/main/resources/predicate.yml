@@ -23,7 +23,7 @@ spring:
             - Host=**
             - Path=/api/users/**
           filters:
-#            - RoleAuth=ADMIN,USER
+            - RoleFilter
 
         - id: stocks
           order: 2
