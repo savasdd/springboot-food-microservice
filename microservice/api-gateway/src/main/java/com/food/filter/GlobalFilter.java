@@ -8,7 +8,6 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DefaultDataBuffer;
 import org.springframework.core.io.buffer.DefaultDataBufferFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
@@ -56,7 +55,6 @@ public class GlobalFilter implements WebFilter {
                         log.info("requestId: {}", request.getId());
                         log.info("method: {}", request.getMethodValue());
                         log.info("url: {}", request.getURI());
-                        log.info("request: {}", request.getBody());
                         log.info("response: {}", responseBody);
 
                         try {
