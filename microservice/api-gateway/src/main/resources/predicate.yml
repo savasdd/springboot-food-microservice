@@ -22,6 +22,8 @@ spring:
           predicates:
             - Host=**
             - Path=/api/users/**
+          filters:
+#            - RoleAuth=ADMIN,USER
 
         - id: stocks
           order: 2
