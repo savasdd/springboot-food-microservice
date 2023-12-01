@@ -1,5 +1,6 @@
 package com.food.filter;
 
+import com.food.enums.ERole;
 import com.food.service.jwt.JwtService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -8,16 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class RoleFilter extends AbstractGatewayFilterFactory {
+public class FoodFilter extends AbstractGatewayFilterFactory {
 
-    private static final String[] roles = {"FOOD_SEARCH", "FOOD_DELETE", "FOOD_CREAT", "FOOD_UPDATE"};
     private final JwtService service;
 
-    public RoleFilter(JwtService service) {
+    public FoodFilter(JwtService service) {
         this.service = service;
     }
 
@@ -51,13 +50,6 @@ public class RoleFilter extends AbstractGatewayFilterFactory {
 
     private Boolean validate(List<SimpleGrantedAuthority> roles, String contain) {
         return roles.stream().anyMatch(str -> str.getAuthority().contains("FOOD_" + contain));
-    }
-
-    public enum ERole {
-        SEARCH,
-        CREATE,
-        UPDATE,
-        DELETE
     }
 
 

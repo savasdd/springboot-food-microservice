@@ -15,6 +15,8 @@ spring:
           predicates:
             - Host=**
             - Path=/api/foods/**
+          filters:
+            - FoodFilter
 
         - id: users
           order: 1
@@ -23,7 +25,7 @@ spring:
             - Host=**
             - Path=/api/users/**
           filters:
-            - RoleFilter
+
 
         - id: stocks
           order: 2
