@@ -2,12 +2,10 @@ package com.food.service.impl;
 
 import com.food.data.options.DataSourceLoadOptions;
 import com.food.data.response.LoadResult;
-import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
 import com.food.model.Payment;
 import com.food.repository.PaymentRepository;
-import com.food.service.LogService;
 import com.food.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,11 +17,9 @@ import java.util.List;
 public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository repository;
-    private final LogService logService;
 
-    public PaymentServiceImpl(PaymentRepository repository, LogService logService) {
+    public PaymentServiceImpl(PaymentRepository repository) {
         this.repository = repository;
-        this.logService = logService;
     }
 
     @Override
@@ -40,7 +36,6 @@ public class PaymentServiceImpl implements PaymentService {
     public LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
         var list = repository.load(loadOptions);
 
-        logService.eventLog("api/payment", List.of(list), 200, ELogType.PAYMENT);
         return list;
     }
 
@@ -49,7 +44,6 @@ public class PaymentServiceImpl implements PaymentService {
         dto.setVersion(0L);
         var model = repository.save(dto);
 
-        logService.eventLog("api/payment", List.of(model), 201, ELogType.PAYMENT);
         log.info("create payments");
         return model;
     }
@@ -68,7 +62,6 @@ public class PaymentServiceImpl implements PaymentService {
         }).get();
 
         var model = repository.save(update);
-        logService.eventLog("api/payment", List.of(model), 200, ELogType.PAYMENT);
         log.info("update payments {}", id);
         return model;
     }

@@ -1,4 +1,4 @@
-package com.food.config.kafka;
+package com.food.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.AdminClientConfig;

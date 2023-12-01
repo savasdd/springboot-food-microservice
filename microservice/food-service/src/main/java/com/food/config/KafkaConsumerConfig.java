@@ -1,4 +1,4 @@
-package com.food.config.kafka;
+package com.food.config;
 
 import com.food.utils.EventUtil;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

@@ -1,4 +1,4 @@
-package com.food.config.kafka;
+package com.food.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
