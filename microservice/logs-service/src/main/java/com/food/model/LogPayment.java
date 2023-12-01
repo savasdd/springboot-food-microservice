@@ -20,20 +20,13 @@ public class LogPayment implements Serializable {
 
     @Id
     private String id;
-
     private String username;
-
-    private String service;
-
+    private String requestId;
     private String method;
-
+    private String url;
     private String path;
-
     private Integer status;
-
-    private List<Object> body;
-
     private ELogType logType;
-
+    private List<Object> body;
     private Date createDate;
 }

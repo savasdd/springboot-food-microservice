@@ -14,8 +14,10 @@ import java.util.List;
 public class LogEvent implements Serializable {
 
     private String username;
-    private String service;
-    private String message;
+    private String requestId;
+    private String method;
+    private String url;
+    private String path;
     private Integer status;
     private ELogType logType;
     private List<Object> body;

@@ -10,7 +10,7 @@ spring:
   banner:
     location: banner.txt
   config:
-    import: eureka.yml,info.yml,kafka.yml,rabbit.yml,minio.yml
+    import: eureka.yml,info.yml,kafka.yml,minio.yml
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${server.host}:5432/${server.db}

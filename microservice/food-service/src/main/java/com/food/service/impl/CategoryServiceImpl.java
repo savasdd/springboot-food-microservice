@@ -6,7 +6,6 @@ import com.food.enums.ELogType;
 import com.food.model.Category;
 import com.food.repository.CategoryRepository;
 import com.food.service.CategoryService;
-import com.food.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +15,9 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
-    private final LogService logService;
 
-    public CategoryServiceImpl(CategoryRepository repository, LogService logService) {
+    public CategoryServiceImpl(CategoryRepository repository) {
         this.repository = repository;
-        this.logService = logService;
     }
 
     @Override
@@ -38,7 +35,6 @@ public class CategoryServiceImpl implements CategoryService {
         loadOptions.setRequireTotalCount(true);
         var list = repository.load(loadOptions);
 
-        logService.eventLog("api/category", List.of(list), 200, ELogType.CATEGORY);
         log.info("Category getAll");
         return list;
     }
@@ -47,7 +43,6 @@ public class CategoryServiceImpl implements CategoryService {
     public Category create(Category dto) {
         var model = repository.save(dto);
 
-        logService.eventLog("api/category", List.of(model), 201, ELogType.CATEGORY);
         log.info("Category save");
         return model;
     }
@@ -63,7 +58,6 @@ public class CategoryServiceImpl implements CategoryService {
         }).get();
 
         var model = repository.save(update);
-        logService.eventLog("api/category", List.of(model), 200, ELogType.CATEGORY);
         log.info("Category update");
         return model;
     }

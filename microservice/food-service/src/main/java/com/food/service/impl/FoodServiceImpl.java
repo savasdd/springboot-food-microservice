@@ -12,7 +12,6 @@ import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
 import com.food.service.FoodFileService;
 import com.food.service.FoodService;
-import com.food.service.LogService;
 import com.food.utils.JsonUtil;
 import io.micrometer.core.instrument.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +33,12 @@ public class FoodServiceImpl implements FoodService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
     private final FoodFileService fileService;
-    private final LogService logService;
 
-    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper, FoodFileService fileService, LogService logService) {
+    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper, FoodFileService fileService) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
         this.fileService = fileService;
-        this.logService = logService;
     }
 
 
@@ -57,7 +54,6 @@ public class FoodServiceImpl implements FoodService {
         loadOptions.setRequireTotalCount(true);
         var list = repository.load(loadOptions);
 
-//        logService.eventLog("api/foods", List.of(list), 200, ELogType.FOOD);
         log.info("list food {} ", list.getTotalCount());
         return list;
     }
@@ -99,7 +95,6 @@ public class FoodServiceImpl implements FoodService {
         dto.setVersion(0L);
         var newModel = repository.save(dto);
 
-        logService.eventLog("api/foods", List.of(newModel), 201, ELogType.FOOD);
         log.info("create food {} ", newModel.getId());
         return newModel;
     }
@@ -119,7 +114,6 @@ public class FoodServiceImpl implements FoodService {
         }).get();
 
         var newModel = repository.save(newFood);
-        logService.eventLog("api/foods", List.of(newModel), 200, ELogType.FOOD);
         log.info("update food {} ", id);
         return newModel;
     }
@@ -131,7 +125,6 @@ public class FoodServiceImpl implements FoodService {
         if (food.isPresent()) {
             var dto = food.get();
             repository.delete(food.get());
-            logService.eventLog("api/foods", List.of(dto), 200, ELogType.FOOD);
             return dto;
         } else
             return null;

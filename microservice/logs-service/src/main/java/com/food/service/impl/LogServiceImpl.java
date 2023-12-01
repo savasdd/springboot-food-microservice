@@ -1,14 +1,8 @@
 package com.food.service.impl;
 
 import com.food.event.LogEvent;
-import com.food.model.LogCategory;
-import com.food.model.LogFood;
-import com.food.model.LogPayment;
-import com.food.model.LogStock;
-import com.food.service.CategoryService;
-import com.food.service.FoodService;
-import com.food.service.PaymentService;
-import com.food.service.StockService;
+import com.food.model.*;
+import com.food.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -24,13 +18,15 @@ public class LogServiceImpl {
     private final CategoryService categoryService;
     private final PaymentService paymentService;
     private final StockService stockService;
+    private final UserService userService;
 
-    public LogServiceImpl(ModelMapper modelMapper, FoodService foodService, CategoryService categoryService, PaymentService paymentService, StockService stockService) {
+    public LogServiceImpl(ModelMapper modelMapper, FoodService foodService, CategoryService categoryService, PaymentService paymentService, StockService stockService, UserService userService) {
         this.modelMapper = modelMapper;
         this.foodService = foodService;
         this.categoryService = categoryService;
         this.paymentService = paymentService;
         this.stockService = stockService;
+        this.userService = userService;
     }
 
     @RabbitListener(queues = {"${rabbit.queue}"})
@@ -39,25 +35,26 @@ public class LogServiceImpl {
 
         switch (event.getLogType()) {
             case FOOD:
-                foodService.createLogFood(LogFood.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                foodService.createLogFood(LogFood.builder().username(event.getUsername()).requestId(event.getRequestId()).method(event.getMethod()).url(event.getUrl()).path(event.getPath()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
                 break;
             case STOCK:
-                stockService.createLogStock(LogStock.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                stockService.createLogStock(LogStock.builder().username(event.getUsername()).requestId(event.getRequestId()).method(event.getMethod()).url(event.getUrl()).path(event.getPath()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
                 break;
             case PAYMENT:
-                paymentService.createLogPayment(LogPayment.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                paymentService.createLogPayment(LogPayment.builder().username(event.getUsername()).requestId(event.getRequestId()).method(event.getMethod()).url(event.getUrl()).path(event.getPath()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
                 break;
             case CATEGORY:
-                categoryService.createLogCategory(LogCategory.builder().username(event.getUsername()).service(event.getService()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
+                categoryService.createLogCategory(LogCategory.builder().username(event.getUsername()).requestId(event.getRequestId()).method(event.getMethod()).url(event.getUrl()).path(event.getPath()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
                 break;
             case USER:
+                userService.createLog(LogUser.builder().username(event.getUsername()).requestId(event.getRequestId()).method(event.getMethod()).url(event.getUrl()).path(event.getPath()).logType(event.getLogType()).status(event.getStatus()).body(event.getBody()).build());
                 break;
             default:
                 log.info("undefined type");
                 break;
         }
 
-        log.info(event.getMessage() + " {} {}", event.getLogType(), event.getStatus());
+        log.info("EVENT LOG" + " {} {}", event.getLogType(), event.getMethod());
     }
 
 

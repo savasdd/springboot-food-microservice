@@ -24,7 +24,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -44,17 +43,13 @@ public class GlobalFilter implements WebFilter {
         String path = exchange.getRequest().getPath().toString();
         ServerHttpResponse response = exchange.getResponse();
         ServerHttpRequest request = exchange.getRequest();
-        String authorization = request.getHeaders().containsKey("Authorization") ? request.getHeaders().get("Authorization").toString() : null;
-        String token = authorization.substring(7, authorization.length());
-        AuthorityDto user = jwtService.getRoles(token);
-
         DataBufferFactory dataBufferFactory = response.bufferFactory();
-        ServerHttpResponseDecorator decoratedResponse = getDecoratedResponse(path, response, request, dataBufferFactory, user);
+        ServerHttpResponseDecorator decoratedResponse = getDecoratedResponse(path, response, request, dataBufferFactory);
 
         return chain.filter(exchange.mutate().response(decoratedResponse).build());
     }
 
-    private ServerHttpResponseDecorator getDecoratedResponse(String path, ServerHttpResponse response, ServerHttpRequest request, DataBufferFactory dataBufferFactory, AuthorityDto user) {
+    private ServerHttpResponseDecorator getDecoratedResponse(String path, ServerHttpResponse response, ServerHttpRequest request, DataBufferFactory dataBufferFactory) {
         return new ServerHttpResponseDecorator(response) {
 
             @Override
@@ -65,6 +60,10 @@ public class GlobalFilter implements WebFilter {
                     Flux<? extends DataBuffer> fluxBody = (Flux<? extends DataBuffer>) body;
 
                     return super.writeWith(fluxBody.buffer().handle((dataBuffers, sink) -> {
+
+                        String authorization = request.getHeaders().containsKey("Authorization") ? request.getHeaders().get("Authorization").toString() : null;
+                        String token = authorization != null ? authorization.substring(7, authorization.length()) : null;
+                        AuthorityDto user = jwtService.getRoles(token);
 
                         DefaultDataBuffer joinedBuffers = new DefaultDataBufferFactory().join(dataBuffers);
                         byte[] content = new byte[joinedBuffers.readableByteCount()];

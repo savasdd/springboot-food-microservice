@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Document
-public class LogStock implements Serializable {
+public class LogUser implements Serializable {
 
     @Id
     private String id;
