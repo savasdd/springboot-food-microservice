@@ -1,14 +1,11 @@
 package com.food.service.impl;
 
-import com.food.aop.MongoLog;
 import com.food.data.options.DataSourceLoadOptions;
 import com.food.data.response.LoadResult;
-import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
 import com.food.model.Stock;
 import com.food.repository.StockRepository;
-import com.food.service.LogService;
 import com.food.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,18 +17,15 @@ import java.util.List;
 @Service
 public class StockServiceImpl implements StockService {
     private final StockRepository repository;
-    private final LogService logService;
 
-    public StockServiceImpl(StockRepository repository, LogService logService) {
+    public StockServiceImpl(StockRepository repository) {
         this.repository = repository;
-        this.logService = logService;
     }
 
     @Override
     public LoadResult getAll(DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
         var list = repository.load(loadOptions);
 
-        logService.eventLog("api/stock", List.of(list), 200, ELogType.STOCK);
         log.info("list stock {} ", list.getTotalCount());
         return list;
     }
@@ -50,7 +44,6 @@ public class StockServiceImpl implements StockService {
         return repository.findById(id).get();
     }
 
-    @MongoLog(status = 201)
     @Override
     @Transactional
     public Stock create(Stock dto) throws GeneralException, GeneralWarning {
@@ -58,12 +51,10 @@ public class StockServiceImpl implements StockService {
         dto.setFoodId(dto.getFoodId());
         var newModel = repository.save(dto);
 
-        logService.eventLog("api/stock", List.of(dto), 201, ELogType.STOCK);
         log.info("create stock {} ", dto.getId());
         return newModel;
     }
 
-    @MongoLog(status = 200)
     @Override
     @Transactional
     public Stock update(Long id, Stock dto) throws GeneralException, GeneralWarning {
@@ -81,12 +72,10 @@ public class StockServiceImpl implements StockService {
         });
         var model = repository.save(newStock.get());
 
-        logService.eventLog("api/stock", List.of(model), 200, ELogType.STOCK);
         log.info("update stock {} ", id);
         return model;
     }
 
-    @MongoLog(status = 202)
     @Override
     @Transactional
     public Stock delete(Long id) throws GeneralException, GeneralWarning {

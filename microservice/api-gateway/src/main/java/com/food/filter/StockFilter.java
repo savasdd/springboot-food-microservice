@@ -5,6 +5,8 @@ import com.food.service.jwt.JwtService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.cloud.gateway.route.Route;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,6 @@ public class StockFilter extends AbstractGatewayFilterFactory {
             var authorization = request.getHeaders().containsKey("Authorization") ? request.getHeaders().get("Authorization").toString() : null;
             var token = authorization.substring(7, authorization.length());
             var user = service.getRoles(token);
-
 
             if (StringUtils.contains(path, "/all") && validate(user.getRoles(), ERole.SEARCH.name()))
                 return chain.filter(exchange);

@@ -1,7 +1,5 @@
 package com.food.filter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.dto.AuthorityDto;
 import com.food.enums.ELogType;
 import com.food.event.LogEvent;
@@ -9,6 +7,11 @@ import com.food.service.LogService;
 import com.food.service.jwt.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.cloud.gateway.route.Route;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DefaultDataBuffer;
@@ -28,12 +31,13 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class GlobalFilter implements WebFilter {
+public class GlobalsFilter implements GlobalFilter, WebFilter, Ordered {
 
     private final JwtService jwtService;
     private final LogService logService;
+    private static String serviceId = null;
 
-    public GlobalFilter(JwtService jwtService, LogService logService) {
+    public GlobalsFilter(JwtService jwtService, LogService logService) {
         this.jwtService = jwtService;
         this.logService = logService;
     }
@@ -45,9 +49,16 @@ public class GlobalFilter implements WebFilter {
         ServerHttpRequest request = exchange.getRequest();
         DataBufferFactory dataBufferFactory = response.bufferFactory();
         ServerHttpResponseDecorator decoratedResponse = getDecoratedResponse(path, response, request, dataBufferFactory);
-
         return chain.filter(exchange.mutate().response(decoratedResponse).build());
     }
+
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+        serviceId = route != null ? route.getId() : null;
+        return chain.filter(exchange.mutate().build());
+    }
+
 
     private ServerHttpResponseDecorator getDecoratedResponse(String path, ServerHttpResponse response, ServerHttpRequest request, DataBufferFactory dataBufferFactory) {
         return new ServerHttpResponseDecorator(response) {
@@ -77,24 +88,25 @@ public class GlobalFilter implements WebFilter {
                                 .url(request.getURI().toString())
                                 .path(path)
                                 .status(200)
-                                .logType(ELogType.FOOD)
                                 .body(List.of(responseBody))
                                 .build();
+
+                        switch (serviceId) {
+                            case "foods":
+                                event.setLogType(ELogType.FOOD);
+                                break;
+                            case "users":
+                                event.setLogType(ELogType.USER);
+                                break;
+                            case "stocks":
+                                event.setLogType(ELogType.STOCK);
+                                break;
+                            case "payments":
+                                event.setLogType(ELogType.PAYMENT);
+                                break;
+                        }
                         logService.eventLog(event);
 
-
-                        try {
-                            if (request.getURI().getPath().equals("/first") && request.getMethodValue().equals("GET")) {
-                                List<Object> student = new ObjectMapper().readValue(responseBody, List.class);
-                                System.out.println("student:" + student);
-                            } else if (request.getURI().getPath().equals("/second") && request.getMethodValue().equals("GET")) {
-                                List<Object> companies = new ObjectMapper().readValue(responseBody, List.class);
-                                System.out.println("companies:" + companies);
-                            }
-                        } catch (JsonProcessingException e) {
-                            sink.error(new RuntimeException(e));
-                            return;
-                        }
                         sink.next(dataBufferFactory.wrap(responseBody.getBytes()));
                     })).onErrorResume(err -> {
 
@@ -107,5 +119,11 @@ public class GlobalFilter implements WebFilter {
             }
         };
     }
+
+    @Override
+    public int getOrder() {
+        return 0;
+    }
+
 
 }

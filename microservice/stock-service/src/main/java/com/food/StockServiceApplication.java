@@ -8,7 +8,6 @@ import com.food.service.OrderService;
 import com.food.utils.EventUtil;
 import com.food.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +22,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableEurekaClient
 @EnableKafka
-@EnableRabbit
 @EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)
 public class StockServiceApplication {
     public static void main(String[] args) {
