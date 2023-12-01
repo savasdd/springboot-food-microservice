@@ -21,7 +21,7 @@ spring:
   banner:
     location: banner.txt
   config:
-    import: info.yml,predicate.yml,openapi.yml
+    import: info.yml,predicate.yml,openapi.yml,rabbit.yml
   security:
     oauth2:
       resourceserver:

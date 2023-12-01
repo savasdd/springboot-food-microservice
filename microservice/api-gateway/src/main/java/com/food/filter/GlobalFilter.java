@@ -2,6 +2,11 @@ package com.food.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.food.dto.AuthorityDto;
+import com.food.enums.ELogType;
+import com.food.event.LogEvent;
+import com.food.service.LogService;
+import com.food.service.jwt.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -19,23 +24,37 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Component
 public class GlobalFilter implements WebFilter {
 
+    private final JwtService jwtService;
+    private final LogService logService;
+
+    public GlobalFilter(JwtService jwtService, LogService logService) {
+        this.jwtService = jwtService;
+        this.logService = logService;
+    }
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getPath().toString();
         ServerHttpResponse response = exchange.getResponse();
         ServerHttpRequest request = exchange.getRequest();
+        String authorization = request.getHeaders().containsKey("Authorization") ? request.getHeaders().get("Authorization").toString() : null;
+        String token = authorization.substring(7, authorization.length());
+        AuthorityDto user = jwtService.getRoles(token);
+
         DataBufferFactory dataBufferFactory = response.bufferFactory();
-        ServerHttpResponseDecorator decoratedResponse = getDecoratedResponse(path, response, request, dataBufferFactory);
+        ServerHttpResponseDecorator decoratedResponse = getDecoratedResponse(path, response, request, dataBufferFactory, user);
+
         return chain.filter(exchange.mutate().response(decoratedResponse).build());
     }
 
-    private ServerHttpResponseDecorator getDecoratedResponse(String path, ServerHttpResponse response, ServerHttpRequest request, DataBufferFactory dataBufferFactory) {
+    private ServerHttpResponseDecorator getDecoratedResponse(String path, ServerHttpResponse response, ServerHttpRequest request, DataBufferFactory dataBufferFactory, AuthorityDto user) {
         return new ServerHttpResponseDecorator(response) {
 
             @Override
@@ -51,10 +70,19 @@ public class GlobalFilter implements WebFilter {
                         byte[] content = new byte[joinedBuffers.readableByteCount()];
                         joinedBuffers.read(content);
                         String responseBody = new String(content, StandardCharsets.UTF_8);//MODIFY RESPONSE and Return the Modified response
-                        log.info("requestId: {}", request.getId());
-                        log.info("method: {}", request.getMethodValue());
-                        log.info("url: {}", request.getURI());
-                        log.info("response: {}", responseBody);
+
+                        LogEvent event = LogEvent.builder()
+                                .username(user.getPreferred_username())
+                                .requestId(request.getId())
+                                .method(request.getMethodValue())
+                                .url(request.getURI().toString())
+                                .path(path)
+                                .status(200)
+                                .logType(ELogType.FOOD)
+                                .body(List.of(responseBody))
+                                .build();
+                        logService.eventLog(event);
+
 
                         try {
                             if (request.getURI().getPath().equals("/first") && request.getMethodValue().equals("GET")) {

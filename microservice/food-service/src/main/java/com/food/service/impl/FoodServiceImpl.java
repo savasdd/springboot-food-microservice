@@ -57,7 +57,7 @@ public class FoodServiceImpl implements FoodService {
         loadOptions.setRequireTotalCount(true);
         var list = repository.load(loadOptions);
 
-        logService.eventLog("api/foods", List.of(list), 200, ELogType.FOOD);
+//        logService.eventLog("api/foods", List.of(list), 200, ELogType.FOOD);
         log.info("list food {} ", list.getTotalCount());
         return list;
     }
