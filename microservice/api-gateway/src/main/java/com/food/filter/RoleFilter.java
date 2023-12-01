@@ -1,5 +1,6 @@
 package com.food.filter;
 
+import com.food.service.jwt.JwtService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -12,11 +13,21 @@ import java.util.Arrays;
 public class RoleFilter extends AbstractGatewayFilterFactory {
 
     private static final String[] roles = {"FOOD_SEARCH", "FOOD_DELETE", "FOOD_CREAT", "FOOD_UPDATE"};
+    private final JwtService service;
+
+    public RoleFilter(JwtService service) {
+        this.service = service;
+    }
 
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
-            String path = exchange.getRequest().getPath().toString();
+            var request = exchange.getRequest();
+            String path = request.getPath().toString();
+            var authorization = request.getHeaders().containsKey("Authorization") ? request.getHeaders().get("Authorization").toString() : null;
+            var token = authorization.substring(7, authorization.length());
+            var role = service.getRoles(token);
+
 
             if (StringUtils.contains(path, "/all") && validate(roles, ERole.SEARCH.name()))
                 return chain.filter(exchange);
@@ -46,5 +57,6 @@ public class RoleFilter extends AbstractGatewayFilterFactory {
         UPDATE,
         DELETE
     }
+
 
 }

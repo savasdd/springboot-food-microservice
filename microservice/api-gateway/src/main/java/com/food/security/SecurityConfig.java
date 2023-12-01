@@ -7,10 +7,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.ServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
@@ -24,7 +20,6 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthConverter jwtAuthConverter;
 
     private static final String[] AUTH_WHITELIST = {
             "/swagger-resources/**", "/configuration/ui", "/configuration/security", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**",
@@ -47,20 +42,16 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.cors().and().csrf().disable();
         http.authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
-                        .and()
-                        .authorizeExchange()
-                        .pathMatchers("/eureka/**").permitAll()
-                        .pathMatchers("/api/auth/**").permitAll()
-                        .pathMatchers("/actuator/**").permitAll()
-                        .pathMatchers(AUTH_WHITELIST).permitAll()
-                        .anyExchange()
-                        .authenticated());
+                .and()
+                .authorizeExchange()
+                .pathMatchers("/eureka/**").permitAll()
+                .pathMatchers("/api/auth/**").permitAll()
+                .pathMatchers("/actuator/**").permitAll()
+                .pathMatchers(AUTH_WHITELIST).permitAll()
+                .anyExchange()
+                .authenticated());
         http.oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
         return http.build();
-    }
-
-    private ServerLogoutHandler logoutHandler() {
-        return new DelegatingServerLogoutHandler(new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler());
     }
 
 
