@@ -2,47 +2,36 @@ package com.food.service.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.food.dto.AuthorityDto;
+import com.food.utils.JsonUtil;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static java.util.Objects.isNull;
 
+@Slf4j
 @Service
 public class JwtServiceImpl implements JwtService {
 
     @Override
-    public List<SimpleGrantedAuthority> getRoles(String token) {
-        return null;
-    }
-
-    private List<SimpleGrantedAuthority> getAutRoles(String value) {
+    public AuthorityDto getRoles(String token) {
         try {
-            DecodedJWT decodedJWT = decodeToken(value);
+            DecodedJWT decodedJWT = decodeToken(token);
             JsonObject payloadAsJson = decodeTokenPayloadToJsonObject(decodedJWT);//User info
-            JsonObject resourceAccess = payloadAsJson.getAsJsonObject("realm_access");
-            if (resourceAccess != null) {
-                return StreamSupport.stream(resourceAccess.getAsJsonArray("roles").spliterator(), false)
-                        .map(JsonElement::getAsString)
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
-            }
+
+            var parse = JsonUtil.fromJson(payloadAsJson, AuthorityDto.class);
+            parse.setRoles(parse.getRoles());
+            return parse;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Token has not been parsed ", e.getMessage());
         }
-
-
         return null;
     }
-
 
     private DecodedJWT decodeToken(String value) throws Exception {
         if (isNull(value)) {

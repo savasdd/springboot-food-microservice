@@ -5,9 +5,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class RoleFilter extends AbstractGatewayFilterFactory {
@@ -26,16 +28,16 @@ public class RoleFilter extends AbstractGatewayFilterFactory {
             String path = request.getPath().toString();
             var authorization = request.getHeaders().containsKey("Authorization") ? request.getHeaders().get("Authorization").toString() : null;
             var token = authorization.substring(7, authorization.length());
-            var role = service.getRoles(token);
+            var user = service.getRoles(token);
 
 
-            if (StringUtils.contains(path, "/all") && validate(roles, ERole.SEARCH.name()))
+            if (StringUtils.contains(path, "/all") && validate(user.getRoles(), ERole.SEARCH.name()))
                 return chain.filter(exchange);
-            else if (StringUtils.contains(path, "/save") && validate(roles, ERole.CREATE.name()))
+            else if (StringUtils.contains(path, "/save") && validate(user.getRoles(), ERole.CREATE.name()))
                 return chain.filter(exchange);
-            else if (StringUtils.contains(path, "/update") && validate(roles, ERole.UPDATE.name()))
+            else if (StringUtils.contains(path, "/update") && validate(user.getRoles(), ERole.UPDATE.name()))
                 return chain.filter(exchange);
-            else if (StringUtils.contains(path, "/delete") && validate(roles, ERole.DELETE.name()))
+            else if (StringUtils.contains(path, "/delete") && validate(user.getRoles(), ERole.DELETE.name()))
                 return chain.filter(exchange);
 
 
@@ -47,8 +49,8 @@ public class RoleFilter extends AbstractGatewayFilterFactory {
     }
 
 
-    private Boolean validate(String[] roles, String contain) {
-        return Arrays.stream(roles).anyMatch(str -> str.contains("FOOD_" + contain));
+    private Boolean validate(List<SimpleGrantedAuthority> roles, String contain) {
+        return roles.stream().anyMatch(str -> str.getAuthority().contains("FOOD_" + contain));
     }
 
     public enum ERole {

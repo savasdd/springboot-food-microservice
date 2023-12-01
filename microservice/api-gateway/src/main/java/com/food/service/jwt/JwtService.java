@@ -1,10 +1,8 @@
 package com.food.service.jwt;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.List;
+import com.food.dto.AuthorityDto;
 
 public interface JwtService {
 
-    List<SimpleGrantedAuthority> getRoles(String token);
+    AuthorityDto getRoles(String token);
 }
