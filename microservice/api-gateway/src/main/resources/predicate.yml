@@ -33,6 +33,8 @@ spring:
           predicates:
             - Host=**
             - Path=/api/stocks/**
+          filters:
+            - StockFilter
 
         - id: payments
           order: 3
@@ -40,6 +42,8 @@ spring:
           predicates:
             - Host=**
             - Path=/api/payments/**
+          filters:
+            - PaymentFilter
 
         - id: logs
           order: 4
