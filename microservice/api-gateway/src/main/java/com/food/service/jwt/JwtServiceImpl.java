@@ -19,7 +19,7 @@ import static java.util.Objects.isNull;
 public class JwtServiceImpl implements JwtService {
 
     @Override
-    public AuthorityDto getRoles(String token) {
+    public AuthorityDto getAuthority(String token) {
         try {
             DecodedJWT decodedJWT = decodeToken(token);
             JsonObject payloadAsJson = decodeTokenPayloadToJsonObject(decodedJWT);//User info

@@ -27,7 +27,7 @@ public class UserFilter extends AbstractGatewayFilterFactory {
             String path = request.getPath().toString();
             var authorization = request.getHeaders().containsKey("Authorization") ? request.getHeaders().get("Authorization").toString() : null;
             var token = authorization.substring(7, authorization.length());
-            var user = service.getRoles(token);
+            var user = service.getAuthority(token);
 
 
             if (StringUtils.contains(path, "/all") && validate(user.getRoles(), ERole.SEARCH.name()))

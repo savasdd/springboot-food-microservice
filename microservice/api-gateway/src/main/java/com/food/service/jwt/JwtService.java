@@ -4,5 +4,5 @@ import com.food.dto.AuthorityDto;
 
 public interface JwtService {
 
-    AuthorityDto getRoles(String token);
+    AuthorityDto getAuthority(String token);
 }
