@@ -29,7 +29,11 @@ public abstract class FilterFactory extends AbstractGatewayFilterFactory {
             var token = authorization.substring(7, authorization.length());
             var user = service.getAuthority(token);
 
-            if (StringUtils.contains(path, "/all") && validate(user.getRoles(), base, ERole.SEARCH.name()))
+            if ((StringUtils.contains(path, "/all") ||
+                    StringUtils.contains(path, "/getAll") ||
+                    StringUtils.contains(path, "/getOne") ||
+                    StringUtils.contains(path, "/custom")) &&
+                    validate(user.getRoles(), base, ERole.SEARCH.name()))
                 return chain.filter(exchange);
             else if (StringUtils.contains(path, "/save") && validate(user.getRoles(), base, ERole.CREATE.name()))
                 return chain.filter(exchange);
@@ -37,7 +41,6 @@ public abstract class FilterFactory extends AbstractGatewayFilterFactory {
                 return chain.filter(exchange);
             else if (StringUtils.contains(path, "/delete") && validate(user.getRoles(), base, ERole.DELETE.name()))
                 return chain.filter(exchange);
-
 
             var response = exchange.getResponse();
             response.setStatusCode(HttpStatus.FORBIDDEN);

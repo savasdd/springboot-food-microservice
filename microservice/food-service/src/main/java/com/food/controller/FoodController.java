@@ -32,12 +32,6 @@ public class FoodController {
         return new ResponseEntity<>(foodService.getAll(loadOptions), HttpStatus.OK);
     }
 
-    @Operation(description = "Food getAll by loadResult")
-    @PostMapping(value = "/custom/allOrder", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoadResult> getAllFoodLoadOrder(@RequestBody DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
-        return new ResponseEntity<>(foodService.getAllOrder(loadOptions), HttpStatus.OK);
-    }
-
     @Operation(description = "Food getAll")
     @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FoodDto>> getAllFood() throws GeneralException, GeneralWarning {
@@ -66,6 +60,12 @@ public class FoodController {
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Food> deleteFood(@PathVariable("id") Long id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(foodService.delete(id), HttpStatus.OK);
+    }
+
+    @Operation(description = "Food getAll by loadResult")
+    @PostMapping(value = "/custom/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LoadResult> getAllFoodLoadOrder(@RequestBody DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
+        return new ResponseEntity<>(foodService.getAllOrder(loadOptions), HttpStatus.OK);
     }
 
 }

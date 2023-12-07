@@ -41,7 +41,7 @@ export class OrderComponent implements OnInit {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.foodService.customPost('/allOrder', UtilService.setPage(loadOptions)).then((response: any) => {
+        return this.foodService.customPost('custom/orders', UtilService.setPage(loadOptions)).then((response: any) => {
           return {
             data: response.items,
             totalCount: response.totalCount
