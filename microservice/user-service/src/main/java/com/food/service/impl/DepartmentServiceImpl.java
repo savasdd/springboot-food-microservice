@@ -47,7 +47,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department create(Department dto) throws GeneralException {
-        if (dto.getParent() == null || dto.getParent().getId() == null || dto.getParent().getParent() == null)
+        if (dto.getParent().getParent() == null && (dto.getParent().getId() == null || dto.getParent().getId() == 0L))
             dto.setParent(null);
         else
             dto.setParent(getOne(dto.getParent().getId()));
