@@ -7,7 +7,7 @@ keycloak:
   host: http://${server.host}:8043/auth
   realm: food-microservice
   resource: food-microservice-backend
-  secret: bQWQTn5RAfDSsXPG8ko7AsEnqsW7hbmj
+  secret: DYtn7stll8qrE8ysxBj4tfF4rV4pYaV6
   url: ${keycloak.host}/realms/${keycloak.realm}/protocol/openid-connect/token
 
 eureka:
