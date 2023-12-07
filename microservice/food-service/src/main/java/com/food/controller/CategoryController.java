@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/foods")
+@RequestMapping(value = "/api/foods/categorys")
 public class CategoryController {
 
     private final CategoryService service;
@@ -23,37 +23,37 @@ public class CategoryController {
     }
 
     @Operation(description = "Category getAll by loadResult")
-    @PostMapping(value = "/categorys/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoadResult> getAllCategoryLoad(@RequestBody DataSourceLoadOptions loadOptions) {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
     @Operation(description = "Category getAll")
-    @GetMapping(value = "/categorys", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Category>> getAllCategory() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
     @Operation(description = "Category getOne")
-    @GetMapping(value = "/categorys/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getOne/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> getCategoryByOne(@PathVariable Long id) {
         return new ResponseEntity<>(service.getByOne(id), HttpStatus.OK);
     }
 
     @Operation(description = "Category save")
-    @PostMapping(value = "/categorys", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> createCategory(@RequestBody Category dto) {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Category update by id")
-    @PutMapping(value = "/categorys/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> updateCategory(@PathVariable("id") Long id, @RequestBody Category dto) {
         return new ResponseEntity<>(service.update(id, dto), HttpStatus.OK);
     }
 
     @Operation(description = "Category delete by id")
-    @DeleteMapping(value = "/categorys/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteCategory(@PathVariable("id") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/foods")
+@RequestMapping(value = "/api/foods/orders")
 public class FoodOrdersController {
 
     private final FoodOrdersService service;
@@ -23,27 +23,27 @@ public class FoodOrdersController {
     }
 
     @Operation(description = "Orders getAll by loadResult")
-    @PostMapping(value = "/orders/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoadResult> getAllFoodOrdersLoad(@RequestBody DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);
     }
 
 
     @Operation(description = "Orders getOne")
-    @GetMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getOne/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Orders> getFoodOrdersByOne(@PathVariable Long id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.getByOne(id), HttpStatus.OK);
     }
 
     @Operation(description = "Orders save")
-    @PostMapping(value = "/orders", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Orders> createFoodOrders(@RequestBody Orders dto) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
 
     @Operation(description = "Orders delete by id")
-    @DeleteMapping(value = "/orders/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Orders> deleteFoodOrders(@PathVariable("id") Long id) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

@@ -31,38 +31,38 @@ public class PaymentController {
     }
 
     @Operation(description = "Payment getAll")
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Payment>> getAllPayment() throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getAll());
     }
 
     @Operation(description = "Payment getById")
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getOne/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Payment> getByIdPayment(@PathVariable Long id) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getByOne(id));
     }
 
     @Operation(description = "Payment save")
-    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Payment> createPayment(@RequestBody Payment dto) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(service.create(dto), HttpStatus.CREATED);
     }
 
     @Operation(description = "Payment update by id")
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Payment> updatePayment(@PathVariable("id") Long id, @RequestBody Payment dto) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
     @Operation(description = "Payment delete by id")
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deletePayment(@PathVariable Long id) throws GeneralException, GeneralWarning {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(description = "Payment getPaymentByFood")
-    @GetMapping(value = "/byStock/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/custom/byStock/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Payment>> getPaymentByStock(@PathVariable("id") Long id) throws GeneralException, GeneralWarning {
         return ResponseEntity.ok(service.getPaymentByStock(id));
     }

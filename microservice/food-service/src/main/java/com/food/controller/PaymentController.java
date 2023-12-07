@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/foods")
+@RequestMapping(value = "/api/foods/payments")
 public class PaymentController {
 
     private final PaymentServiceImpl orderService;
@@ -18,7 +18,7 @@ public class PaymentController {
     }
 
     @Operation(description = "Orders")
-    @PostMapping(value = "/payments")
+    @PostMapping(value = "/save")
     public ResponseEntity<OrderEvent> createOrderFood(@RequestBody OrderEvent dto) throws JsonProcessingException {
         return ResponseEntity.ok(orderService.create(dto));
     }
