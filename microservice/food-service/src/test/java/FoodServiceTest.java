@@ -38,7 +38,7 @@ public class FoodServiceTest {
     @Test
     void getAllTest() throws GeneralException, GeneralWarning {
         List<Food> foodList = new ArrayList<>();
-        foodList.add(Food.builder().foodId(UUID.randomUUID()).foodName("Pizza").description("İtalyan Pizza").category(null).build());
+        foodList.add(Food.builder().id(UUID.randomUUID()).foodName("Pizza").description("İtalyan Pizza").category(null).build());
         Mockito.when(repository.findAll()).thenReturn(foodList);
         List<FoodDto> foodDtoList = service.getAll();
         Assertions.assertNotNull(foodDtoList);
@@ -81,7 +81,7 @@ public class FoodServiceTest {
     void testDeleteExistingFood() throws GeneralException, GeneralWarning {
         final UUID FOOD_ID = UUID.randomUUID();
         Food food = Food.builder()
-                .foodId(FOOD_ID)
+                .id(FOOD_ID)
                 .foodName("Pizza")
                 .category(null)
                 .description("A delicious pizza")

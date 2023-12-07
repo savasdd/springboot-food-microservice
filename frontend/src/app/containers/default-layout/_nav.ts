@@ -1,15 +1,15 @@
-import {INavData} from '@coreui/angular';
+import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
     name: 'Dashboard',
     url: '/dashboard',
-    iconComponent: {name: 'cil-speedometer'}
+    iconComponent: { name: 'cil-speedometer' }
   },
   {
     name: 'Foods',
     url: '/foods',
-    iconComponent: {name: 'cil-list'},
+    iconComponent: { name: 'cil-list' },
     children: [
       {
         name: 'Food',
@@ -20,6 +20,14 @@ export const navItems: INavData[] = [
         url: 'foods/orders'
       },
       {
+        name: 'Category',
+        url: 'foods/categorys'
+      },
+      {
+        name: 'Restaurant',
+        url: 'foods/restaurants'
+      },
+      {
         name: 'Stock',
         url: 'foods/stocks'
       },
@@ -27,16 +35,12 @@ export const navItems: INavData[] = [
         name: 'Payment',
         url: 'foods/payments'
       },
-      {
-        name: 'Category',
-        url: 'foods/categorys'
-      },
     ]
   },
   {
     name: 'Department',
     url: '/data',
-    iconComponent: {name: 'cilBookmark'},
+    iconComponent: { name: 'cilBookmark' },
     children: [
       {
         name: 'Department',
@@ -47,7 +51,7 @@ export const navItems: INavData[] = [
   {
     name: 'Auth',
     url: '/users',
-    iconComponent: {name: 'cil-user'},
+    iconComponent: { name: 'cil-user' },
     children: [
       {
         name: 'User',
@@ -67,7 +71,7 @@ export const navItems: INavData[] = [
   {
     name: 'Logout',
     url: '/login',
-    iconComponent: {name: 'cilLockLocked'},
+    iconComponent: { name: 'cilLockLocked' },
     // children: [
     //   {
     //     name: 'Login',

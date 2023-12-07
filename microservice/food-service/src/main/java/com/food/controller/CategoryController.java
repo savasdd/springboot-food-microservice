@@ -22,7 +22,7 @@ public class CategoryController {
         this.service = service;
     }
 
-    @Operation(description = "Category getAll by loadResult")
+    @Operation(description = "Category loadResult")
     @PostMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoadResult> getAllCategoryLoad(@RequestBody DataSourceLoadOptions loadOptions) {
         return new ResponseEntity<>(service.getAll(loadOptions), HttpStatus.OK);

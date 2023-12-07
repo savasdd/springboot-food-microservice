@@ -1,6 +1,5 @@
 package com.food.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.food.enums.ECategoryType;
 import com.food.model.base.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,7 +34,7 @@ public class Category extends BaseEntity implements Serializable {
     @Column(name = "categoryType")
     private ECategoryType categoryType;
 
-//    @OneToMany(mappedBy="category", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
-//    @JsonManagedReference("category")
-//    private List<Food> foodList;
+//    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
+    //@JsonManagedReference("category")
+//    private Set<Food> foodCategory = new HashSet<>();
 }

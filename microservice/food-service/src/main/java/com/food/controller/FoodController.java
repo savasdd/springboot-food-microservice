@@ -26,7 +26,7 @@ public class FoodController {
         this.foodService = foodService;
     }
 
-    @Operation(description = "Food getAll by loadResult")
+    @Operation(description = "Food loadResult")
     @PostMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoadResult> getAllFoodLoad(@RequestBody DataSourceLoadOptions loadOptions) throws GeneralException, GeneralWarning {
         return new ResponseEntity<>(foodService.getAll(loadOptions), HttpStatus.OK);

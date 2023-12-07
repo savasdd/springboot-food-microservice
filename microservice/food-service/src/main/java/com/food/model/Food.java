@@ -31,11 +31,16 @@ public class Food extends BaseEntity implements Serializable {
     @Column(name = "PRICE")
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     //@JsonBackReference("category")
     private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "RESTAURANT_ID", referencedColumnName = "ID", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Restaurant restaurant;
 
     @Length(min = 2)
     @Column(name = "DESCRIPTION")
