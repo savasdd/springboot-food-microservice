@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {StockComponent} from './stock/stock.component';
+import { NgModule } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { StockComponent } from './stock/stock.component';
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -14,18 +14,19 @@ import {
   SharedModule,
   UtilitiesModule
 } from "@coreui/angular";
-import {IconModule} from "@coreui/icons-angular";
-import {ReactiveFormsModule} from "@angular/forms";
-import {DocsComponentsModule} from "@docs-components/docs-components.module";
-import {RouterModule, Routes} from "@angular/router";
-import {FoodComponent} from './food/food.component';
-import {PaymentComponent} from './payment/payment.component';
-import {DevExtremeModule} from "devextreme-angular";
-import {CategoryComponent} from './category/category.component';
-import {OrderComponent} from './order/order.component';
-import {ImagesComponent} from './food/images/images.component';
-import {BasketComponent} from './order/basket/basket.component';
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { IconModule } from "@coreui/icons-angular";
+import { ReactiveFormsModule } from "@angular/forms";
+import { DocsComponentsModule } from "@docs-components/docs-components.module";
+import { RouterModule, Routes } from "@angular/router";
+import { FoodComponent } from './food/food.component';
+import { PaymentComponent } from './payment/payment.component';
+import { DevExtremeModule } from "devextreme-angular";
+import { CategoryComponent } from './category/category.component';
+import { OrderComponent } from './order/order.component';
+import { ImagesComponent } from './food/images/images.component';
+import { BasketComponent } from './order/basket/basket.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { RestaurantComponent } from './restaurant/restaurant.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,12 @@ const routes: Routes = [
         }
       },
       {
+        path: 'restaurants', component: RestaurantComponent,
+        data: {
+          title: 'Restaurant'
+        }
+      },
+      {
         path: 'orders', component: OrderComponent,
         data: {
           title: 'Order'
@@ -79,7 +86,8 @@ const routes: Routes = [
     CategoryComponent,
     OrderComponent,
     ImagesComponent,
-    BasketComponent
+    BasketComponent,
+    RestaurantComponent
   ],
   imports: [
     CommonModule,
