@@ -3,14 +3,7 @@
                 [dataSource]="dataSource"
                 [allowColumnReordering]="true"
                 [showBorders]="true"
-                (onRowInserting)="logEvent('RowInserting')"
-                (onRowInserted)="logEvent('RowInserted')"
-                (onRowRemoving)="logEvent('RowRemoving')"
-                (onRowRemoved)="logEvent('RowRemoved')"
-                (onSaving)="logEvent('Saving')"
-                (onSaved)="logEvent('Saved')"
-                (onEditCanceling)="logEvent('EditCanceling')"
-                (onEditCanceled)="logEvent('EditCanceled')">
+                (onRowInserting)="logEvent('RowInserting')">
 
     <dxo-paging [enabled]="true"></dxo-paging>
     <dxo-editing
