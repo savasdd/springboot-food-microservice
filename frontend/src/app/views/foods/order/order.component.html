@@ -18,7 +18,7 @@
                       <div class="card-body" style="min-height: calc(10vh - 193px);">
                         <div class="row">
                           <div class="filter-container">
-                            <img class="basket" ngSrc="assets/images/food/basket.png" height="80" width="100" alt=""/>
+                            <img class="basket" ngSrc="assets/images/food/basket.png" height="80" width="100" alt="" />
 
                             <div class="dx-fieldset">
                               <div class="dx-field">
@@ -36,27 +36,19 @@
 
                           <div class="list-container">
                             <dx-scroll-view id="scrollview">
-                              <dx-data-grid
-                                #orderDataGrid
-                                [dataSource]="dataOrderSource"
-                                [showBorders]="true">
-                                <dxo-editing
-                                  mode="form"
-                                  [allowDeleting]="true"
-                                  [useIcons]="true">
+                              <dx-data-grid #orderDataGrid [dataSource]="dataOrderSource" [showBorders]="true">
+                                <dxo-editing mode="form" [allowDeleting]="true" [useIcons]="true">
                                 </dxo-editing>
-                                <dxi-column
-                                  dataField="image"
-                                  [width]="130"
-                                  [allowFiltering]="false"
-                                  [allowSorting]="false"
-                                  cellTemplate="cellTemplate"></dxi-column>
+                                <dxi-column dataField="image" [width]="130" [allowFiltering]="false"
+                                  [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
                                 <dxi-column dataField="food.foodName" caption="Food"></dxi-column>
                                 <dxi-column dataField="status" caption="Status"></dxi-column>
                                 <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
 
                                 <div *dxTemplate="let data of 'cellTemplate'">
-                                  <img class="images_basket" [src]="data.value" alt=""/>
+                                  <img *ngIf="data.value===null" class="images_basket"
+                                    src="assets/images/food/poder.jpg" alt="" />
+                                  <img *ngIf="data.value" class="images_basket" [src]="data.value" alt="" />
                                 </div>
                               </dx-data-grid>
                             </dx-scroll-view>
@@ -74,21 +66,10 @@
             <div class="card-body" style="min-height: calc(50vh - 193px);">
               <div class="row">
 
-                <dx-data-grid
-                  id="gridContainer"
-                  [dataSource]="dataSource"
-                  keyExpr="ID"
-                  [showBorders]="true">
-                  <dxi-column
-                    dataField="image"
-                    [width]="300"
-                    [allowFiltering]="false"
-                    [allowSorting]="false"
+                <dx-data-grid id="gridContainer" [dataSource]="dataSource" keyExpr="ID" [showBorders]="true">
+                  <dxi-column dataField="image" [width]="300" [allowFiltering]="false" [allowSorting]="false"
                     cellTemplate="cellTemplate"></dxi-column>
-                  <dxo-search-panel
-                    [visible]="true"
-                    [width]="400"
-                    placeholder="Search..."></dxo-search-panel>
+                  <dxo-search-panel [visible]="true" [width]="400" placeholder="Search..."></dxo-search-panel>
 
                   <dxi-column dataField="foodName"></dxi-column>
                   <dxi-column dataField="classType" caption="Class" cellTemplate="classTemplate"></dxi-column>
@@ -96,15 +77,15 @@
                   <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
 
                   <dxi-column dataField="operationId" caption="Ekle" dataType="text" width="5%"
-                              cellTemplate="operationTemplate"
-                              [allowSorting]="false" [allowFiltering]="false"></dxi-column>
+                    cellTemplate="operationTemplate" [allowSorting]="false" [allowFiltering]="false"></dxi-column>
                   <div style="text-align: center;" *dxTemplate="let data of 'operationTemplate'">
                     <fa-icon class="basket-icon" [icon]="faShoppingBasket" title="Ekle"
-                             (click)="addBasket(data.data)"></fa-icon>
+                      (click)="addBasket(data.data)"></fa-icon>
                   </div>
 
                   <div *dxTemplate="let data of 'cellTemplate'">
-                    <img class="images" [src]="data.value" alt=""/>
+                    <img *ngIf="data.value===null" class="images" src="assets/images/food/poder.jpg" alt="" />
+                    <img *ngIf="data.value" class="images" [src]="data.value" alt="" />
                   </div>
 
                   <div *dxTemplate="let data of 'classTemplate'">
@@ -112,13 +93,8 @@
                   </div>
 
                   <dxo-paging [pageSize]="5"></dxo-paging>
-                  <dxo-pager
-                    [visible]="true"
-                    [allowedPageSizes]="[5, 10, 'all']"
-                    displayMode="full"
-                    [showPageSizeSelector]="true"
-                    [showInfo]="true"
-                    [showNavigationButtons]="true">
+                  <dxo-pager [visible]="true" [allowedPageSizes]="[5, 10, 'all']" displayMode="full"
+                    [showPageSizeSelector]="true" [showInfo]="true" [showNavigationButtons]="true">
                   </dxo-pager>
                 </dx-data-grid>
               </div>
