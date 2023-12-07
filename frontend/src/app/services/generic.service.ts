@@ -23,7 +23,7 @@ export class GenericService {
   }
 
   findOne(id: any) {
-    return firstValueFrom(this.http.get(this.baseUrl + '' + id).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.get(this.baseUrl + 'getOne/' + id).pipe(catchError(this.handleError)));
   }
 
 
@@ -33,15 +33,15 @@ export class GenericService {
 
 
   save(data: any) {
-    return firstValueFrom(this.http.post(this.baseUrl + '', data).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.post(this.baseUrl + 'save', data).pipe(catchError(this.handleError)));
   }
 
   update(key: any, data: any) {
-    return firstValueFrom(this.http.put(this.baseUrl + '' + key, data).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.put(this.baseUrl + 'update/' + key, data).pipe(catchError(this.handleError)));
   }
 
   delete(key: any) {
-    return firstValueFrom(this.http.delete(this.baseUrl + '' + key).pipe(catchError(this.handleError)));
+    return firstValueFrom(this.http.delete(this.baseUrl + 'delete/' + key).pipe(catchError(this.handleError)));
   }
 
   customGet(path: string) {

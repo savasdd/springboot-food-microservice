@@ -54,7 +54,9 @@ spring:
 
         - id: gateways
           order: 5
-          uri: ${server.gateway}
+          uri: lb://gateway-service
           predicates:
             - Host=**
-            - Path=/v3/api-docs
+            - Path=/api/auths/**
+          filters:
+            - PaymentFilter

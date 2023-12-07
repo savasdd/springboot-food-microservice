@@ -21,6 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
       if (err.status === 403) {
         this.messageService.error('Yetkisiz Erişim: ' + err.error.errorMessage);
+        console.log("Yetkisiz Erişim")
         //this.router.navigate(['/login/status/forbidden']);
       }
 

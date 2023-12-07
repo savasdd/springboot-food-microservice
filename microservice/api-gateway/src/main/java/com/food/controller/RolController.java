@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auths")
+@RequestMapping("/api/auths/roles")
 public class RolController {
 
     private final RolService service;
@@ -19,12 +19,12 @@ public class RolController {
         this.service = service;
     }
 
-    @PostMapping(value = "/roles/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponse> getRoles(@RequestBody String loadOptions) throws GeneralException {
         return new ResponseEntity<>(service.getRoles(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/save", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RolDto> createRole(@RequestBody RolDto dto) throws GeneralException {
         return new ResponseEntity<>(service.createRoles(dto), HttpStatus.CREATED);
     }

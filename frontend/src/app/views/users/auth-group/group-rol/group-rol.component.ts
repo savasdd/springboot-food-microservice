@@ -1,8 +1,8 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {DxDataGridComponent} from "devextreme-angular";
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
-import {GenericService} from "../../../../services/generic.service";
-import {UtilService} from "../../../../services/util.service";
+import { GenericService } from "../../../../services/generic.service";
+import { UtilService } from "../../../../services/util.service";
 
 @Component({
   selector: 'app-group-rol',
@@ -13,7 +13,7 @@ export class GroupRolComponent implements OnChanges {
   @Input() data: any;
   dataSource: any = {};
   rolDataSource: any = {};
-  @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
+  @ViewChild('dataSourceGrid', { static: true }) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   groupId: any = null;
   groupService: GenericService;
@@ -22,7 +22,7 @@ export class GroupRolComponent implements OnChanges {
   constructor(private service: GenericService) {
     this.loadGrid = this.loadGrid.bind(this);
     this.loadRol = this.loadRol.bind(this);
-    this.groupService = this.service.instance('auths/groups/role');
+    this.groupService = this.service.instance('auths/groups');
     this.roleService = this.service.instance('auths/roles');
 
     this.loadGrid();
@@ -46,7 +46,7 @@ export class GroupRolComponent implements OnChanges {
     this.dataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.groupService.findOne(this.groupId).then((response: any) => {
+        return this.groupService.customGet('custom/role/' + this.groupId).then((response: any) => {
           return {
             data: response.data,
             totalCount: response.totalCount
@@ -56,16 +56,16 @@ export class GroupRolComponent implements OnChanges {
       insert: (values) => {
         values.groupId = this.groupId;
         values.name = this.filterRol(values.id);
-        return this.groupService.save(values).then((response) => {
-            return;
-          }
+        return this.groupService.customPost('custom/role', values).then((response) => {
+          return;
+        }
         );
       },
       remove: (key) => {
-        const dto = {id: key, groupId: this.groupId, name: this.filterRol(key)};
-        return this.groupService.customPost('leave', dto).then((response) => {
-            return;
-          }
+        const dto = { id: key, groupId: this.groupId, name: this.filterRol(key) };
+        return this.groupService.customPost('custom/role/leave', dto).then((response) => {
+          return;
+        }
         );
       }
 
@@ -74,7 +74,7 @@ export class GroupRolComponent implements OnChanges {
 
 
   loadRol() {
-    this.roleService.findAll(UtilService.setPage({skip: null, take: null})).then((response: any) => {
+    this.roleService.findAll(UtilService.setPage({ skip: null, take: null })).then((response: any) => {
       this.rolDataSource = response.data;
     });
   }
