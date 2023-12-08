@@ -1,19 +1,17 @@
-import {NgModule} from '@angular/core';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {BrowserModule, Title} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ReactiveFormsModule} from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import {NgScrollbarModule} from 'ngx-scrollbar';
-// Import routing module
-import {AppRoutingModule} from './app-routing.module';
-// Import app component
-import {AppComponent} from './app.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 // Import containers
-import {DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent} from './containers';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {
   AvatarModule,
@@ -36,14 +34,25 @@ import {
   UtilitiesModule,
 } from '@coreui/angular';
 
-import {IconModule, IconSetService} from '@coreui/icons-angular';
-import {LoaderService} from "./auth/service/loader.service";
-import {AuthGuard} from "./auth/guards/auth.guard";
-import {ErrorInterceptor} from "./auth/interceptors/error";
-import {LoaderInterceptor} from "./auth/interceptors/loader";
-import {ApiModule, Configuration} from "./services/gateway-service-api";
-import {environment} from "../environments/environment";
-import {BearerAuthInterceptor} from "./auth/interceptors/bearer-auth";
+import 'proj4leaflet';
+import 'leaflet-fullscreen';
+import 'leaflet-mouse-position';
+import 'leaflet-realtime';
+import 'leaflet-plugins/layer/tile/Yandex';
+import 'leaflet-easybutton';
+import 'leaflet.markercluster';
+import 'leaflet-draw';
+import 'leaflet-ajax';
+import 'leaflet-iconmaterial';
+import 'leaflet-measure-path';
+
+import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { LoaderService } from "./auth/service/loader.service";
+import { ErrorInterceptor } from "./auth/interceptors/error";
+import { LoaderInterceptor } from "./auth/interceptors/loader";
+import { ApiModule, Configuration } from "./services/gateway-service-api";
+import { AuthGuard } from "./auth/guards/auth.guard";
+import { BearerAuthInterceptor } from "./auth/interceptors/bearer-auth";
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -94,11 +103,11 @@ const APP_CONTAINERS = [
     // AuthGuard,
     IconSetService,
     Title,
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: BearerAuthInterceptor, multi: true },
     // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]
 })

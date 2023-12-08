@@ -92,7 +92,6 @@
               "node_modules/leaflet-contextmenu/dist/leaflet.contextmenu.css",
               "node_modules/leaflet-iconmaterial/dist/leaflet.icon-material.css",
               "src/assets/css/leaflet.timeline.css",
-              'node_modules/leaflet-searchbox/dist/style.css',
               "node_modules/leaflet-control-geocoder/dist/Control.Geocoder.css"
             ],
             "scripts": []
