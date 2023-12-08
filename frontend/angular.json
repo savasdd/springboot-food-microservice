@@ -91,6 +91,7 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "node_modules/leaflet-contextmenu/dist/leaflet.contextmenu.css",
               "node_modules/leaflet-iconmaterial/dist/leaflet.icon-material.css",
+              "node_modules/@material/fab/dist/mdc.fab.css",
               "src/assets/css/leaflet.timeline.css",
               "node_modules/leaflet-control-geocoder/dist/Control.Geocoder.css"
             ],
