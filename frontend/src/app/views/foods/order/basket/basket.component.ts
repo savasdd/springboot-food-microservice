@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import CustomStore from "devextreme/data/custom_store";
-import {OrderService} from "../../../../services/order.service";
-import {DxDataGridComponent} from "devextreme-angular";
-import {Orders} from "../../../../services/food-service-api";
+import { DxDataGridComponent } from "devextreme-angular";
+import { Orders } from "../../../../services/food-service-api";
+import { GenericService } from 'src/app/services/generic.service';
 
 @Component({
   selector: 'app-basket',
@@ -10,12 +10,12 @@ import {Orders} from "../../../../services/food-service-api";
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnChanges {
-  @ViewChild('orderDataGrid', {static: true}) orderDataGrid: any = DxDataGridComponent;
+  @ViewChild('orderDataGrid', { static: true }) orderDataGrid: any = DxDataGridComponent;
   dataSource: any = {};
   totalPrice: number = 0;
 
   constructor(private cd: ChangeDetectorRef,
-              private orderService: OrderService) {
+    private orderService: GenericService) {
     this.loadOrderGrid();
 
   }
@@ -29,7 +29,7 @@ export class BasketComponent implements OnChanges {
       load: (loadOptions) => {
         // loadOptions.filter = [];
         // loadOptions.filter.push(['status', '=', Orders.StatusEnum.Basket]);
-        return this.orderService.findAll(loadOptions).toPromise().then((response: any) => {
+        return this.orderService.findAll(loadOptions).then((response: any) => {
           this.calculateBasket(response.data);
           return {
             data: response.data,
@@ -39,7 +39,7 @@ export class BasketComponent implements OnChanges {
       },
 
       byKey: (key) => {
-        return this.orderService.findOne(key).toPromise().then((response) => {
+        return this.orderService.findOne(key).then((response) => {
           return response;
         }, err => {
           throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);

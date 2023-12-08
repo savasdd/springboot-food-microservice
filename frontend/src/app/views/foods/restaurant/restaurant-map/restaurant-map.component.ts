@@ -47,7 +47,6 @@ export class RestaurantMapComponent implements OnChanges, AfterViewInit {
       }
     });
     this.controlLayers.addTo(this.map);
-    //(L.Control as any).geocoder().addTo(this.map);
     this.map.invalidateSize();
 
     this.drawnItems = L.featureGroup().addTo(this.map);
