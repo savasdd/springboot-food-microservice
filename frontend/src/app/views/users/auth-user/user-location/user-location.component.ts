@@ -43,6 +43,11 @@ export class UserLocationComponent implements OnChanges {
     }
   }
 
+  onValueMapChanged(value: any, data: any) {
+    console.log(value)
+    //data.setValue(value);
+  }
+
   loadGrid() {
     this.dataSource = new CustomStore({
       key: 'id',

@@ -40,8 +40,7 @@
         <dxi-column dataField="geom" [visible]="false" editCellTemplate="geom">
         </dxi-column>
         <div *dxTemplate="let geom of 'geom'">
-            <app-restaurant-map [mapData]="geom.data"
-                (onHidingMap)="onValueMapChanged($event, geom)"></app-restaurant-map>   
+            <app-location-map [mapData]="geom.data" (onHidingMap)="onValueMapChanged($event, geom)"></app-location-map>
         </div>
 
         <dxo-filter-row [visible]="true">

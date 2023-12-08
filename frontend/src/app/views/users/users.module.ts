@@ -27,6 +27,7 @@ import { GroupRolComponent } from './auth-group/group-rol/group-rol.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { UserDepartmentComponent } from './auth-user/user-department/user-department.component';
 import { UserLocationComponent } from './auth-user/user-location/user-location.component';
+import { LocationMapComponent } from './auth-user/user-location/location-map/location-map.component';
 
 const routes: Routes = [
   {
@@ -70,6 +71,7 @@ const routes: Routes = [
     GroupRolComponent,
     UserDepartmentComponent,
     UserLocationComponent,
+    LocationMapComponent,
   ],
     imports: [
         CommonModule,
