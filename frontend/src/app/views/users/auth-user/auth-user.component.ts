@@ -19,7 +19,7 @@ export class AuthUserComponent implements OnInit {
   tabList: any[] = [
     {id: 1, name: 'Group', key: 'information'},
     {id: 2, name: "Department", key: 'action'},
-    {id: 3, name: "Map", key: 'map'},
+    {id: 3, name: "Location", key: 'location'},
   ];
 
   constructor(private service: GenericService) {

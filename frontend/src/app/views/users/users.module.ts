@@ -26,6 +26,7 @@ import { UserGroupComponent } from './auth-user/user-group/user-group.component'
 import { GroupRolComponent } from './auth-group/group-rol/group-rol.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { UserDepartmentComponent } from './auth-user/user-department/user-department.component';
+import { UserLocationComponent } from './auth-user/user-location/user-location.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,7 @@ const routes: Routes = [
     UserGroupComponent,
     GroupRolComponent,
     UserDepartmentComponent,
+    UserLocationComponent,
   ],
     imports: [
         CommonModule,

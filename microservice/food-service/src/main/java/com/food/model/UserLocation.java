@@ -23,11 +23,17 @@ public class UserLocation extends BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = -48260237983493874L;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "userId")
     private String userId;
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "address", length = 4500)
+    private String address;
 
     @Column(name = "geom")
     private String geom;

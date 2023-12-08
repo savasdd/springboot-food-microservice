@@ -53,6 +53,7 @@ public class UserLocationServiceImpl implements UserLocationService {
         var update = locations.map(val -> {
             val.setUserId(dto.getUserId() != null ? dto.getUserId() : val.getUserId());
             val.setDescription(dto.getDescription() != null ? dto.getDescription() : val.getDescription());
+            val.setAddress(dto.getAddress() != null ? dto.getAddress() : val.getAddress());
             val.setGeom(dto.getGeom() != null ? dto.getGeom() : val.getGeom());
 
             return val;
