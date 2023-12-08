@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as $ from 'jquery';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 
 declare let L;
 
@@ -649,6 +650,9 @@ export class MapService {
             return 'POINT(' + layer.getLatLng().lng + ' ' + layer.getLatLng().lat + ')';
         }
     };
+
+    
+  protected readonly faShoppingBasket = faShoppingBasket;
 }
 
 export class GeoJsonModelView {
