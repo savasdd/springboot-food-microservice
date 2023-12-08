@@ -29,6 +29,11 @@ export class RestaurantComponent implements OnInit {
     this.events.unshift(eventName);
   }
 
+  onValueMapChanged(value: any, data: any) {
+    console.log(value)
+    //data.setValue(value);
+  }
+
 
   refreshDataGrid(e: any) {
     this.dataGrid.instance.refresh();

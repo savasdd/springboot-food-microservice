@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MapService } from "../../../../services/map.service";
+import turfCircle from "@turf/circle";
 
 declare let L;
 
@@ -50,7 +51,37 @@ export class RestaurantMapComponent implements OnChanges, AfterViewInit {
     this.map.invalidateSize();
 
     this.drawnItems = L.featureGroup().addTo(this.map);
+    this.mapService.addPolygon(this.map);
+    this.mapService.addRectangle(this.map);
+    this.mapService.addCircle(this.map);
     this.mapService.setDraw(this.map, this.drawnItems);
+
+    this.map.on(L.Draw.Event.CREATED, (event: any) => {
+      const type = event.layerType;
+      let layer = event.layer;
+      let latLongTemp = null;
+      if (type === 'circle') {
+        const radius = event.layer.getRadius();
+        const latLong = event.layer.getLatLng();
+        const center = [latLong.lng, latLong.lat];
+        layer = new L.GeoJSON(turfCircle(center, radius, this.turfOptions));
+        latLongTemp = latLong;
+      } else if (type === 'rectangle') {
+      }
+
+      this.drawnItems.addLayer(layer);
+      const lyr = this.drawnItems.toGeoJSON();
+      this.onHidingMap.emit(lyr);
+    });
+
+    this.map.on(L.Draw.Event.EDITED, (event: any) => {
+      const lyr = this.drawnItems.toGeoJSON();
+      this.onHidingMap.emit(lyr);
+    });
+
+    this.map.on(L.Draw.Event.DELETED, (event: any) => {
+      this.onHidingMap.emit(null);
+    });
 
 
     this.mapService.addZoomInButton(this.map);
@@ -65,6 +96,23 @@ export class RestaurantMapComponent implements OnChanges, AfterViewInit {
     this.map.fitBounds(this.mapService.getTurkeyBounds());
     this.map.invalidateSize();
 
+    if (this.mapData.geom) {
+      this.addGeoJson(this.mapData.geom);
+    }
+
+  }
+
+  addGeoJson(geoJson) {
+    const geoJsonLayer = L.geoJSON(geoJson);
+    this.drawnItems.clearLayers();
+    geoJsonLayer.eachLayer(
+      (l) => {
+        l.getLayers().forEach(layer => {
+          this.drawnItems.addLayer(layer);
+        })
+      });
+    this.map.fitBounds(geoJsonLayer.getBounds());
+    this.map.invalidateSize();
   }
 
 }
