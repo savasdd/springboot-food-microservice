@@ -23,9 +23,10 @@
                     <dxi-item itemType="tabbed" [colSpan]="2" [colCount]="2">
                       <dxi-tab id="id1" title="Map">
                         <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
-                          <div *dxTemplate="let item of 'detail'" class="content" style="background-color: white">
-                          <app-restaurant-map></app-restaurant-map>
-                          </div>
+                          <dxi-item dataField="geom" [label]="{visible: false}"></dxi-item>
+                          <!-- <div *dxTemplate="let item of 'detail'" class="content" style="background-color: white">
+                            <app-restaurant-map [mapData]="null"></app-restaurant-map>
+                          </div> -->
                         </dxi-item>
                       </dxi-tab>
                     </dxi-item>
@@ -44,6 +45,11 @@
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
                 <dxi-column dataField="puan" dataType="number"> </dxi-column>
+                <dxi-column dataField="geom" [visible]="false" editCellTemplate="geom">
+                </dxi-column>
+                <div *dxTemplate="let geom of 'geom'">
+                  <app-restaurant-map [mapData]="restaurantData"></app-restaurant-map>
+                </div>
 
                 <dxo-filter-row [visible]="true">
                 </dxo-filter-row>

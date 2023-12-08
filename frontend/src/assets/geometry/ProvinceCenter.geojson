@@ -1,0 +1,167 @@
+{
+"type": "FeatureCollection",
+"features": [
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "1100000000", "BASE_CODE": "1", "NAME": "Adana", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1849478", "ADMIN_ID": "1000000000" }, "geometry": { "type": "Point", "coordinates": [ 35.314110, 37.000393 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "2100000000", "BASE_CODE": "2", "NAME": "Adýyaman", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "623811", "ADMIN_ID": "2000000000" }, "geometry": { "type": "Point", "coordinates": [ 38.276452, 37.764539 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "3100000000", "BASE_CODE": "3", "NAME": "Afyonkarahisar", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "812416", "ADMIN_ID": "3000000000" }, "geometry": { "type": "Point", "coordinates": [ 30.538698, 38.757544 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "4100000000", "BASE_CODE": "4", "NAME": "Aðrý", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "528744", "ADMIN_ID": "4000000000" }, "geometry": { "type": "Point", "coordinates": [ 43.033447, 39.718119 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "5100000000", "BASE_CODE": "5", "NAME": "Amasya", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "365231", "ADMIN_ID": "5000000000" }, "geometry": { "type": "Point", "coordinates": [ 35.833622, 40.653672 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "6100000000", "BASE_CODE": "6", "NAME": "Ankara", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "4007860", "ADMIN_ID": "6000000000" }, "geometry": { "type": "Point", "coordinates": [ 32.856301, 39.944146 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "7100000000", "BASE_CODE": "7", "NAME": "Antalya", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1719751", "ADMIN_ID": "7000000000" }, "geometry": { "type": "Point", "coordinates": [ 30.703210, 36.887417 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "8100000000", "BASE_CODE": "8", "NAME": "Artvin", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "191934", "ADMIN_ID": "8000000000" }, "geometry": { "type": "Point", "coordinates": [ 41.820368, 41.181132 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "9100000000", "BASE_CODE": "9", "NAME": "Aydýn", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "950757", "ADMIN_ID": "9000000000" }, "geometry": { "type": "Point", "coordinates": [ 27.843814, 37.853506 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "10100000000", "BASE_CODE": "10", "NAME": "Balýkesir", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1076347", "ADMIN_ID": "10000000000" }, "geometry": { "type": "Point", "coordinates": [ 27.883738, 39.645377 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "11100000000", "BASE_CODE": "11", "NAME": "Bilecik", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "194326", "ADMIN_ID": "11000000000" }, "geometry": { "type": "Point", "coordinates": [ 29.982058, 40.144694 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "12100000000", "BASE_CODE": "12", "NAME": "Bingöl", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "253739", "ADMIN_ID": "12000000000" }, "geometry": { "type": "Point", "coordinates": [ 40.496255, 38.884308 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "13100000000", "BASE_CODE": "13", "NAME": "Bitlis", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "388678", "ADMIN_ID": "13000000000" }, "geometry": { "type": "Point", "coordinates": [ 42.131139, 38.430933 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "14100000000", "BASE_CODE": "14", "NAME": "Bolu", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "270654", "ADMIN_ID": "14000000000" }, "geometry": { "type": "Point", "coordinates": [ 31.600210, 40.730188 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "15100000000", "BASE_CODE": "15", "NAME": "Burdur", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "256803", "ADMIN_ID": "15000000000" }, "geometry": { "type": "Point", "coordinates": [ 30.282498, 37.718748 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "16100000000", "BASE_CODE": "16", "NAME": "Bursa", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "2125140", "ADMIN_ID": "16000000000" }, "geometry": { "type": "Point", "coordinates": [ 29.065058, 40.183303 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "17100000000", "BASE_CODE": "17", "NAME": "Çanakkale", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "464975", "ADMIN_ID": "17000000000" }, "geometry": { "type": "Point", "coordinates": [ 26.405688, 40.151555 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "18100000000", "BASE_CODE": "18", "NAME": "Çankýrý", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "270355", "ADMIN_ID": "18000000000" }, "geometry": { "type": "Point", "coordinates": [ 33.616618, 40.599405 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "19100000000", "BASE_CODE": "19", "NAME": "Çorum", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "597065", "ADMIN_ID": "19000000000" }, "geometry": { "type": "Point", "coordinates": [ 34.959420, 40.552750 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "20100000000", "BASE_CODE": "20", "NAME": "Denizli", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "850029", "ADMIN_ID": "20000000000" }, "geometry": { "type": "Point", "coordinates": [ 29.085000, 37.780686 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "21100000000", "BASE_CODE": "21", "NAME": "Diyarbakýr", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1362708", "ADMIN_ID": "21000000000" }, "geometry": { "type": "Point", "coordinates": [ 40.225588, 37.916249 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "22100000000", "BASE_CODE": "22", "NAME": "Edirne", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "402606", "ADMIN_ID": "22000000000" }, "geometry": { "type": "Point", "coordinates": [ 26.551607, 41.679096 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "23100000000", "BASE_CODE": "23", "NAME": "Elazýð", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "569616", "ADMIN_ID": "23000000000" }, "geometry": { "type": "Point", "coordinates": [ 39.194620, 38.672171 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "24100000000", "BASE_CODE": "24", "NAME": "Erzincan", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "316841", "ADMIN_ID": "24000000000" }, "geometry": { "type": "Point", "coordinates": [ 39.490928, 39.751808 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "25100000000", "BASE_CODE": "25", "NAME": "Erzurum", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "937389", "ADMIN_ID": "25000000000" }, "geometry": { "type": "Point", "coordinates": [ 41.262190, 39.903752 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "26100000000", "BASE_CODE": "26", "NAME": "Eskiþehir", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "706009", "ADMIN_ID": "26000000000" }, "geometry": { "type": "Point", "coordinates": [ 30.517980, 39.770775 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "27100000000", "BASE_CODE": "27", "NAME": "Gaziantep", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1285249", "ADMIN_ID": "27000000000" }, "geometry": { "type": "Point", "coordinates": [ 37.376078, 37.065842 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "28100000000", "BASE_CODE": "28", "NAME": "Giresun", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "523819", "ADMIN_ID": "28000000000" }, "geometry": { "type": "Point", "coordinates": [ 38.386930, 40.921541 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "29100000000", "BASE_CODE": "29", "NAME": "Gümüþhane", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "186953", "ADMIN_ID": "29000000000" }, "geometry": { "type": "Point", "coordinates": [ 39.480690, 40.459922 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "30100000000", "BASE_CODE": "30", "NAME": "Hakkari", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "236581", "ADMIN_ID": "30000000000" }, "geometry": { "type": "Point", "coordinates": [ 43.738190, 37.578352 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "31100000000", "BASE_CODE": "31", "NAME": "Hatay", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1253726", "ADMIN_ID": "31000000000" }, "geometry": { "type": "Point", "coordinates": [ 36.159310, 36.198239 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "32100000000", "BASE_CODE": "32", "NAME": "Isparta", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "513681", "ADMIN_ID": "32000000000" }, "geometry": { "type": "Point", "coordinates": [ 30.556212, 37.764345 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "33100000000", "BASE_CODE": "33", "NAME": "Mersin", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1651400", "ADMIN_ID": "33000000000" }, "geometry": { "type": "Point", "coordinates": [ 34.632328, 36.799696 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "34100000000", "BASE_CODE": "34", "NAME": "Ýstanbul", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "10018735", "ADMIN_ID": "34000000000" }, "geometry": { "type": "Point", "coordinates": [ 28.977752, 41.011431 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "35100000000", "BASE_CODE": "35", "NAME": "Ýzmir", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "3370866", "ADMIN_ID": "35000000000" }, "geometry": { "type": "Point", "coordinates": [ 27.129601, 38.418724 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "36100000000", "BASE_CODE": "36", "NAME": "Kars", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "325016", "ADMIN_ID": "36000000000" }, "geometry": { "type": "Point", "coordinates": [ 43.095014, 40.600405 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "37100000000", "BASE_CODE": "37", "NAME": "Kastamonu", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "375476", "ADMIN_ID": "37000000000" }, "geometry": { "type": "Point", "coordinates": [ 33.770670, 41.367306 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "38100000000", "BASE_CODE": "38", "NAME": "Kayseri", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1060432", "ADMIN_ID": "38000000000" }, "geometry": { "type": "Point", "coordinates": [ 35.489040, 38.722789 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "39100000000", "BASE_CODE": "39", "NAME": "Kýrklareli", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "328461", "ADMIN_ID": "39000000000" }, "geometry": { "type": "Point", "coordinates": [ 27.218631, 41.733957 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "40100000000", "BASE_CODE": "40", "NAME": "Kýrþehir", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "253239", "ADMIN_ID": "40000000000" }, "geometry": { "type": "Point", "coordinates": [ 34.160254, 39.150131 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "41100000000", "BASE_CODE": "41", "NAME": "Kocaeli", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1206085", "ADMIN_ID": "41000000000" }, "geometry": { "type": "Point", "coordinates": [ 29.939110, 40.764818 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "42100000000", "BASE_CODE": "42", "NAME": "Konya", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "2192166", "ADMIN_ID": "42000000000" }, "geometry": { "type": "Point", "coordinates": [ 32.498959, 37.871658 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "43100000000", "BASE_CODE": "43", "NAME": "Kütahya", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "656903", "ADMIN_ID": "43000000000" }, "geometry": { "type": "Point", "coordinates": [ 29.985192, 39.419890 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "44100000000", "BASE_CODE": "44", "NAME": "Malatya", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "853658", "ADMIN_ID": "44000000000" }, "geometry": { "type": "Point", "coordinates": [ 38.318567, 38.348336 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "45100000000", "BASE_CODE": "45", "NAME": "Manisa", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1260169", "ADMIN_ID": "45000000000" }, "geometry": { "type": "Point", "coordinates": [ 27.433808, 38.617058 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "46100000000", "BASE_CODE": "46", "NAME": "Kahramanmaraþ", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1002384", "ADMIN_ID": "46000000000" }, "geometry": { "type": "Point", "coordinates": [ 36.932245, 37.578607 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "47100000000", "BASE_CODE": "47", "NAME": "Mardin", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "705098", "ADMIN_ID": "47000000000" }, "geometry": { "type": "Point", "coordinates": [ 40.722386, 37.324767 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "48100000000", "BASE_CODE": "48", "NAME": "Muðla", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "715328", "ADMIN_ID": "48000000000" }, "geometry": { "type": "Point", "coordinates": [ 28.362731, 37.215123 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "49100000000", "BASE_CODE": "49", "NAME": "Muþ", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "453654", "ADMIN_ID": "49000000000" }, "geometry": { "type": "Point", "coordinates": [ 41.499660, 38.746076 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "50100000000", "BASE_CODE": "50", "NAME": "Nevþehir", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "309914", "ADMIN_ID": "50000000000" }, "geometry": { "type": "Point", "coordinates": [ 34.720623, 38.626759 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "51100000000", "BASE_CODE": "51", "NAME": "Niðde", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "348081", "ADMIN_ID": "51000000000" }, "geometry": { "type": "Point", "coordinates": [ 34.676309, 37.970229 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "52100000000", "BASE_CODE": "52", "NAME": "Ordu", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "887765", "ADMIN_ID": "52000000000" }, "geometry": { "type": "Point", "coordinates": [ 37.874750, 40.984622 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "53100000000", "BASE_CODE": "53", "NAME": "Rize", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "365938", "ADMIN_ID": "53000000000" }, "geometry": { "type": "Point", "coordinates": [ 40.515730, 41.028644 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "54100000000", "BASE_CODE": "54", "NAME": "Sakarya", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "756168", "ADMIN_ID": "54000000000" }, "geometry": { "type": "Point", "coordinates": [ 30.385031, 40.769249 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "55100000000", "BASE_CODE": "55", "NAME": "Samsun", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1209137", "ADMIN_ID": "55000000000" }, "geometry": { "type": "Point", "coordinates": [ 36.339281, 41.289454 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "56100000000", "BASE_CODE": "56", "NAME": "Siirt", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "263676", "ADMIN_ID": "56000000000" }, "geometry": { "type": "Point", "coordinates": [ 41.939410, 37.925101 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "57100000000", "BASE_CODE": "57", "NAME": "Sinop", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "225574", "ADMIN_ID": "57000000000" }, "geometry": { "type": "Point", "coordinates": [ 35.151761, 42.026872 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "58100000000", "BASE_CODE": "58", "NAME": "Sivas", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "755091", "ADMIN_ID": "58000000000" }, "geometry": { "type": "Point", "coordinates": [ 37.015256, 39.750975 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "59100000000", "BASE_CODE": "59", "NAME": "Tekirdað", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "623591", "ADMIN_ID": "59000000000" }, "geometry": { "type": "Point", "coordinates": [ 27.515240, 40.978931 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "60100000000", "BASE_CODE": "60", "NAME": "Tokat", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "828027", "ADMIN_ID": "60000000000" }, "geometry": { "type": "Point", "coordinates": [ 36.552460, 40.313922 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "61100000000", "BASE_CODE": "61", "NAME": "Trabzon", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "975137", "ADMIN_ID": "61000000000" }, "geometry": { "type": "Point", "coordinates": [ 39.711611, 41.006015 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "62100000000", "BASE_CODE": "62", "NAME": "Tunceli", "NAME0": "", "CHARACTER": "1", "CLASSS": "8", "POPULATION": "93584", "ADMIN_ID": "62000000000" }, "geometry": { "type": "Point", "coordinates": [ 39.534589, 39.075586 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "63100000000", "BASE_CODE": "63", "NAME": "Þanlýurfa", "NAME0": "", "CHARACTER": "1", "CLASSS": "4", "POPULATION": "1443422", "ADMIN_ID": "63000000000" }, "geometry": { "type": "Point", "coordinates": [ 38.791811, 37.160223 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "64100000000", "BASE_CODE": "64", "NAME": "Uþak", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "322313", "ADMIN_ID": "64000000000" }, "geometry": { "type": "Point", "coordinates": [ 29.404867, 38.673758 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "65100000000", "BASE_CODE": "65", "NAME": "Van", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "877524", "ADMIN_ID": "65000000000" }, "geometry": { "type": "Point", "coordinates": [ 43.396448, 38.503493 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "66100000000", "BASE_CODE": "66", "NAME": "Yozgat", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "682919", "ADMIN_ID": "66000000000" }, "geometry": { "type": "Point", "coordinates": [ 34.807840, 39.823727 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "67100000000", "BASE_CODE": "67", "NAME": "Zonguldak", "NAME0": "", "CHARACTER": "1", "CLASSS": "5", "POPULATION": "615599", "ADMIN_ID": "67000000000" }, "geometry": { "type": "Point", "coordinates": [ 31.787904, 41.455189 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "68100000000", "BASE_CODE": "68", "NAME": "Aksaray", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "396084", "ADMIN_ID": "68000000000" }, "geometry": { "type": "Point", "coordinates": [ 34.015655, 38.368753 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "69100000000", "BASE_CODE": "69", "NAME": "Bayburt", "NAME0": "", "CHARACTER": "1", "CLASSS": "8", "POPULATION": "97358", "ADMIN_ID": "69000000000" }, "geometry": { "type": "Point", "coordinates": [ 40.226453, 40.259236 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "70100000000", "BASE_CODE": "70", "NAME": "Karaman", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "243210", "ADMIN_ID": "70000000000" }, "geometry": { "type": "Point", "coordinates": [ 33.222092, 37.170054 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "71100000000", "BASE_CODE": "71", "NAME": "Kýrýkkale", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "383508", "ADMIN_ID": "71000000000" }, "geometry": { "type": "Point", "coordinates": [ 33.503349, 39.839501 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "72100000000", "BASE_CODE": "72", "NAME": "Batman", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "456734", "ADMIN_ID": "72000000000" }, "geometry": { "type": "Point", "coordinates": [ 41.124923, 37.897562 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "73100000000", "BASE_CODE": "73", "NAME": "Þýrnak", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "353197", "ADMIN_ID": "73000000000" }, "geometry": { "type": "Point", "coordinates": [ 42.455812, 37.522711 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "74100000000", "BASE_CODE": "74", "NAME": "Bartýn", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "184178", "ADMIN_ID": "74000000000" }, "geometry": { "type": "Point", "coordinates": [ 32.336500, 41.632792 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "75100000000", "BASE_CODE": "75", "NAME": "Ardahan", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "133756", "ADMIN_ID": "75000000000" }, "geometry": { "type": "Point", "coordinates": [ 42.698200, 41.110944 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "76100000000", "BASE_CODE": "76", "NAME": "Iðdýr", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "168634", "ADMIN_ID": "76000000000" }, "geometry": { "type": "Point", "coordinates": [ 44.046350, 39.923754 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "77100000000", "BASE_CODE": "77", "NAME": "Yalova", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "168593", "ADMIN_ID": "77000000000" }, "geometry": { "type": "Point", "coordinates": [ 29.273098, 40.658381 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "78100000000", "BASE_CODE": "78", "NAME": "Karabük", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "225102", "ADMIN_ID": "78000000000" }, "geometry": { "type": "Point", "coordinates": [ 32.613964, 41.194145 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "79100000000", "BASE_CODE": "79", "NAME": "Kilis", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "114724", "ADMIN_ID": "79000000000" }, "geometry": { "type": "Point", "coordinates": [ 37.092176, 36.721604 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "80100000000", "BASE_CODE": "80", "NAME": "Osmaniye", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "458782", "ADMIN_ID": "80000000000" }, "geometry": { "type": "Point", "coordinates": [ 36.245116, 37.074650 ] } }
+,
+{ "type": "Feature", "properties": { "LAYER": "Unknown Point Feature", "ID": "81100000000", "BASE_CODE": "81", "NAME": "Düzce", "NAME0": "", "CHARACTER": "1", "CLASSS": "7", "POPULATION": "314266", "ADMIN_ID": "81000000000" }, "geometry": { "type": "Point", "coordinates": [ 31.156556, 40.841078 ] } }
+
+]
+}

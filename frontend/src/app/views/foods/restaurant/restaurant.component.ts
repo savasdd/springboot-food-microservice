@@ -14,6 +14,8 @@ export class RestaurantComponent implements OnInit {
   @ViewChild('dataGrid', { static: true }) dataGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   restaurantService: GenericService;
+  restaurantData: any;
+
 
   constructor(public service: GenericService) {
     this.restaurantService = this.service.instance('foods/restaurants');

@@ -6,13 +6,13 @@ import * as $ from 'jquery';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-declare let L: any;
+declare let L;
 
 @Injectable({
     providedIn: 'root'
 })
 export class MapService {
-    map: any = L.Map;
+    map: L.Map;
     EEPSG: any = [
         {
             label: 'ED50 / UTM zone 35N',
@@ -73,7 +73,7 @@ export class MapService {
         this.baseUrl = environment.apiUrl + 'map/';
     }
 
-    Proj4Defs(proj4: any) {
+    Proj4Defs(proj4) {
         proj4.defs('EPSG:4326', '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
         proj4.defs('CRS:84', '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees');
         for (const item of this.EEPSG) {
@@ -113,25 +113,25 @@ export class MapService {
         });
 
         layers.googleRoadmap = L.TileLayer.extend({
-            createTile: (coords: any, done: any) => {
+            createTile: (coords, done) => {
                 const img = document.createElement('img');
-                // const url = this.baseUrl + 'tms/googleRoadmap/' + coords.z + '/' + coords.x + '/' + coords.y + '.png';
-                // this.http.get(url, { responseType: 'blob', observe: 'response' }).toPromise().then(result => {
-                //     img.src = URL.createObjectURL(result.body);
-                //     done(null, img);
-                // });
+                const url = this.baseUrl + 'tms/googleRoadmap/' + coords.z + '/' + coords.x + '/' + coords.y + '.png';
+                this.http.get(url, { responseType: 'blob', observe: 'response' }).toPromise().then(result => {
+                    img.src = URL.createObjectURL(result.body);
+                    done(null, img);
+                });
                 return img;
             }
         });
 
         layers.googleHybrid = L.TileLayer.extend({
-            createTile: (coords: any, done: any) => {
+            createTile: (coords, done) => {
                 const img = document.createElement('img');
-                // const url = this.baseUrl + 'tms/googleHybrid/' + coords.z + '/' + coords.x + '/' + coords.y + '.png';
-                // this.http.get(url, { responseType: 'blob', observe: 'response' }).toPromise().then(result => {
-                //     img.src = URL.createObjectURL(result.body);
-                //     done(null, img);
-                // });
+                const url = this.baseUrl + 'tms/googleHybrid/' + coords.z + '/' + coords.x + '/' + coords.y + '.png';
+                this.http.get(url, { responseType: 'blob', observe: 'response' }).toPromise().then(result => {
+                    img.src = URL.createObjectURL(result.body);
+                    done(null, img);
+                });
                 return img;
             }
         });
@@ -158,13 +158,13 @@ export class MapService {
         )
 
         layers.province = new (L.TileLayer.extend({
-            createTile: (coords: any, done: any) => {
+            createTile: (coords, done) => {
                 const img = document.createElement('img');
-                // const url = this.baseUrl + 'tms/spatial_schema.st_province/' + coords.z + '/' + coords.x + '/' + coords.y + '.png';
-                // this.http.get(url, { responseType: 'blob', observe: 'response' }).toPromise().then(result => {
-                //     img.src = URL.createObjectURL(result.body);
-                //     done(null, img);
-                // });
+                const url = this.baseUrl + 'tms/spatial_schema.st_province/' + coords.z + '/' + coords.x + '/' + coords.y + '.png';
+                this.http.get(url, { responseType: 'blob', observe: 'response' }).toPromise().then(result => {
+                    img.src = URL.createObjectURL(result.body);
+                    done(null, img);
+                });
                 return img;
             }
         }));
@@ -188,9 +188,9 @@ export class MapService {
             fillOpacity: 0.6
         };
         layers.vectorProvinces = L.geoJson.ajax('/assets/geometry/tr-cities.json', {
-            onEachFeature: (feature: any, layer: any) => {
+            onEachFeature: (feature, layer) => {
                 layer.setStyle(defaultStyle);
-                layer.on('mouseover', (e: any) => {
+                layer.on('mouseover', (e) => {
                     layer.setStyle(hoverStyle);
                     layer.bindTooltip(feature.properties.name);
                     layer.openTooltip();
@@ -233,7 +233,7 @@ export class MapService {
         return this.http.post(this.baseUrl + 'publicGeoJson', data);
     }
 
-    addZoomInButton(map: any) {
+    addZoomInButton(map) {
         const btnIn = L.easyButton({
             position: 'topleft',
             leafletClasses: false,
@@ -250,7 +250,7 @@ export class MapService {
         btnIn.button.style.color = 'black';
     }
 
-    resizeMarker(map: any, lat: any, lng: any) {
+    resizeMarker(map, lat, lng) {
         const carIcon = L.icon({
             iconUrl: '../../../../../../assets/images/map/car.png',
             iconSize: [50, 50]
@@ -258,7 +258,7 @@ export class MapService {
         return L.marker([lat, lng], { icon: carIcon }).addTo(map);
     }
 
-    addZoomOutButton(map: any) {
+    addZoomOutButton(map) {
         const btnOut = L.easyButton({
             position: 'topleft',
             leafletClasses: false,
@@ -275,7 +275,7 @@ export class MapService {
         btnOut.button.style.color = 'black';
     }
 
-    addHomeButton(map: any, object: any) {
+    addHomeButton(map, object: any) {
         return new Observable((observer) => {
             const btnHome = L.easyButton({
                 position: 'topleft',
@@ -295,7 +295,7 @@ export class MapService {
         });
     }
 
-    addCustomButton(map: any, properties: ButtonProperties, object: any) {
+    addCustomButton(map, properties: ButtonProperties, object: any) {
         const btnHome = L.easyButton({
             position: properties.position,
             leafletClasses: false,
@@ -313,7 +313,7 @@ export class MapService {
         btnHome.button.style.backgroundColor = properties.backgroundColor;
     }
 
-    addExitButtom(map: any, object: any) {
+    addExitButtom(map, object: any) {
         return new Observable((observer) => {
             const btnHome = L.easyButton({
                 position: 'bottomleft',
@@ -333,7 +333,7 @@ export class MapService {
         });
     }
 
-    addZoomControlButton(map: any) {
+    addZoomControlButton(map) {
         L.control.fullscreen({
             position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, defaut topleft
             title: {
@@ -350,7 +350,7 @@ export class MapService {
             leafletClasses: false,
             states: [{
                 stateName: 'enabled-fullscreen',
-                onClick: (control: any) => {
+                onClick: (control) => {
                     map.toggleFullscreen();
                     control.state('disabled-fullscreen');
                 },
@@ -359,7 +359,7 @@ export class MapService {
             },
             {
                 stateName: 'disabled-fullscreen',
-                onClick: (control: any) => {
+                onClick: (control) => {
                     map.toggleFullscreen();
                     control.state('enabled-fullscreen');
                 },
@@ -376,14 +376,14 @@ export class MapService {
         });
     }
 
-    addFullScreenControlButton(map: any, object: any) {
+    addFullScreenControlButton(map, object: any) {
         return new Observable((observer) => {
             const btnLayers = L.easyButton({
                 position: 'topright',
                 leafletClasses: false,
                 states: [{
                     stateName: 'enabled-layers',
-                    onClick: (control: any) => {
+                    onClick: (control) => {
                         control.state('disabled-layers');
                         const data = {
                             state: true,
@@ -396,7 +396,7 @@ export class MapService {
                 },
                 {
                     stateName: 'disabled-layers',
-                    onClick: (control: any) => {
+                    onClick: (control) => {
                         control.state('enabled-layers');
                         const data = {
                             state: false,
@@ -414,7 +414,7 @@ export class MapService {
         });
     }
 
-    setDraw(map: any, drawnItems: any) {
+    setDraw(map, drawnItems: any) {
         map.addControl(new L.Control.Draw(
             {
                 position: 'topright',
@@ -429,7 +429,7 @@ export class MapService {
         ));
     }
 
-    addPolygon(map: any) {
+    addPolygon(map) {
         const polygonDrawer = new L.Draw.Polygon(map);
         const btnIn = L.easyButton({
             position: 'topright',
@@ -449,7 +449,7 @@ export class MapService {
 
     }
 
-    addRectangle(map: any) {
+    addRectangle(map) {
         const options: any = { showArea: false, metric: false, type: 'rectangle' };
         const drawer = new L.Draw.Rectangle(map, options);
         const btnIn = L.easyButton({
@@ -468,7 +468,7 @@ export class MapService {
         btnIn.button.style.color = 'black';
     }
 
-    addCircle(map: any) {
+    addCircle(map) {
         const drawer = new L.Draw.Circle(map);
         const btnIn = L.easyButton({
             position: 'topright',
@@ -486,7 +486,7 @@ export class MapService {
         btnIn.button.style.color = 'black';
     }
 
-    addMarker(map: any) {
+    addMarker(map) {
         const drawer = new L.Draw.Marker(map);
         const btnIn = L.easyButton({
             position: 'topright',
@@ -506,11 +506,11 @@ export class MapService {
         btnIn.button.style.marginBottom = '20px';
     }
 
-    setMap(map: any) {
+    setMap(map) {
         this.map = map;
     }
 
-    getRandomLatLng(map: any) {
+    getRandomLatLng(map) {
         const bounds = map.getBounds();
         const southWest = bounds.getSouthWest();
         const northEast = bounds.getNorthEast();
@@ -522,11 +522,11 @@ export class MapService {
             southWest.lng + lngSpan * Math.random());
     }
 
-    isMarkerInsidePolygon(latLng: any, poly: any) {
+    isMarkerInsidePolygon(latLng, poly) {
         let inside = false;
         const x = latLng.lat;
         const y = latLng.lng;
-        poly.getLatLngs().forEach((item: any) => {
+        poly.getLatLngs().forEach(item => {
             for (let i = 0, j = item.length - 1; i < item.length; j = i++) {
                 const xi = item[i].lat;
                 const yi = item[i].lng;
@@ -548,7 +548,7 @@ export class MapService {
         return '<div id=\"controlbox\" ><div id=\"boxcontainer\" class=\"searchbox searchbox-shadow\" > <div class=\"searchbox-menu-container\"><button aria-label=\"Menu\" id=\"searchbox-menubutton\" class=\"searchbox-menubutton\"><\/button> <span aria-hidden=\"true\" style=\"display:none\">Menu<\/span> <\/div><div><input id=\"searchboxinput\" type=\"text\" style=\"position: relative;\"\/><\/div><div class=\"searchbox-searchbutton-container\"><button aria-label=\"search\" id=\"searchbox-searchbutton\" class=\"searchbox-searchbutton\"><\/button> <span aria-hidden=\"true\" style=\"display:none;\">search<\/span> <\/div><\/div><\/div><div class=\"panel\"> <div class=\"panel-header\"> <div class=\"panel-header-container\"> <span class=\"panel-header-title\"><\/span> <button aria-label=\"Menu\" id=\"panelbutton\" class=\"panel-close-button\"><\/button> <\/div><\/div><div class=\"panel-content\"> <\/div><\/div>';
     }
 
-    generateHtmlContent(menuItems: any) {
+    generateHtmlContent(menuItems) {
         let content = '<ul class="panel-list">';
 
         // tslint:disable-next-line:prefer-for-of
@@ -577,7 +577,7 @@ export class MapService {
             options: {
                 position: 'topleft'
             },
-            initialize: (options: any) => {
+            initialize: (options) => {
                 L.Util.setOptions(this, options);
 
                 if (options.searchCallBack) {
@@ -616,7 +616,7 @@ export class MapService {
     }
 
 
-    toWKT(layer: any): any {
+    toWKT(layer): any {
         // tslint:disable-next-line:one-variable-per-declaration
         let lng, lat;
         const coords: any = [];
@@ -652,19 +652,19 @@ export class MapService {
 }
 
 export class GeoJsonModelView {
-    layerName: any;
+    layerName: string;
     'the_geom': string;
-    properties: any = [];
-    filter: any;
-    maxFeatures: any;
+    properties: string[];
+    filter: string;
+    maxFeatures: number;
 }
 
 export class ButtonProperties {
-    icon: any;
-    backgroundColor: any;
-    title: any;
-    position: any;
-    marginTop: any;
-    fontSize: any;
-    paddingTop: any;
+    icon: string;
+    backgroundColor: string;
+    title: string;
+    position: string;
+    marginTop: string;
+    fontSize: string;
+    paddingTop: string;
 }
