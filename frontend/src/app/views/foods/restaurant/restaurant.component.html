@@ -8,7 +8,7 @@
           </div>
           <div class="card-body" style="min-height: calc(90vh - 193px);">
             <div class="row">
-              <dx-data-grid #foodDataGrid [dataSource]="dataSource" keyExpr="ID" [allowColumnReordering]="true"
+              <dx-data-grid #dataGrid [dataSource]="dataSource" keyExpr="ID" [allowColumnReordering]="true"
                 [showBorders]="true">
                 <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"
                   [useIcons]="true">

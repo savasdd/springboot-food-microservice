@@ -11,7 +11,7 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class RestaurantComponent implements OnInit {
   dataSource: any = {};
-  @ViewChild('categoryDataGrid', { static: true }) categoryDataGrid: any = DxDataGridComponent;
+  @ViewChild('dataGrid', { static: true }) dataGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   restaurantService: GenericService;
 
@@ -29,7 +29,7 @@ export class RestaurantComponent implements OnInit {
 
 
   refreshDataGrid(e: any) {
-    this.categoryDataGrid.instance.refresh();
+    this.dataGrid.instance.refresh();
   }
 
   loadGrid() {
