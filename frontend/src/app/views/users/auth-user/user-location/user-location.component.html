@@ -1,5 +1,5 @@
 <div>
-    <dx-data-grid #dataGrid [dataSource]="dataSource" keyExpr="ID" [allowColumnReordering]="true" [showBorders]="true">
+    <dx-data-grid #dataSourceGrid [dataSource]="dataSource" keyExpr="ID" [allowColumnReordering]="true" [showBorders]="true">
         <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true" [useIcons]="true">
             <dxo-popup title="Restaurant Info" [showTitle]="true" width="75%" height="70%">
             </dxo-popup>
