@@ -18,17 +18,8 @@ spring:
           filters:
             - FoodFilter
 
-        - id: users
-          order: 1
-          uri: lb://user-service
-          predicates:
-            - Host=**
-            - Path=/api/users/**
-          filters:
-            - UserFilter
-
         - id: stocks
-          order: 2
+          order: 1
           uri: lb://stock-service
           predicates:
             - Host=**
@@ -37,7 +28,7 @@ spring:
             - StockFilter
 
         - id: payments
-          order: 3
+          order: 2
           uri: lb://payment-service
           predicates:
             - Host=**
@@ -46,14 +37,14 @@ spring:
             - PaymentFilter
 
         - id: logs
-          order: 4
+          order: 3
           uri: lb://log-service
           predicates:
             - Host=**
             - Path=/api/logs/**
 
         - id: gateways
-          order: 5
+          order: 4
           uri: lb://gateway-service
           predicates:
             - Host=**

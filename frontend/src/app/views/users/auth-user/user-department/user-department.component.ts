@@ -1,8 +1,8 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {DxDataGridComponent} from "devextreme-angular";
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
-import {UtilService} from "../../../../services/util.service";
-import {GenericService} from "../../../../services/generic.service";
+import { UtilService } from "../../../../services/util.service";
+import { GenericService } from "../../../../services/generic.service";
 
 @Component({
   selector: 'app-user-department',
@@ -13,7 +13,7 @@ export class UserDepartmentComponent implements OnChanges {
   @Input() data: any;
   dataSource: any = {};
   departmentDataSource: any = {};
-  @ViewChild('dataSourceGrid', {static: true}) dataSourceGrid: any = DxDataGridComponent;
+  @ViewChild('dataSourceGrid', { static: true }) dataSourceGrid: any = DxDataGridComponent;
   events: Array<string> = [];
   userId: any = null;
   departService: GenericService;
@@ -22,8 +22,8 @@ export class UserDepartmentComponent implements OnChanges {
   constructor(private service: GenericService) {
     this.loadGrid = this.loadGrid.bind(this);
     this.loadDepartment = this.loadDepartment.bind(this);
-    this.departService = this.service.instance('users/departments');
-    this.departUserService = this.service.instance('users/departments/users');
+    this.departService = this.service.instance('foods/departments');
+    this.departUserService = this.service.instance('foods/users/departments');
     this.loadDepartment();
     this.loadGrid();
   }
@@ -55,7 +55,7 @@ export class UserDepartmentComponent implements OnChanges {
         loadOptions.filter.push(['userId', '=', this.userId]);
         return this.departUserService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
@@ -70,22 +70,22 @@ export class UserDepartmentComponent implements OnChanges {
       insert: (values) => {
         values.userId = this.userId;
         return this.departUserService.save(values).then((response) => {
-            return;
-          }
+          return;
+        }
         );
       },
       update: (key, values: any) => {
         values.id = key;
         values.userId = this.userId;
         return this.departUserService.update(key, values).then((response) => {
-            return;
-          }
+          return;
+        }
         );
       },
       remove: (key) => {
         return this.departUserService.delete(key).then((response) => {
-            return;
-          }
+          return;
+        }
         );
       }
     });
@@ -95,9 +95,9 @@ export class UserDepartmentComponent implements OnChanges {
     this.departmentDataSource = new CustomStore({
       key: 'id',
       load: (loadOptions) => {
-        return this.departService.findAll(loadOptions).then((response: any) => {
+        return this.departService.findAll(UtilService.setPage({ skip: null, take: null })).then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });

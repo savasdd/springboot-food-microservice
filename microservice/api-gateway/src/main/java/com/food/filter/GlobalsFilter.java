@@ -95,9 +95,6 @@ public class GlobalsFilter implements GlobalFilter, WebFilter, Ordered {
                             case "foods":
                                 event.setLogType(ELogType.FOOD);
                                 break;
-                            case "users":
-                                event.setLogType(ELogType.USER);
-                                break;
                             case "stocks":
                                 event.setLogType(ELogType.STOCK);
                                 break;

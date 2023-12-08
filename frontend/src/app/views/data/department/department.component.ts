@@ -15,7 +15,7 @@ export class DepartmentComponent implements OnInit {
   departmentService: GenericService;
 
   constructor(private service: GenericService) {
-    this.departmentService = this.service.instance('users/departments');
+    this.departmentService = this.service.instance('foods/departments');
     this.loadGrid();
   }
 
@@ -38,7 +38,7 @@ export class DepartmentComponent implements OnInit {
       load: (loadOptions) => {
         return this.departmentService.findAll(UtilService.setPage(loadOptions)).then((response: any) => {
           return {
-            data: response.data,
+            data: response.items,
             totalCount: response.totalCount
           };
         });
