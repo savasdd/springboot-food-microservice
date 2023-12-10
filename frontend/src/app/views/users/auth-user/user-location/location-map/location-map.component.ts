@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import turfCircle from "@turf/circle";
 import { MapService } from 'src/app/services/map.service';
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 declare let L;
 
@@ -48,6 +49,7 @@ export class LocationMapComponent implements OnChanges, AfterViewInit {
       }
     });
     this.controlLayers.addTo(this.map);
+    (L.Control as any).geocoder().addTo(this.map);
     this.map.invalidateSize();
 
     this.drawnItems = L.featureGroup().addTo(this.map);

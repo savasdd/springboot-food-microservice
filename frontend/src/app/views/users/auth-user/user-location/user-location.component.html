@@ -1,13 +1,12 @@
 <div>
     <dx-data-grid #dataSourceGrid [dataSource]="dataSource" keyExpr="ID" [allowColumnReordering]="true" [showBorders]="true">
         <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true" [useIcons]="true">
-            <dxo-popup title="Restaurant Info" [showTitle]="true" width="75%" height="70%">
+            <dxo-popup title="Restaurant Info" [showTitle]="true" width="75%" height="80%">
             </dxo-popup>
             <dxo-form>
-                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
                     <dxi-item dataField="name"></dxi-item>
                     <dxi-item dataField="address"></dxi-item>
-                    <dxi-item dataField="description"></dxi-item>
                 </dxi-item>
 
                 <dxi-item itemType="tabbed" [colSpan]="2" [colCount]="2">
@@ -31,12 +30,11 @@
         <dxi-column dataField="name">
             <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>
-        <dxi-column dataField="address" [visible]="false">
-            <dxo-form-item [colSpan]="2" editorType="dxTextArea" [editorOptions]="{ height: 120 }">
+        <dxi-column dataField="address" [visible]="true">
+            <dxo-form-item [colSpan]="2" editorType="dxTextArea" [editorOptions]="{ height: 80 }">
             </dxo-form-item>
         </dxi-column>
 
-        <dxi-column dataField="description"> </dxi-column>
         <dxi-column dataField="geom" [visible]="false" editCellTemplate="geom">
         </dxi-column>
         <div *dxTemplate="let geom of 'geom'">

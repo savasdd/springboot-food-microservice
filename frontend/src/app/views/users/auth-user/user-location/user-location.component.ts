@@ -44,8 +44,7 @@ export class UserLocationComponent implements OnChanges {
   }
 
   onValueMapChanged(value: any, data: any) {
-    console.log(value)
-    //data.setValue(value);
+    data.setValue(value);
   }
 
   loadGrid() {
