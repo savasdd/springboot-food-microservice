@@ -6,7 +6,6 @@ import com.food.model.base.BaseEntity;
 import com.food.model.geometry.deserializer.GeometryDeserializer;
 import com.food.model.geometry.serializer.GeometrySerializer;
 import lombok.*;
-import org.hibernate.annotations.Type;
 import org.locationtech.jts.geom.Geometry;
 
 import javax.persistence.Column;
@@ -33,9 +32,10 @@ public class Restaurant extends BaseEntity implements Serializable {
     @Column(name = "puan")
     private Double puan;
 
+
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(using = GeometryDeserializer.class)
-    @Column(name = "geom", columnDefinition = "geometry")
+    @Column(columnDefinition = "geometry")
     private Geometry geom;
 
     //@OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)

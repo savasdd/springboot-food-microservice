@@ -1,6 +1,5 @@
 package com.food.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.food.model.base.BaseEntity;
@@ -22,7 +21,6 @@ import java.io.Serializable;
 @Entity(name = "UserLocation")
 @Table
 @Where(clause = "is_deleted = 0")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLocation extends BaseEntity implements Serializable {
 
     @Serial
@@ -42,7 +40,7 @@ public class UserLocation extends BaseEntity implements Serializable {
 
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(using = GeometryDeserializer.class)
-    @Column(name = "geom")
+    @Column(columnDefinition = "geometry")
     private Geometry geom;
 
 }

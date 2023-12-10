@@ -16,7 +16,7 @@ public class CreatingDatabase {
         try {
             log.debug("Creating database if not exist...");
             //connection = DriverManager.getConnection("jdbc:postgresql://" + ApplicationProperties.getValue("server.host") + ":5432/", ApplicationProperties.getValue("spring.datasource.username"), ApplicationProperties.getValue("spring.datasource.password"));
-            connection = DriverManager.getConnection("jdbc:postgresql://" + ApplicationProperties.getValue("host") + ":5432/", ApplicationProperties.getValue("username"), ApplicationProperties.getValue("password"));
+            connection = DriverManager.getConnection("jdbc:postgresql://" + ApplicationProperties.getValue("host") + ":5433/", ApplicationProperties.getValue("username"), ApplicationProperties.getValue("password"));
             statement = connection.createStatement();
             statement.executeQuery("SELECT count(*) FROM pg_database WHERE datname = '" + ApplicationProperties.getValue("db") + "'");
             ResultSet resultSet = statement.getResultSet();

@@ -35,7 +35,7 @@ import java.util.concurrent.Executor;
 @EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)
 public class FoodServiceApplication {
     public static void main(String[] args) {
-        CreatingDatabase.builder().build();
+        //CreatingDatabase.builder().build();
         SpringApplication.run(FoodServiceApplication.class, args);
     }
 
