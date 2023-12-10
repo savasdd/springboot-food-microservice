@@ -31,7 +31,7 @@ export class RestaurantComponent implements OnInit {
 
   onValueMapChanged(value: any, data: any) {
     console.log(value)
-    //data.setValue(value);
+    data.setValue(value);
   }
 
 

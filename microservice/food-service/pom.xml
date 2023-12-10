@@ -19,6 +19,8 @@
         <hibernate.version>5.6.11.Final</hibernate.version>
         <hutool.version>5.6.5</hutool.version>
         <jackson.version>2.13.2</jackson.version>
+        <jackson.jts.version>2.4</jackson.jts.version>
+        <jts.version>1.18.2</jts.version>
         <maven.test.skip>true</maven.test.skip>
     </properties>
 
@@ -189,6 +191,16 @@
         </dependency>
 
         <!--GEOM-->
+        <dependency>
+            <groupId>com.bedatadriven</groupId>
+            <artifactId>jackson-datatype-jts</artifactId>
+            <version>${jackson.jts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.locationtech.jts</groupId>
+            <artifactId>jts-core</artifactId>
+            <version>${jts.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-spatial</artifactId>
