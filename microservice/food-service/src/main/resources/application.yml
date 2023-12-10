@@ -23,7 +23,6 @@ spring:
       repositories:
         enabled: true
   datasource:
-    #url: jdbc:postgresql://${server.host}:${server.db_port}/${server.db}
     url: jdbc:postgresql_postGIS://${server.host}:5433/${server.db}
     username: postgis
     password: postgis
