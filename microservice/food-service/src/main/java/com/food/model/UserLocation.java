@@ -1,10 +1,15 @@
 package com.food.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.food.model.base.BaseEntity;
+import com.food.model.geometry.deserializer.GeometryDeserializer;
+import com.food.model.geometry.serializer.GeometrySerializer;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
+import org.locationtech.jts.geom.Geometry;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +40,9 @@ public class UserLocation extends BaseEntity implements Serializable {
     @Column(name = "address", length = 4500)
     private String address;
 
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(using = GeometryDeserializer.class)
     @Column(name = "geom")
-    private String geom;
+    private Geometry geom;
 
 }
