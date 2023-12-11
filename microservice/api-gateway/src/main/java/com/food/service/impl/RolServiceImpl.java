@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,7 +27,7 @@ public class RolServiceImpl implements RolService {
     @Override
     public GenericResponse getRoles() throws GeneralException {
         var response = new GenericResponse<RoleRepresentation>();
-        List<RoleRepresentation> list = resource.roles().list();
+        List<RoleRepresentation> list = resource.roles().list().stream().filter(val -> !val.getName().equals("default-roles-food-microservice")).collect(Collectors.toList());
         response.setData(list);
         response.setTotalCount(list.size());
 
