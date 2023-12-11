@@ -28,6 +28,7 @@ import { BasketComponent } from './order/basket/basket.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { RestaurantMapComponent } from './restaurant/restaurant-map/restaurant-map.component';
+import { StockProductComponent } from './stock/stock-product/stock-product.component';
 
 const routes: Routes = [
   {
@@ -89,7 +90,8 @@ const routes: Routes = [
     ImagesComponent,
     BasketComponent,
     RestaurantComponent,
-    RestaurantMapComponent
+    RestaurantMapComponent,
+    StockProductComponent
   ],
   imports: [
     CommonModule,
