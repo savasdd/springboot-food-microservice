@@ -12,9 +12,10 @@ import StatusEnum = OrderEvent.StatusEnum;
   styleUrls: ['./food.component.scss']
 })
 export class FoodComponent implements OnInit {
+  @ViewChild('foodDataGrid', {static: true}) foodDataGrid: any = DxDataGridComponent;
   dataSource: any = {};
   categoryDataSource: any = {};
-  @ViewChild('foodDataGrid', {static: true}) foodDataGrid: any = DxDataGridComponent;
+  restaurantDataSource: any = {};
 
   readonly allowedPageSizes = [5, 10, 'all'];
   displayMode = 'full';
@@ -24,6 +25,7 @@ export class FoodComponent implements OnInit {
   foodData: any;
   foodService: GenericService;
   categoryService: GenericService;
+  restaurantService: GenericService;
   dataTypeSource: any = [
     {name: StatusEnum.New},
     {name: StatusEnum.Accept},
@@ -34,9 +36,11 @@ export class FoodComponent implements OnInit {
 
   constructor(public service: GenericService) {
     this.categoryService = this.service.instance('foods/categorys');
+    this.restaurantService = this.service.instance('foods/restaurants');
     this.foodService = this.service.instance('foods');
 
     this.loadCategory();
+    this.loadRestaurant();
     this.loadGrid();
 
   }
@@ -61,6 +65,11 @@ export class FoodComponent implements OnInit {
     });
   }
 
+  loadRestaurant() {
+    this.restaurantService.findAll(UtilService.setPage({"skip": 0, "take": 100})).then((response: any) => {
+      this.restaurantDataSource = response.items;
+    });
+  }
 
   loadGrid() {
     this.dataSource = new CustomStore({

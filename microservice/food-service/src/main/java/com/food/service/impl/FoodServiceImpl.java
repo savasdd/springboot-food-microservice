@@ -4,12 +4,12 @@ import com.food.data.options.DataSourceLoadOptions;
 import com.food.data.response.LoadResult;
 import com.food.dto.CategoryDto;
 import com.food.dto.FoodDto;
-import com.food.enums.ELogType;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
 import com.food.model.Food;
 import com.food.repository.CategoryRepository;
 import com.food.repository.FoodRepository;
+import com.food.repository.RestaurantRepository;
 import com.food.service.FoodFileService;
 import com.food.service.FoodService;
 import com.food.utils.JsonUtil;
@@ -31,12 +31,14 @@ import java.util.stream.Collectors;
 public class FoodServiceImpl implements FoodService {
     private final FoodRepository repository;
     private final CategoryRepository categoryRepository;
+    private final RestaurantRepository restaurantRepository;
     private final ModelMapper modelMapper;
     private final FoodFileService fileService;
 
-    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, ModelMapper modelMapper, FoodFileService fileService) {
+    public FoodServiceImpl(FoodRepository repository, CategoryRepository categoryRepository, RestaurantRepository restaurantRepository, ModelMapper modelMapper, FoodFileService fileService) {
         this.repository = repository;
         this.categoryRepository = categoryRepository;
+        this.restaurantRepository = restaurantRepository;
         this.modelMapper = modelMapper;
         this.fileService = fileService;
     }
@@ -90,8 +92,15 @@ public class FoodServiceImpl implements FoodService {
     @Override
     @Transactional
     public Food create(Food dto) throws GeneralException, GeneralWarning {
+        if (dto.getRestaurant() == null || dto.getRestaurant().getId() == null)
+            throw new GeneralException("Restaurant is required!");
+        if (dto.getCategory() == null || dto.getCategory().getId() == null)
+            throw new GeneralException("Category is required!");
+
         var category = categoryRepository.findById((dto.getCategory() != null && dto.getCategory().getId() != null) ? dto.getCategory().getId() : -1);
+        var restaurant = restaurantRepository.findById((dto.getRestaurant() != null && dto.getRestaurant().getId() != null) ? dto.getRestaurant().getId() : -1);
         dto.setCategory(category.isPresent() ? category.get() : null);
+        dto.setRestaurant(restaurant.isPresent() ? restaurant.get() : null);
         dto.setVersion(0L);
         var newModel = repository.save(dto);
 
@@ -103,11 +112,13 @@ public class FoodServiceImpl implements FoodService {
     @Transactional
     public Food update(Long id, Food dto) throws GeneralException, GeneralWarning {
         var category = categoryRepository.findById((dto.getCategory() != null && dto.getCategory().getId() != null) ? dto.getCategory().getId() : -1);
+        var restaurant = restaurantRepository.findById((dto.getRestaurant() != null && dto.getRestaurant().getId() != null) ? dto.getRestaurant().getId() : -1);
         var foods = repository.findById(id);
         var newFood = foods.map(var -> {
             var.setFoodName(dto.getFoodName() != null ? dto.getFoodName() : var.getFoodName());
             var.setPrice(dto.getPrice() != null ? dto.getPrice() : var.getPrice());
             var.setCategory(category.isPresent() ? category.get() : var.getCategory());
+            var.setRestaurant(restaurant.isPresent() ? restaurant.get() : var.getRestaurant());
             var.setDescription(dto.getDescription() != null ? dto.getDescription() : var.getDescription());
             var.setStatus(dto.getStatus() != null ? dto.getStatus() : var.getStatus());
             return var;

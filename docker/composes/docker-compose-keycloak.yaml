@@ -11,8 +11,8 @@ services:
       environment:
         #JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.upload_scripts=enabled
         DB_VENDOR: POSTGRES
-        #DB_ADDR: 172.16.6.152:5432
-        DB_ADDR: 192.168.1.23:5432
+        DB_ADDR: 172.16.6.152:5432
+        #DB_ADDR: 192.168.1.23:5432
         DB_DATABASE: keycloak_db
         DB_USER: postgres
         DB_SCHEMA: public

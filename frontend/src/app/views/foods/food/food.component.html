@@ -27,12 +27,13 @@
                     height="70%">
                   </dxo-popup>
                   <dxo-form>
-                    <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+                    <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                      <dxi-item dataField="restaurant.id"></dxi-item>
                       <dxi-item dataField="category.id"></dxi-item>
-                      <dxi-item dataField="foodName"></dxi-item>
                     </dxi-item>
 
                     <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                      <dxi-item dataField="foodName"></dxi-item>
                       <dxi-item dataField="price"></dxi-item>
                       <dxi-item dataField="description"></dxi-item>
                     </dxi-item>
@@ -57,6 +58,12 @@
                   </dxi-item>
                 </dxo-toolbar>
 
+                <dxi-column dataField="restaurant.id" caption="restaurant">
+                  <dxo-lookup [dataSource]="restaurantDataSource" displayExpr="name" valueExpr="id">
+                  </dxo-lookup>
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+
                 <dxi-column dataField="foodName">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
@@ -70,8 +77,8 @@
                 </dxi-column>
                 <dxi-column dataField="category.id" caption="Category">
                   <dxo-lookup [dataSource]="categoryDataSource" displayExpr="name" valueExpr="id">
-                    <dxi-validation-rule type="required"></dxi-validation-rule>
                   </dxo-lookup>
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
                 <dxi-column dataField="description" dataType="string"></dxi-column>
 

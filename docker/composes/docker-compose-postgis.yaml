@@ -11,3 +11,9 @@ services:
       - POSTGRES_USER=postgis
     ports:
       - '5433:5432'
+    volumes: 
+      - postgis-data:/var/lib/postgresql
+
+volumes:
+  postgis-data:
+    driver: local
