@@ -22,5 +22,4 @@ public interface StockService {
 
     Stock delete(Long id) throws GeneralException, GeneralWarning;
 
-    List<Stock> getStockByFoodId(Long id) throws GeneralException, GeneralWarning;
 }

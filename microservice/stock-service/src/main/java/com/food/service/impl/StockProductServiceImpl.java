@@ -5,8 +5,10 @@ import com.food.data.response.LoadResult;
 import com.food.exception.GeneralException;
 import com.food.exception.GeneralWarning;
 import com.food.model.Stock;
+import com.food.model.StockProduct;
+import com.food.repository.StockProductRepository;
 import com.food.repository.StockRepository;
-import com.food.service.StockService;
+import com.food.service.StockProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +17,12 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class StockServiceImpl implements StockService {
-    private final StockRepository repository;
+public class StockProductServiceImpl implements StockProductService {
+    private final StockRepository stockRepository;
+    private final StockProductRepository repository;
 
-    public StockServiceImpl(StockRepository repository) {
+    public StockProductServiceImpl(StockRepository stockRepository, StockProductRepository repository) {
+        this.stockRepository = stockRepository;
         this.repository = repository;
     }
 
@@ -32,7 +36,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     @Transactional
-    public List<Stock> getAll() throws GeneralException, GeneralWarning {
+    public List<StockProduct> getAll() throws GeneralException, GeneralWarning {
         var list = repository.findAll();
 
         log.info("list stock {} ", list.size());
@@ -40,13 +44,15 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public Stock getById(Long id) throws GeneralException, GeneralWarning {
+    public StockProduct getById(Long id) throws GeneralException, GeneralWarning {
         return repository.findById(id).get();
     }
 
     @Override
     @Transactional
-    public Stock create(Stock dto) throws GeneralException, GeneralWarning {
+    public StockProduct create(StockProduct dto) throws GeneralException, GeneralWarning {
+        var stock = stockRepository.findById(dto.getStock() != null ? dto.getStock().getId() : -1);
+        dto.setStock(stock.isPresent() ? stock.get() : null);
         dto.setVersion(0L);
         var newModel = repository.save(dto);
 
@@ -56,15 +62,14 @@ public class StockServiceImpl implements StockService {
 
     @Override
     @Transactional
-    public Stock update(Long id, Stock dto) throws GeneralException, GeneralWarning {
+    public StockProduct update(Long id, StockProduct dto) throws GeneralException, GeneralWarning {
+        var stock = stockRepository.findById(dto.getStock() != null ? dto.getStock().getId() : -1);
+
         var stocks = repository.findById(id);
         var newStock = stocks.map(val -> {
-            val.setPrice(dto.getPrice() != null ? dto.getPrice() : val.getPrice());
-            val.setAvailableItems(dto.getAvailableItems() != null ? dto.getAvailableItems() : val.getAvailableItems());
-            val.setReservedItems(dto.getReservedItems() != null ? dto.getReservedItems() : val.getReservedItems());
-            val.setStatus(dto.getStatus() != null ? dto.getStatus() : val.getStatus());
-            val.setName(dto.getName() != null ? dto.getName() : val.getName());
-            val.setTransactionDate(dto.getTransactionDate() != null ? dto.getTransactionDate() : val.getTransactionDate());
+            val.setStock(stock.isPresent() ? stock.get() : val.getStock());
+            val.setFoodId(dto.getFoodId() != null ? dto.getFoodId() : val.getFoodId());
+            val.setDescription(dto.getDescription() != null ? dto.getDescription() : val.getDescription());
             return val;
         });
         var model = repository.save(newStock.get());
@@ -75,7 +80,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     @Transactional
-    public Stock delete(Long id) throws GeneralException, GeneralWarning {
+    public StockProduct delete(Long id) throws GeneralException, GeneralWarning {
         var model = repository.findById(id);
         if (model.isPresent()) {
             var dto = model.get();
@@ -84,6 +89,11 @@ public class StockServiceImpl implements StockService {
             return dto;
         } else
             return null;
+    }
+
+    @Override
+    public List<StockProduct> getByFoodId(Long id) {
+        return repository.findByFoodId(id);
     }
 
 

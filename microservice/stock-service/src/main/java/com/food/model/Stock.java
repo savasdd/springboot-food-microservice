@@ -1,6 +1,7 @@
 package com.food.model;
 
 import com.food.enums.EPaymentType;
+import com.food.enums.EUnitType;
 import com.food.model.base.BaseEntity;
 import lombok.*;
 
@@ -15,37 +16,34 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Entity
-@Table(name = "STOCK")
+@Table(name = "Stock")
 public class Stock extends BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1656753245648711747L;
 
-    @Column(name = "FOOD_ID")
-    private Long foodId;
-
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "PRICE")
+    @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "AVAILABLE_ITEMS")
+    @Column(name = "availableItems")
     private Integer availableItems;
 
-    @Column(name = "RESERVED_ITEMS")
+    @Column(name = "reservedItems")
     private Integer reservedItems;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unit")
+    private EUnitType unit;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private EPaymentType status;
 
-    @Column(name = "TRANSACTION_DATE")
+    @Column(name = "transactionDate")
     private Date transactionDate;
 
 }
