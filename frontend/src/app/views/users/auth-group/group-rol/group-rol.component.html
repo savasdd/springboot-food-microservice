@@ -4,18 +4,7 @@
                 keyExpr="ID"
                 [allowColumnReordering]="true"
                 [showBorders]="true"
-                (onEditingStart)="logEvent('EditingStart')"
-                (onInitNewRow)="logEvent('InitNewRow')"
-                (onRowInserting)="logEvent('RowInserting')"
-                (onRowInserted)="logEvent('RowInserted')"
-                (onRowUpdating)="logEvent('RowUpdating')"
-                (onRowUpdated)="logEvent('RowUpdated')"
-                (onRowRemoving)="logEvent('RowRemoving')"
-                (onRowRemoved)="logEvent('RowRemoved')"
-                (onSaving)="logEvent('Saving')"
-                (onSaved)="logEvent('Saved')"
-                (onEditCanceling)="logEvent('EditCanceling')"
-                (onEditCanceled)="logEvent('EditCanceled')">
+                (onEditingStart)="logEvent('EditingStart')">
 
     <dxo-paging [enabled]="true"></dxo-paging>
     <dxo-editing

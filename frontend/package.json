@@ -18,7 +18,6 @@
     "api-food": "openapi-generator-cli generate -i http://localhost:8085/food-service/v3/api-docs -g typescript-angular -o ./src/app/services/food-service-api",
     "api-stock": "openapi-generator-cli generate -i http://localhost:8087/v3/api-docs -g typescript-angular -o ./src/app/services/stock-service-api",
     "api-payment": "openapi-generator-cli generate -i http://localhost:8088/v3/api-docs -g typescript-angular -o ./src/app/services/payment-service-api",
-    "api-user": "openapi-generator-cli generate -i http://localhost:8082/v3/api-docs -g typescript-angular -o ./src/app/services/user-service-api",
     "api-gateway": "openapi-generator-cli generate -i http://localhost:8085/v3/api-docs -g typescript-angular -o ./src/app/services/gateway-service-api"
   },
   "private": true,
