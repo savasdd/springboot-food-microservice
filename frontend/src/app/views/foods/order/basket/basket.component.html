@@ -7,7 +7,7 @@
           <div class="card-body" style="min-height: calc(50vh - 193px);">
             <div class="row">
               <div class="filter-container">
-                <img class="basket" ngSrc="assets/images/food/basket.png" height="90" width="110" alt=""/>
+                <img class="basket" ngSrc="assets/images/food/poder.jpg" height="100" width="110" alt="" />
 
                 <div class="dx-fieldset">
                   <div class="dx-field">
@@ -24,21 +24,10 @@
               </div>
 
               <div class="list-container">
-                <dx-data-grid
-                  #orderDataGrid
-                  [dataSource]="dataSource"
-                  keyExpr="ID"
-                  [showBorders]="true">
-                  <dxo-editing
-                    mode="form"
-                    [allowDeleting]="false"
-                    [useIcons]="true">
+                <dx-data-grid #orderDataGrid [dataSource]="dataSource" keyExpr="ID" [showBorders]="true">
+                  <dxo-editing mode="form" [allowDeleting]="false" [useIcons]="true">
                   </dxo-editing>
-                  <dxi-column
-                    dataField="image"
-                    [width]="130"
-                    [allowFiltering]="false"
-                    [allowSorting]="false"
+                  <dxi-column dataField="image" [width]="130" [allowFiltering]="false" [allowSorting]="false"
                     cellTemplate="cellTemplate"></dxi-column>
                   <dxi-column dataField="food.foodName" caption="Food"></dxi-column>
                   <dxi-column dataField="status" caption="Status"></dxi-column>
@@ -46,7 +35,8 @@
                   <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
 
                   <div *dxTemplate="let data of 'cellTemplate'">
-                    <img class="images_basket" [src]="data.value" alt=""/>
+                    <img *ngIf="data.value===null" class="images_basket" src="assets/images/food/poder.jpg" alt="" />
+                    <img *ngIf="data.value" class="images_basket" [src]="data.value" alt="" />
                   </div>
                 </dx-data-grid>
               </div>

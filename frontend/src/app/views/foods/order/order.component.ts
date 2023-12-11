@@ -114,7 +114,7 @@ export class OrderComponent implements OnInit {
 
   callBasket() {
     if (this.totalPrice > 0) {
-      this.router.navigate(['/foods/baskets']);
+      this.router.navigate(['home/foods/baskets']);
     }
   }
 
