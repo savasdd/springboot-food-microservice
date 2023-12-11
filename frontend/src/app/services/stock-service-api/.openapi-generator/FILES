@@ -3,6 +3,7 @@ README.md
 api.module.ts
 api/api.ts
 api/stockController.service.ts
+api/stockProductController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -13,6 +14,7 @@ model/loadResult.ts
 model/models.ts
 model/sortingInfo.ts
 model/stock.ts
+model/stockProduct.ts
 model/summaryInfo.ts
 param.ts
 variables.ts

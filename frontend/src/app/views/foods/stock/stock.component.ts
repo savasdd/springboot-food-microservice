@@ -1,10 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {DxDataGridComponent} from "devextreme-angular";
-import {Stock} from "../../../services/stock-service-api";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from "devextreme-angular";
+import { Stock } from "../../../services/stock-service-api";
 import CustomStore from "devextreme/data/custom_store";
-import {UtilService} from "../../../services/util.service";
-import {GenericService} from "../../../services/generic.service";
+import { UtilService } from "../../../services/util.service";
+import { GenericService } from "../../../services/generic.service";
 import StatusEnum = Stock.StatusEnum;
+import UnitEnum = Stock.UnitEnum;
+
 
 @Component({
   selector: 'app-stock',
@@ -14,16 +16,25 @@ import StatusEnum = Stock.StatusEnum;
 export class StockComponent implements OnInit {
   dataSource: any = {};
   foodDataSource: any = {};
-  @ViewChild('stockDataGrid', {static: true}) stockDataGrid: any = DxDataGridComponent;
+  @ViewChild('stockDataGrid', { static: true }) stockDataGrid: any = DxDataGridComponent;
   dropDownOptions: any;
   stockService: GenericService;
   foodService: GenericService;
   dataTypeSource: any = [
-    {name: StatusEnum.New},
-    {name: StatusEnum.Accept},
-    {name: StatusEnum.Reject},
-    {name: StatusEnum.Confirmed},
-    {name: StatusEnum.Rollback},
+    { name: StatusEnum.New },
+    { name: StatusEnum.Accept },
+    { name: StatusEnum.Reject },
+    { name: StatusEnum.Confirmed },
+    { name: StatusEnum.Rollback },
+  ];
+  dataUnitSource: any = [
+    { name: UnitEnum.Adet },
+    { name: UnitEnum.Kilogram },
+    { name: UnitEnum.Gram },
+    { name: UnitEnum.Ton },
+    { name: UnitEnum.Litre },
+    { name: UnitEnum.Metre },
+    { name: UnitEnum.Santimetre },
   ];
 
   constructor(public service: GenericService) {
@@ -48,7 +59,7 @@ export class StockComponent implements OnInit {
   }
 
   loadFood() {
-    this.foodService.findAll({"skip": 0, "take": 200}).then((response: any) => {
+    this.foodService.findAll({ "skip": 0, "take": 200 }).then((response: any) => {
       this.foodDataSource = response.items;
     });
   }
@@ -75,8 +86,8 @@ export class StockComponent implements OnInit {
 
       insert: (values) => {
         return this.stockService.save(values).then((response) => {
-            return;
-          },
+          return;
+        },
           err => {
             throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
@@ -85,8 +96,8 @@ export class StockComponent implements OnInit {
       update: (key, values: any) => {
         values.id = key;
         return this.stockService.update(key, values).then((response) => {
-            return;
-          },
+          return;
+        },
           err => {
             throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
@@ -94,8 +105,8 @@ export class StockComponent implements OnInit {
       },
       remove: (key) => {
         return this.stockService.delete(key).then((response) => {
-            return;
-          },
+          return;
+        },
           err => {
             throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }

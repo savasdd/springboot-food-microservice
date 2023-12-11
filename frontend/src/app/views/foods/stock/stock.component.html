@@ -8,21 +8,12 @@
           </div>
           <div class="card-body" style="min-height: calc(90vh - 193px);">
             <div class="row">
-              <dx-data-grid #stockDataGrid
-                            [dataSource]="dataSource"
-                            [showBorders]="true">
+              <dx-data-grid #stockDataGrid [dataSource]="dataSource" [showBorders]="true">
                 <dxo-paging [enabled]="false"></dxo-paging>
-                <dxo-editing
-                  mode="form"
-                  [allowUpdating]="true"
-                  [allowAdding]="true"
-                  [allowDeleting]="true"
+                <dxo-editing mode="form" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"
                   [useIcons]="true">
                 </dxo-editing>
-                <dxo-search-panel
-                  [visible]="true"
-                  [width]="400"
-                  placeholder="Search..."></dxo-search-panel>
+                <dxo-search-panel [visible]="true" [width]="400" placeholder="Search..."></dxo-search-panel>
 
                 <dxo-toolbar>
                   <dxi-item name="addRowButton"></dxi-item>
@@ -32,60 +23,49 @@
                   </dxi-item>
                 </dxo-toolbar>
 
-                <dxi-column dataField="foodId" [allowSorting]="false" caption="Food">
-                  <dxo-lookup [dataSource]="foodDataSource" displayExpr="foodName" valueExpr="id">
-                  </dxo-lookup>
-                  <dxi-validation-rule type="required"></dxi-validation-rule>
-                </dxi-column>
+
                 <dxi-column dataField="name">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
-                <!--<dxi-column dataField="foodId" [allowSorting]="false" editCellTemplate="singleDropDownBoxEditor">-->
-                <dxi-column dataField="availableItems" format="#0.##" [width]="150">
+                <dxi-column dataField="unit" caption="Unit" [width]="200">
+                  <dxo-lookup [dataSource]="dataUnitSource" displayExpr="name" valueExpr="name">
+                  </dxo-lookup>
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
-                <dxi-column dataField="reservedItems" [width]="150"></dxi-column>
-                <dxi-column dataField="status" caption="State" [width]="125">
+                <!--<dxi-column dataField="foodId" [allowSorting]="false" editCellTemplate="singleDropDownBoxEditor">-->
+                <dxi-column dataField="availableItems" format="#0.##" [width]="200">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="reservedItems" [width]="200"></dxi-column>
+                <dxi-column dataField="status" caption="State" [width]="200">
                   <dxo-lookup [dataSource]="dataTypeSource" displayExpr="name" valueExpr="name">
-                    <dxi-validation-rule type="required"></dxi-validation-rule>
                   </dxo-lookup>
                 </dxi-column>
-                <dxi-column dataField="price" [width]="120"></dxi-column>
                 <dxi-column dataField="transactionDate" dataType="datetime"></dxi-column>
+                <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+
+                <div *dxTemplate="let temp of 'detail'">
+                  Test
+                </div>
 
                 <div *dxTemplate="let cellInfo of 'singleDropDownBoxEditor'">
-                  <dx-drop-down-box
-                    [dropDownOptions]="dropDownOptions"
-                    [dataSource]="foodDataSource"
-                    [(value)]="cellInfo.value"
-                    displayExpr="foodName"
-                    valueExpr="foodId"
+                  <dx-drop-down-box [dropDownOptions]="dropDownOptions" [dataSource]="foodDataSource"
+                    [(value)]="cellInfo.value" displayExpr="foodName" valueExpr="foodId"
                     contentTemplate="contentTemplate">
                     <div *dxTemplate="let e of 'contentTemplate'">
-                      <dx-data-grid
-                        [dataSource]="foodDataSource"
-                        [remoteOperations]="true"
-                        [height]="250"
-                        [selectedRowKeys]="[cellInfo.value]"
-                        [focusedRowEnabled]="true"
-                        [focusedRowKey]="cellInfo.value"
-                        [hoverStateEnabled]="true"
-                        [showRowLines]="true"
-                        [rowAlternationEnabled]="true"
+                      <dx-data-grid [dataSource]="foodDataSource" [remoteOperations]="true" [height]="250"
+                        [selectedRowKeys]="[cellInfo.value]" [focusedRowEnabled]="true" [focusedRowKey]="cellInfo.value"
+                        [hoverStateEnabled]="true" [showRowLines]="true" [rowAlternationEnabled]="true"
                         (onSelectionChanged)="onSelectionPersonChanged($event.selectedRowKeys, cellInfo, e.component)">
                         <dxi-column dataField="foodName"></dxi-column>
                         <dxo-scrolling mode="virtual"></dxo-scrolling>
                         <dxo-selection mode="single"></dxo-selection>
 
                         <dxo-paging [pageSize]="5"></dxo-paging>
-                        <dxo-pager
-                          [showPageSizeSelector]="true"
-                          [allowedPageSizes]="[5,10, 20, 50, 100]"
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5,10, 20, 50, 100]"
                           [showInfo]="true">
                         </dxo-pager>
-                        <dxo-search-panel
-                          [visible]="true"
-                          [width]="150">
+                        <dxo-search-panel [visible]="true" [width]="150">
                         </dxo-search-panel>
                       </dx-data-grid>
                     </div>
@@ -94,14 +74,10 @@
 
 
                 <dxo-paging [pageSize]="10"></dxo-paging>
-                <dxo-pager
-                  [showPageSizeSelector]="true"
-                  [allowedPageSizes]="[5,10, 20, 50, 100]"
-                  [showInfo]="true">
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5,10, 20, 50, 100]" [showInfo]="true">
                 </dxo-pager>
 
-                <dxo-filter-row
-                  [visible]="true">
+                <dxo-filter-row [visible]="true">
                 </dxo-filter-row>
               </dx-data-grid>
 

@@ -23,7 +23,7 @@ import { DataSourceLoadOptions } from '../model/dataSourceLoadOptions';
 // @ts-ignore
 import { LoadResult } from '../model/loadResult';
 // @ts-ignore
-import { Stock } from '../model/stock';
+import { StockProduct } from '../model/stockProduct';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -34,7 +34,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class StockControllerService {
+export class StockProductControllerService {
 
     protected basePath = 'http://localhost:8087';
     public defaultHeaders = new HttpHeaders();
@@ -96,17 +96,17 @@ export class StockControllerService {
     }
 
     /**
-     * Stock save
-     * @param stock 
+     * StockProduct save
+     * @param stockProduct 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createStock(stock: Stock, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Stock>;
-    public createStock(stock: Stock, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Stock>>;
-    public createStock(stock: Stock, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Stock>>;
-    public createStock(stock: Stock, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (stock === null || stock === undefined) {
-            throw new Error('Required parameter stock was null or undefined when calling createStock.');
+    public createStockProduct(stockProduct: StockProduct, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<StockProduct>;
+    public createStockProduct(stockProduct: StockProduct, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<StockProduct>>;
+    public createStockProduct(stockProduct: StockProduct, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<StockProduct>>;
+    public createStockProduct(stockProduct: StockProduct, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (stockProduct === null || stockProduct === undefined) {
+            throw new Error('Required parameter stockProduct was null or undefined when calling createStockProduct.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -149,11 +149,11 @@ export class StockControllerService {
             }
         }
 
-        let localVarPath = `/api/stocks/save`;
-        return this.httpClient.request<Stock>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/stocks/products/save`;
+        return this.httpClient.request<StockProduct>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: stock,
+                body: stockProduct,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -164,17 +164,17 @@ export class StockControllerService {
     }
 
     /**
-     * Stock delete by id
+     * StockProduct delete by id
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteStock(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Stock>;
-    public deleteStock(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Stock>>;
-    public deleteStock(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Stock>>;
-    public deleteStock(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public deleteStockProduct(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<StockProduct>;
+    public deleteStockProduct(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<StockProduct>>;
+    public deleteStockProduct(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<StockProduct>>;
+    public deleteStockProduct(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteStock.');
+            throw new Error('Required parameter id was null or undefined when calling deleteStockProduct.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -208,8 +208,8 @@ export class StockControllerService {
             }
         }
 
-        let localVarPath = `/api/stocks/delete/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<Stock>('delete', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/stocks/products/delete/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        return this.httpClient.request<StockProduct>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -222,14 +222,14 @@ export class StockControllerService {
     }
 
     /**
-     * Stock getAll
+     * StockProduct getAll
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllStock(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Stock>>;
-    public getAllStock(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Stock>>>;
-    public getAllStock(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Stock>>>;
-    public getAllStock(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getAllStockProduct(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<StockProduct>>;
+    public getAllStockProduct(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<StockProduct>>>;
+    public getAllStockProduct(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<StockProduct>>>;
+    public getAllStockProduct(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -262,8 +262,8 @@ export class StockControllerService {
             }
         }
 
-        let localVarPath = `/api/stocks/getAll`;
-        return this.httpClient.request<Array<Stock>>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/stocks/products/getAll`;
+        return this.httpClient.request<Array<StockProduct>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -276,17 +276,17 @@ export class StockControllerService {
     }
 
     /**
-     * Stock getAll by loadResult
+     * StockProduct getAll by loadResult
      * @param dataSourceLoadOptions 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllStockLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResult>;
-    public getAllStockLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResult>>;
-    public getAllStockLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResult>>;
-    public getAllStockLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getAllStockProductLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<LoadResult>;
+    public getAllStockProductLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<LoadResult>>;
+    public getAllStockProductLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<LoadResult>>;
+    public getAllStockProductLoad(dataSourceLoadOptions: DataSourceLoadOptions, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (dataSourceLoadOptions === null || dataSourceLoadOptions === undefined) {
-            throw new Error('Required parameter dataSourceLoadOptions was null or undefined when calling getAllStockLoad.');
+            throw new Error('Required parameter dataSourceLoadOptions was null or undefined when calling getAllStockProductLoad.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -329,7 +329,7 @@ export class StockControllerService {
             }
         }
 
-        let localVarPath = `/api/stocks/all`;
+        let localVarPath = `/api/stocks/products/all`;
         return this.httpClient.request<LoadResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -344,17 +344,17 @@ export class StockControllerService {
     }
 
     /**
-     * Stock getById
+     * StockProduct getById
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getStockOne(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Stock>;
-    public getStockOne(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Stock>>;
-    public getStockOne(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Stock>>;
-    public getStockOne(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getStockProductOne(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<StockProduct>;
+    public getStockProductOne(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<StockProduct>>;
+    public getStockProductOne(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<StockProduct>>;
+    public getStockProductOne(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getStockOne.');
+            throw new Error('Required parameter id was null or undefined when calling getStockProductOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -388,8 +388,8 @@ export class StockControllerService {
             }
         }
 
-        let localVarPath = `/api/stocks/getOne/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<Stock>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/stocks/products/getOne/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        return this.httpClient.request<StockProduct>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -402,21 +402,21 @@ export class StockControllerService {
     }
 
     /**
-     * Stock update by id
+     * StockProduct update by id
      * @param id 
-     * @param stock 
+     * @param stockProduct 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateStock(id: number, stock: Stock, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Stock>;
-    public updateStock(id: number, stock: Stock, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Stock>>;
-    public updateStock(id: number, stock: Stock, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Stock>>;
-    public updateStock(id: number, stock: Stock, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public updateStockProduct(id: number, stockProduct: StockProduct, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<StockProduct>;
+    public updateStockProduct(id: number, stockProduct: StockProduct, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<StockProduct>>;
+    public updateStockProduct(id: number, stockProduct: StockProduct, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<StockProduct>>;
+    public updateStockProduct(id: number, stockProduct: StockProduct, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling updateStock.');
+            throw new Error('Required parameter id was null or undefined when calling updateStockProduct.');
         }
-        if (stock === null || stock === undefined) {
-            throw new Error('Required parameter stock was null or undefined when calling updateStock.');
+        if (stockProduct === null || stockProduct === undefined) {
+            throw new Error('Required parameter stockProduct was null or undefined when calling updateStockProduct.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -459,11 +459,11 @@ export class StockControllerService {
             }
         }
 
-        let localVarPath = `/api/stocks/update/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<Stock>('put', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/stocks/products/update/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        return this.httpClient.request<StockProduct>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: stock,
+                body: stockProduct,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

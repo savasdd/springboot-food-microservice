@@ -64,6 +64,7 @@ public class StockServiceImpl implements StockService {
             val.setReservedItems(dto.getReservedItems() != null ? dto.getReservedItems() : val.getReservedItems());
             val.setStatus(dto.getStatus() != null ? dto.getStatus() : val.getStatus());
             val.setName(dto.getName() != null ? dto.getName() : val.getName());
+            val.setUnit(dto.getUnit() != null ? dto.getUnit() : val.getUnit());
             val.setTransactionDate(dto.getTransactionDate() != null ? dto.getTransactionDate() : val.getTransactionDate());
             return val;
         });

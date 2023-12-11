@@ -19,16 +19,25 @@ export interface Stock {
     version?: number;
     createdBy?: string;
     updatedBy?: string;
-    foodId?: number;
     name?: string;
     price?: number;
     availableItems?: number;
     reservedItems?: number;
-    description?: string;
+    unit?: Stock.UnitEnum;
     status?: Stock.StatusEnum;
     transactionDate?: string;
 }
 export namespace Stock {
+    export type UnitEnum = 'Adet' | 'Kilogram' | 'Gram' | 'Ton' | 'Litre' | 'Metre' | 'Santimetre';
+    export const UnitEnum = {
+        Adet: 'Adet' as UnitEnum,
+        Kilogram: 'Kilogram' as UnitEnum,
+        Gram: 'Gram' as UnitEnum,
+        Ton: 'Ton' as UnitEnum,
+        Litre: 'Litre' as UnitEnum,
+        Metre: 'Metre' as UnitEnum,
+        Santimetre: 'Santimetre' as UnitEnum
+    };
     export type StatusEnum = 'NEW' | 'ACCEPT' | 'REJECT' | 'CONFIRMED' | 'ROLLBACK';
     export const StatusEnum = {
         New: 'NEW' as StatusEnum,
