@@ -17,8 +17,9 @@
                     </div>
                   </div>
                   <div class="dx-field">
-                    <div class="dx-field-label">Toplam Tutar</div>
-                    <div class="dx-field-value-static">{{totalPrice + ' TL'}}</div>
+                    <div class="dx-field-label" style="font-size: large;">Toplam Tutar</div>
+                    <div class="dx-field-value-static" style="font-weight: bold;font-size: large;">{{totalPrice + '
+                      ₺'}}</div>
                   </div>
                 </div>
               </div>
@@ -32,7 +33,7 @@
                   <dxi-column dataField="food.foodName" caption="Food"></dxi-column>
                   <dxi-column dataField="status" caption="Status"></dxi-column>
                   <dxi-column dataField="orderDate" type="datetime" caption="Date"></dxi-column>
-                  <dxi-column dataField="price" width="100" format="# TL"></dxi-column>
+                  <dxi-column dataField="price" width="100" format="#,###.## ₺"></dxi-column>
 
                   <div *dxTemplate="let data of 'cellTemplate'">
                     <img *ngIf="data.value===null" class="images_basket" src="assets/images/food/poder.jpg" alt="" />
