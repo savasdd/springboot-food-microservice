@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {MessageService} from "../../services/message.service";
-import {catchError, Observable, throwError} from "rxjs";
-import {Router} from "@angular/router";
+import { Injectable } from "@angular/core";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { MessageService } from "../../services/message.service";
+import { catchError, Observable, throwError } from "rxjs";
+import { Router } from "@angular/router";
 
 
 @Injectable()
@@ -30,8 +30,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         console.log("Hata 404: " + err.error.errorMessage)
       }
 
-
-
       if (err.status === 400) {
         if (err.error && err.error.errors) {
 
@@ -39,6 +37,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.messageService.error(err.error.errorMessage);
         }
       }
+
+      if (err.status === 503 || err.status === 504) {
+        this.messageService.error('Service Unavailable!!');
+      }
+
       if (err.status === 500 || err.status === 0) {
         this.messageService.error('Üzgünüz! Sistemde beklenmedik bir hata oluştu. Lütfen tekrar deneyiniz!');
       }

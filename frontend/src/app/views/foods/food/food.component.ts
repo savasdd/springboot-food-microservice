@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {DxDataGridComponent} from "devextreme-angular";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from "devextreme-angular";
 import CustomStore from "devextreme/data/custom_store";
-import {OrderEvent} from "../../../services/food-service-api";
-import {UtilService} from "../../../services/util.service";
-import {GenericService} from "../../../services/generic.service";
+import { Food, OrderEvent } from "../../../services/food-service-api";
+import { UtilService } from "../../../services/util.service";
+import { GenericService } from "../../../services/generic.service";
 import StatusEnum = OrderEvent.StatusEnum;
+import ClassTypeEnum = Food.ClassTypeEnum;
 
 @Component({
   selector: 'app-food',
@@ -12,7 +13,7 @@ import StatusEnum = OrderEvent.StatusEnum;
   styleUrls: ['./food.component.scss']
 })
 export class FoodComponent implements OnInit {
-  @ViewChild('foodDataGrid', {static: true}) foodDataGrid: any = DxDataGridComponent;
+  @ViewChild('foodDataGrid', { static: true }) foodDataGrid: any = DxDataGridComponent;
   dataSource: any = {};
   categoryDataSource: any = {};
   restaurantDataSource: any = {};
@@ -27,11 +28,16 @@ export class FoodComponent implements OnInit {
   categoryService: GenericService;
   restaurantService: GenericService;
   dataTypeSource: any = [
-    {name: StatusEnum.New},
-    {name: StatusEnum.Accept},
-    {name: StatusEnum.Reject},
-    {name: StatusEnum.Confirmed},
-    {name: StatusEnum.Rollback},
+    { name: StatusEnum.New },
+    { name: StatusEnum.Accept },
+    { name: StatusEnum.Reject },
+    { name: StatusEnum.Confirmed },
+    { name: StatusEnum.Rollback },
+  ];
+  classTypeSource: any = [
+    { name: ClassTypeEnum.Diamond },
+    { name: ClassTypeEnum.Platinum },
+    { name: ClassTypeEnum.Gold },
   ];
 
   constructor(public service: GenericService) {
@@ -60,13 +66,13 @@ export class FoodComponent implements OnInit {
 
 
   loadCategory() {
-    this.categoryService.findAll(UtilService.setPage({"skip": 0, "take": 100})).then((response: any) => {
+    this.categoryService.findAll(UtilService.setPage({ "skip": 0, "take": 100 })).then((response: any) => {
       this.categoryDataSource = response.items;
     });
   }
 
   loadRestaurant() {
-    this.restaurantService.findAll(UtilService.setPage({"skip": 0, "take": 100})).then((response: any) => {
+    this.restaurantService.findAll(UtilService.setPage({ "skip": 0, "take": 100 })).then((response: any) => {
       this.restaurantDataSource = response.items;
     });
   }
@@ -93,8 +99,8 @@ export class FoodComponent implements OnInit {
 
       insert: (values) => {
         return this.foodService.save(values).then((response) => {
-            return;
-          },
+          return;
+        },
           err => {
             throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
@@ -103,8 +109,8 @@ export class FoodComponent implements OnInit {
       update: (key, values: any) => {
         values.id = key;
         return this.foodService.update(key, values).then((response) => {
-            return;
-          },
+          return;
+        },
           err => {
             throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }
@@ -112,8 +118,8 @@ export class FoodComponent implements OnInit {
       },
       remove: (key) => {
         return this.foodService.delete(key).then((response) => {
-            return;
-          },
+          return;
+        },
           err => {
             throw (err.error.errorMessage ? err.error.errorMessage : err.error.warningMessage);
           }

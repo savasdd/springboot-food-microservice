@@ -121,6 +121,7 @@ public class FoodServiceImpl implements FoodService {
             var.setRestaurant(restaurant.isPresent() ? restaurant.get() : var.getRestaurant());
             var.setDescription(dto.getDescription() != null ? dto.getDescription() : var.getDescription());
             var.setStatus(dto.getStatus() != null ? dto.getStatus() : var.getStatus());
+            var.setClassType(dto.getClassType() != null ? dto.getClassType() : var.getClassType());
             return var;
         }).get();
 

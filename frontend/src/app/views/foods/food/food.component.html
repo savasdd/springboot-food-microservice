@@ -8,23 +8,11 @@
           </div>
           <div class="card-body" style="min-height: calc(90vh - 193px);">
             <div class="row">
-              <dx-data-grid #foodDataGrid
-                            [dataSource]="dataSource"
-                            keyExpr="ID"
-                            [allowColumnReordering]="true"
-                            (onEditorPreparing)="onEditorPreparing($event)"
-                            [showBorders]="true">
-                <dxo-editing
-                  mode="form"
-                  [allowUpdating]="true"
-                  [allowAdding]="true"
-                  [allowDeleting]="true"
+              <dx-data-grid #foodDataGrid [dataSource]="dataSource" keyExpr="ID" [allowColumnReordering]="true"
+                (onEditorPreparing)="onEditorPreparing($event)" [showBorders]="true">
+                <dxo-editing mode="form" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true"
                   [useIcons]="true">
-                  <dxo-popup
-                    title="Food Info"
-                    [showTitle]="true"
-                    width="50%"
-                    height="70%">
+                  <dxo-popup title="Food Info" [showTitle]="true" width="50%" height="70%">
                   </dxo-popup>
                   <dxo-form>
                     <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
@@ -36,6 +24,7 @@
                       <dxi-item dataField="foodName"></dxi-item>
                       <dxi-item dataField="price"></dxi-item>
                       <dxi-item dataField="description"></dxi-item>
+                      <dxi-item dataField="classType"></dxi-item>
                     </dxi-item>
 
                     <dxi-item itemType="tabbed" [colSpan]="2" [colCount]="2">
@@ -67,31 +56,27 @@
                 <dxi-column dataField="foodName">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
-                <dxi-column dataField="price" dataType="number">
-                  <dxi-validation-rule type="required"></dxi-validation-rule>
-                </dxi-column>
-                <dxi-column dataField="status" caption="State" [width]="125">
-                  <dxo-lookup [dataSource]="dataTypeSource" displayExpr="name" valueExpr="name">
-                    <dxi-validation-rule type="required"></dxi-validation-rule>
-                  </dxo-lookup>
-                </dxi-column>
                 <dxi-column dataField="category.id" caption="Category">
                   <dxo-lookup [dataSource]="categoryDataSource" displayExpr="name" valueExpr="id">
                   </dxo-lookup>
                   <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
+                <dxi-column dataField="price" dataType="number">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="classType" caption="Class" [width]="200">
+                  <dxo-lookup [dataSource]="classTypeSource" displayExpr="name" valueExpr="name">
+                  </dxo-lookup>
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+
                 <dxi-column dataField="description" dataType="string"></dxi-column>
 
-                <dxo-filter-row
-                  [visible]="true">
+                <dxo-filter-row [visible]="true">
                 </dxo-filter-row>
                 <dxo-paging [pageSize]="5"></dxo-paging>
-                <dxo-pager
-                  [visible]="true"
-                  [allowedPageSizes]="allowedPageSizes"
-                  [displayMode]="displayMode"
-                  [showPageSizeSelector]="showPageSizeSelector"
-                  [showInfo]="showInfo"
+                <dxo-pager [visible]="true" [allowedPageSizes]="allowedPageSizes" [displayMode]="displayMode"
+                  [showPageSizeSelector]="showPageSizeSelector" [showInfo]="showInfo"
                   [showNavigationButtons]="showNavButtons">
                 </dxo-pager>
               </dx-data-grid>
