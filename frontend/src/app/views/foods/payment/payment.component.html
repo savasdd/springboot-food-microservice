@@ -31,8 +31,8 @@
 
                 <dxi-column dataField="stockId" [allowSorting]="false" caption="Stock">
                   <dxo-lookup [dataSource]="stockDataSource" displayExpr="name" valueExpr="id">
-                    <dxi-validation-rule type="required"></dxi-validation-rule>
                   </dxo-lookup>
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
                 </dxi-column>
                 <dxi-column dataField="amountAvailable" [width]="150">
                   <dxi-validation-rule type="required"></dxi-validation-rule>
