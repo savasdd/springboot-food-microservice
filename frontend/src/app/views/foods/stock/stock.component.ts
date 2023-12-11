@@ -19,7 +19,6 @@ export class StockComponent implements OnInit {
   @ViewChild('stockDataGrid', { static: true }) stockDataGrid: any = DxDataGridComponent;
   dropDownOptions: any;
   stockService: GenericService;
-  foodService: GenericService;
   dataTypeSource: any = [
     { name: StatusEnum.New },
     { name: StatusEnum.Accept },
@@ -39,9 +38,7 @@ export class StockComponent implements OnInit {
 
   constructor(public service: GenericService) {
     this.stockService = this.service.instance('stocks');
-    this.foodService = this.service.instance('foods');
     this.loadGrid();
-    this.loadFood();
   }
 
   ngOnInit(): void {
@@ -56,12 +53,6 @@ export class StockComponent implements OnInit {
 
   refreshDataGrid(e: any) {
     this.stockDataGrid.instance.refresh();
-  }
-
-  loadFood() {
-    this.foodService.findAll({ "skip": 0, "take": 200 }).then((response: any) => {
-      this.foodDataSource = response.items;
-    });
   }
 
   loadGrid() {
